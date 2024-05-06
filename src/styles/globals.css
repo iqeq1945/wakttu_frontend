@@ -54,7 +54,7 @@
     src:local("WantedSans-ExtraBlack"),
     url('/media/WantedSans-ExtraBlack.woff2') format("woff2")
 }
-body, html {
+#__next, body, html {
     margin: 0;
     padding: 0;
     width: 100%;
