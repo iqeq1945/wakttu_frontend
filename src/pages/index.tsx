@@ -14,15 +14,10 @@ const Main = () => {
     }, [userId])
     return (
         <div>
-            {!isLogined && (
-                <>
-                    <h1>로그인 전</h1>
-                </>
-            )}
-            {isLogined && (
-                <>
-                    <LoginedMain isLogined={isLogined} />
-                </>
+            {isLogined ? (
+                <LoginedMain isLogined={isLogined} />
+            ) : (
+                <h1>로그인 전</h1>
             )}
         </div>
     )
