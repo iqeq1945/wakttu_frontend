@@ -34,7 +34,7 @@ const SignIn = () => {
       const { data } = await axios.post(`${API_URL}/auth/check/id`, { id: userId });
       sameId = data.success;
     } catch (error) {
-      if (axios.isAxiosError(error)) sameId = error?.response?.data.success;
+      if (axios.isAxiosError(error)) sameId = error.response?.data.success;
     }
 
     return sameId;

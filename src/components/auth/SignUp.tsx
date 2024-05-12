@@ -52,7 +52,7 @@ const SignUp = () => {
       const { data } = await axios.post(`${API_URL}/auth/check/name`, { name: nickname });
       sameNickname = data.success;
     } catch (error) {
-      if (axios.isAxiosError(error)) sameNickname = error?.response?.data.success;
+      if (axios.isAxiosError(error)) sameNickname = error.response?.data.success;
     }
 
     return sameNickname;
