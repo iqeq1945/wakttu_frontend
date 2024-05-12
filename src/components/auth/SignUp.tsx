@@ -65,6 +65,25 @@ const SignUp = ({ id, pw, confirmPw, nickname, onInputChange }: SignUpProps) => 
     });
 
     setErrors(errorMessage);
+
+    if (Object.values(errorMessage).some((error) => error && error !== '')) return;
+
+    const userInfo = {
+      id: id,
+      name: nickname,
+      password: pw,
+    };
+
+    if (Object.values(userInfo).every((value) => value !== '')) {
+      await axios
+        .post(`${API_URL}/auth/signup`, userInfo)
+        .then((response) => {
+          if (response.status === 201) alert('회원가입이 완료되었습니다.');
+        })
+        .catch((error) =>
+          console.error(`회원가입을 완료할 수 없습니다. ${error.response.data.message}`)
+        );
+    }
   };
 
   return (
