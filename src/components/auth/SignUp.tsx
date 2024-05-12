@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState, FormEvent, ChangeEvent } from 'react';
 
 import { API_URL } from '@/services/api';
-import onError from '@/containers/auth/checkAuth';
+import { onError } from '@/containers/auth/checkAuth';
 import { AuthForm, AuthInput, AuthButton } from '@/components/index';
 
 interface ErrorProps {

@@ -38,6 +38,18 @@ const onCheckNickname = (nickname: string, sameNickname: boolean) => {
   return '';
 };
 
+const isExistError = (id: string, pw: string) => {
+  const isExistId = !!id;
+  const isExistPw = !!pw;
+
+  if (!isExistId) return { message: ERROR_MESSAGE.isExistError('아이디'), type: 'id' };
+  if (!isExistPw) return { message: ERROR_MESSAGE.isExistError('비밀번호'), type: 'pw' };
+};
+
+const isIdValidError = (idValid: boolean) => {
+  if (idValid) return { message: ERROR_MESSAGE.signInError, type: 'id' };
+};
+
 interface Props {
   id: string;
   sameId: boolean;
@@ -56,4 +68,4 @@ const onError = ({ id, sameId, pw, confirmPw, nickname, sameNickname }: Props) =
   return { errorId, errorPw, errorConfirmPw, errorNickname };
 };
 
-export default onError;
+export { isExistError, isIdValidError, onError };

@@ -11,6 +11,8 @@ const ERROR_MESSAGE = Object.freeze({
   pwRegexError: '비밀번호: 8-16자리로 입력해 주세요.',
   nicknameRegexError: '닉네임: 한글 및 대소문자 2-10자리로 입력해 주세요.',
   confirmPwError: '비밀번호 확인: 비밀번호와 일치하지 않습니다.',
+  isExistError: (formItem: string) => `${formItem}을 입력해 주세요.`,
+  signInError: '아이디 또는 비밀번호를 잘못 입력했습니다.\n입력하신 내용을 다시 확인해주세요.',
 });
 
 export { REGEXP, ERROR_MESSAGE };
