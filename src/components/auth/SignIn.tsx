@@ -1,15 +1,15 @@
 import axios from 'axios';
 import { ChangeEvent, FormEvent, useState } from 'react';
 
+import useInput from '@/hooks/useInput';
 import { API_URL } from '@/services/api';
 import { ERROR_MESSAGE } from '@/constants/auth';
 import { AuthForm, AuthInput, AuthButton } from '@/components/index';
 import { isExistError, isIdValidError } from '@/containers/auth/checkAuth';
 
-interface SignInProps {
+interface InputProps {
   id: string;
   pw: string;
-  onInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface ErrorProps {
@@ -17,8 +17,15 @@ interface ErrorProps {
   type: string;
 }
 
-const SignIn = ({ id, pw, onInputChange }: SignInProps) => {
+const SignIn = () => {
   const [errors, setErrors] = useState<ErrorProps>();
+
+  const { inputs, onInputChange } = useInput<InputProps>({
+    id: '',
+    pw: '',
+  });
+
+  const { id, pw } = inputs;
 
   const isIdValid = async (userId: string) => {
     let sameId = true;
