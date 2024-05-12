@@ -1,0 +1,16 @@
+const REGEXP = Object.freeze({
+  userId: /^[A-Za-z0-9]{5,12}$/,
+  userPassword: /^.{8,16}$/,
+  userNickname: /^[가-힣A-Za-z]{2,10}$/,
+});
+
+const ERROR_MESSAGE = Object.freeze({
+  requiredError: (formItem: string) => `${formItem}: 필수 정보입니다.`,
+  duplicateError: (formItem: string) => `이미 존재하는 ${formItem}입니다.`,
+  idRegexError: '아이디: 대소문자 및 숫자 5-12자리로 입력해 주세요.',
+  pwRegexError: '비밀번호: 8-16자리로 입력해 주세요.',
+  nicknameRegexError: '닉네임: 한글 및 대소문자 2-10자리로 입력해 주세요.',
+  confirmPwError: '비밀번호 확인: 비밀번호와 일치하지 않습니다.',
+});
+
+export { REGEXP, ERROR_MESSAGE };
