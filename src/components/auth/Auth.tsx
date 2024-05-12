@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import useInput from '@/hooks/useInput';
 import { TemporaryLayout, AuthForm, AuthInput, AuthButton } from '@/components/index';
+import SignIn from './SignIn';
 
 interface InputProps {
   id: string;
@@ -61,23 +62,7 @@ const Auth = () => {
           <AuthButton />
         </AuthForm>
       ) : (
-        <AuthForm formTitle="로그인">
-          <AuthInput
-            type="text"
-            placeholder="아이디"
-            name="id"
-            value={id}
-            onChange={onInputChange}
-          />
-          <AuthInput
-            type="password"
-            placeholder="비밀번호"
-            name="pw"
-            value={pw}
-            onChange={onInputChange}
-          />
-          <AuthButton buttonText="로그인" />
-        </AuthForm>
+        <SignIn id={id} pw={pw} onInputChange={onInputChange} />
       )}
       <button onClick={handleToggleButton}>{toggleButton}</button>
     </TemporaryLayout>
