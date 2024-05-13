@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import { TemporaryLayout, SignUp, SignIn } from '@/components/index';
+
+import SignUp from '@/containers/auth/SignUp';
+import SignIn from '@/containers/auth/SignIn';
+import { TemporaryLayout } from '@/components/index';
 
 const Auth = () => {
   const [toggleButton, setToggleButton] = useState('로그인하기');

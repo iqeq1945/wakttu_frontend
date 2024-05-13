@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 import useInput from '@/hooks/useInput';
 import { API_URL } from '@/services/api';
