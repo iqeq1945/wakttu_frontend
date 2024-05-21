@@ -7,6 +7,11 @@ import { ERROR_MESSAGE } from '@/constants/auth';
 import { AuthForm, AuthInput, AuthButton } from '@/components/index';
 import { isExistError, isIdValidError } from '@/containers/auth/checkAuth';
 
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import { setUserId } from '@/redux/user/userSlice';
+import { useCookies } from 'react-cookie';
+
 interface InputProps {
   id: string;
   pw: string;
@@ -39,6 +44,10 @@ const SignIn = () => {
 
     return sameId;
   };
+  
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [cookies, setCookie] = useCookies(['ACCOUNT_TOKEN']);
 
   const onSignInSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -63,9 +72,11 @@ const SignIn = () => {
     await axios
       .post(`${API_URL}/auth/login`, userInfo)
       .then((response) => {
+        // console.log(response);
         if (response.status === 201) {
           setErrors({ message: '', type: 'success' });
           console.log('로그인 완료!');
+          dispatch(setUserId('사용자의 아이디 값'));
         }
       })
       .catch((error) => {
