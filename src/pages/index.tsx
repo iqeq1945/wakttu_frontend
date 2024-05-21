@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
+import Auth from '@/containers/auth/Auth';
 import { selectUserId } from '@/redux/user/userSlice';
-import { Auth, LoginedMain } from '@/components/index';
+import { LoginedMain } from '@/components/index';
 
 const Main = () => {
   const userId = useSelector(selectUserId);
