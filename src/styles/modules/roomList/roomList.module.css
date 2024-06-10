@@ -34,7 +34,9 @@
 .characterInfo,
 .menuGroup,
 .roomList,
-.lobbyChat {
+.lobbyChat,
+.startButton,
+.user {
   border-radius: 1rem;
 
   font-size: 1.4rem;
@@ -144,4 +146,54 @@
   height: 3.6rem;
 
   gap: 1.2rem;
+}
+
+/* room */
+.startReady,
+.userList {
+  padding: 1.8rem;
+  background: #fff;
+  border-radius: 1rem;
+}
+
+.startReady,
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.startButton {
+  width: 28rem;
+  height: 6rem;
+
+  border: none;
+  cursor: pointer;
+  background: #d1d1d1;
+}
+
+.userList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userWrapper {
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr 2fr;
+  grid-template-rows: 4.5fr 4.5fr;
+
+  gap: 0.5rem;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 15rem;
+  height: 15rem;
+
+  border: 1.5px solid #bcbcbc;
+  background: #eee;
 }
