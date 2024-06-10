@@ -32,9 +32,9 @@ const RoomList = () => {
               </ul>
               <div className={roomList.roomWrapper}>
                 {Array.from({ length: 8 }).map((_, index) => (
-                  <div key={index} className={roomList.room}>
-                    방 번호 {index + 1}
-                  </div>
+                  <a href={`/room/${index + 1}`} key={index} className={roomList.room}>
+                    <div>방 번호 {index + 1}</div>
+                  </a>
                 ))}
               </div>
               <div className={roomList.arrows}>
