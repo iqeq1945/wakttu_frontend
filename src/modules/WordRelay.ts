@@ -1,6 +1,6 @@
 import { hangulTools } from './Hangul';
 
-const { isHangul, dueum } = hangulTools();
+const { isHangul, dueum, toChoseong, toJungseong, toJongseong, disintegrate } = hangulTools();
 
 /**
  * 한글 검사
@@ -24,7 +24,29 @@ const validateDueum = (original: string, input: string): boolean => {
 };
 
 /**
- * 한글, 두음법칙 검사 함수
+ * 한글자 단어 , 초,중,종성이 빠졌는지 검사
+ * @param input 입력된 단어
+ * @return True : 단일 자모가 아닌 경우, False: 단일 자모인 경우
+ */
+const validateHangulCombination = (input: string): boolean => {
+  if (input.length === 1) return false;
+  for (const char of input) {
+    const disintegrated = disintegrate(char);
+    if (Array.isArray(disintegrated)) {
+      const [choseong, jungseong, jongseong] = disintegrated;
+      if (!choseong || !jungseong || (disintegrated.length === 3 && !jongseong)) {
+        return false;
+      }
+    } else {
+      if (!isHangul(disintegrated)) {
+        return false
+      }
+    }
+  }
+  return true;
+};
+
+/**
  * @param original 기존 단어
  * @param input 입력된 단어
  * @returns True : 올바른 단어, False: 잘못된 단어
@@ -36,6 +58,10 @@ export const wordRelay = (original: string, input: string): { isValid: boolean; 
 
   if (!validateDueum(original, input)) {
     return { isValid: false, message: '두음법칙이 적용되지 않은 단어입니다.' };
+  }
+
+  if (!validateHangulCombination(input)) {
+    return { isValid: false, message: '유효하지 않은 한글입니다.' };
   }
 
   return { isValid: true, message: '입력된 단어는 유효합니다.' };
