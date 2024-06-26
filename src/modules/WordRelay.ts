@@ -1,6 +1,7 @@
+import { deflate } from 'zlib';
 import { hangulTools } from './Hangul';
 
-const { isHangul, dueum, toChoseong, toJungseong, toJongseong, disintegrate } = hangulTools();
+const { isHangul, dueum, disintegrate } = hangulTools();
 
 /**
  * 한글 검사
@@ -51,7 +52,7 @@ const validateHangulCombination = (input: string): boolean => {
  * @param input 입력된 단어
  * @returns True : 올바른 단어, False: 잘못된 단어
  */
-export const wordRelay = (original: string, input: string): { isValid: boolean; message: string } => {
+const wordRelay = (original: string, input: string): { isValid: boolean; message: string } => {
   if (!validateHangul(original) || !validateHangul(input)) {
     return { isValid: false, message: '입력된 단어가 올바른 한글이 아닙니다.' };
   }
@@ -66,3 +67,5 @@ export const wordRelay = (original: string, input: string): { isValid: boolean; 
 
   return { isValid: true, message: '입력된 단어는 유효합니다.' };
 };
+
+export default wordRelay;
