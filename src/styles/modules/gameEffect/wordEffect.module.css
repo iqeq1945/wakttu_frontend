@@ -1,0 +1,50 @@
+@keyframes typingAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fontSizeAnimation {
+  50% {
+    font-size: 36px;
+  }
+
+  100% {
+    font-size: 24px;
+  }
+}
+
+@keyframes blinkAnimation {
+
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+
+  25%,
+  75% {
+    opacity: 0.2;
+  }
+}
+
+.typingAnimation {
+  animation: typingAnimation 0.1s ease forwards, fontSizeAnimation 0.05s;
+}
+
+
+.typingNone {
+  display: none;
+}
+
+.typingContainer {
+  display: flex;
+  margin: 10px;
+
+}
