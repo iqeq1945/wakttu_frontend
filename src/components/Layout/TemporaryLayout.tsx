@@ -1,4 +1,4 @@
-import { Container } from '@/styles/modules/Layout';
+import { Container } from '@/styles/common/Layout';
 
 interface Props {
   children: React.ReactNode;

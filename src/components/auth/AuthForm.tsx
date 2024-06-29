@@ -1,5 +1,5 @@
 import { FormEvent } from 'react';
-import { FormContainer, FormSection } from '@/styles/modules/AuthForm';
+import { FormContainer, FormSection } from '@/styles/AuthForm';
 
 interface Props {
   children: React.ReactNode;

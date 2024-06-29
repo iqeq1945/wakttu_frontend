@@ -1,4 +1,4 @@
-import { ButtonWrapper, LoginButton } from '@/styles/modules/AuthForm';
+import { ButtonWrapper, LoginButton } from '@/styles/AuthForm';
 
 interface Props {
   buttonText?: string;
