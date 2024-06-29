@@ -7,3 +7,5 @@ export { default as LoginedMain } from './main/Logined';
 
 export { default as Tab } from './common/Tab';
 export { default as Header } from './common/Header';
+
+export { default as RoomDesc } from './roomList/RoomDesc';
