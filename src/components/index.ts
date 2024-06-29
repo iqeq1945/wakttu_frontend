@@ -6,3 +6,4 @@ export { default as TemporaryLayout } from './layout/TemporaryLayout';
 export { default as LoginedMain } from './main/Logined';
 
 export { default as Tab } from './common/Tab';
+export { default as Header } from './common/Header';
