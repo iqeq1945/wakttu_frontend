@@ -1,4 +1,4 @@
-import { Header, RoomDesc, PlayerInfo } from '@/components';
+import { Header, RoomDesc, PlayerInfo, GameNav } from '@/components';
 import { Container } from '@/styles/common/Layout';
 import { WrapRoomList, LeftWrapper, RightWrapper, Copyright } from '@/styles/roomList/RoomList';
 
@@ -16,7 +16,9 @@ const RoomList = () => {
             왁뚜는 왁타버스에서 제공하는 공식 콘텐츠가 아닙니다.
           </Copyright>
         </LeftWrapper>
-        <RightWrapper></RightWrapper>
+        <RightWrapper>
+          <GameNav />
+        </RightWrapper>
       </WrapRoomList>
     </Container>
   );

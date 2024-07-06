@@ -5,22 +5,24 @@ const WrapRoomList = styled.div`
   display: grid;
   grid-template-columns: 2.5fr 7.5fr;
 
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+
+  gap: 1rem;
 `;
 
 const LeftWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  height: 100%;
-
   gap: 1rem;
 `;
 
 const RightWrapper = styled.div`
-  width: 70%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  gap: 1rem;
 `;
 
 const Copyright = styled.span`
