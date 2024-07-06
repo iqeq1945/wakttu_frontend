@@ -10,7 +10,7 @@ const CRoomDesc = styled.article`
   justify-content: center;
 
   width: 25rem;
-  padding: 3rem 2rem;
+  padding: 2rem 2rem;
 
   gap: 0.9375rem;
 

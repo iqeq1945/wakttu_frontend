@@ -10,7 +10,6 @@ const ContentContainer = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
 
   width: 120rem;
   height: 67.5rem;
