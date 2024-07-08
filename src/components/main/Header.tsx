@@ -1,11 +1,4 @@
-import {
-  HeaderLogo,
-  WrapContent,
-  Player,
-  Rank,
-  Line,
-  PlayerName,
-} from '@/styles/common/Header';
+import { HeaderLogo, WrapContent } from '@/styles/common/Header';
 import { MainHeaderBlock } from '@/styles/main/Header';
 import { Tab } from '@/components';
 

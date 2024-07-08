@@ -4,7 +4,9 @@ import { useSelector } from 'react-redux';
 import { MainHeader } from '@/components';
 import Auth from '@/containers/auth/Auth';
 import { selectUserId } from '@/redux/user/userSlice';
+import MainForm from '@/components/main/MainForm';
 import { Container } from '@/styles/common/Layout';
+import { Wrapper } from '@/styles/main/Layout';
 
 const Main = () => {
   const userId = useSelector(selectUserId);
@@ -19,6 +21,9 @@ const Main = () => {
   return (
     <Container>
       <MainHeader />
+      <Wrapper>
+        <MainForm isLogined={isLogined} />
+      </Wrapper>
     </Container>
   );
 };
