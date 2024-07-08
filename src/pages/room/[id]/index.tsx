@@ -1,9 +1,10 @@
 import { Tab } from '@/components';
-import roomList from '@/styles/modules/roomList/roomList.module.css';
+//import roomList from '@/styles/modules/roomList/roomList.module.css';
 
 const Room = () => {
   return (
-    <div className={roomList.container}>
+    <div></div>
+    /*<div className={roomList.container}>
       <div className={roomList.contentWrapper}>
         <section className={roomList.infoSection}>
           <article className={roomList.roomInfo}>
@@ -38,7 +39,7 @@ const Room = () => {
           <article className={roomList.lobbyChat}>채팅창</article>
         </section>
       </div>
-    </div>
+    </div>*/
   );
 };
 
