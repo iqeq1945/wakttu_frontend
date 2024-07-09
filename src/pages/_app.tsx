@@ -42,7 +42,7 @@ const App = ({ Component, pageProps, router }: AppProps) => {
       <CookiesProvider>
         <Provider store={store}>
           <GlobalStyle />
-          {path === '/' ? (
+          {path === '/s' ? (
             <MainContainer>
               {isMobile ? (
                 <h1>PC로 접속해 주세요.</h1>

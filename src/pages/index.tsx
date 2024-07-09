@@ -17,15 +17,15 @@ const Main = () => {
     if (!userId) setIsLogined(false);
   }, [userId]);
 
-  //return !isLogined && <Auth />;
-  return (
+  return !isLogined && <Auth />;
+  /*return (
     <Container>
       <MainHeader />
       <Wrapper>
         <MainForm isLogined={isLogined} />
       </Wrapper>
     </Container>
-  );
+  );*/
 };
 
 export default Main;
