@@ -17,6 +17,7 @@ const WrapForm = styled.div`
 
 const GameStart = styled.span`
   color: ${COLORS.primary};
+  font-family: WantedSans-SemiBold;
   font-size: 2rem;
   font-weight: 600;
 `;
@@ -34,8 +35,9 @@ const Player = styled.div`
 `;
 
 const PlayerName = styled.span`
-  color: ${COLORS.text}
-    font-size: 1rem;
+  color: ${COLORS.text};
+  font-family: WantedSans-SemiBold;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;

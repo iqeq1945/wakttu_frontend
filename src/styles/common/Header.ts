@@ -64,4 +64,13 @@ const PlayerName = styled.span`
   color: ${COLORS.bg};
 `;
 
-export { HeaderBlock, HeaderLogo, WrapContent, Content, Player, Rank, Line, PlayerName };
+export {
+  HeaderBlock,
+  HeaderLogo,
+  WrapContent,
+  Content,
+  Player,
+  Rank,
+  Line,
+  PlayerName,
+};

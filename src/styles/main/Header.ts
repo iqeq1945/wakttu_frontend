@@ -1,9 +1,14 @@
 import styled from 'styled-components';
-import { HeaderBlock } from '../common/Header';
+import { Content, HeaderBlock } from '../common/Header';
 
 const MainHeaderBlock = styled(HeaderBlock)`
   border: none;
   background: none;
 `;
 
-export { MainHeaderBlock };
+const MainContent = styled(Content)``;
+
+const MenuName = styled.li`
+  font-family: WantedSans-Medium;
+`;
+export { MainHeaderBlock, MainContent, MenuName };
