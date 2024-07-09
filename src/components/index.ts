@@ -5,6 +5,7 @@ export { default as AuthButton } from './auth/AuthButton';
 export { default as TemporaryLayout } from './layout/TemporaryLayout';
 export { default as LoginedMain } from './main/Logined';
 export { default as MainHeader } from './main/Header';
+export { default as MainTab } from './main/Tab';
 
 export { default as Tab } from './common/Tab';
 export { default as Header } from './common/Header';

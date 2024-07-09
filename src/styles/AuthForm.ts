@@ -11,8 +11,7 @@ const FormContainer = styled.div`
   padding: 1.25rem 0;
 
   border-radius: 1.25rem;
-  box-shadow:
-    0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1),
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1),
     0 0.75rem 0.75rem 0 rgba(0, 0, 0, 0.1);
 `;
 
