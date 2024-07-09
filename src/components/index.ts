@@ -1,6 +1,5 @@
-export { default as AuthForm } from './auth-test/AuthForm';
-export { default as AuthInput } from './auth-test/AuthInput';
-export { default as AuthButton } from './auth-test/AuthButton';
+export { default as AuthForm } from './auth/AuthForm';
+export { default as AuthInput } from './auth/AuthInput';
 
 export { default as TemporaryLayout } from './layout/TemporaryLayout';
 export { default as LoginedMain } from './main/Logined';

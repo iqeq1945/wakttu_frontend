@@ -1,6 +1,18 @@
 import styled from 'styled-components';
 import { COLORS } from '../theme';
 
+const ModalContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+`;
+
 const Modal = styled.div`
   display: inline-flex;
   padding: 3rem 2.5rem;
@@ -46,7 +58,7 @@ const InputSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 0.25rem;
 `;
 
 const FormLabel = styled.span`
@@ -56,6 +68,10 @@ const FormLabel = styled.span`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  & > span {
+    font-size: 0.75rem;
+    color: ${COLORS['gray-2']};
+  }
 `;
 
 const FormItem = styled.input`
@@ -90,6 +106,7 @@ const SubmitButton = styled.button`
   gap: 0.625rem;
 
   border-radius: 0.5rem;
+  border: none;
   background: ${COLORS.primary};
 
   color: ${COLORS.bg};
@@ -117,9 +134,10 @@ const SnsText = styled(FormLabel)`
   color: ${COLORS['gray-2']};
 `;
 
-const SnsIcon = styled.div`
+const SnsIcon = styled.img`
   width: 2.625rem;
   height: 2.625rem;
+  cursor: pointer;
 `;
 
 const FormFooter = styled.div`
@@ -129,17 +147,21 @@ const FormFooter = styled.div`
   gap: 0.25rem;
 `;
 
-const linkText = styled(SnsText)`
+const LinkText = styled(SnsText)`
   color: ${COLORS.primary};
   text-decoration: underline;
+  cursor: pointer;
 `;
+
 export {
+  ModalContainer,
   Modal,
   FormContainer,
   FormName,
   FormSection,
   InputContainer,
   InputSection,
+  FormLabel,
   FormItem,
   WrapButton,
   SubmitContainer,
@@ -148,5 +170,5 @@ export {
   SnsIcon,
   SnsText,
   FormFooter,
-  linkText,
+  LinkText,
 };

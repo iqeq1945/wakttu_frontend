@@ -4,7 +4,7 @@ import { FormEvent, useState } from 'react';
 import useInput from '@/hooks/useInput';
 import { API_URL, SOCKET } from '@/services/api';
 import { ERROR_MESSAGE } from '@/constants/auth';
-import { AuthForm, AuthInput, AuthButton } from '@/components/index';
+import { AuthForm, AuthInput } from '@/components/index';
 import { isExistError, isIdValidError } from '@/containers/auth/checkAuth';
 
 import { useDispatch } from 'react-redux';
@@ -36,7 +36,9 @@ const SignIn = () => {
     let sameId = true;
 
     try {
-      const { data } = await axios.post(`${API_URL}/auth/check/id`, { id: userId });
+      const { data } = await axios.post(`${API_URL}/auth/check/id`, {
+        id: userId,
+      });
       sameId = data.success;
     } catch (error) {
       if (axios.isAxiosError(error)) sameId = error.response?.data.success;
@@ -94,16 +96,23 @@ const SignIn = () => {
 
   return (
     <AuthForm formTitle="로그인" onSubmit={onSignInSubmit}>
-      <AuthInput type="text" placeholder="아이디" name="id" value={id} onChange={onInputChange} />
       <AuthInput
+        label="아이디"
+        type="text"
+        placeholder="아이디 입력"
+        name="id"
+        value={id}
+        onChange={onInputChange}
+      />
+      <AuthInput
+        label="비밀번호"
         type="password"
-        placeholder="비밀번호"
+        placeholder="비밀번호 입력"
         name="pw"
         value={pw}
         onChange={onInputChange}
       />
       {errors && <span>{errors.message}</span>}
-      <AuthButton buttonText="로그인" />
     </AuthForm>
   );
 };

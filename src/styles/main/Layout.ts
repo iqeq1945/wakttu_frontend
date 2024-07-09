@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { ContentContainer, Container } from '../common/Layout';
 
 const MainContainer = styled(ContentContainer)`
+  height: 100vh;
   background: url('/assets/background.png') lightgray 50% / cover no-repeat;
 `;
 
