@@ -1,4 +1,4 @@
-import { MainContent, MenuName } from '@/styles/main/Header';
+import { MainContent } from '@/styles/main/Header';
 
 interface Props {
   menuName: string;
@@ -8,7 +8,7 @@ interface Props {
 const Tab = ({ menuName, href }: Props) => {
   return (
     <MainContent href={href}>
-      <MenuName>{menuName}</MenuName>
+      <li>{menuName}</li>
     </MainContent>
   );
 };

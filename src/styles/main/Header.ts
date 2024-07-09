@@ -6,9 +6,10 @@ const MainHeaderBlock = styled(HeaderBlock)`
   background: none;
 `;
 
-const MainContent = styled(Content)``;
-
-const MenuName = styled.li`
-  font-family: WantedSans-Medium;
+const MainContent = styled(Content)`
+  & > li {
+    font-family: WantedSans-Medium;
+  }
 `;
-export { MainHeaderBlock, MainContent, MenuName };
+
+export { MainHeaderBlock, MainContent };
