@@ -1,8 +1,6 @@
 import {
   CRoomDesc,
   WrapRoomTitle,
-  WrapRoomNumber,
-  RoomNumber,
   WrapGameInfo,
   GameInfo,
   RoomInfo,
@@ -16,14 +14,13 @@ import {
   JoinButton,
   JoinText,
 } from '@/styles/roomList/RoomDesc';
+import { RoomNumber } from '@/components';
 
 const RoomDesc = () => {
   return (
     <CRoomDesc>
       <WrapRoomTitle>
-        <WrapRoomNumber>
-          <RoomNumber>724</RoomNumber>
-        </WrapRoomNumber>
+        <RoomNumber number={724} />
         <h5>방제에요</h5>
       </WrapRoomTitle>
       <WrapGameInfo>
