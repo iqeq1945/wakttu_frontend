@@ -35,10 +35,9 @@ const SignUp = ({ onToggle }: Props) => {
   });
 
   const { id, pw, confirmPw, nickname } = inputs;
-
+  let sameId = false,
+    sameNickname = false;
   const isSameIdValid = async (userId: string) => {
-    let sameId = true;
-
     try {
       const { data } = await axios.post(`${API_URL}/auth/check/id`, {
         id: userId,
@@ -47,13 +46,10 @@ const SignUp = ({ onToggle }: Props) => {
     } catch (error) {
       if (axios.isAxiosError(error)) sameId = error?.response?.data.success;
     }
-
-    return sameId;
+    console.log(sameId);
   };
 
   const isSameNicknameValid = async (nickname: string) => {
-    let sameNickname = true;
-
     try {
       const { data } = await axios.post(`${API_URL}/auth/check/name`, {
         name: nickname,
@@ -63,23 +59,21 @@ const SignUp = ({ onToggle }: Props) => {
       if (axios.isAxiosError(error))
         sameNickname = error.response?.data.success;
     }
-
-    return sameNickname;
   };
 
   const onSignUpSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const sameIdValid = await isSameIdValid(id);
-    const sameNicknameValid = await isSameNicknameValid(nickname);
+    //const sameIdValid = await isSameIdValid(id);
+    //const sameNicknameValid = await isSameNicknameValid(nickname);
 
     const errorMessage = onError({
       id,
-      sameId: sameIdValid,
+      sameId,
       pw,
       confirmPw,
       nickname,
-      sameNickname: sameNicknameValid,
+      sameNickname,
     });
 
     setErrors(errorMessage);
@@ -121,7 +115,7 @@ const SignUp = ({ onToggle }: Props) => {
         name="id"
         value={id}
         onChange={onInputChange}
-        check={true}
+        onClick={isSameIdValid}
       />
       {errors && <span>{errors.errorId}</span>}
       <AuthInput
@@ -132,7 +126,7 @@ const SignUp = ({ onToggle }: Props) => {
         name="nickname"
         value={nickname}
         onChange={onInputChange}
-        check={true}
+        onClick={isSameNicknameValid}
       />
       {errors && <span>{errors.errorNickname}</span>}
       <AuthInput

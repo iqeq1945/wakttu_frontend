@@ -8,8 +8,12 @@ const AuthInput = ({ ...props }) => {
         <span>{props.desc}</span>
       </FormLabel>
       <FormItem>
-        <input {...props} />
-        {props.check && <div>중복 확인</div>}
+        <input {...props} onClick={() => ''} />
+        {props.onClick && (
+          <div onClick={async () => await props.onClick(props.name)}>
+            중복 확인
+          </div>
+        )}
       </FormItem>
     </InputSection>
   );
