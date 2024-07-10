@@ -9,13 +9,16 @@ const WrapForm = styled.div`
   align-items: center;
   gap: 3.375rem;
 
+  cursor: pointer;
+
   border-radius: 1rem;
   border: 0.125rem solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
   opacity: 80%;
 `;
 
-const GameStart = styled.span`
+const GameStart = styled.div`
+  display: flex;
   color: ${COLORS.primary};
   font-family: WantedSans-SemiBold;
   font-size: 2rem;

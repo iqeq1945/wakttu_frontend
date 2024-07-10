@@ -14,17 +14,15 @@ const Main = () => {
   const [isLogined, setIsLogined] = useState(false);
 
   const modal = useSelector(selectModal);
-  const [isModal, setIsModal] = useState(true);
 
   useEffect(() => {
-    console.log(modal);
     if (userId) setIsLogined(true);
     if (!userId) setIsLogined(false);
   }, [userId, modal]);
 
   return (
     <>
-      {isModal ? (
+      {modal.open ? (
         <Auth />
       ) : (
         <Container>

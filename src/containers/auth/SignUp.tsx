@@ -121,6 +121,7 @@ const SignUp = ({ onToggle }: Props) => {
         name="id"
         value={id}
         onChange={onInputChange}
+        check={true}
       />
       {errors && <span>{errors.errorId}</span>}
       <AuthInput
@@ -131,6 +132,7 @@ const SignUp = ({ onToggle }: Props) => {
         name="nickname"
         value={nickname}
         onChange={onInputChange}
+        check={true}
       />
       {errors && <span>{errors.errorNickname}</span>}
       <AuthInput

@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import {
   GameStart,
   WrapForm,
@@ -11,14 +12,22 @@ import {
   LoginName,
 } from '@/styles/main/MainForm';
 import Link from 'next/link';
-
+import { useDispatch } from 'react-redux';
+import { openModal } from '@/redux/modal/modalSlice';
 interface Props {
   isLogined: boolean;
 }
 
 const MainForm = ({ isLogined }: Props) => {
+  const dispatch = useDispatch();
+
+  const onModal = (e: MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    dispatch(openModal('MAIN_MODAL'));
+  };
+
   return (
-    <WrapForm>
+    <WrapForm onClick={onModal}>
       <GameStart>{isLogined ? '게임 시작' : '로그인'}</GameStart>
       {isLogined ? (
         <Player>

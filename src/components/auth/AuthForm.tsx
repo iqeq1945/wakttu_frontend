@@ -15,6 +15,8 @@ import {
   LinkText,
   ModalContainer,
 } from '@/styles/auth/AuthForm';
+import { useDispatch } from 'react-redux';
+import { closeModal } from '@/redux/modal/modalSlice';
 
 interface Props {
   children: React.ReactNode;
@@ -29,9 +31,16 @@ const AuthForm = ({
   onSubmit,
   onToggle,
 }: Props) => {
+  const dispatch = useDispatch();
+
+  const offModal = (e: MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    dispatch(closeModal());
+  };
+
   return (
-    <ModalContainer>
-      <Modal>
+    <ModalContainer onClick={offModal}>
+      <Modal onClick={(e: MouseEvent<HTMLElement>) => e.stopPropagation()}>
         <FormContainer>
           <FormSection onSubmit={onSubmit}>
             <FormName>{formTitle}</FormName>

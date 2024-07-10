@@ -7,7 +7,10 @@ const AuthInput = ({ ...props }) => {
         {props.label}
         <span>{props.desc}</span>
       </FormLabel>
-      <FormItem {...props} />
+      <FormItem>
+        <input {...props} />
+        {props.check && <div>중복 확인</div>}
+      </FormItem>
     </InputSection>
   );
 };
