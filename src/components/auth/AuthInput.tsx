@@ -10,7 +10,7 @@ const AuthInput = ({ ...props }) => {
       <FormItem>
         <input {...props} onClick={() => ''} />
         {props.onClick && (
-          <div onClick={async () => await props.onClick(props.name)}>
+          <div onClick={async () => await props.onClick(props.value)}>
             중복 확인
           </div>
         )}
