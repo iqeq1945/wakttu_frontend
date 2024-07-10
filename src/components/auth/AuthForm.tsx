@@ -1,4 +1,4 @@
-import { FormEvent } from 'react';
+import { FormEvent, MouseEvent } from 'react';
 import {
   FormContainer,
   FormName,
@@ -20,9 +20,15 @@ interface Props {
   children: React.ReactNode;
   formTitle?: string;
   onSubmit?: (e: FormEvent<HTMLFormElement>) => void;
+  onToggle?: (e: MouseEvent<HTMLElement>) => void;
 }
 
-const AuthForm = ({ children, formTitle = '로그인', onSubmit }: Props) => {
+const AuthForm = ({
+  children,
+  formTitle = '로그인',
+  onSubmit,
+  onToggle,
+}: Props) => {
   return (
     <ModalContainer>
       <Modal>
@@ -45,7 +51,7 @@ const AuthForm = ({ children, formTitle = '로그인', onSubmit }: Props) => {
                   ? '가입 하시겠어요?'
                   : '이미 가입하셨나요?'}
               </SnsText>
-              <LinkText>
+              <LinkText onClick={onToggle}>
                 {formTitle === '로그인' ? '회원가입' : '로그인'}
               </LinkText>
             </FormFooter>

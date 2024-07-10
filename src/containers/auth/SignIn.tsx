@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FormEvent, useState } from 'react';
+import { FormEvent, MouseEvent, useState } from 'react';
 
 import useInput from '@/hooks/useInput';
 import { API_URL, SOCKET } from '@/services/api';
@@ -22,7 +22,11 @@ interface ErrorProps {
   type: string;
 }
 
-const SignIn = () => {
+interface Props {
+  onToggle: (e: MouseEvent<HTMLElement>) => void;
+}
+
+const SignIn = ({ onToggle }: Props) => {
   const [errors, setErrors] = useState<ErrorProps>();
 
   const { inputs, onInputChange } = useInput<InputProps>({
@@ -95,7 +99,7 @@ const SignIn = () => {
   };
 
   return (
-    <AuthForm formTitle="로그인" onSubmit={onSignInSubmit}>
+    <AuthForm formTitle="로그인" onSubmit={onSignInSubmit} onToggle={onToggle}>
       <AuthInput
         label="아이디"
         type="text"
