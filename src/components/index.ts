@@ -7,6 +7,7 @@ export { default as MainTab } from './main/Tab';
 
 export { default as Tab } from './common/Tab';
 export { default as Header } from './common/Header';
+export { default as RoomNumber } from './common/RoomNumber';
 
 export { default as RoomDesc } from './roomList/RoomDesc';
 export { default as PlayerInfo } from './roomList/PlayerInfo';
