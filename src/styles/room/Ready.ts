@@ -10,7 +10,7 @@ const CReady = styled.article`
   padding: 3rem 2rem;
 
   border-radius: 1rem;
-  border: 0.125rem solid ${COLORS["gray-4"]};
+  border: 2px solid ${COLORS["gray-4"]};
   background: ${COLORS.bg};
 `;
 
@@ -31,9 +31,12 @@ const ReadyButton = styled.h4`
 
   font-family: "WantedSans-SemiBold";
   font-size: 1.5rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
+
+  cursor: pointer;
+
+  &:hover {
+    background: ${COLORS["primary-hov"]};
+  }
 `;
 
 export { CReady, ReadyButton };

@@ -13,8 +13,8 @@ import {
   WatingText,
   JoinButton,
   JoinText,
-} from '@/styles/roomList/RoomDesc';
-import { RoomNumber } from '@/components';
+} from "@/styles/roomList/RoomDesc";
+import { RoomNumber } from "@/components";
 
 const RoomDesc = () => {
   return (

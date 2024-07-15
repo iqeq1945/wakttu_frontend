@@ -1,25 +1,34 @@
 import styled from "styled-components";
 import { COLORS, FONT_SIZES } from "../theme";
-import css from "styled-jsx/css";
 
 const CPlayerList = styled.article`
   display: flex;
-  padding: 2rem;
-  flex-direction: column;
   align-items: flex-start;
-  flex: 1 0 0;
   align-self: stretch;
 
+  padding: 2rem;
   border-radius: 1rem;
-  border: 0.125rem solid ${COLORS["gray-4"]};
+  border: 2px solid ${COLORS["gray-4"]};
+`;
+
+const WrapPlayerList = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  flex-wrap: wrap;
+
+  width: 100%;
+  gap: 0.875rem;
 `;
 
 const CPlayer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  flex: 1 0 0;
   align-self: stretch;
+
+  width: 23.8%;
 `;
 
 const PlayerInfo = styled.div`
@@ -28,7 +37,6 @@ const PlayerInfo = styled.div`
   justify-content: center;
   align-items: center;
   align-self: stretch;
-  flex: 1 0 0;
 
   padding: 1rem;
   gap: 0.8125rem;
@@ -50,6 +58,7 @@ const PlayerProfile = styled.img`
 const CBadge = styled.div`
   display: flex;
   align-items: center;
+
   gap: 0.375rem;
 `;
 
@@ -63,36 +72,36 @@ const PlayerName = styled.h6`
 
   font-family: "WantedSans-Medium";
   font-size: 1.125rem;
-  font-style: normal;
   font-weight: 500;
-  line-height: normal;
 `;
 
-const PlayerReady = styled.div<{ ready?: boolean }>`
+const PlayerReady = styled.div<{ $ready?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
   align-self: stretch;
 
+  padding: 0.4375rem 0;
+  width: 100%;
   height: 2.125rem;
-  padding: 0.4375rem 6.0625rem;
-  gap: 0.625rem;
 
-  border-radius: 0px 0px 1rem 1rem;
-  background: ${(props) => (props.ready ? COLORS.primary : COLORS["gray-4"])};
+  border-radius: 0 0 1rem 1rem;
+  background: ${(props) => (props.$ready ? COLORS.primary : COLORS["gray-4"])};
 
-  color: ${(props) => (props.ready ? COLORS.bg : COLORS.text)};
-  text-align: center;
+  & > span {
+    color: ${(props) => (props.$ready ? COLORS.bg : COLORS.text)};
+    text-align: center;
+    white-space: nowrap;
 
-  font-family: "WantedSans-SemiBold";
-  font-size: ${FONT_SIZES["subtitle-1"]};
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
+    font-family: "WantedSans-SemiBold";
+    font-size: ${FONT_SIZES["subtitle-1"]};
+    font-weight: 600;
+  }
 `;
 
 export {
   CPlayerList,
+  WrapPlayerList,
   CPlayer,
   PlayerInfo,
   PlayerProfile,

@@ -1,5 +1,5 @@
 import { Container } from "@/styles/common/Layout";
-import { GameNav, Header } from "@/components";
+import { GameNav, Header, PlayerList } from "@/components";
 import { LeftFooter, RightWrapper, WrapRoom } from "@/styles/room/Room";
 import { LeftWrapper, Copyright } from "@/styles/room/Room";
 import { ORoomDesc, Ready } from "@/components";
@@ -21,6 +21,7 @@ const Room = () => {
         </LeftWrapper>
         <RightWrapper>
           <GameNav />
+          <PlayerList />
         </RightWrapper>
       </WrapRoom>
     </Container>

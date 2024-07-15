@@ -1,10 +1,19 @@
-import { CPlayerList } from "@/styles/room/PlayerList";
+import { CPlayerList, WrapPlayerList } from "@/styles/room/PlayerList";
 import { Player } from "@/components";
 
 const PlayerList = () => {
   return (
     <CPlayerList>
-      <Player ready={true} />
+      <WrapPlayerList>
+        <Player $ready={true} />
+        <Player $ready={true} />
+        <Player $ready={true} />
+        <Player $ready={false} />
+        <Player $ready={false} />
+        <Player $ready={false} />
+        <Player $ready={false} />
+        <Player $ready={false} />
+      </WrapPlayerList>
     </CPlayerList>
   );
 };

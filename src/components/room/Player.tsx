@@ -9,20 +9,22 @@ import {
 } from "@/styles/room/PlayerList";
 
 interface Props {
-  ready: boolean;
+  $ready: boolean;
 }
 
-const Player = ({ ready }: Props) => {
+const Player = ({ $ready }: Props) => {
   return (
     <CPlayer>
       <PlayerInfo>
-        <PlayerProfile src="" />
+        <PlayerProfile src="/assets/player-profile.png" />
         <CBadge>
-          <PlayerIcon />
-          <PlayerName />
+          <PlayerIcon src="/assets/amoeba.svg" />
+          <PlayerName>이파리</PlayerName>
         </CBadge>
-        <PlayerReady />
       </PlayerInfo>
+      <PlayerReady $ready={$ready}>
+        <span>{$ready ? "준비 됨" : "준비 안됨"}</span>
+      </PlayerReady>
     </CPlayer>
   );
 };
