@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { COLORS } from "../theme";
+import { COLORS, FONT_SIZES } from "../theme";
+import css from "styled-jsx/css";
 
 const CPlayerList = styled.article`
   display: flex;
@@ -67,4 +68,36 @@ const PlayerName = styled.h6`
   line-height: normal;
 `;
 
-export { CPlayerList, CPlayer, PlayerInfo, PlayerProfile };
+const PlayerReady = styled.div<{ ready?: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+
+  height: 2.125rem;
+  padding: 0.4375rem 6.0625rem;
+  gap: 0.625rem;
+
+  border-radius: 0px 0px 1rem 1rem;
+  background: ${(props) => (props.ready ? COLORS.primary : COLORS["gray-4"])};
+
+  color: ${(props) => (props.ready ? COLORS.bg : COLORS.text)};
+  text-align: center;
+
+  font-family: "WantedSans-SemiBold";
+  font-size: ${FONT_SIZES["subtitle-1"]};
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+`;
+
+export {
+  CPlayerList,
+  CPlayer,
+  PlayerInfo,
+  PlayerProfile,
+  CBadge,
+  PlayerIcon,
+  PlayerName,
+  PlayerReady,
+};
