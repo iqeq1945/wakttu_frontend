@@ -8,6 +8,7 @@ export { default as LoginedMain } from "./main/Logined";
 export { default as Tab } from "./common/Tab";
 export { default as Header } from "./common/Header";
 export { default as RoomNumber } from "./common/RoomNumber";
+export { default as Chat } from "./common/Chat";
 
 export { default as ORoomDesc } from "./room/RoomDesc";
 export { default as Ready } from "./room/Ready";
