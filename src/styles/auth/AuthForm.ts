@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLORS } from '../theme';
+import { COLORS, FONT_SIZES } from '../theme';
 
 const ModalContainer = styled.div`
   width: 100%;
@@ -31,12 +31,10 @@ const FormContainer = styled.div`
   gap: 2rem;
 `;
 
-const FormName = styled.span`
+const FormName = styled.h3`
   color: ${COLORS.text};
   font-family: WantedSans-SemiBold;
-  font-size: 2rem;
   font-style: normal;
-  font-weight: 600;
   line-height: normal;
 `;
 
@@ -66,12 +64,12 @@ const InputSection = styled.div`
 const FormLabel = styled.span`
   color: ${COLORS.text};
   font-family: 'WantedSans-Medium';
-  font-size: 0.875rem;
+  font-size: ${FONT_SIZES['body-2']};
   font-style: normal;
   font-weight: 500;
   line-height: normal;
   & > span {
-    font-size: 0.75rem;
+    font-size: ${FONT_SIZES.caption};
     color: ${COLORS['gray-2']};
   }
 `;
@@ -94,9 +92,8 @@ const FormItem = styled.div`
     text-overflow: ellipsis;
     outline: none;
     border: none;
-    /* Body-1 - 16px - Medium */
     font-family: 'WantedSans-Medium';
-    font-size: 1rem;
+    font-size: ${FONT_SIZES['body-1']};
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -117,7 +114,7 @@ const FormItem = styled.div`
 
     color: ${COLORS.bg};
     font-family: 'WantedSans-Medium';
-    font-size: 0.875rem;
+    font-size: ${FONT_SIZES['body-2']};
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -156,7 +153,7 @@ const SubmitButton = styled.button`
   text-overflow: ellipsis;
 
   font-family: 'WantedSans-SemiBold';
-  font-size: 1rem;
+  font-size: ${FONT_SIZES['subtitle-1']};
   font-style: normal;
   font-weight: 600;
   line-height: normal;
