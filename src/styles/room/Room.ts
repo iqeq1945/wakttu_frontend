@@ -32,7 +32,7 @@ const LeftFooter = styled.div`
   align-items: center;
   align-self: stretch;
 
-  height: 22rem;
+  height: 21.2rem;
 `;
 
 const Copyright = styled.span`

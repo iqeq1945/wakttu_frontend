@@ -1,57 +1,27 @@
 import {
-  ChatLog,
-  CChat,
-  MessageBlock,
-  MessageInput,
-  SendMessage,
-  SendIcon,
+  PlayerChat,
+  CPlayer,
+  PlayerName,
+  PlayerIcon,
+  ChatContent,
+  DateContent,
 } from "@/styles/common/Chat";
 
-const Chat = () => {
+interface Props {
+  name: string;
+  chat: string;
+}
+
+const Chat = ({ name, chat }: Props) => {
   return (
-    <CChat>
-      <ChatLog>
-        <div>Hello</div> <div>Hello</div> <div>Hello</div>
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div> <div>Hello</div> <div>Hello</div> <div>Hello</div>{" "}
-        <div>Hello</div>
-        <div>Hello</div>
-        <div>Hello</div>
-      </ChatLog>
-      <MessageBlock>
-        <MessageInput />
-        <SendMessage>
-          <SendIcon src="/assets/send.svg" />
-        </SendMessage>
-      </MessageBlock>
-    </CChat>
+    <PlayerChat>
+      <CPlayer>
+        <PlayerIcon src="/assets/amoeba.svg" />
+        <PlayerName>{name}</PlayerName>
+        <ChatContent>{chat}</ChatContent>
+      </CPlayer>
+      <DateContent>오전 12:00:00</DateContent>
+    </PlayerChat>
   );
 };
 

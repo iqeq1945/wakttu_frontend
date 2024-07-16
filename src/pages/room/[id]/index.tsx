@@ -1,5 +1,5 @@
 import { Container } from "@/styles/common/Layout";
-import { Chat, GameNav, Header, PlayerList } from "@/components";
+import { ChatBox, GameNav, Header, PlayerList } from "@/components";
 import { LeftFooter, RightWrapper, WrapRoom } from "@/styles/room/Room";
 import { LeftWrapper, Copyright } from "@/styles/room/Room";
 import { ORoomDesc, Ready } from "@/components";
@@ -22,7 +22,7 @@ const Room = () => {
         <RightWrapper>
           <GameNav />
           <PlayerList />
-          <Chat />
+          <ChatBox />
         </RightWrapper>
       </WrapRoom>
     </Container>

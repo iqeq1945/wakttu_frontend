@@ -6,6 +6,7 @@ const CPlayerList = styled.article`
   align-items: flex-start;
   align-self: stretch;
 
+  width: 57.8rem;
   padding: 2rem;
   border-radius: 1rem;
   border: 2px solid ${COLORS["gray-4"]};

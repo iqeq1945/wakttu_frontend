@@ -7,8 +7,8 @@ const CChat = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding: 2rem;
-  width: 62rem;
-  height: 22.0625rem;
+  width: 57.8rem;
+  height: 17rem;
 
   border-radius: 1rem;
   border: 2px solid ${COLORS["gray-4"]};
@@ -19,7 +19,9 @@ const ChatLog = styled.div`
   display: flex;
   flex-direction: column;
 
+  width: 100%;
   height: 100%;
+  gap: 0.75rem;
 
   overflow-y: scroll;
 
@@ -45,6 +47,44 @@ const PlayerChat = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+
+const CPlayer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const PlayerName = styled.h5`
+  margin-left: 0.375rem;
+  color: ${COLORS.text};
+  font-family: "WantedSans-Semibold";
+  white-space: nowrap;
+`;
+
+const PlayerIcon = styled.img`
+  width: 1.125rem;
+  height: 1.125rem;
+  min-width: 1.125rem;
+`;
+
+const ChatContent = styled.h6`
+  display: inline-block;
+
+  max-width: 90%;
+  margin-left: 0.625rem;
+
+  color: ${COLORS.text};
+  font-family: "WantedSans-Medium";
+`;
+
+const DateContent = styled.h6`
+  display: inline-block;
+
+  white-space: nowrap;
+  margin-right: 1.5rem;
+
+  color: ${COLORS.text};
+  font-family: "WantedSans-Medium";
 `;
 
 const MessageBlock = styled.div`
@@ -90,6 +130,11 @@ export {
   CChat,
   ChatLog,
   PlayerChat,
+  CPlayer,
+  PlayerIcon,
+  PlayerName,
+  ChatContent,
+  DateContent,
   MessageBlock,
   MessageInput,
   SendMessage,
