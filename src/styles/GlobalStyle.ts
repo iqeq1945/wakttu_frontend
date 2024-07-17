@@ -93,11 +93,16 @@ export const GlobalStyle = createGlobalStyle`
   h6,
   a,
   p,
+  li,
   span {
     color: ${COLORS.text};
     font-family: 'Wanted Sans';
     font-style: normal;
     line-height: normal;
+    font-weight: 500;
+
+    margin: 0;
+    padding: 0;
   }
 
   h1,

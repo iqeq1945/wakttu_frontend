@@ -1,4 +1,4 @@
-import roomList from '@/styles/modules/roomList/roomList.module.css';
+import { Content } from '@/styles/common/Header';
 
 interface Props {
   menuName: string;
@@ -7,9 +7,9 @@ interface Props {
 
 const Tab = ({ menuName, href }: Props) => {
   return (
-    <a href={href} className={roomList.menuTab}>
+    <Content href={href}>
       <li>{menuName}</li>
-    </a>
+    </Content>
   );
 };
 
