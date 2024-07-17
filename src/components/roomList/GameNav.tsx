@@ -7,7 +7,8 @@ import {
   RefreshBtn,
   FilterToggled,
   FilterIcon,
-} from '@/styles/roomList/GameNav';
+  PlusTitle,
+} from "@/styles/roomList/GameNav";
 
 const GameNav = () => {
   return (
@@ -15,6 +16,7 @@ const GameNav = () => {
       <LeftIcons>
         <CreateRoomBtn>
           <Plus src="/assets/plus.svg" />
+          <PlusTitle>방 만들기</PlusTitle>
         </CreateRoomBtn>
         <SearchBtn src="/assets/search.svg" />
         <RefreshBtn src="/assets/refresh.svg" />
