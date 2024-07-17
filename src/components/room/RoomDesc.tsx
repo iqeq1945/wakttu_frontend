@@ -11,8 +11,6 @@ import {
   ModText,
   WatingLarge,
   WatingText,
-  JoinButton,
-  JoinText,
 } from "@/styles/roomList/RoomDesc";
 import { RoomNumber } from "@/components";
 
@@ -46,9 +44,6 @@ const RoomDesc = () => {
           <WatingText>대기 중</WatingText>
         </WatingLarge>
       </WrapMod>
-      <JoinButton>
-        <JoinText>입장하기</JoinText>
-      </JoinButton>
     </CRoomDesc>
   );
 };

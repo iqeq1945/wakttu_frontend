@@ -1,6 +1,0 @@
-{
-  "prettier.jsxSingleQuote": false,
-  "prettier.singleQuote": true,
-  "editor.formatOnSave": true,
-  "prettier.requireConfig": false
-}
