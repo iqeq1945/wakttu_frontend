@@ -1,16 +1,17 @@
 import axios from 'axios';
-import { FormEvent, useState } from 'react';
+import { FormEvent, MouseEvent, useState } from 'react';
 
 import useInput from '@/hooks/useInput';
 import { API_URL, SOCKET } from '@/services/api';
 import { ERROR_MESSAGE } from '@/constants/auth';
-import { AuthForm, AuthInput, AuthButton } from '@/components/index';
+import { AuthForm, AuthInput } from '@/components/index';
 import { isExistError, isIdValidError } from '@/containers/auth/checkAuth';
 
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { setUserId } from '@/redux/user/userSlice';
 import { useCookies } from 'react-cookie';
+import { closeModal } from '@/redux/modal/modalSlice';
 
 interface InputProps {
   id: string;
@@ -22,7 +23,11 @@ interface ErrorProps {
   type: string;
 }
 
-const SignIn = () => {
+interface Props {
+  onToggle: (e: MouseEvent<HTMLElement>) => void;
+}
+
+const SignIn = ({ onToggle }: Props) => {
   const [errors, setErrors] = useState<ErrorProps>();
 
   const { inputs, onInputChange } = useInput<InputProps>({
@@ -36,12 +41,17 @@ const SignIn = () => {
     let sameId = true;
 
     try {
-      const { data } = await axios.post(`${API_URL}/auth/check/id`, { id: userId });
+      const { data } = await axios.post(
+        `${API_URL}/auth/check/id`,
+        {
+          id: userId,
+        },
+        { withCredentials: true }
+      );
       sameId = data.success;
     } catch (error) {
       if (axios.isAxiosError(error)) sameId = error.response?.data.success;
     }
-
     return sameId;
   };
 
@@ -68,18 +78,13 @@ const SignIn = () => {
       email: id,
       password: pw,
     };
-
     await axios
-      .post(`${API_URL}/auth/login`, userInfo)
+      .post(`${API_URL}/auth/login`, userInfo, { withCredentials: true })
       .then((response) => {
         if (response.status === 201) {
           setErrors({ message: '', type: 'success' });
           dispatch(setUserId(response.data.id));
-
-          SOCKET.on('connect', () => {
-            router.push('/roomlist');
-            console.log('서버와 연결되었습니다.');
-          });
+          dispatch(closeModal());
         }
       })
       .catch((error) => {
@@ -90,20 +95,36 @@ const SignIn = () => {
 
         console.error(`로그인을 완료할 수 없습니다. ${error}`);
       });
+    const data = await axios
+      .get(`${API_URL}/test`, { withCredentials: true })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        setErrors({ message: ERROR_MESSAGE.signInError, type: 'undefined' });
+        console.error(`알수없는 이유로 정보 가져오기 실패, ${error}`);
+      });
+    console.log(data);
   };
-
   return (
-    <AuthForm formTitle="로그인" onSubmit={onSignInSubmit}>
-      <AuthInput type="text" placeholder="아이디" name="id" value={id} onChange={onInputChange} />
+    <AuthForm formTitle="로그인" onSubmit={onSignInSubmit} onToggle={onToggle}>
       <AuthInput
+        label="아이디"
+        type="text"
+        placeholder="아이디 입력"
+        name="id"
+        value={id}
+        onChange={onInputChange}
+      />
+      <AuthInput
+        label="비밀번호"
         type="password"
-        placeholder="비밀번호"
+        placeholder="비밀번호 입력"
         name="pw"
         value={pw}
         onChange={onInputChange}
       />
-      {errors && <span>{errors.message}</span>}
-      <AuthButton buttonText="로그인" />
+      {errors && <p>{errors.message}</p>}
     </AuthForm>
   );
 };
