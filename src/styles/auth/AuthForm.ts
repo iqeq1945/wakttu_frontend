@@ -15,6 +15,7 @@ const ModalContainer = styled.div`
 
 const Modal = styled.div`
   display: inline-flex;
+  width: 19.375rem;
   padding: 3rem 2.5rem;
   justify-content: center;
   align-items: center;

@@ -46,7 +46,6 @@ const SignUp = ({ onToggle }: Props) => {
     } catch (error) {
       if (axios.isAxiosError(error)) sameId = error?.response?.data.success;
     }
-    console.log(sameId);
   };
 
   const isSameNicknameValid = async (nickname: string) => {
@@ -63,9 +62,6 @@ const SignUp = ({ onToggle }: Props) => {
 
   const onSignUpSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    //const sameIdValid = await isSameIdValid(id);
-    //const sameNicknameValid = await isSameNicknameValid(nickname);
 
     const errorMessage = onError({
       id,

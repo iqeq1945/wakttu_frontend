@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { setUserId } from '@/redux/user/userSlice';
 import { useCookies } from 'react-cookie';
+import { closeModal } from '@/redux/modal/modalSlice';
 
 interface InputProps {
   id: string;
@@ -40,14 +41,17 @@ const SignIn = ({ onToggle }: Props) => {
     let sameId = true;
 
     try {
-      const { data } = await axios.post(`${API_URL}/auth/check/id`, {
-        id: userId,
-      });
+      const { data } = await axios.post(
+        `${API_URL}/auth/check/id`,
+        {
+          id: userId,
+        },
+        { withCredentials: true }
+      );
       sameId = data.success;
     } catch (error) {
       if (axios.isAxiosError(error)) sameId = error.response?.data.success;
     }
-
     return sameId;
   };
 
@@ -74,18 +78,13 @@ const SignIn = ({ onToggle }: Props) => {
       email: id,
       password: pw,
     };
-
     await axios
-      .post(`${API_URL}/auth/login`, userInfo)
+      .post(`${API_URL}/auth/login`, userInfo, { withCredentials: true })
       .then((response) => {
         if (response.status === 201) {
           setErrors({ message: '', type: 'success' });
           dispatch(setUserId(response.data.id));
-
-          SOCKET.on('connect', () => {
-            router.push('/roomlist');
-            console.log('서버와 연결되었습니다.');
-          });
+          dispatch(closeModal());
         }
       })
       .catch((error) => {
@@ -96,8 +95,17 @@ const SignIn = ({ onToggle }: Props) => {
 
         console.error(`로그인을 완료할 수 없습니다. ${error}`);
       });
+    const data = await axios
+      .get(`${API_URL}/test`, { withCredentials: true })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        setErrors({ message: ERROR_MESSAGE.signInError, type: 'undefined' });
+        console.error(`알수없는 이유로 정보 가져오기 실패, ${error}`);
+      });
+    console.log(data);
   };
-
   return (
     <AuthForm formTitle="로그인" onSubmit={onSignInSubmit} onToggle={onToggle}>
       <AuthInput
@@ -116,7 +124,7 @@ const SignIn = ({ onToggle }: Props) => {
         value={pw}
         onChange={onInputChange}
       />
-      {errors && <span>{errors.message}</span>}
+      {errors && <p>{errors.message}</p>}
     </AuthForm>
   );
 };
