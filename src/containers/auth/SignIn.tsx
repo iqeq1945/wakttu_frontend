@@ -1,17 +1,15 @@
-import axios from 'axios';
-import { FormEvent, MouseEvent, useState } from 'react';
+import axios from "axios";
+import { FormEvent, MouseEvent, useState } from "react";
 
-import useInput from '@/hooks/useInput';
-import { API_URL, SOCKET } from '@/services/api';
-import { ERROR_MESSAGE } from '@/constants/auth';
-import { AuthForm, AuthInput } from '@/components/index';
-import { isExistError, isIdValidError } from '@/containers/auth/checkAuth';
+import useInput from "@/hooks/useInput";
+import { API_URL, client, SOCKET } from "@/services/api";
+import { ERROR_MESSAGE } from "@/constants/auth";
+import { AuthForm, AuthInput } from "@/components/index";
+import { isExistError, isIdValidError } from "@/containers/auth/checkAuth";
 
-import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
-import { setUserId } from '@/redux/user/userSlice';
-import { useCookies } from 'react-cookie';
-import { closeModal } from '@/redux/modal/modalSlice';
+import { useDispatch } from "react-redux";
+import { setUserId } from "@/redux/user/userSlice";
+import { closeModal } from "@/redux/modal/modalSlice";
 
 interface InputProps {
   id: string;
@@ -31,8 +29,8 @@ const SignIn = ({ onToggle }: Props) => {
   const [errors, setErrors] = useState<ErrorProps>();
 
   const { inputs, onInputChange } = useInput<InputProps>({
-    id: '',
-    pw: '',
+    id: "",
+    pw: "",
   });
 
   const { id, pw } = inputs;
@@ -55,9 +53,7 @@ const SignIn = ({ onToggle }: Props) => {
     return sameId;
   };
 
-  const router = useRouter();
   const dispatch = useDispatch();
-  const [cookies, setCookie] = useCookies(['ACCOUNT_TOKEN']);
 
   const onSignInSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -78,11 +74,11 @@ const SignIn = ({ onToggle }: Props) => {
       email: id,
       password: pw,
     };
-    await axios
-      .post(`${API_URL}/auth/login`, userInfo, { withCredentials: true })
+    await client
+      .post("auth/login", userInfo)
       .then((response) => {
         if (response.status === 201) {
-          setErrors({ message: '', type: 'success' });
+          setErrors({ message: "", type: "success" });
           dispatch(setUserId(response.data.id));
           dispatch(closeModal());
         }
@@ -90,18 +86,18 @@ const SignIn = ({ onToggle }: Props) => {
       .catch((error) => {
         setErrors({
           message: ERROR_MESSAGE.signInError,
-          type: 'pw',
+          type: "pw",
         });
-
         console.error(`로그인을 완료할 수 없습니다. ${error}`);
+        return;
       });
-    const data = await axios
-      .get(`${API_URL}/test`, { withCredentials: true })
+    const data = await client
+      .get("/test")
       .then((response) => {
         return response.data;
       })
       .catch((error) => {
-        setErrors({ message: ERROR_MESSAGE.signInError, type: 'undefined' });
+        setErrors({ message: ERROR_MESSAGE.signInError, type: "undefined" });
         console.error(`알수없는 이유로 정보 가져오기 실패, ${error}`);
       });
     console.log(data);
