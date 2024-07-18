@@ -8,7 +8,7 @@ import { AuthForm, AuthInput } from "@/components/index";
 import { isExistError, isIdValidError } from "@/containers/auth/checkAuth";
 
 import { useDispatch } from "react-redux";
-import { setUserId } from "@/redux/user/userSlice";
+import { setUserId, setUserInfo } from "@/redux/user/userSlice";
 import { closeModal } from "@/redux/modal/modalSlice";
 
 interface InputProps {
@@ -79,7 +79,7 @@ const SignIn = ({ onToggle }: Props) => {
       .then((response) => {
         if (response.status === 201) {
           setErrors({ message: "", type: "success" });
-          dispatch(setUserId(response.data.id));
+          dispatch(setUserInfo(response.data));
           dispatch(closeModal());
         }
       })
@@ -91,16 +91,6 @@ const SignIn = ({ onToggle }: Props) => {
         console.error(`로그인을 완료할 수 없습니다. ${error}`);
         return;
       });
-    const data = await client
-      .get("/test")
-      .then((response) => {
-        return response.data;
-      })
-      .catch((error) => {
-        setErrors({ message: ERROR_MESSAGE.signInError, type: "undefined" });
-        console.error(`알수없는 이유로 정보 가져오기 실패, ${error}`);
-      });
-    console.log(data);
   };
   return (
     <AuthForm formTitle="로그인" onSubmit={onSignInSubmit} onToggle={onToggle}>
