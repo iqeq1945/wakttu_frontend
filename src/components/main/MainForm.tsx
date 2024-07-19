@@ -12,40 +12,18 @@ import {
   LoginName,
 } from "@/styles/main/MainForm";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { useRouter } from "next/router";
-import { openModal } from "@/redux/modal/modalSlice";
-import { client } from "@/services/api";
+import { selectUserInfo } from "@/redux/user/userSlice";
+import { useSelector } from "react-redux";
 
 interface Props {
   isLogined: boolean;
+  onModal: (e: MouseEvent<HTMLElement>) => void;
+  start: (e: MouseEvent<HTMLElement>) => void;
+  logout: (e: MouseEvent<HTMLElement>) => void;
 }
 
-const MainForm = ({ isLogined }: Props) => {
-  const dispatch = useDispatch();
-  const router = useRouter();
-
-  const onModal = (e: MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    dispatch(openModal("MAIN_MODAL"));
-    e.stopPropagation();
-  };
-
-  const start = (e: MouseEvent<HTMLElement>) => {
-    if (isLogined) {
-      e.stopPropagation();
-      router.push("/roomlist");
-      return;
-    }
-    return;
-  };
-
-  const logout = async (e: MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
-    await client.get("auth/logout");
-    router.reload();
-    return;
-  };
+const MainForm = ({ isLogined, onModal, logout, start }: Props) => {
+  const user = useSelector(selectUserInfo);
 
   return (
     <WrapForm onClick={onModal}>
@@ -56,7 +34,7 @@ const MainForm = ({ isLogined }: Props) => {
         <Player onClick={logout}>
           <Rank src="/assets/amoeba.svg" />
           <Line />
-          <PlayerName>플레이어</PlayerName>
+          <PlayerName>{user.name}</PlayerName>
           <Link href="/">
             <LogOut src="/assets/logout.svg" />
           </Link>

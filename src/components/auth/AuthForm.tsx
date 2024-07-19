@@ -1,4 +1,4 @@
-import { FormEvent, MouseEvent } from 'react';
+import { FormEvent, MouseEvent } from "react";
 import {
   FormContainer,
   FormName,
@@ -14,22 +14,24 @@ import {
   FormFooter,
   LinkText,
   ModalContainer,
-} from '@/styles/auth/AuthForm';
-import { useDispatch } from 'react-redux';
-import { closeModal } from '@/redux/modal/modalSlice';
+} from "@/styles/auth/AuthForm";
+import { useDispatch } from "react-redux";
+import { closeModal } from "@/redux/modal/modalSlice";
 
 interface Props {
   children: React.ReactNode;
   formTitle?: string;
   onSubmit?: (e: FormEvent<HTMLFormElement>) => void;
   onToggle?: (e: MouseEvent<HTMLElement>) => void;
+  onAuth?: (e: MouseEvent<HTMLElement>) => void;
 }
 
 const AuthForm = ({
   children,
-  formTitle = '로그인',
+  formTitle = "로그인",
   onSubmit,
   onToggle,
+  onAuth,
 }: Props) => {
   const dispatch = useDispatch();
 
@@ -51,17 +53,17 @@ const AuthForm = ({
               </SubmitContainer>
               <SnsContainer>
                 <SnsText>sns로 간편하게 {formTitle}</SnsText>
-                <SnsIcon src="/assets/wakgames-icon.svg" />
+                <SnsIcon src="/assets/wakgames-icon.svg" onClick={onAuth} />
               </SnsContainer>
             </WrapButton>
             <FormFooter>
               <SnsText>
-                {formTitle === '로그인'
-                  ? '가입 하시겠어요?'
-                  : '이미 가입하셨나요?'}
+                {formTitle === "로그인"
+                  ? "가입 하시겠어요?"
+                  : "이미 가입하셨나요?"}
               </SnsText>
               <LinkText onClick={onToggle}>
-                {formTitle === '로그인' ? '회원가입' : '로그인'}
+                {formTitle === "로그인" ? "회원가입" : "로그인"}
               </LinkText>
             </FormFooter>
           </FormSection>
