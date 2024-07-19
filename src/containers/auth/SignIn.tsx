@@ -95,8 +95,9 @@ const SignIn = ({ onToggle }: Props) => {
 
   const waktaLogin = async () => {
     const { data } = await client.get("auth/wakta");
-    console.log(data);
+    window.location.href = data.url;
   };
+
   return (
     <AuthForm
       formTitle="로그인"

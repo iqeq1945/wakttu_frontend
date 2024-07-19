@@ -97,11 +97,17 @@ const SignUp = ({ onToggle }: Props) => {
     }
   };
 
+  const waktaLogin = async () => {
+    const { data } = await client.get("auth/wakta");
+    window.location.href = data.url;
+  };
+
   return (
     <AuthForm
       formTitle="회원가입"
       onSubmit={onSignUpSubmit}
       onToggle={onToggle}
+      onAuth={waktaLogin}
     >
       <AuthInput
         label="아이디"

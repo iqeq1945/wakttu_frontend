@@ -14,6 +14,7 @@ import {
 import Link from "next/link";
 import { selectUserInfo } from "@/redux/user/userSlice";
 import { useSelector } from "react-redux";
+import { client } from "@/services/api";
 
 interface Props {
   isLogined: boolean;
@@ -24,6 +25,12 @@ interface Props {
 
 const MainForm = ({ isLogined, onModal, logout, start }: Props) => {
   const user = useSelector(selectUserInfo);
+
+  const waktaLogin = async (e: MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    const { data } = await client.get("auth/wakta");
+    window.location.href = data.url;
+  };
 
   return (
     <WrapForm onClick={onModal}>
@@ -40,7 +47,7 @@ const MainForm = ({ isLogined, onModal, logout, start }: Props) => {
           </Link>
         </Player>
       ) : (
-        <LogIn>
+        <LogIn onClick={waktaLogin}>
           <Wakgames src="/assets/wakgames.svg" />
           <LoginName>왁타버스 게임즈로 로그인</LoginName>
         </LogIn>
