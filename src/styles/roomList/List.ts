@@ -19,6 +19,25 @@ const CItem = styled.div`
   display: flex;
   flex-flow: wrap;
   gap: 0.75rem;
+
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${COLORS["gray-4"]};
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    box-shadow: inset 0 0 5px ${COLORS["gray-3"]};
+    border-radius: 4px;
+    border-left: 1.5px solid transparent;
+    border-right: 1.5px solid transparent;
+  }
 `;
 
 const Item = styled.div`
@@ -59,9 +78,15 @@ const RoomNameCount = styled.div`
 `;
 
 const RoomName = styled.h5`
+  max-width: 10rem;
+
   color: ${COLORS.text};
 
   font-family: "WantedSans-SemiBold";
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 const RoomCount = styled.div`
@@ -90,16 +115,37 @@ const MediumText = styled.span<{ $color?: boolean }>`
   font-size: ${FONT_SIZES["body-2"]};
 `;
 
-const Status = styled.div<{ $status?: boolean }>`
+const Status = styled.div<{ $status?: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
 
   padding: 0.375rem 0.625rem;
 
-  color: ${COLORS["gray-3"]};
+  color: rgba(0, 0, 0, 0.5);
+  font-family: "WantedSans-SemiBold";
+  font-size: ${FONT_SIZES["subtitle-1"]};
+
+  border-radius: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: ${({ $status }) => {
+    switch ($status) {
+      case "full":
+        return "#FFA2A2";
+      case "start":
+        return "#FFF6A2";
+      default:
+        return COLORS["gray-5"];
+    }
+  }};
 `;
 
+const Lock = styled.img`
+  width: 0.8484rem;
+  height: 0.9422rem;
+
+  fill: ${COLORS["gray-3"]};
+`;
 export {
   CList,
   CItem,
@@ -112,4 +158,6 @@ export {
   RoomGame,
   SemiText,
   MediumText,
+  Status,
+  Lock,
 };

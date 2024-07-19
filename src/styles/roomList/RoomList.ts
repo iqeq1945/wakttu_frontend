@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { FONT_SIZES } from '../theme';
+import styled from "styled-components";
+import { FONT_SIZES } from "../theme";
 
 const WrapRoomList = styled.div`
   display: grid;
@@ -30,10 +30,9 @@ const Copyright = styled.span`
   justify-content: center;
 
   width: 25rem;
-  padding: 0 2rem;
 
   text-align: center;
-  font-size: ${FONT_SIZES['body-2']};
+  font-size: ${FONT_SIZES["body-2"]};
 `;
 
 export { WrapRoomList, LeftWrapper, RightWrapper, Copyright };

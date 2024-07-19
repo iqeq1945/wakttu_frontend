@@ -11,6 +11,8 @@ import {
   SemiText,
   MediumText,
   RoomGame,
+  Status,
+  Lock,
 } from "@/styles/roomList/List";
 
 const List = () => {
@@ -22,12 +24,13 @@ const List = () => {
             <RoomNumber number={724} />
             <RoomInfo>
               <RoomNameCount>
-                <RoomName>방제에요</RoomName>
+                <RoomName>방제에요방제에요방제에요</RoomName>
                 <RoomCount>
                   <SemiText>4</SemiText>
                   <SemiText $color={true}>/</SemiText>
                   <SemiText>8</SemiText>
                 </RoomCount>
+                <Lock src="/assets/lock.svg" />
               </RoomNameCount>
               <RoomGame>
                 <SemiText>쿵쿵따</SemiText>
@@ -38,10 +41,272 @@ const List = () => {
               </RoomGame>
             </RoomInfo>
           </Summary>
+          <Status $status="start">게임 중</Status>
         </Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
+        <Item>
+          <Summary>
+            <RoomNumber number={724} />
+            <RoomInfo>
+              <RoomNameCount>
+                <RoomName>방제에요</RoomName>
+                <RoomCount>
+                  <SemiText>4</SemiText>
+                  <SemiText $color={true}>/</SemiText>
+                  <SemiText>8</SemiText>
+                </RoomCount>
+                <Lock src="/assets/lock.svg" />
+              </RoomNameCount>
+              <RoomGame>
+                <SemiText>쿵쿵따</SemiText>
+                <MediumText $color={true}>라운드</MediumText>
+                <MediumText>6</MediumText>
+                <MediumText $color={true}>시간</MediumText>
+                <MediumText>60초</MediumText>
+              </RoomGame>
+            </RoomInfo>
+          </Summary>
+          <Status $status="start">게임 중</Status>
+        </Item>
+        <Item>
+          <Summary>
+            <RoomNumber number={724} />
+            <RoomInfo>
+              <RoomNameCount>
+                <RoomName>방제에요</RoomName>
+                <RoomCount>
+                  <SemiText>4</SemiText>
+                  <SemiText $color={true}>/</SemiText>
+                  <SemiText>8</SemiText>
+                </RoomCount>
+                <Lock src="/assets/lock.svg" />
+              </RoomNameCount>
+              <RoomGame>
+                <SemiText>쿵쿵따</SemiText>
+                <MediumText $color={true}>라운드</MediumText>
+                <MediumText>6</MediumText>
+                <MediumText $color={true}>시간</MediumText>
+                <MediumText>60초</MediumText>
+              </RoomGame>
+            </RoomInfo>
+          </Summary>
+          <Status $status="start">게임 중</Status>
+        </Item>
+        <Item>
+          <Summary>
+            <RoomNumber number={724} />
+            <RoomInfo>
+              <RoomNameCount>
+                <RoomName>방제에요</RoomName>
+                <RoomCount>
+                  <SemiText>4</SemiText>
+                  <SemiText $color={true}>/</SemiText>
+                  <SemiText>8</SemiText>
+                </RoomCount>
+                <Lock src="/assets/lock.svg" />
+              </RoomNameCount>
+              <RoomGame>
+                <SemiText>쿵쿵따</SemiText>
+                <MediumText $color={true}>라운드</MediumText>
+                <MediumText>6</MediumText>
+                <MediumText $color={true}>시간</MediumText>
+                <MediumText>60초</MediumText>
+              </RoomGame>
+            </RoomInfo>
+          </Summary>
+          <Status $status="start">게임 중</Status>
+        </Item>
+        <Item>
+          <Summary>
+            <RoomNumber number={724} />
+            <RoomInfo>
+              <RoomNameCount>
+                <RoomName>방제에요</RoomName>
+                <RoomCount>
+                  <SemiText>4</SemiText>
+                  <SemiText $color={true}>/</SemiText>
+                  <SemiText>8</SemiText>
+                </RoomCount>
+                <Lock src="/assets/lock.svg" />
+              </RoomNameCount>
+              <RoomGame>
+                <SemiText>쿵쿵따</SemiText>
+                <MediumText $color={true}>라운드</MediumText>
+                <MediumText>6</MediumText>
+                <MediumText $color={true}>시간</MediumText>
+                <MediumText>60초</MediumText>
+              </RoomGame>
+            </RoomInfo>
+          </Summary>
+          <Status $status="start">게임 중</Status>
+        </Item>
+        <Item>
+          <Summary>
+            <RoomNumber number={724} />
+            <RoomInfo>
+              <RoomNameCount>
+                <RoomName>방제에요</RoomName>
+                <RoomCount>
+                  <SemiText>4</SemiText>
+                  <SemiText $color={true}>/</SemiText>
+                  <SemiText>8</SemiText>
+                </RoomCount>
+                <Lock src="/assets/lock.svg" />
+              </RoomNameCount>
+              <RoomGame>
+                <SemiText>쿵쿵따</SemiText>
+                <MediumText $color={true}>라운드</MediumText>
+                <MediumText>6</MediumText>
+                <MediumText $color={true}>시간</MediumText>
+                <MediumText>60초</MediumText>
+              </RoomGame>
+            </RoomInfo>
+          </Summary>
+          <Status $status="start">게임 중</Status>
+        </Item>
+        <Item>
+          <Summary>
+            <RoomNumber number={724} />
+            <RoomInfo>
+              <RoomNameCount>
+                <RoomName>방제에요</RoomName>
+                <RoomCount>
+                  <SemiText>4</SemiText>
+                  <SemiText $color={true}>/</SemiText>
+                  <SemiText>8</SemiText>
+                </RoomCount>
+                <Lock src="/assets/lock.svg" />
+              </RoomNameCount>
+              <RoomGame>
+                <SemiText>쿵쿵따</SemiText>
+                <MediumText $color={true}>라운드</MediumText>
+                <MediumText>6</MediumText>
+                <MediumText $color={true}>시간</MediumText>
+                <MediumText>60초</MediumText>
+              </RoomGame>
+            </RoomInfo>
+          </Summary>
+          <Status $status="start">게임 중</Status>
+        </Item>
+        <Item>
+          <Summary>
+            <RoomNumber number={724} />
+            <RoomInfo>
+              <RoomNameCount>
+                <RoomName>방제에요방제에요방제에요방제에요방제에요</RoomName>
+                <RoomCount>
+                  <SemiText>4</SemiText>
+                  <SemiText $color={true}>/</SemiText>
+                  <SemiText>8</SemiText>
+                </RoomCount>
+                <Lock src="/assets/lock.svg" />
+              </RoomNameCount>
+              <RoomGame>
+                <SemiText>쿵쿵따</SemiText>
+                <MediumText $color={true}>라운드</MediumText>
+                <MediumText>6</MediumText>
+                <MediumText $color={true}>시간</MediumText>
+                <MediumText>60초</MediumText>
+              </RoomGame>
+            </RoomInfo>
+          </Summary>
+          <Status $status="start">게임 중</Status>
+        </Item>
+        <Item>
+          <Summary>
+            <RoomNumber number={724} />
+            <RoomInfo>
+              <RoomNameCount>
+                <RoomName>방제에요</RoomName>
+                <RoomCount>
+                  <SemiText>4</SemiText>
+                  <SemiText $color={true}>/</SemiText>
+                  <SemiText>8</SemiText>
+                </RoomCount>
+                <Lock src="/assets/lock.svg" />
+              </RoomNameCount>
+              <RoomGame>
+                <SemiText>쿵쿵따</SemiText>
+                <MediumText $color={true}>라운드</MediumText>
+                <MediumText>6</MediumText>
+                <MediumText $color={true}>시간</MediumText>
+                <MediumText>60초</MediumText>
+              </RoomGame>
+            </RoomInfo>
+          </Summary>
+          <Status $status="start">게임 중</Status>
+        </Item>
+        <Item>
+          <Summary>
+            <RoomNumber number={724} />
+            <RoomInfo>
+              <RoomNameCount>
+                <RoomName>방제에요</RoomName>
+                <RoomCount>
+                  <SemiText>4</SemiText>
+                  <SemiText $color={true}>/</SemiText>
+                  <SemiText>8</SemiText>
+                </RoomCount>
+                <Lock src="/assets/lock.svg" />
+              </RoomNameCount>
+              <RoomGame>
+                <SemiText>쿵쿵따</SemiText>
+                <MediumText $color={true}>라운드</MediumText>
+                <MediumText>6</MediumText>
+                <MediumText $color={true}>시간</MediumText>
+                <MediumText>60초</MediumText>
+              </RoomGame>
+            </RoomInfo>
+          </Summary>
+          <Status $status="start">게임 중</Status>
+        </Item>
+        <Item>
+          <Summary>
+            <RoomNumber number={724} />
+            <RoomInfo>
+              <RoomNameCount>
+                <RoomName>방제에요</RoomName>
+                <RoomCount>
+                  <SemiText>4</SemiText>
+                  <SemiText $color={true}>/</SemiText>
+                  <SemiText>8</SemiText>
+                </RoomCount>
+                <Lock src="/assets/lock.svg" />
+              </RoomNameCount>
+              <RoomGame>
+                <SemiText>쿵쿵따</SemiText>
+                <MediumText $color={true}>라운드</MediumText>
+                <MediumText>6</MediumText>
+                <MediumText $color={true}>시간</MediumText>
+                <MediumText>60초</MediumText>
+              </RoomGame>
+            </RoomInfo>
+          </Summary>
+          <Status $status="start">게임 중</Status>
+        </Item>
+        <Item>
+          <Summary>
+            <RoomNumber number={724} />
+            <RoomInfo>
+              <RoomNameCount>
+                <RoomName>방제에요</RoomName>
+                <RoomCount>
+                  <SemiText>4</SemiText>
+                  <SemiText $color={true}>/</SemiText>
+                  <SemiText>8</SemiText>
+                </RoomCount>
+                <Lock src="/assets/lock.svg" />
+              </RoomNameCount>
+              <RoomGame>
+                <SemiText>쿵쿵따</SemiText>
+                <MediumText $color={true}>라운드</MediumText>
+                <MediumText>6</MediumText>
+                <MediumText $color={true}>시간</MediumText>
+                <MediumText>60초</MediumText>
+              </RoomGame>
+            </RoomInfo>
+          </Summary>
+          <Status $status="start">게임 중</Status>
+        </Item>
       </CItem>
     </CList>
   );
