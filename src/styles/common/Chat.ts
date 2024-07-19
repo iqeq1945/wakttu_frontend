@@ -7,7 +7,7 @@ const CChat = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding: 2rem;
-  width: 57.8rem;
+  width: 62rem;
   height: 17rem;
 
   border-radius: 1rem;

@@ -19,3 +19,4 @@ export { default as PlayerList } from "./room/PlayerList";
 export { default as RoomDesc } from "./roomList/RoomDesc";
 export { default as PlayerInfo } from "./roomList/PlayerInfo";
 export { default as GameNav } from "./roomList/GameNav";
+export { default as List } from "./roomList/List";
