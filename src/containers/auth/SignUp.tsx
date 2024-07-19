@@ -1,10 +1,10 @@
-import axios from 'axios';
-import { useState, FormEvent, MouseEvent } from 'react';
+import axios from "axios";
+import { useState, FormEvent, MouseEvent } from "react";
 
-import useInput from '@/hooks/useInput';
-import { API_URL } from '@/services/api';
-import { onError } from '@/containers/auth/checkAuth';
-import { AuthForm, AuthInput } from '@/components/index';
+import useInput from "@/hooks/useInput";
+import { API_URL, client } from "@/services/api";
+import { onError } from "@/containers/auth/checkAuth";
+import { AuthForm, AuthInput } from "@/components/index";
 
 interface ErrorProps {
   errorId: string;
@@ -26,37 +26,37 @@ interface Props {
 
 const SignUp = ({ onToggle }: Props) => {
   const [errors, setErrors] = useState<ErrorProps>();
+  const [sameId, setSameId] = useState<boolean>(false);
+  const [sameNickname, setSameNickname] = useState<boolean>(false);
 
   const { inputs, onInputChange } = useInput<InputProps>({
-    id: '',
-    pw: '',
-    confirmPw: '',
-    nickname: '',
+    id: "",
+    pw: "",
+    confirmPw: "",
+    nickname: "",
   });
 
   const { id, pw, confirmPw, nickname } = inputs;
-  let sameId = false,
-    sameNickname = false;
   const isSameIdValid = async (userId: string) => {
     try {
-      const { data } = await axios.post(`${API_URL}/auth/check/id`, {
+      const { data } = await client.post("/auth/check/id", {
         id: userId,
       });
-      sameId = data.success;
+      setSameId(data.success);
     } catch (error) {
-      if (axios.isAxiosError(error)) sameId = error?.response?.data.success;
+      if (axios.isAxiosError(error)) setSameId(error?.response?.data.success);
     }
   };
 
   const isSameNicknameValid = async (nickname: string) => {
     try {
-      const { data } = await axios.post(`${API_URL}/auth/check/name`, {
+      const { data } = await client.post("/auth/check/name", {
         name: nickname,
       });
-      sameNickname = data.success;
+      setSameNickname(data.success);
     } catch (error) {
       if (axios.isAxiosError(error))
-        sameNickname = error.response?.data.success;
+        setSameNickname(error.response?.data.success);
     }
   };
 
@@ -74,7 +74,7 @@ const SignUp = ({ onToggle }: Props) => {
 
     setErrors(errorMessage);
 
-    if (Object.values(errorMessage).some((error) => error && error !== ''))
+    if (Object.values(errorMessage).some((error) => error && error !== ""))
       return;
 
     const userInfo = {
@@ -83,11 +83,11 @@ const SignUp = ({ onToggle }: Props) => {
       password: pw,
     };
 
-    if (Object.values(userInfo).every((value) => value !== '')) {
+    if (Object.values(userInfo).every((value) => value !== "")) {
       await axios
         .post(`${API_URL}/auth/signup`, userInfo)
         .then((response) => {
-          if (response.status === 201) alert('회원가입이 완료되었습니다.');
+          if (response.status === 201) alert("회원가입이 완료되었습니다.");
         })
         .catch((error) =>
           console.error(
@@ -97,11 +97,17 @@ const SignUp = ({ onToggle }: Props) => {
     }
   };
 
+  const waktaLogin = async () => {
+    const { data } = await client.get("auth/wakta");
+    window.location.href = data.url;
+  };
+
   return (
     <AuthForm
       formTitle="회원가입"
       onSubmit={onSignUpSubmit}
       onToggle={onToggle}
+      onAuth={waktaLogin}
     >
       <AuthInput
         label="아이디"
@@ -113,6 +119,7 @@ const SignUp = ({ onToggle }: Props) => {
         onChange={onInputChange}
         onClick={isSameIdValid}
       />
+      {!errors && sameId && <span>사용가능한 아이디 입니다!</span>}
       {errors && <span>{errors.errorId}</span>}
       <AuthInput
         label="닉네임"
@@ -124,6 +131,7 @@ const SignUp = ({ onToggle }: Props) => {
         onChange={onInputChange}
         onClick={isSameNicknameValid}
       />
+      {!errors && sameNickname && <span>사용가능한 닉네임 입니다!</span>}
       {errors && <span>{errors.errorNickname}</span>}
       <AuthInput
         label="비밀번호"

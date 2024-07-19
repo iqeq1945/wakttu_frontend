@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { COLORS, FONT_SIZES } from '../theme';
+import styled from "styled-components";
+import { COLORS, FONT_SIZES } from "../theme";
 
 const ModalContainer = styled.div`
   width: 100%;
@@ -14,8 +14,7 @@ const ModalContainer = styled.div`
 `;
 
 const Modal = styled.div`
-  display: inline-flex;
-  width: 19.375rem;
+  display: flex;
   padding: 3rem 2.5rem;
   justify-content: center;
   align-items: center;
@@ -64,14 +63,14 @@ const InputSection = styled.div`
 
 const FormLabel = styled.span`
   color: ${COLORS.text};
-  font-family: 'WantedSans-Medium';
-  font-size: ${FONT_SIZES['body-2']};
+  font-family: "WantedSans-Medium";
+  font-size: ${FONT_SIZES["body-2"]};
   font-style: normal;
   font-weight: 500;
   line-height: normal;
   & > span {
     font-size: ${FONT_SIZES.caption};
-    color: ${COLORS['gray-2']};
+    color: ${COLORS["gray-2"]};
   }
 `;
 
@@ -83,7 +82,7 @@ const FormItem = styled.div`
   height: 2.6875rem;
   padding: 0.625rem 0.75rem;
   border-radius: 0.5rem;
-  border: 0.0625rem solid ${COLORS['gray-4']};
+  border: 0.0625rem solid ${COLORS["gray-4"]};
 
   gap: 0.625rem;
 
@@ -93,8 +92,8 @@ const FormItem = styled.div`
     text-overflow: ellipsis;
     outline: none;
     border: none;
-    font-family: 'WantedSans-Medium';
-    font-size: ${FONT_SIZES['body-1']};
+    font-family: "WantedSans-Medium";
+    font-size: ${FONT_SIZES["body-1"]};
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -114,8 +113,8 @@ const FormItem = styled.div`
     cursor: pointer;
 
     color: ${COLORS.bg};
-    font-family: 'WantedSans-Medium';
-    font-size: ${FONT_SIZES['body-2']};
+    font-family: "WantedSans-Medium";
+    font-size: ${FONT_SIZES["body-2"]};
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -153,14 +152,14 @@ const SubmitButton = styled.button`
   color: ${COLORS.bg};
   text-overflow: ellipsis;
 
-  font-family: 'WantedSans-SemiBold';
-  font-size: ${FONT_SIZES['subtitle-1']};
+  font-family: "WantedSans-SemiBold";
+  font-size: ${FONT_SIZES["subtitle-1"]};
   font-style: normal;
   font-weight: 600;
   line-height: normal;
 
   &:hover {
-    background: ${COLORS['primary-hov']};
+    background: ${COLORS["primary-hov"]};
   }
 `;
 
@@ -172,7 +171,7 @@ const SnsContainer = styled.div`
 `;
 
 const SnsText = styled(FormLabel)`
-  color: ${COLORS['gray-2']};
+  color: ${COLORS["gray-2"]};
 `;
 
 const SnsIcon = styled.img`
