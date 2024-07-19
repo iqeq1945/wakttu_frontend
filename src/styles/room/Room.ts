@@ -40,7 +40,6 @@ const Copyright = styled.span`
   justify-content: center;
 
   width: 25rem;
-  padding: 0 2rem;
 
   text-align: center;
   font-size: ${FONT_SIZES["body-2"]};

@@ -8,7 +8,7 @@ const CChat = styled.div`
   align-items: flex-start;
   padding: 2rem;
   width: 62rem;
-  height: 17rem;
+  height: 22.0625rem;
 
   border-radius: 1rem;
   border: 2px solid ${COLORS["gray-4"]};

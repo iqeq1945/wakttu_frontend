@@ -52,7 +52,6 @@ const SearchBtn = styled.img`
   width: 1.2rem;
   height: 1.2rem;
   gap: 0.625rem;
-  padding: 0.5rem;
 
   cursor: pointer;
 `;
