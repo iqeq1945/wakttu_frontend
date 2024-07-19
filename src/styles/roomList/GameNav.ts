@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { COLORS } from '@/styles/theme';
+import styled from "styled-components";
+import { COLORS, FONT_SIZES } from "@/styles/theme";
 
 const CGameNav = styled.div`
   display: flex;
@@ -33,6 +33,13 @@ const CreateRoomBtn = styled.button`
   background: ${COLORS.primary};
 `;
 
+const PlusTitle = styled.span`
+  color: ${COLORS.bg};
+
+  font-family: "WantedSans-SemiBold";
+  font-size: ${FONT_SIZES["subtitle-2"]};
+`;
+
 const Plus = styled.img`
   width: 1.125rem;
   height: 1.125rem;
@@ -42,15 +49,16 @@ const SearchBtn = styled.img`
   display: flex;
   align-items: center;
 
+  width: 1.2rem;
+  height: 1.2rem;
   gap: 0.625rem;
-  padding: 0.5rem;
 
   cursor: pointer;
 `;
 
 const RefreshBtn = styled.img`
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
 
   cursor: pointer;
 `;
@@ -79,6 +87,7 @@ export {
   LeftIcons,
   CreateRoomBtn,
   Plus,
+  PlusTitle,
   SearchBtn,
   RefreshBtn,
   FilterToggled,

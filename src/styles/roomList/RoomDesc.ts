@@ -117,7 +117,7 @@ const WatingLarge = styled.div`
   justify-content: center;
 
   width: 6.875rem;
-  height: 2rem;
+  height: 4rem;
   padding: 1rem;
 
   border-radius: 1rem;
