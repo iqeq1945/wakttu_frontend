@@ -9,7 +9,7 @@ import { MainContainer } from '@/styles/main/Layout';
 
 import { CookiesProvider } from 'react-cookie';
 import { Provider } from 'react-redux';
-import { store } from '@/redux/store';
+import store from '@/redux/store';
 
 import { handleResize } from '@/modules/BaseFontSize';
 import { isMobileDevice } from '@/modules/Mobile';
