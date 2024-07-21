@@ -1,5 +1,5 @@
-import { io } from "socket.io-client";
-import { API_URL } from "../api";
+import { io } from 'socket.io-client';
+import { API_URL } from '../api';
 
 export const socket = io(`${API_URL}/wakttu`, { withCredentials: true });
 
@@ -22,13 +22,17 @@ export interface Kick {
 }
 
 export interface Room {
+  id?: string;
+  idx?: number;
   title: string;
-  password: string | undefined;
+  password?: string;
   type: number;
   round: number;
   time: number;
   total: number;
   option?: string[];
+  status?: boolean;
+  [x: string]: any;
 }
 
 export type UpdateRoom = Partial<Room>;
@@ -46,7 +50,7 @@ export interface Ban {
  * 로비 채팅
  */
 export const sendLobbyChat = (message: string) => {
-  socket.emit("lobby.chat", message);
+  socket.emit('lobby.chat', message);
 };
 
 /*
@@ -55,21 +59,21 @@ export const sendLobbyChat = (message: string) => {
  * roundTime, turnTime이 있는 경우 게임진행할 때 해당턴의 유저의 답이 나감.
  */
 export const sendChat = (data: Chat) => {
-  socket.emit("chat", data);
+  socket.emit('chat', data);
 };
 
 /*
  * 서버에 있는 모든 유저에게 알림을 날림.
  */
 export const sendAlarm = (message: string) => {
-  socket.emit("alarm", message);
+  socket.emit('alarm', message);
 };
 
 /*
  * 모든 방 검색
  */
-export const setRoomList = () => {
-  socket.emit("roomList");
+export const getRoomList = () => {
+  socket.emit('roomList');
 };
 
 /*
@@ -77,14 +81,14 @@ export const setRoomList = () => {
  * 비밀번호가 걸려있는경우 값입력 , 없는 경우 'undefined' 값을 줌.
  */
 export const enter = (data: Enter) => {
-  socket.emit("enter", data);
+  socket.emit('enter', data);
 };
 
 /*
  * 방 나가기
  */
 export const exit = (roomId: string) => {
-  socket.emit("exit", roomId);
+  socket.emit('exit', roomId);
 };
 
 /*
@@ -92,7 +96,7 @@ export const exit = (roomId: string) => {
  * kick helper 와 연동하여 사용. 방장이 호출해야함.
  */
 export const kick = (data: Kick) => {
-  socket.emit("kick", data);
+  socket.emit('kick', data);
 };
 
 /*
@@ -100,7 +104,7 @@ export const kick = (data: Kick) => {
  * 퇴장 당해야하는 사람이 호출
  */
 export const kickHelper = (roomId: string) => {
-  socket.emit("kick helper", roomId);
+  socket.emit('kick helper', roomId);
 };
 
 /*
@@ -108,7 +112,7 @@ export const kickHelper = (roomId: string) => {
  * enter 함수를 연속적으로 실행주어야 입장 상태가됨.
  */
 export const createRoom = (data: Room) => {
-  socket.emit("createRoom", data);
+  socket.emit('createRoom', data);
 };
 
 /*
@@ -116,7 +120,7 @@ export const createRoom = (data: Room) => {
  * 방장만 이용가능
  */
 export const updateRoom = (data: UpdateRoom) => {
-  socket.emit("updateRoom", data);
+  socket.emit('updateRoom', data);
 };
 
 /*
@@ -124,14 +128,14 @@ export const updateRoom = (data: UpdateRoom) => {
  * 방장은 할 필요 없음.
  */
 export const ready = (roomId: string) => {
-  socket.emit("ready", roomId);
+  socket.emit('ready', roomId);
 };
 
 /*
  * 서버에 있는 Game, RoomInfo, User 정보가져오기
  */
 export const setInfo = () => {
-  socket.emit("info");
+  socket.emit('info');
 };
 
 /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  *
@@ -143,7 +147,7 @@ export const setInfo = () => {
  * 방장만 호출 가능, 모두가 준비 완료상태일 때 시작이 됨.
  */
 export const lastStart = (roomId: string) => {
-  socket.emit("last.start", roomId);
+  socket.emit('last.start', roomId);
 };
 
 /*
@@ -151,7 +155,7 @@ export const lastStart = (roomId: string) => {
  * 한명만 호출하면 되기 때문에 방장이 호출하도록 함.
  */
 export const lastRound = (roomId: string) => {
-  socket.emit("last.round", roomId);
+  socket.emit('last.round', roomId);
 };
 
 /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  *
@@ -163,7 +167,7 @@ export const lastRound = (roomId: string) => {
  * 방장만 호출 가능, 모두가 준비 완료상태일 때 시작이 됨.
  */
 export const kungStart = (roomId: string) => {
-  socket.emit("kung.start", roomId);
+  socket.emit('kung.start', roomId);
 };
 
 /*
@@ -171,7 +175,7 @@ export const kungStart = (roomId: string) => {
  * 한명만 호출하면 되기 때문에 방장이 호출하도록 함.
  */
 export const kungRound = (roomId: string) => {
-  socket.emit("kung.round", roomId);
+  socket.emit('kung.round', roomId);
 };
 
 /*
@@ -179,5 +183,5 @@ export const kungRound = (roomId: string) => {
  * round 함수 다음에 호출하는게 좋을 것 같음.
  */
 export const kungBan = (data: Ban) => {
-  socket.emit("kung.ban", data);
+  socket.emit('kung.ban', data);
 };

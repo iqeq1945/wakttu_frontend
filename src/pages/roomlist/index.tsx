@@ -1,4 +1,6 @@
-import { RoomDesc, GameNav, List } from '@/components';
+import { GameNav } from '@/components';
+import List from '@/containers/roomlist/List';
+import RoomDesc from '@/containers/roomlist/RoomDesc';
 import Header from '@/containers/common/Header';
 import { Container } from '@/styles/common/Layout';
 import Chat from '@/containers/roomlist/Chat';

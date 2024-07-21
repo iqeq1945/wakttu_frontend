@@ -9,7 +9,7 @@ const CPlayerInfo = styled.article`
 
   width: 25rem;
 
-  gap: 2rem;
+  gap: 1.5rem;
   padding: 2.3rem 2rem;
 
   border-radius: 1rem;
@@ -45,7 +45,7 @@ const PlayerIcon = styled.img`
   height: 1.5rem;
 `;
 
-const PlayerName = styled.h4`
+const PlayerName = styled.h5`
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;

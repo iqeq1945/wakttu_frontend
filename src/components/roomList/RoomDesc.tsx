@@ -13,15 +13,19 @@ import {
   WatingText,
   JoinButton,
   JoinText,
-} from "@/styles/roomList/RoomDesc";
-import { RoomNumber } from "@/components";
+} from '@/styles/roomList/RoomDesc';
+import { RoomNumber } from '@/components';
+import { useSelector } from 'react-redux';
+import { selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 
 const RoomDesc = () => {
+  const roomInfo = useSelector(selectRoomInfo);
+
   return (
     <CRoomDesc>
       <WrapRoomTitle>
-        <RoomNumber number={724} />
-        <h5>방제에요</h5>
+        <RoomNumber number={roomInfo.idx as number} />
+        <h5>{roomInfo.title}</h5>
       </WrapRoomTitle>
       <WrapGameInfo>
         <GameInfo src="/assets/game-info.png" />
@@ -32,18 +36,20 @@ const RoomDesc = () => {
             <Info $variant="title">라운드 시간</Info>
           </WrapInfo>
           <WrapInfo>
-            <Info>4/8명</Info>
-            <Info>5개</Info>
-            <Info>60초</Info>
+            <Info>
+              {roomInfo.users?.length}/{roomInfo.total}명
+            </Info>
+            <Info>{roomInfo.round}</Info>
+            <Info>{roomInfo.time / 1000}초</Info>
           </WrapInfo>
         </RoomInfo>
       </WrapGameInfo>
       <WrapMod>
         <Mod>
-          <ModText>매너, 품어, 외수</ModText>
+          <ModText>{roomInfo.option}</ModText>
         </Mod>
         <WatingLarge>
-          <WatingText>대기 중</WatingText>
+          <WatingText>{roomInfo.status ? '게임 중' : '대기 중'}</WatingText>
         </WatingLarge>
       </WrapMod>
       <JoinButton>
