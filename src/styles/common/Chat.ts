@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { COLORS } from "../theme";
+import styled from 'styled-components';
+import { COLORS } from '../theme';
 
 const CChat = styled.div`
   display: flex;
@@ -9,9 +9,10 @@ const CChat = styled.div`
   padding: 2rem;
   width: 62rem;
   height: 22.0625rem;
+  gap: 1rem;
 
   border-radius: 1rem;
-  border: 2px solid ${COLORS["gray-4"]};
+  border: 2px solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
 `;
 
@@ -30,13 +31,13 @@ const ChatLog = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background: ${COLORS["gray-4"]};
+    background: ${COLORS['gray-4']};
     border-radius: 10px;
   }
 
   &::-webkit-scrollbar-track {
     background: transparent;
-    box-shadow: inset 0 0 5px ${COLORS["gray-3"]};
+    box-shadow: inset 0 0 5px ${COLORS['gray-3']};
     border-radius: 4px;
     border-left: 1.5px solid transparent;
     border-right: 1.5px solid transparent;
@@ -57,7 +58,7 @@ const CPlayer = styled.div`
 const PlayerName = styled.h5`
   margin-left: 0.375rem;
   color: ${COLORS.text};
-  font-family: "WantedSans-Semibold";
+  font-family: 'WantedSans-Semibold';
   white-space: nowrap;
 `;
 
@@ -68,13 +69,11 @@ const PlayerIcon = styled.img`
 `;
 
 const ChatContent = styled.h6`
-  display: inline-block;
-
   max-width: 90%;
   margin-left: 0.625rem;
 
   color: ${COLORS.text};
-  font-family: "WantedSans-Medium";
+  font-family: 'WantedSans-Medium';
 `;
 
 const DateContent = styled.h6`
@@ -84,7 +83,7 @@ const DateContent = styled.h6`
   margin-right: 1.5rem;
 
   color: ${COLORS.text};
-  font-family: "WantedSans-Medium";
+  font-family: 'WantedSans-Medium';
 `;
 
 const MessageBlock = styled.div`
@@ -95,8 +94,8 @@ const MessageBlock = styled.div`
   align-self: stretch;
 
   border-radius: 0.5rem;
-  border: 1px solid ${COLORS["gray-4"]};
-  background: ${COLORS["gray-5"]};
+  border: 1px solid ${COLORS['gray-4']};
+  background: ${COLORS['gray-5']};
 `;
 
 const MessageInput = styled.input`
@@ -106,16 +105,21 @@ const MessageInput = styled.input`
   -webkit-line-clamp: 1;
 
   border: none;
-  background: ${COLORS["gray-5"]};
+  background: ${COLORS['gray-5']};
+
+  &:focus {
+    outline: none;
+  }
 `;
 
-const SendMessage = styled.div`
+const SendMessage = styled.button`
   display: flex;
   padding: 0.5rem 1rem;
   justify-content: center;
   align-items: center;
 
   border-radius: 0.5rem;
+  border: none;
   background: ${COLORS.primary};
 
   cursor: pointer;
