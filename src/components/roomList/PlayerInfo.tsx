@@ -15,14 +15,14 @@ import {
   Coin,
 } from '@/styles/roomList/PlayerInfo';
 
-const PlayerInfo = () => {
+const PlayerInfo = ({ user }: any) => {
   return (
     <CPlayerInfo>
       <PlayerProfile src="/assets/player-profile.png" />
       <Info>
         <WrapPlayerName>
           <PlayerIcon src="/assets/amoeba.svg" />
-          <PlayerName>플레이어</PlayerName>
+          <PlayerName>{user.name}</PlayerName>
         </WrapPlayerName>
         <Level>
           <LevelBar src="/assets/lvl-bar.svg" />
@@ -33,7 +33,7 @@ const PlayerInfo = () => {
             </WrapText>
             <WrapText>
               <LevelText $variant="title">경험치</LevelText>
-              <LevelText>50/100</LevelText>
+              <LevelText>{user.score}/100</LevelText>
             </WrapText>
           </LevelInfo>
         </Level>

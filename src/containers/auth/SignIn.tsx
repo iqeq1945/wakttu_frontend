@@ -1,15 +1,15 @@
-import axios from "axios";
-import { FormEvent, MouseEvent, useState } from "react";
+import axios from 'axios';
+import { FormEvent, MouseEvent, useState } from 'react';
 
-import useInput from "@/hooks/useInput";
-import { API_URL, client, SOCKET } from "@/services/api";
-import { ERROR_MESSAGE } from "@/constants/auth";
-import { AuthForm, AuthInput } from "@/components/index";
-import { isExistError, isIdValidError } from "@/containers/auth/checkAuth";
+import useInput from '@/hooks/useInput';
+import { API_URL, client } from '@/services/api';
+import { ERROR_MESSAGE } from '@/constants/auth';
+import { AuthForm, AuthInput } from '@/components/index';
+import { isExistError, isIdValidError } from '@/containers/auth/checkAuth';
 
-import { useDispatch } from "react-redux";
-import { setUserId, setUserInfo } from "@/redux/user/userSlice";
-import { closeModal } from "@/redux/modal/modalSlice";
+import { useDispatch } from 'react-redux';
+import { setUserInfo } from '@/redux/user/userSlice';
+import { closeModal } from '@/redux/modal/modalSlice';
 
 interface InputProps {
   id: string;
@@ -29,8 +29,8 @@ const SignIn = ({ onToggle }: Props) => {
   const [errors, setErrors] = useState<ErrorProps>();
 
   const { inputs, onInputChange } = useInput<InputProps>({
-    id: "",
-    pw: "",
+    id: '',
+    pw: '',
   });
 
   const { id, pw } = inputs;
@@ -75,10 +75,10 @@ const SignIn = ({ onToggle }: Props) => {
       password: pw,
     };
     await client
-      .post("auth/login", userInfo)
+      .post('auth/login', userInfo)
       .then((response) => {
         if (response.status === 201) {
-          setErrors({ message: "", type: "success" });
+          setErrors({ message: '', type: 'success' });
           dispatch(setUserInfo(response.data));
           dispatch(closeModal());
         }
@@ -86,7 +86,7 @@ const SignIn = ({ onToggle }: Props) => {
       .catch((error) => {
         setErrors({
           message: ERROR_MESSAGE.signInError,
-          type: "pw",
+          type: 'pw',
         });
         console.error(`로그인을 완료할 수 없습니다. ${error}`);
         return;
@@ -94,7 +94,7 @@ const SignIn = ({ onToggle }: Props) => {
   };
 
   const waktaLogin = async () => {
-    const { data } = await client.get("auth/wakta");
+    const { data } = await client.get('auth/wakta');
     window.location.href = data.url;
   };
 

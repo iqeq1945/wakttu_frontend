@@ -5,7 +5,6 @@ const useInput = <T>(initInputs: T) => {
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
-
     setInputs({
       ...inputs,
       [name]: value,
