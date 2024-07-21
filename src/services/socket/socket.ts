@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 import { API_URL } from "../api";
 
-export const socket = io(`${API_URL}/wakttu`);
+export const socket = io(`${API_URL}/wakttu`, { withCredentials: true });
 
 export interface Chat {
   roomId: string;

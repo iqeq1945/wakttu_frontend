@@ -1,18 +1,14 @@
-import {
-  Header,
-  RoomDesc,
-  PlayerInfo,
-  GameNav,
-  List,
-  ChatBox,
-} from "@/components";
-import { Container } from "@/styles/common/Layout";
+import { RoomDesc, GameNav, List } from '@/components';
+import Header from '@/containers/common/Header';
+import { Container } from '@/styles/common/Layout';
+import Chat from '@/containers/roomlist/Chat';
 import {
   WrapRoomList,
   LeftWrapper,
   RightWrapper,
   Copyright,
-} from "@/styles/roomList/RoomList";
+} from '@/styles/roomList/RoomList';
+import PlayerInfo from '@/containers/roomlist/PlayerInfo';
 
 const RoomList = () => {
   return (
@@ -31,7 +27,7 @@ const RoomList = () => {
         <RightWrapper>
           <GameNav />
           <List />
-          <ChatBox />
+          <Chat />
         </RightWrapper>
       </WrapRoomList>
     </Container>

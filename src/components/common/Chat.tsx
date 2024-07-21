@@ -8,19 +8,20 @@ import {
 } from "@/styles/common/Chat";
 
 interface Props {
-  name: string;
+  user: any;
   chat: string;
+  date: string;
 }
 
-const Chat = ({ name, chat }: Props) => {
+const Chat = ({ user, chat, date }: Props) => {
   return (
     <PlayerChat>
       <CPlayer>
         <PlayerIcon src="/assets/amoeba.svg" />
-        <PlayerName>{name}</PlayerName>
+        <PlayerName>{user.name}</PlayerName>
         <ChatContent>{chat}</ChatContent>
       </CPlayer>
-      <DateContent>오전 12:00:00</DateContent>
+      <DateContent>{date}</DateContent>
     </PlayerChat>
   );
 };
