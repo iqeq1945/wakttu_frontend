@@ -1,24 +1,18 @@
 import { GameNav as CGameNav } from '@/components';
-import { selectModal } from '@/redux/modal/modalSlice';
+import { closeModal, openModal, selectModal } from '@/redux/modal/modalSlice';
 import { createRoom } from '@/services/socket/socket';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-
-interface Modal {
-  modalType: string | null;
-  open: boolean | null;
-}
+import { MouseEvent, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import FilterBox from './FilterBox';
 
 const GameNav = () => {
-  const modal = useSelector(selectModal);
-  const [view, setView] = useState<Modal>({ modalType: '', open: false });
-  const [filter, setFiter] = useState('');
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (modal.modalType === 'FILTER' || modal.modalType === 'CREATE_ROOM') {
-      setView(modal);
-    }
-  }, [modal]);
+  const OnModal = (type: string) => {
+    dispatch(openModal(type));
+  };
+
+  const OnFilter = () => {};
 
   const CreateRoom = () => {
     const data = {
@@ -33,7 +27,11 @@ const GameNav = () => {
   };
 
   const Filter = () => {};
-  return <CGameNav onCreateRoom={CreateRoom} onFilter={() => {}} />;
+  return (
+    <CGameNav onCreateRoom={CreateRoom} onFilter={OnFilter} onModal={OnModal}>
+      <FilterBox />
+    </CGameNav>
+  );
 };
 
 export default GameNav;

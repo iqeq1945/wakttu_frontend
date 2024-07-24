@@ -1,4 +1,4 @@
-import { GameNav } from '@/components';
+import GameNav from '@/containers/roomlist/GameNav';
 import List from '@/containers/roomlist/List';
 import RoomDesc from '@/containers/roomlist/RoomDesc';
 import Header from '@/containers/common/Header';

@@ -10,13 +10,18 @@ import {
   FilterIcon,
   PlusTitle,
 } from '@/styles/roomList/GameNav';
+import FilterBox from './FilterBox';
+import { ReactNode } from 'react';
 
 interface Props {
   onCreateRoom: () => void;
   onFilter: () => void;
+  onModal: (type: string) => void;
+
+  children: ReactNode;
 }
 
-const GameNav = ({ onCreateRoom, onFilter }: Props) => {
+const GameNav = ({ onCreateRoom, onFilter, onModal, children }: Props) => {
   return (
     <CGameNav>
       <LeftIcons>
@@ -27,8 +32,9 @@ const GameNav = ({ onCreateRoom, onFilter }: Props) => {
         <SearchBtn src="/assets/search.svg" />
         <RefreshBtn src="/assets/refresh.svg" onClick={getRoomList} />
       </LeftIcons>
-      <FilterToggled onClick={onFilter}>
+      <FilterToggled onClick={() => onModal('FILTER')}>
         <FilterIcon src="/assets/filter.svg" />
+        {children}
       </FilterToggled>
     </CGameNav>
   );

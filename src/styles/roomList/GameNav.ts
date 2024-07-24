@@ -68,6 +68,8 @@ const FilterToggled = styled.button`
   align-items: center;
   justify-content: center;
 
+  position: relative;
+
   gap: 0.625rem;
   padding: 0.5rem;
 
