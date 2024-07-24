@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { COLORS, FONT_SIZES } from "@/styles/theme";
+import styled from 'styled-components';
+import { COLORS, FONT_SIZES } from '@/styles/theme';
 
 const CGameNav = styled.div`
   display: flex;
@@ -36,8 +36,8 @@ const CreateRoomBtn = styled.button`
 const PlusTitle = styled.span`
   color: ${COLORS.bg};
 
-  font-family: "WantedSans-SemiBold";
-  font-size: ${FONT_SIZES["subtitle-2"]};
+  font-family: 'WantedSans-SemiBold';
+  font-size: ${FONT_SIZES['subtitle-2']};
 `;
 
 const Plus = styled.img`
@@ -80,6 +80,27 @@ const FilterToggled = styled.button`
 const FilterIcon = styled.img`
   width: 1.4rem;
   height: 1.4rem;
+`;
+
+const ModalFilter = styled.div`
+  display: flex;
+  width: 16.125rem;
+  padding: 1.75rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+`;
+
+const FilterWithText = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+`;
+
+const FilterLabel = styled.h5`
+  color: ${COLORS.text};
+
+  font-family: 'WantedSans-SemiBold';
 `;
 
 export {
