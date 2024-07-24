@@ -82,27 +82,6 @@ const FilterIcon = styled.img`
   height: 1.4rem;
 `;
 
-const ModalFilter = styled.div`
-  display: flex;
-  width: 16.125rem;
-  padding: 1.75rem;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.5rem;
-`;
-
-const FilterWithText = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-`;
-
-const FilterLabel = styled.h5`
-  color: ${COLORS.text};
-
-  font-family: 'WantedSans-SemiBold';
-`;
-
 export {
   CGameNav,
   LeftIcons,
