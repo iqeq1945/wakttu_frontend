@@ -7,49 +7,108 @@ import {
   DropdownLine,
   FilterLabel,
   FilterWithText,
+  Icon,
   Selected,
 } from '@/styles/roomList/FilterBox';
-import { FilterIcon } from '@/styles/roomList/GameNav';
 import React, { MouseEvent, RefObject } from 'react';
 
 interface Props {
   modalRef: RefObject<HTMLDivElement>;
+  onDropdown: (index: number) => void;
+  isDown: boolean[];
+  onSelect: (e: any, index: number) => void;
+  selected: string[];
 }
 
-const FilterBox = ({ modalRef }: Props) => {
+const FilterBox = ({
+  modalRef,
+  onDropdown,
+  isDown,
+  onSelect,
+  selected,
+}: Props) => {
   return (
     <CSelect ref={modalRef}>
       <FilterWithText>
-        <FilterIcon src="/assets/filter.svg" />
+        <Icon src="/assets/filter-green.svg" />
         <FilterLabel>필터</FilterLabel>
       </FilterWithText>
       <CDropdown>
         <DropdownLabel>생성순</DropdownLabel>
-        <Dropdown>
-          <Selected>최근게임 순</Selected>
-          <DropdownLine src="/assets/down-line.svg" />
-          <DropdownItem>최근 게임 순</DropdownItem>
-          <DropdownItem>오래된 게임 순</DropdownItem>
+        <Dropdown onClick={() => onDropdown(0)}>
+          <Selected>{selected[0]}</Selected>
+          {!isDown[0] && <DropdownLine src="/assets/down-line.svg" />}
+          {isDown[0] && (
+            <>
+              <DropdownLine src="/assets/up-line.svg" />
+              <DropdownItem
+                data-value="asc"
+                onClick={(e: MouseEvent) => onSelect(e, 0)}
+              >
+                최근 게임 순
+              </DropdownItem>
+              <DropdownItem
+                data-value="desc"
+                onClick={(e: MouseEvent) => onSelect(e, 0)}
+              >
+                오래된 게임 순
+              </DropdownItem>
+            </>
+          )}
         </Dropdown>
       </CDropdown>
       <CDropdown>
         <DropdownLabel>게임</DropdownLabel>
-        <Dropdown>
-          <Selected>전체</Selected>
-          <DropdownLine src="/assets/down-line.svg" />
-          <DropdownItem>전체</DropdownItem>
-          <DropdownItem>끝말잇기</DropdownItem>
-          <DropdownItem>쿵쿵따</DropdownItem>
+        <Dropdown onClick={() => onDropdown(1)}>
+          <Selected>{selected[1]}</Selected>
+          {!isDown[1] && <DropdownLine src="/assets/down-line.svg" />}
+          {isDown[1] && (
+            <>
+              <DropdownLine src="/assets/up-line.svg" />
+              <DropdownItem onClick={(e: MouseEvent) => onSelect(e, 1)}>
+                전체
+              </DropdownItem>
+              <DropdownItem
+                onClick={(e: MouseEvent) => onSelect(e, 1)}
+                data-value="0"
+              >
+                끝말잇기
+              </DropdownItem>
+              <DropdownItem
+                onClick={(e: MouseEvent) => onSelect(e, 1)}
+                data-value="1"
+              >
+                쿵쿵따
+              </DropdownItem>
+            </>
+          )}
         </Dropdown>
       </CDropdown>
       <CDropdown>
         <DropdownLabel>방 상태</DropdownLabel>
-        <Dropdown>
-          <Selected>전체</Selected>
-          <DropdownLine src="/assets/down-line.svg" />
-          <DropdownItem>전체</DropdownItem>
-          <DropdownItem>대기중</DropdownItem>
-          <DropdownItem>게임중</DropdownItem>
+        <Dropdown onClick={() => onDropdown(2)}>
+          <Selected>{selected[2]}</Selected>
+          {!isDown[2] && <DropdownLine src="/assets/down-line.svg" />}
+          {isDown[2] && (
+            <>
+              <DropdownLine src="/assets/up-line.svg" />
+              <DropdownItem onClick={(e: MouseEvent) => onSelect(e, 2)}>
+                전체
+              </DropdownItem>
+              <DropdownItem
+                onClick={(e: MouseEvent) => onSelect(e, 2)}
+                data-value="대기중"
+              >
+                대기중
+              </DropdownItem>
+              <DropdownItem
+                onClick={(e: MouseEvent) => onSelect(e, 2)}
+                data-value="게임중"
+              >
+                게임중
+              </DropdownItem>
+            </>
+          )}
         </Dropdown>
       </CDropdown>
     </CSelect>

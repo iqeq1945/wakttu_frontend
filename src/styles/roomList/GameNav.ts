@@ -24,7 +24,7 @@ const CreateRoomBtn = styled.button`
   align-items: center;
 
   gap: 0.625rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.75rem;
 
   border: none;
   border-radius: 0.5rem;

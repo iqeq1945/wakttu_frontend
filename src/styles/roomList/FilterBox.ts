@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { COLORS, FONT_SIZES } from '../theme';
+import { FilterIcon } from './GameNav';
 
 const CSelect = styled.div`
   display: flex;
@@ -86,6 +87,10 @@ const FilterLabel = styled.h5`
   font-family: 'WantedSans-SemiBold';
 `;
 
+const Icon = styled(FilterIcon)`
+  width: 1.5rem;
+`;
+
 export {
   CSelect,
   FilterLabel,
@@ -96,4 +101,5 @@ export {
   DropdownLabel,
   DropdownLine,
   Selected,
+  Icon,
 };
