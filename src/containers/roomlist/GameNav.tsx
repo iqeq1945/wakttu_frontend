@@ -1,8 +1,7 @@
 import { GameNav as CGameNav } from '@/components';
 import { closeModal, openModal, selectModal } from '@/redux/modal/modalSlice';
 import { createRoom } from '@/services/socket/socket';
-import { MouseEvent, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import FilterBox from './FilterBox';
 
 const GameNav = () => {

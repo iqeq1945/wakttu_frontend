@@ -46,7 +46,9 @@ const RoomDesc = () => {
       </WrapGameInfo>
       <WrapMod>
         <Mod>
-          <ModText>{roomInfo.option}</ModText>
+          <ModText>
+            {roomInfo.option?.length ? roomInfo.option.join(', ') : '-'}
+          </ModText>
         </Mod>
         <WatingLarge>
           <WatingText>{roomInfo.status ? '게임 중' : '대기 중'}</WatingText>

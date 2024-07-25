@@ -1,4 +1,5 @@
 import { FilterBox as CFiterBox } from '@/components';
+import { selectFilter, setFilter } from '@/redux/filter/filterSlice';
 import { closeModal, selectModal } from '@/redux/modal/modalSlice';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +13,7 @@ interface Fiter {
 const FilterBox = () => {
   const modal = useSelector(selectModal);
   const ref = useRef<HTMLDivElement>(null);
+  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   const [isDown, setDown] = useState<boolean[]>([false, false, false]);
@@ -20,12 +22,6 @@ const FilterBox = () => {
     '전체',
     '전체',
   ]);
-
-  const [filter, setFilter] = useState<Fiter>({
-    time: undefined,
-    type: undefined,
-    status: undefined,
-  });
 
   const onDropdown = (index: number) => {
     let copy = [...isDown];
@@ -43,24 +39,27 @@ const FilterBox = () => {
   const onFilter = (data: string | undefined, index: number) => {
     switch (index) {
       case 0: {
-        setFilter({ ...filter, time: data });
+        dispatch(setFilter({ ...filter, time: data }));
         break;
       }
       case 1: {
-        setFilter({
-          ...filter,
-          type: data ? parseInt(data as string, 10) : undefined,
-        });
+        dispatch(
+          setFilter({ ...filter, type: data ? parseInt(data, 10) : undefined })
+        );
         break;
       }
       case 2: {
-        setFilter({ ...filter, status: data });
+        dispatch(
+          setFilter({
+            ...filter,
+            start: data === undefined ? data : data === '대기중' ? false : true,
+          })
+        );
+        break;
       }
     }
   };
-  useEffect(() => {
-    console.log(filter);
-  }, [filter]);
+
   useEffect(() => {
     const offModal = (e: any) => {
       e.preventDefault();

@@ -10,7 +10,6 @@ import {
   FilterIcon,
   PlusTitle,
 } from '@/styles/roomList/GameNav';
-import FilterBox from './FilterBox';
 import { ReactNode } from 'react';
 
 interface Props {
