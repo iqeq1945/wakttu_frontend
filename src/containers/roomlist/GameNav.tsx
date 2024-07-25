@@ -1,5 +1,5 @@
 import { GameNav as CGameNav } from '@/components';
-import { closeModal, openModal, selectModal } from '@/redux/modal/modalSlice';
+import { openModal } from '@/redux/modal/modalSlice';
 import { createRoom } from '@/services/socket/socket';
 import { useDispatch } from 'react-redux';
 import FilterBox from './FilterBox';
@@ -10,8 +10,6 @@ const GameNav = () => {
   const OnModal = (type: string) => {
     dispatch(openModal(type));
   };
-
-  const OnFilter = () => {};
 
   const CreateRoom = () => {
     const data = {
@@ -25,9 +23,8 @@ const GameNav = () => {
     createRoom(data);
   };
 
-  const Filter = () => {};
   return (
-    <CGameNav onCreateRoom={CreateRoom} onFilter={OnFilter} onModal={OnModal}>
+    <CGameNav onModal={OnModal}>
       <FilterBox />
     </CGameNav>
   );

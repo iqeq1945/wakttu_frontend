@@ -50,8 +50,8 @@ const RoomDesc = () => {
             {roomInfo.option?.length ? roomInfo.option.join(', ') : '-'}
           </ModText>
         </Mod>
-        <WatingLarge>
-          <WatingText>{roomInfo.status ? '게임 중' : '대기 중'}</WatingText>
+        <WatingLarge $start={roomInfo.start}>
+          <WatingText>{roomInfo.start ? '게임 중' : '대기 중'}</WatingText>
         </WatingLarge>
       </WrapMod>
       <JoinButton>

@@ -13,18 +13,15 @@ import {
 import { ReactNode } from 'react';
 
 interface Props {
-  onCreateRoom: () => void;
-  onFilter: () => void;
   onModal: (type: string) => void;
-
   children: ReactNode;
 }
 
-const GameNav = ({ onCreateRoom, onFilter, onModal, children }: Props) => {
+const GameNav = ({ onModal, children }: Props) => {
   return (
     <CGameNav>
       <LeftIcons>
-        <CreateRoomBtn onClick={onCreateRoom}>
+        <CreateRoomBtn onClick={() => onModal('CREATE_ROOM')}>
           <Plus src="/assets/plus.svg" />
           <PlusTitle>방 만들기</PlusTitle>
         </CreateRoomBtn>
