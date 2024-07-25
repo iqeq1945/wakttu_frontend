@@ -11,8 +11,13 @@ import {
   Copyright,
 } from '@/styles/roomList/RoomList';
 import PlayerInfo from '@/containers/roomlist/PlayerInfo';
+import { useSelector } from 'react-redux';
+import { selectModal } from '@/redux/modal/modalSlice';
+import CreateRoom from '@/containers/roomlist/CreateRoom';
 
 const RoomList = () => {
+  const modal = useSelector(selectModal);
+
   return (
     <Container>
       <Header />
@@ -32,6 +37,7 @@ const RoomList = () => {
           <Chat />
         </RightWrapper>
       </WrapRoomList>
+      {modal.modalType === 'CREATE_ROOM' && modal.open && <CreateRoom />}
     </Container>
   );
 };

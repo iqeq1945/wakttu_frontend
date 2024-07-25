@@ -4,12 +4,6 @@ import { closeModal, selectModal } from '@/redux/modal/modalSlice';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-interface Fiter {
-  time: string | undefined;
-  type: number | undefined;
-  status: string | undefined;
-}
-
 const FilterBox = () => {
   const modal = useSelector(selectModal);
   const ref = useRef<HTMLDivElement>(null);

@@ -6,29 +6,33 @@ const Modal = styled.div`
   justify-content: center;
   align-items: center;
 
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 
-  width: 100%;
-  height: 100%;
+  z-index: 100;
 `;
 
 const CCreateRoom = styled.div`
   display: flex;
-  width: 21.125rem;
+  width: 22rem;
+
   padding: 1.75rem;
   flex-direction: column;
   align-items: flex-start;
   gap: 1.5rem;
 
   border-radius: 16px;
-  border: 2px solid ${COLORS['gray-4']}
-  background: ${COLORS.bg}
+  border: 2px solid ${COLORS['gray-4']};
+  background: ${COLORS.bg};
 `;
 
 const LabelWithIcon = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.375reml;
+  gap: 0.375rem;
 `;
 
 const CreateIcon = styled.img`
@@ -44,10 +48,10 @@ const CreateLabel = styled.h5`
 
 const CCreate = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: flex-start;
-  gap: 0.75rem;
-  align-self: stretch;
+
+  gap: 1rem;
 `;
 
 const CLabel = styled.span`
@@ -57,6 +61,7 @@ const CLabel = styled.span`
   flex-direction: column;
   justify-content: center;
 
+  white-space: nowrap;
   ${COLORS.text}
 
   font-family: 'WantedSans-Medium';

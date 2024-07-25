@@ -22,3 +22,4 @@ export { default as PlayerInfo } from './roomList/PlayerInfo';
 export { default as GameNav } from './roomList/GameNav';
 export { default as List } from './roomList/List';
 export { default as FilterBox } from './roomList/FilterBox';
+export { default as CreateRoom } from './roomList/CreateRoom';
