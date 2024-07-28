@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLORS, FONT_SIZES } from '../theme';
 
-const Modal = styled.div`
+const Modal = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,6 +13,7 @@ const Modal = styled.div`
   height: 100vh;
 
   z-index: 100;
+  background: rgb(0, 0, 0, 0.5);
 `;
 
 const CCreateRoom = styled.div`
@@ -49,7 +50,6 @@ const CreateLabel = styled.h5`
 const CCreate = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
 
   gap: 1rem;
 `;
@@ -89,9 +89,18 @@ const CheckBox = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+
+  input {
+    display: none;
+  }
 `;
 
-const CheckIcon = styled.input`
+const CCheck = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+const CheckIcon = styled.img`
   width: 1.25rem;
   height: 1.25rem;
 `;
@@ -138,6 +147,54 @@ const Selected = styled.span`
   font-size: ${FONT_SIZES['body-1']};
 `;
 
+const CButton = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 0.75rem;
+`;
+
+const ConfirmButton = styled.button`
+  display: flex;
+  padding: 1rem 2.625rem;
+  justify-content: center;
+  align-items: center;
+
+  flex: 1 0 0;
+
+  border-radius: 8px;
+  border: none;
+  background: ${COLORS.primary};
+
+  &:hover {
+    background: ${COLORS['primary-hov']};
+  }
+`;
+
+const CancleButton = styled.button`
+  display: flex;
+  width: 5rem;
+
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 8px;
+  border: 1px solid var(--Outline-Black, rgba(0, 0, 0, 0.1));
+  background: ${COLORS['gray-4']};
+
+  &:hover {
+    background: ${COLORS['gray-5']};
+  }
+`;
+
+const ButtonText = styled.span<{ $color?: boolean }>`
+  color: ${({ $color }) => ($color ? COLORS['gray-1'] : COLORS.bg)};
+  text-align: center;
+  font-family: 'WantedSans-SemiBold';
+  font-size: ${FONT_SIZES['subtitle-1']};
+  font-weight: 600;
+`;
+
 export {
   Modal,
   CCreateRoom,
@@ -145,6 +202,7 @@ export {
   CreateIcon,
   CreateLabel,
   CCreate,
+  CCheck,
   CheckBox,
   CheckIcon,
   CLabel,
@@ -153,4 +211,8 @@ export {
   DropdownItem,
   DropdownLine,
   Selected,
+  CButton,
+  ButtonText,
+  ConfirmButton,
+  CancleButton,
 };

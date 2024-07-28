@@ -1,10 +1,11 @@
 import { Container } from '@/styles/common/Layout';
 import Header from '@/containers/common/Header';
-import { ChatBox, GameNav, PlayerList } from '@/components';
+import { PlayerList } from '@/components';
 import { LeftFooter, RightWrapper, WrapRoom } from '@/styles/room/Room';
 import { LeftWrapper, Copyright } from '@/styles/room/Room';
 import { ORoomDesc, Ready } from '@/components';
-import { ChangeEvent } from 'react';
+
+import Chat from '@/containers/roomlist/Chat';
 const Room = () => {
   return (
     <Container>
@@ -22,18 +23,8 @@ const Room = () => {
           </LeftFooter>
         </LeftWrapper>
         <RightWrapper>
-          <GameNav />
           <PlayerList />
-          <ChatBox
-            log={[]}
-            message={''}
-            onChange={function (event: ChangeEvent<Element>): void {
-              throw new Error('Function not implemented.');
-            }}
-            onClick={function (): void {
-              throw new Error('Function not implemented.');
-            }}
-          />
+          <Chat />
         </RightWrapper>
       </WrapRoom>
     </Container>

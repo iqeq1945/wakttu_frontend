@@ -27,12 +27,12 @@ export interface Kick {
 export interface Room {
   id?: string;
   idx?: number;
-  title: string;
+  title?: string;
   password?: string;
-  type: number;
-  round: number;
-  time: number;
-  total: number;
+  type?: number;
+  round?: number;
+  time?: number;
+  total?: number;
   option?: string[];
   status?: boolean;
   [x: string]: any;

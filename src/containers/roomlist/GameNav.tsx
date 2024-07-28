@@ -11,18 +11,6 @@ const GameNav = () => {
     dispatch(openModal(type));
   };
 
-  const CreateRoom = () => {
-    const data = {
-      title: '방의 제목',
-      type: 0,
-      round: 6,
-      option: ['품어', '매너', '외수'],
-      total: 8,
-      time: 60000,
-    };
-    createRoom(data);
-  };
-
   return (
     <CGameNav onModal={OnModal}>
       <FilterBox />

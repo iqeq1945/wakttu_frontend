@@ -20,13 +20,18 @@ const List = () => {
   }, []);
 
   useEffect(() => {
+    const copy = [...roomList].sort((a, b) =>
+      filter.time === 'desc' ? a.idx! - b.idx! : b.idx! - a.idx!
+    );
+    setRoomList(copy);
+  }, [filter.time]);
+
+  useEffect(() => {
     socket.on('roomList', (data) => {
-      data.sort((a: Room, b: Room) => {
-        filter.time === 'desc'
-          ? a.createdAt - b.createdAt
-          : b.createdAt - a.createdAt;
-      });
-      setRoomList(data);
+      const copy = [...data].sort((a, b) =>
+        filter.time === 'desc' ? a.idx! - b.idx! : b.idx! - a.idx!
+      );
+      setRoomList(copy);
     });
 
     return () => {

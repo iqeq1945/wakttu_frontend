@@ -56,8 +56,12 @@ const FilterBox = () => {
 
   useEffect(() => {
     const offModal = (e: any) => {
-      e.preventDefault();
-      if (ref && !ref.current?.contains(e.target as Node)) {
+      if (
+        modal.modalType === 'FILTER' &&
+        modal.open &&
+        ref &&
+        !ref.current?.contains(e.target as Node)
+      ) {
         dispatch(closeModal());
       }
     };

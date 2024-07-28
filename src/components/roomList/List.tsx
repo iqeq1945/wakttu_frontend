@@ -62,7 +62,7 @@ const List = ({ roomList, onClick, filter }: Props) => {
                       <MediumText $color={true}>라운드</MediumText>
                       <MediumText>{room.round}</MediumText>
                       <MediumText $color={true}>시간</MediumText>
-                      <MediumText>{room.time / 1000}초</MediumText>
+                      <MediumText>{room.time! / 1000}초</MediumText>
                     </RoomGame>
                   </RoomInfo>
                 </Summary>

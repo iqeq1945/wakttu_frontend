@@ -40,12 +40,12 @@ const Chat = () => {
   }, []);
 
   useEffect(() => {
-    socket.on('lobby.chat', (data) => {
+    socket.on('chat', (data) => {
       data.date = getTime();
       setLog((prev) => [...prev, data]);
     });
     return () => {
-      socket.off('lobby.chat');
+      socket.off('chat');
     };
   }, [log]);
 
