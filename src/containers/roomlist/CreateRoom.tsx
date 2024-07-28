@@ -1,7 +1,7 @@
 import { CreateRoom as CCreateRoom } from '@/components';
 import { closeModal, selectModal } from '@/redux/modal/modalSlice';
-import { createRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
-import { createRoom, socket } from '@/services/socket/socket';
+import { createRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
+import { createRoom, enter, socket } from '@/services/socket/socket';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,7 +22,7 @@ const CreateRoom = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const [roomInfo, setRoomInfo] = useState<RoomInfo>({
+  const [room, setRoom] = useState<RoomInfo>({
     title: '왁뚜 생활',
     password: undefined,
     total: 8,
@@ -46,12 +46,12 @@ const CreateRoom = () => {
       let onlyNumber = parseInt(value, 10);
       if (Number.isNaN(onlyNumber) || onlyNumber < 2 || onlyNumber > 8)
         onlyNumber = 8;
-      setRoomInfo((prev) => {
+      setRoom((prev) => {
         return { ...prev, [name]: onlyNumber };
       });
       return;
     }
-    setRoomInfo((prev) => {
+    setRoom((prev) => {
       return { ...prev, [name]: value };
     });
   };
@@ -59,17 +59,17 @@ const CreateRoom = () => {
   const onSelect = (name: string, value: any) => {
     if (name === 'option') {
       let copy;
-      if (roomInfo.option.indexOf(value) >= 0) {
-        copy = roomInfo.option.filter((item) => item !== value);
+      if (room.option.indexOf(value) >= 0) {
+        copy = room.option.filter((item) => item !== value);
       } else {
-        copy = roomInfo.option;
+        copy = room.option;
         copy.push(value);
       }
-      setRoomInfo((prev) => {
+      setRoom((prev) => {
         return { ...prev, option: copy };
       });
     } else {
-      setRoomInfo((prev) => {
+      setRoom((prev) => {
         return { ...prev, [name]: value };
       });
     }
@@ -80,15 +80,18 @@ const CreateRoom = () => {
   };
 
   const onCreate = () => {
-    createRoom(roomInfo);
+    createRoom(room);
   };
 
   useEffect(() => {
     socket.on('createRoom', (data) => {
-      const id = data.roomId as string;
-      const password = data.password;
-      dispatch(createRoomInfo({ id, password }));
-      router.push(`/room/${data.roomId}`);
+      enter(data);
+    });
+
+    socket.on('enter', (data: any) => {
+      dispatch(setRoomInfo(data));
+      console.log(data);
+      router.push(`/room/${data.id}`);
     });
 
     return () => {
@@ -119,7 +122,7 @@ const CreateRoom = () => {
       modalRef={ref}
       isDown={isDown}
       onDropdown={onDropdown}
-      roomInfo={roomInfo}
+      roomInfo={room}
       onRoomInfo={onRoomInfo}
       onSelect={onSelect}
       onCancle={onCancle}
