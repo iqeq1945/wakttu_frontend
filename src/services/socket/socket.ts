@@ -38,6 +38,22 @@ export interface Room {
   [x: string]: any;
 }
 
+export interface Game {
+  host: string;
+  type: number;
+  round: number;
+  turn: number;
+  total: number;
+  users: { id: string; score: number }[];
+  keyword: string | undefined;
+  target: string;
+  option: boolean[] | undefined;
+  chain: number;
+  roundTime: number;
+  turnTime: number;
+  mission: string | undefined;
+}
+
 export type UpdateRoom = Partial<Room>;
 
 export interface Ban {
