@@ -1,8 +1,10 @@
 import { ChatBox } from '@/components';
 import useInput from '@/hooks/useInput';
 import { getTime } from '@/modules/Date';
-import { sendLobbyChat, socket } from '@/services/socket/socket';
-import { useEffect, useState, MouseEvent, useRef, useCallback } from 'react';
+import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
+import { sendChat, socket } from '@/services/socket/socket';
+import { useEffect, useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 interface InputProps {
   chat: string;
@@ -15,6 +17,7 @@ export interface LogProps {
 }
 
 const Chat = () => {
+  const roomId = useSelector(selectRoomId) as string;
   const [log, setLog] = useState<LogProps[]>([]);
   const { inputs, setInputs, onInputChange } = useInput<InputProps>({
     chat: '',
@@ -24,7 +27,15 @@ const Chat = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onSendMessage = () => {
-    if (inputs.chat) sendLobbyChat(inputs.chat);
+    if (inputs.chat) {
+      sendChat({
+        roomId,
+        chat: inputs.chat,
+        roundTime: null,
+        turnTime: null,
+        score: null,
+      });
+    }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
   };

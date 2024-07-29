@@ -15,12 +15,14 @@ import {
   JoinText,
 } from '@/styles/roomList/RoomDesc';
 import { RoomNumber } from '@/components';
-import { useSelector } from 'react-redux';
-import { selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
+import { Room } from '@/services/socket/socket';
 
-const RoomDesc = () => {
-  const roomInfo = useSelector(selectRoomInfo);
+interface Props {
+  roomInfo: Room;
+  onEnter?: () => void;
+}
 
+const RoomDesc = ({ roomInfo, onEnter }: Props) => {
   return (
     <CRoomDesc>
       <WrapRoomTitle>
@@ -40,7 +42,7 @@ const RoomDesc = () => {
               {roomInfo.users?.length}/{roomInfo.total}명
             </Info>
             <Info>{roomInfo.round}</Info>
-            <Info>{roomInfo.time / 1000}초</Info>
+            <Info>{roomInfo.time! / 1000}초</Info>
           </WrapInfo>
         </RoomInfo>
       </WrapGameInfo>
@@ -54,9 +56,13 @@ const RoomDesc = () => {
           <WatingText>{roomInfo.start ? '게임 중' : '대기 중'}</WatingText>
         </WatingLarge>
       </WrapMod>
-      <JoinButton>
-        <JoinText>입장하기</JoinText>
-      </JoinButton>
+      {onEnter && (
+        <JoinButton>
+          <JoinText onClick={roomInfo.start ? undefined : onEnter}>
+            입장하기
+          </JoinText>
+        </JoinButton>
+      )}
     </CRoomDesc>
   );
 };

@@ -80,24 +80,9 @@ const CreateRoom = () => {
   };
 
   const onCreate = () => {
+    dispatch(closeModal());
     createRoom(room);
   };
-
-  useEffect(() => {
-    socket.on('createRoom', (data) => {
-      enter(data);
-    });
-
-    socket.on('enter', (data: any) => {
-      dispatch(setRoomInfo(data));
-      console.log(data);
-      router.push(`/room/${data.id}`);
-    });
-
-    return () => {
-      socket.off('createRoom');
-    };
-  }, [dispatch, router]);
 
   useEffect(() => {
     const offModal = (e: any) => {

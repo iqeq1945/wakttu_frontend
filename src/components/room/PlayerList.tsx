@@ -1,18 +1,24 @@
-import { CPlayerList, WrapPlayerList } from "@/styles/room/PlayerList";
-import { Player } from "@/components";
+import { CPlayerList, WrapPlayerList } from '@/styles/room/PlayerList';
+import { Player } from '@/components';
 
-const PlayerList = () => {
+interface Props {
+  users: any[];
+}
+
+const PlayerList = ({ users }: Props) => {
+  const length = users.length;
+  const arr = [...users];
+
+  for (let i = 0; i < 8 - length; i++) {
+    arr.push({ id: i, name: undefined });
+  }
+
   return (
     <CPlayerList>
       <WrapPlayerList>
-        <Player $ready={true} />
-        <Player $ready={true} />
-        <Player $ready={true} />
-        <Player $ready={false} />
-        <Player $ready={false} />
-        <Player $ready={false} />
-        <Player $ready={false} />
-        <Player $ready={false} />
+        {arr.map((user, idx) => {
+          return <Player key={user.id} $ready={false} user={user} />;
+        })}
       </WrapPlayerList>
     </CPlayerList>
   );
