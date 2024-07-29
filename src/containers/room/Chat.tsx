@@ -27,6 +27,7 @@ const Chat = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onSendMessage = () => {
+    console.log(roomId);
     if (inputs.chat) {
       sendChat({
         roomId,

@@ -10,6 +10,7 @@ import { isExistError, isIdValidError } from '@/containers/auth/checkAuth';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '@/redux/user/userSlice';
 import { closeModal } from '@/redux/modal/modalSlice';
+import styled from 'styled-components';
 
 interface InputProps {
   id: string;

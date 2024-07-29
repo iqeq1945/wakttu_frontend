@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Game } from '@/services/socket/socket';
 
+interface Users {
+  id: string;
+  score: number;
+}
+
 const initialState: Game = {
   host: '',
   type: 0,
@@ -27,12 +32,16 @@ export const gameSlice = createSlice({
     clearGame: (state) => {
       return initialState;
     },
+    setReady: (state, action: PayloadAction<Users[]>) => {
+      return { ...state, users: action.payload };
+    },
   },
 });
 
-export const { setGame, clearGame } = gameSlice.actions;
+export const { setGame, clearGame, setReady } = gameSlice.actions;
 
 export const selectGame = (state: { game: Game }) => state.game;
 export const selectReadyUser = (state: { game: Game }) => state.game.users;
+export const selectHost = (state: { game: Game }) => state.game.host;
 
 export default gameSlice.reducer;

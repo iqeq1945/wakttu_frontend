@@ -57,10 +57,8 @@ const RoomDesc = ({ roomInfo, onEnter }: Props) => {
         </WatingLarge>
       </WrapMod>
       {onEnter && (
-        <JoinButton>
-          <JoinText onClick={roomInfo.start ? undefined : onEnter}>
-            입장하기
-          </JoinText>
+        <JoinButton onClick={roomInfo.start ? undefined : onEnter}>
+          <JoinText>입장하기</JoinText>
         </JoinButton>
       )}
     </CRoomDesc>

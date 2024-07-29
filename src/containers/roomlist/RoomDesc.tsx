@@ -1,8 +1,9 @@
 import { RoomDesc as CRoomDesc } from '@/components';
+import { setGame } from '@/redux/game/gameSlice';
 import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { enter, socket } from '@/services/socket/socket';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const RoomDesc = () => {
@@ -20,10 +21,12 @@ const RoomDesc = () => {
       enter(data);
     });
 
-    socket.on('enter', (data: any) => {
+    socket.on('enter', async (data: any) => {
       if (data) {
-        dispatch(setRoomInfo(data));
-        router.push(`/room/${data.id}`);
+        const { roomInfo, game } = data;
+        await dispatch(setRoomInfo(roomInfo));
+        await dispatch(setGame(game));
+        router.push(`/room/${roomInfo.id}`);
       }
     });
 

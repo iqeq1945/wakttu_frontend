@@ -4,6 +4,8 @@ import { API_URL } from '../api';
 export const socket = io(`${API_URL}/wakttu`, {
   withCredentials: true,
   autoConnect: true,
+  reconnection: true,
+  reconnectionAttempts: 5,
 });
 
 export interface Chat {
@@ -44,7 +46,7 @@ export interface Game {
   round: number;
   turn: number;
   total: number;
-  users: { id: string; score: number }[];
+  users: { [x: string]: any }[];
   keyword: string | undefined;
   target: string;
   option: boolean[] | undefined;

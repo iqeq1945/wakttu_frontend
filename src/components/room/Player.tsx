@@ -11,9 +11,10 @@ import {
 interface Props {
   $ready: boolean;
   user: any;
+  host?: boolean;
 }
 
-const Player = ({ $ready, user }: Props) => {
+const Player = ({ $ready, user, host }: Props) => {
   return (
     <CPlayer>
       {user.name && (
@@ -25,9 +26,15 @@ const Player = ({ $ready, user }: Props) => {
               <PlayerName>{user.name}</PlayerName>
             </CBadge>
           </PlayerInfo>
-          <PlayerReady $ready={$ready}>
-            <span>{$ready ? '준비 됨' : '준비 안됨'}</span>
-          </PlayerReady>
+          {host ? (
+            <PlayerReady $ready={true}>
+              <span>방 장</span>
+            </PlayerReady>
+          ) : (
+            <PlayerReady $ready={$ready}>
+              <span>{$ready ? '준비 됨' : '준비 안됨'}</span>
+            </PlayerReady>
+          )}
         </>
       )}
       {!user.name && (

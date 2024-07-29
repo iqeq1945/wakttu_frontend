@@ -37,5 +37,7 @@ export const { createRoomInfo, setRoomInfo, clearRoomInfo } =
 
 export const selectRoomInfo = (state: { roomInfo: Room }) => state.roomInfo;
 export const selectRoomId = (state: { roomInfo: Room }) => state.roomInfo.id;
+export const selectRoomUsers = (state: { roomInfo: Room }) =>
+  state.roomInfo.users;
 
 export default roomInfoSlice.reducer;

@@ -2,7 +2,7 @@ import { ChatBox } from '@/components';
 import useInput from '@/hooks/useInput';
 import { getTime } from '@/modules/Date';
 import { sendLobbyChat, socket } from '@/services/socket/socket';
-import { useEffect, useState, MouseEvent, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 interface InputProps {
   chat: string;

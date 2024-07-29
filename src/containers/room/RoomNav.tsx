@@ -15,10 +15,10 @@ const RoomNav = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const onExit = () => {
+  const onExit = async () => {
     exit(roomId);
+    await router.push('/roomlist');
     dispatch(clearRoomInfo());
-    router.push('/roomlist');
   };
 
   useEffect(() => {
@@ -27,7 +27,8 @@ const RoomNav = () => {
       dispatch(setRoomInfo(roomInfo));
       dispatch(setGame(game));
     });
-  });
+  }, [dispatch]);
+
   return <CRoomNav onExit={onExit} />;
 };
 
