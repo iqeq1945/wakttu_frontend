@@ -33,5 +33,6 @@ export const gameSlice = createSlice({
 export const { setGame, clearGame } = gameSlice.actions;
 
 export const selectGame = (state: { game: Game }) => state.game;
+export const selectReadyUser = (state: { game: Game }) => state.game.users;
 
 export default gameSlice.reducer;

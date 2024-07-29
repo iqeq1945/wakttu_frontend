@@ -3,9 +3,10 @@ import Header from '@/containers/common/Header';
 import { PlayerList } from '@/components';
 import { LeftFooter, RightWrapper, WrapRoom } from '@/styles/room/Room';
 import { LeftWrapper, Copyright } from '@/styles/room/Room';
-import { ORoomDesc, Ready } from '@/components';
+import { ORoomDesc } from '@/components';
 import RoomNav from '@/containers/room/RoomNav';
 import Chat from '@/containers/roomlist/Chat';
+import Ready from '@/containers/room/Ready';
 
 const Room = () => {
   return (

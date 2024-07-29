@@ -1,9 +1,12 @@
-import { CReady, ReadyButton } from "@/styles/room/Ready";
+import { CReady, ReadyButton } from '@/styles/room/Ready';
 
-const Ready = () => {
+interface Props {
+  onReady: () => void;
+}
+const Ready = ({ onReady }: Props) => {
   return (
     <CReady>
-      <ReadyButton>준비</ReadyButton>
+      <ReadyButton onClick={onReady}>준비</ReadyButton>
     </CReady>
   );
 };

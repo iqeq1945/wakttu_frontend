@@ -1,4 +1,5 @@
 import { RoomNav as CRoomNav } from '@/components';
+import { setGame } from '@/redux/game/gameSlice';
 import {
   clearRoomInfo,
   selectRoomId,
@@ -24,6 +25,7 @@ const RoomNav = () => {
     socket.on('exit', (data) => {
       const { roomInfo, game } = data;
       dispatch(setRoomInfo(roomInfo));
+      dispatch(setGame(game));
     });
   });
   return <CRoomNav onExit={onExit} />;
