@@ -17,6 +17,7 @@ export { default as Ready } from './room/Ready';
 export { default as Player } from './room/Player';
 export { default as PlayerList } from './room/PlayerList';
 export { default as RoomNav } from './room/RoomNav';
+export { default as UpdateRoom } from './room/UpdateRoom';
 
 export { default as RoomDesc } from './roomList/RoomDesc';
 export { default as PlayerInfo } from './roomList/PlayerInfo';

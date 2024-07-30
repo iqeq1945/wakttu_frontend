@@ -4,12 +4,16 @@ import {
   CButton,
   ExitButton,
   ExitIcon,
+  UpdateButton,
+  UpdateIcon,
 } from '@/styles/room/RoomNav';
 
 interface Props {
   onExit: () => void;
+  onModal: () => void;
+  host?: boolean;
 }
-const RoomNav = ({ onExit }: Props) => {
+const RoomNav = ({ onExit, onModal, host }: Props) => {
   return (
     <CRoomNav>
       <CButton>
@@ -18,6 +22,12 @@ const RoomNav = ({ onExit }: Props) => {
           <ButtonText>나가기</ButtonText>
         </ExitButton>
       </CButton>
+      {host && (
+        <UpdateButton onClick={onModal}>
+          <UpdateIcon src="/assets/update.svg" />
+          <ButtonText>방 설정</ButtonText>
+        </UpdateButton>
+      )}
     </CRoomNav>
   );
 };

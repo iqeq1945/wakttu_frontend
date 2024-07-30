@@ -27,8 +27,8 @@ const ExitButton = styled.button`
 `;
 
 const ExitIcon = styled.img`
-  width: 11.219px;
-  height: 12px;
+  width: 0.7012rem;
+  height: 0.75rem;
 `;
 
 const ButtonText = styled.span`
@@ -52,4 +52,17 @@ const UpdateButton = styled.button`
   background: ${COLORS.primary};
 `;
 
-export { CRoomNav, CButton, ExitButton, ExitIcon, ButtonText, UpdateButton };
+const UpdateIcon = styled.img`
+  width: 0.8738rem;
+  height: 0.8738rem;
+`;
+
+export {
+  CRoomNav,
+  CButton,
+  ExitButton,
+  ExitIcon,
+  ButtonText,
+  UpdateButton,
+  UpdateIcon,
+};
