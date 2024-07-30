@@ -7,8 +7,13 @@ import Chat from '@/containers/room/Chat';
 import Ready from '@/containers/room/Ready';
 import PlayerList from '@/containers/room/PlyaerList';
 import RoomDesc from '@/containers/room/RoomDesc';
+import { useSelector } from 'react-redux';
+import { selectModal } from '@/redux/modal/modalSlice';
+import UpdateRoom from '@/containers/room/UpdateRoom';
 
 const Room = () => {
+  const modal = useSelector(selectModal);
+
   return (
     <Container>
       <Header />
@@ -30,6 +35,7 @@ const Room = () => {
           <Chat />
         </RightWrapper>
       </WrapRoom>
+      {modal.modalType === 'UPDATE_ROOM' && modal.open && <UpdateRoom />}
     </Container>
   );
 };

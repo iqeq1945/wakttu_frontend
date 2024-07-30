@@ -75,7 +75,7 @@ const UpdateRoom = ({
             type="number"
             value={roomInfo.total}
             onChange={onRoomInfo}
-            min="2"
+            min={roomInfo.users.length > 2 ? roomInfo.users.length : '2'}
             max="8"
           />
         </CCreate>

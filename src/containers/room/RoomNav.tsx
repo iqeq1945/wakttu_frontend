@@ -36,6 +36,10 @@ const RoomNav = () => {
       dispatch(setRoomInfo(roomInfo));
       dispatch(setGame(game));
     });
+
+    return () => {
+      socket.off('exit');
+    };
   }, [dispatch]);
 
   return (

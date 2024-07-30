@@ -40,6 +40,7 @@ const PlayerInfo = styled.div`
   align-self: stretch;
   height: 11.375rem;
 
+  position: relative;
   padding: 1rem;
   gap: 0.8125rem;
 
@@ -101,6 +102,17 @@ const PlayerReady = styled.div<{ $ready?: boolean }>`
   }
 `;
 
+const KickIcon = styled.img`
+  width: 1.5rem;
+  height: 1.5rem;
+
+  position: absolute;
+  right: 0.5rem;
+  top: 0.7432rem;
+
+  cursor: pointer;
+`;
+
 export {
   CPlayerList,
   WrapPlayerList,
@@ -111,4 +123,5 @@ export {
   PlayerIcon,
   PlayerName,
   PlayerReady,
+  KickIcon,
 };

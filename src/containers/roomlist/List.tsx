@@ -2,6 +2,7 @@ import { List as CList } from '@/components';
 import { selectFilter } from '@/redux/filter/filterSlice';
 import { setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { getRoomList, Room, socket } from '@/services/socket/socket';
+import { Router } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,6 +17,7 @@ const List = () => {
   };
 
   useEffect(() => {
+    if (!socket.connected) socket.connect();
     getRoomList();
   }, []);
 

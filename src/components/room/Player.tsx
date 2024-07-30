@@ -6,15 +6,17 @@ import {
   PlayerIcon,
   PlayerName,
   PlayerReady,
+  KickIcon,
 } from '@/styles/room/PlayerList';
 
 interface Props {
   $ready: boolean;
   user: any;
-  host?: boolean;
+  host?: string;
+  myName?: string;
 }
 
-const Player = ({ $ready, user, host }: Props) => {
+const Player = ({ $ready, user, myName, host }: Props) => {
   return (
     <CPlayer>
       {user.name && (
@@ -25,8 +27,11 @@ const Player = ({ $ready, user, host }: Props) => {
               <PlayerIcon src="/assets/amoeba.svg" />
               <PlayerName>{user.name}</PlayerName>
             </CBadge>
+            {myName === host && user.name !== host && (
+              <KickIcon src="/assets/kick.svg" />
+            )}
           </PlayerInfo>
-          {host ? (
+          {host === user.name ? (
             <PlayerReady $ready={true}>
               <span>방 장</span>
             </PlayerReady>

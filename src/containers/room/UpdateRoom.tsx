@@ -1,18 +1,7 @@
 import { UpdateRoom as CUpdateRoom } from '@/components';
 import { closeModal, selectModal } from '@/redux/modal/modalSlice';
-import {
-  createRoomInfo,
-  selectRoomInfo,
-  setRoomInfo,
-} from '@/redux/roomInfo/roomInfoSlice';
-import {
-  createRoom,
-  enter,
-  Room,
-  socket,
-  updateRoom,
-} from '@/services/socket/socket';
-import { useRouter } from 'next/router';
+import { selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
+import { Room, updateRoom } from '@/services/socket/socket';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -31,7 +20,6 @@ const UpdateRoom = () => {
   const modal = useSelector(selectModal);
   const ref = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
-  const router = useRouter();
 
   const [room, setRoom] = useState<Room>(roomInfo);
 
@@ -61,11 +49,11 @@ const UpdateRoom = () => {
 
   const onSelect = (name: string, value: any) => {
     if (name === 'option') {
-      let copy;
+      let copy = [];
       if (room.option!.indexOf(value) >= 0) {
         copy = room.option!.filter((item) => item !== value);
       } else {
-        copy = room.option;
+        copy = [...(room.option as string[])];
         copy!.push(value);
       }
       setRoom((prev) => {
@@ -84,7 +72,7 @@ const UpdateRoom = () => {
 
   const onUpdate = () => {
     dispatch(closeModal());
-    const { id, ...data } = room;
+    const { id, users, ...data } = room;
     updateRoom({ roomId: id, data });
   };
 
