@@ -13,7 +13,7 @@ const Modal = styled.form`
   height: 100vh;
 
   z-index: 100;
-  background: rgb(0, 0, 0, 0.5);
+  background: rgb(0, 0, 0, 0.1);
 `;
 
 const Container = styled.div`
@@ -24,6 +24,10 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
+
+  border-radius: 16px;
+  border: 2px solid ${COLORS['gray-4']};
+  background: ${COLORS.bg};
 `;
 
 const Text = styled.span`
@@ -48,8 +52,9 @@ const Input = styled.input`
 
 const CButton = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
+
+  gap: 1rem;
 `;
 const ConfirmButton = styled.button`
   display: flex;

@@ -11,7 +11,7 @@ import {
   selectRoomUsers,
   setRoomInfo,
 } from '@/redux/roomInfo/roomInfoSlice';
-import { kick, socket } from '@/services/socket/socket';
+import { socket } from '@/services/socket/socket';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -22,8 +22,8 @@ const PlayerList = () => {
 
   const dispatch = useDispatch();
 
-  const onKick = (data: string) => {
-    dispatch(openModal('Kick'));
+  const onKick = (data: { id: string; name: string }) => {
+    dispatch(openModal('KICK'));
     dispatch(setDataModal(data));
   };
 

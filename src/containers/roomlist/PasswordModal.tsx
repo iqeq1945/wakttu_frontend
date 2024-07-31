@@ -9,15 +9,14 @@ const PasswordModal = () => {
   const roomInfo = useSelector(selectRoomInfo);
   const dispatch = useDispatch();
 
-  const { inputs, setInputs, onInputChange } = useInput({
+  const { inputs, onInputChange } = useInput({
     password: undefined,
   });
 
   const onConfirm = () => {
     const { id, password } = roomInfo;
-
     if (password !== inputs.password) {
-      alert('비빌번호가 틀립니다.');
+      alert('비밀번호가 틀립니다.');
       return;
     }
     onCancle();
@@ -28,7 +27,14 @@ const PasswordModal = () => {
     dispatch(closeModal());
   };
 
-  return <CPassword onConfirm={onConfirm} onCancle={onCancle} />;
+  return (
+    <CPassword
+      onConfirm={onConfirm}
+      onCancle={onCancle}
+      onChange={onInputChange}
+      password={inputs.password}
+    />
+  );
 };
 
 export default PasswordModal;

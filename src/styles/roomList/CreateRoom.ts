@@ -13,7 +13,7 @@ const Modal = styled.form`
   height: 100vh;
 
   z-index: 100;
-  background: rgb(0, 0, 0, 0.5);
+  background: rgb(0, 0, 0, 0.1);
 `;
 
 const CCreateRoom = styled.div`
@@ -25,7 +25,7 @@ const CCreateRoom = styled.div`
   align-items: flex-start;
   gap: 1.5rem;
 
-  border-radius: 16px;
+  border-radius: 2rem;
   border: 2px solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
 `;

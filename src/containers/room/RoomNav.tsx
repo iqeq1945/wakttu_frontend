@@ -9,7 +9,7 @@ import {
 import { selectUserName } from '@/redux/user/userSlice';
 import { exit, socket } from '@/services/socket/socket';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const RoomNav = () => {
@@ -19,11 +19,11 @@ const RoomNav = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const onExit = async () => {
+  const onExit = useCallback(async () => {
     exit(roomId);
     await router.push('/roomlist');
     dispatch(clearRoomInfo());
-  };
+  }, [dispatch, roomId, router]);
 
   const onModal = () => {
     if (host !== userName) return;
@@ -38,14 +38,14 @@ const RoomNav = () => {
     });
 
     socket.on('kick helper', async (data) => {
-      console.log(data, 'kick helper');
       await onExit();
     });
 
     return () => {
       socket.off('exit');
+      socket.off('kick helper');
     };
-  }, [dispatch]);
+  }, [dispatch, onExit]);
 
   return (
     <CRoomNav onExit={onExit} onModal={onModal} host={userName === host} />

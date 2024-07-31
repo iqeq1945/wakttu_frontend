@@ -14,11 +14,10 @@ const RoomDesc = () => {
 
   const onEnter = () => {
     const { id, password } = roomInfo;
-    if (password !== undefined) {
+    if (password !== null) {
       dispatch(openModal('PASSWORD'));
       return;
     }
-
     enter({ roomId: id as string, password });
   };
 

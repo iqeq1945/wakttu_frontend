@@ -10,6 +10,7 @@ import RoomDesc from '@/containers/room/RoomDesc';
 import { useSelector } from 'react-redux';
 import { selectModal } from '@/redux/modal/modalSlice';
 import UpdateRoom from '@/containers/room/UpdateRoom';
+import KickModal from '@/containers/room/KickModal';
 
 const Room = () => {
   const modal = useSelector(selectModal);
@@ -36,6 +37,7 @@ const Room = () => {
         </RightWrapper>
       </WrapRoom>
       {modal.modalType === 'UPDATE_ROOM' && modal.open && <UpdateRoom />}
+      {modal.modalType === 'KICK' && modal.open && <KickModal />}
     </Container>
   );
 };

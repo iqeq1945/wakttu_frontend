@@ -14,6 +14,7 @@ import PlayerInfo from '@/containers/roomlist/PlayerInfo';
 import { useSelector } from 'react-redux';
 import { selectModal } from '@/redux/modal/modalSlice';
 import CreateRoom from '@/containers/roomlist/CreateRoom';
+import PasswordModal from '@/containers/roomlist/PasswordModal';
 
 const RoomList = () => {
   const modal = useSelector(selectModal);
@@ -38,7 +39,7 @@ const RoomList = () => {
         </RightWrapper>
       </WrapRoomList>
       {modal.modalType === 'CREATE_ROOM' && modal.open && <CreateRoom />}
-      {modal.modalType === 'PAWORD' && modal.open}
+      {modal.modalType === 'PASSWORD' && modal.open && <PasswordModal />}
     </Container>
   );
 };
