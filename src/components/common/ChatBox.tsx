@@ -5,45 +5,52 @@ import {
   MessageInput,
   SendMessage,
   SendIcon,
-} from "@/styles/common/Chat";
-import { Chat } from "@/components";
-import { ChangeEventHandler, useEffect, useRef, KeyboardEvent } from "react";
-import { LogProps } from "@/containers/roomlist/Chat";
+} from '@/styles/common/Chat';
+import { Chat } from '@/components';
+import {
+  ChangeEventHandler,
+  useEffect,
+  KeyboardEvent,
+  RefObject,
+  useCallback,
+} from 'react';
+import { LogProps } from '@/containers/roomlist/Chat';
 
 interface Props {
   log: LogProps[];
   message: string;
   onChange: ChangeEventHandler;
   onClick: () => void;
+  chatBoxRef: RefObject<HTMLDivElement>;
+  inputRef: RefObject<HTMLInputElement>;
 }
 
-const ChatBox = ({ log, message, onChange, onClick }: Props) => {
-  const chatBoxRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const scrollToBottom = () => {
+const ChatBox = ({
+  log,
+  message,
+  onChange,
+  onClick,
+  chatBoxRef,
+  inputRef,
+}: Props) => {
+  const scrollToBottom = useCallback(() => {
     if (chatBoxRef.current) {
       chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
     }
-  };
+  }, [chatBoxRef]);
 
-  const InputFocus = () => {
-    if (inputRef.current) inputRef.current.focus();
-  };
-
-  const handleEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      onClick();
-    }
-  };
+  const handleEnter = useCallback(
+    (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') {
+        onClick();
+      }
+    },
+    [onClick]
+  );
 
   useEffect(() => {
     scrollToBottom();
-  }, [log]);
-
-  useEffect(() => {
-    InputFocus();
-  }, [onClick, log]);
+  }, [log, scrollToBottom]);
 
   return (
     <CChat>

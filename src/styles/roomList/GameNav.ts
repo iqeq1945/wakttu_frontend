@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { COLORS, FONT_SIZES } from "@/styles/theme";
+import styled from 'styled-components';
+import { COLORS, FONT_SIZES } from '@/styles/theme';
 
 const CGameNav = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const CreateRoomBtn = styled.button`
   align-items: center;
 
   gap: 0.625rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.75rem;
 
   border: none;
   border-radius: 0.5rem;
@@ -36,8 +36,8 @@ const CreateRoomBtn = styled.button`
 const PlusTitle = styled.span`
   color: ${COLORS.bg};
 
-  font-family: "WantedSans-SemiBold";
-  font-size: ${FONT_SIZES["subtitle-2"]};
+  font-family: 'WantedSans-SemiBold';
+  font-size: ${FONT_SIZES['subtitle-2']};
 `;
 
 const Plus = styled.img`
@@ -67,6 +67,8 @@ const FilterToggled = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  position: relative;
 
   gap: 0.625rem;
   padding: 0.5rem;

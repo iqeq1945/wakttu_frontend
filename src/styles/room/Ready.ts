@@ -1,5 +1,5 @@
-import { COLORS } from "@/styles/theme";
-import styled from "styled-components";
+import { COLORS } from '@/styles/theme';
+import styled from 'styled-components';
 
 const CReady = styled.article`
   display: flex;
@@ -10,7 +10,7 @@ const CReady = styled.article`
   padding: 3rem 2rem;
 
   border-radius: 1rem;
-  border: 2px solid ${COLORS["gray-4"]};
+  border: 2px solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
 `;
 
@@ -29,13 +29,13 @@ const ReadyButton = styled.h4`
   color: ${COLORS.bg};
   text-align: center;
 
-  font-family: "WantedSans-SemiBold";
+  font-family: 'WantedSans-SemiBold';
   font-size: 1.5rem;
 
   cursor: pointer;
 
   &:hover {
-    background: ${COLORS["primary-hov"]};
+    background: ${COLORS['primary-hov']};
   }
 `;
 
