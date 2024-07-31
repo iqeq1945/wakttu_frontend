@@ -7,9 +7,10 @@ interface Props {
   users: any[];
   ready: any[];
   host: string;
+  onKick: () => void;
 }
 
-const PlayerList = ({ users, ready, host }: Props) => {
+const PlayerList = ({ users, ready, host, onKick }: Props) => {
   const arr = [...users];
   const len = arr.length;
   const myName = useSelector(selectUserName);
@@ -33,6 +34,7 @@ const PlayerList = ({ users, ready, host }: Props) => {
               user={user}
               myName={myName as string}
               host={host}
+              onKick={onKick}
             />
           );
         })}

@@ -14,7 +14,7 @@ const CSelect = styled.div`
   padding: 1.75rem;
   gap: 1.5rem;
 
-  border-radius: 16px;
+  border-radius: 1rem;
   border: 2px solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
 `;
@@ -43,7 +43,7 @@ const Dropdown = styled.ul`
   width: 12.5rem;
   padding: 0.625rem 1rem;
 
-  border-radius: 8px;
+  border-radius: 0.5rem;
   border: 1px solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
 `;

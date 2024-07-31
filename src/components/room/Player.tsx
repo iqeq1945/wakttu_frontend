@@ -12,11 +12,12 @@ import {
 interface Props {
   $ready: boolean;
   user: any;
-  host?: string;
-  myName?: string;
+  host: string;
+  myName: string;
+  onKick: () => void;
 }
 
-const Player = ({ $ready, user, myName, host }: Props) => {
+const Player = ({ $ready, user, myName, host, onKick }: Props) => {
   return (
     <CPlayer>
       {user.name && (
@@ -28,7 +29,7 @@ const Player = ({ $ready, user, myName, host }: Props) => {
               <PlayerName>{user.name}</PlayerName>
             </CBadge>
             {myName === host && user.name !== host && (
-              <KickIcon src="/assets/kick.svg" />
+              <KickIcon src="/assets/kick.svg" onClick={onKick} />
             )}
           </PlayerInfo>
           {host === user.name ? (

@@ -38,6 +38,7 @@ const RoomList = () => {
         </RightWrapper>
       </WrapRoomList>
       {modal.modalType === 'CREATE_ROOM' && modal.open && <CreateRoom />}
+      {modal.modalType === 'PAWORD' && modal.open}
     </Container>
   );
 };

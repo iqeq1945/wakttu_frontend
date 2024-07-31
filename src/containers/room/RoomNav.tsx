@@ -37,6 +37,11 @@ const RoomNav = () => {
       dispatch(setGame(game));
     });
 
+    socket.on('kick helper', async (data) => {
+      console.log(data, 'kick helper');
+      await onExit();
+    });
+
     return () => {
       socket.off('exit');
     };

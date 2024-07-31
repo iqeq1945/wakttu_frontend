@@ -18,6 +18,7 @@ export { default as Player } from './room/Player';
 export { default as PlayerList } from './room/PlayerList';
 export { default as RoomNav } from './room/RoomNav';
 export { default as UpdateRoom } from './room/UpdateRoom';
+export { default as KickModal } from './room/KickModal';
 
 export { default as RoomDesc } from './roomList/RoomDesc';
 export { default as PlayerInfo } from './roomList/PlayerInfo';
@@ -25,3 +26,4 @@ export { default as GameNav } from './roomList/GameNav';
 export { default as List } from './roomList/List';
 export { default as FilterBox } from './roomList/FilterBox';
 export { default as CreateRoom } from './roomList/CreateRoom';
+export { default as PasswordModal } from './roomList/PasswordModal';

@@ -75,11 +75,11 @@ const CInput = styled.input`
   align-items: center;
   gap: 0.625rem;
 
-  border-radius: 8px;
+  border-radius: 0.5rem;
   border: 1px solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
 
-  color: ${COLORS['gray-2']}
+  color: ${COLORS['gray-2']};
 
   font-family: 'WantedSans-Medium';
   font-size: ${FONT_SIZES['body-1']};
@@ -115,7 +115,7 @@ const Dropdown = styled.ul`
   width: 12.5rem;
   padding: 0.625rem 1rem;
 
-  border-radius: 8px;
+  border-radius: 0.5rem;
   border: 1px solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
 `;
@@ -162,7 +162,7 @@ const ConfirmButton = styled.button`
 
   flex: 1 0 0;
 
-  border-radius: 8px;
+  border-radius: 0.5rem;
   border: none;
   background: ${COLORS.primary};
 
@@ -178,7 +178,7 @@ const CancleButton = styled.button`
   justify-content: center;
   align-items: center;
 
-  border-radius: 8px;
+  border-radius: 0.5rem;
   border: 1px solid var(--Outline-Black, rgba(0, 0, 0, 0.1));
   background: ${COLORS['gray-4']};
 

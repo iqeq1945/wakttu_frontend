@@ -21,7 +21,7 @@ const ExitButton = styled.button`
 
   cursor: pointer;
 
-  border-radius: 8px;
+  border-radius: 0.5rem;
   border: none;
   background: #ff6565;
 `;
@@ -47,7 +47,7 @@ const UpdateButton = styled.button`
 
   cursor: pointer;
 
-  border-radius: 8px;
+  border-radius: 0.5rem;
   border: none;
   background: ${COLORS.primary};
 `;

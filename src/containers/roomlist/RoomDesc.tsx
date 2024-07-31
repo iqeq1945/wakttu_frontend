@@ -1,5 +1,6 @@
 import { RoomDesc as CRoomDesc } from '@/components';
 import { setGame } from '@/redux/game/gameSlice';
+import { openModal } from '@/redux/modal/modalSlice';
 import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { enter, socket } from '@/services/socket/socket';
 import { useRouter } from 'next/router';
@@ -13,6 +14,11 @@ const RoomDesc = () => {
 
   const onEnter = () => {
     const { id, password } = roomInfo;
+    if (password !== undefined) {
+      dispatch(openModal('PASSWORD'));
+      return;
+    }
+
     enter({ roomId: id as string, password });
   };
 
