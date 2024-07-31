@@ -5,7 +5,7 @@ import {
   setGame,
   setReady,
 } from '@/redux/game/gameSlice';
-import { openModal } from '@/redux/modal/modalSlice';
+import { openModal, setDataModal } from '@/redux/modal/modalSlice';
 import {
   selectRoomId,
   selectRoomUsers,
@@ -22,8 +22,9 @@ const PlayerList = () => {
 
   const dispatch = useDispatch();
 
-  const onKick = () => {
+  const onKick = (data: string) => {
     dispatch(openModal('Kick'));
+    dispatch(setDataModal(data));
   };
 
   useEffect(() => {

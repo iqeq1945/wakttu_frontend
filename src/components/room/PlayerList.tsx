@@ -7,7 +7,7 @@ interface Props {
   users: any[];
   ready: any[];
   host: string;
-  onKick: () => void;
+  onKick: (data: string) => void;
 }
 
 const PlayerList = ({ users, ready, host, onKick }: Props) => {

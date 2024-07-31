@@ -14,7 +14,7 @@ interface Props {
   user: any;
   host: string;
   myName: string;
-  onKick: () => void;
+  onKick: (data: string) => void;
 }
 
 const Player = ({ $ready, user, myName, host, onKick }: Props) => {
@@ -29,7 +29,10 @@ const Player = ({ $ready, user, myName, host, onKick }: Props) => {
               <PlayerName>{user.name}</PlayerName>
             </CBadge>
             {myName === host && user.name !== host && (
-              <KickIcon src="/assets/kick.svg" onClick={onKick} />
+              <KickIcon
+                src="/assets/kick.svg"
+                onClick={() => onKick(user.name)}
+              />
             )}
           </PlayerInfo>
           {host === user.name ? (
