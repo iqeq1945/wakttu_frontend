@@ -14,7 +14,6 @@ const CMessage = styled.span<{ $error: boolean }>`
   }}
 
   font-family: WantedSans-Medium;
-  font-size: 0.625rem;
 `;
 
 export default Message;
