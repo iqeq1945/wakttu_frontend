@@ -5,7 +5,7 @@ import {
   PlayerIcon,
   ChatContent,
   DateContent,
-} from "@/styles/common/Chat";
+} from '@/styles/common/Chat';
 
 interface Props {
   user: any;
@@ -18,7 +18,7 @@ const Chat = ({ user, chat, date }: Props) => {
     <PlayerChat>
       <CPlayer>
         <PlayerIcon src="/assets/amoeba.svg" />
-        <PlayerName>{user.name}</PlayerName>
+        <PlayerName $color={user.color}>{user.name}</PlayerName>
         <ChatContent>{chat}</ChatContent>
       </CPlayer>
       <DateContent>{date}</DateContent>

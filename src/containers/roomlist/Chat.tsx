@@ -12,6 +12,7 @@ export interface LogProps {
   user: any;
   chat: string;
   date: string;
+  color: string;
 }
 
 const Chat = () => {
