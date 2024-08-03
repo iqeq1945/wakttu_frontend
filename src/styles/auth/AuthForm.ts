@@ -50,6 +50,13 @@ const InputContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 1rem;
+  white-space: break-spaces;
+
+  & > p {
+    color: #ff6565;
+
+    font-family: WantedSans-Medium;
+  }
 `;
 
 const InputSection = styled.div`
@@ -106,6 +113,9 @@ const FormItem = styled.div`
     width: 4.5rem;
     height: 1.8125rem;
     padding: 0.375rem 0.625rem;
+
+    position: absolute;
+    right: 0.5rem;
 
     border: none;
     border-radius: 0.5rem;
