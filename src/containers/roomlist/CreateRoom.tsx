@@ -1,8 +1,6 @@
 import { CreateRoom as CCreateRoom } from '@/components';
 import { closeModal, selectModal } from '@/redux/modal/modalSlice';
-import { createRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
-import { createRoom, enter, socket } from '@/services/socket/socket';
-import { useRouter } from 'next/router';
+import { createRoom } from '@/services/socket/socket';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -20,7 +18,6 @@ const CreateRoom = () => {
   const modal = useSelector(selectModal);
   const ref = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
-  const router = useRouter();
 
   const [room, setRoom] = useState<RoomInfo>({
     title: '왁뚜 생활',

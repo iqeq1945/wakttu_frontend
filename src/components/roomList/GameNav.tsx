@@ -1,4 +1,3 @@
-import { getRoomList } from '@/services/socket/socket';
 import {
   CGameNav,
   LeftIcons,
@@ -13,11 +12,12 @@ import {
 import { ReactNode } from 'react';
 
 interface Props {
+  onRoomList: () => void;
   onModal: (type: string) => void;
   children: ReactNode;
 }
 
-const GameNav = ({ onModal, children }: Props) => {
+const GameNav = ({ onModal, children, onRoomList }: Props) => {
   return (
     <CGameNav>
       <LeftIcons>
@@ -26,7 +26,7 @@ const GameNav = ({ onModal, children }: Props) => {
           <PlusTitle>방 만들기</PlusTitle>
         </CreateRoomBtn>
         <SearchBtn src="/assets/search.svg" />
-        <RefreshBtn src="/assets/refresh.svg" onClick={getRoomList} />
+        <RefreshBtn src="/assets/refresh.svg" onClick={onRoomList} />
       </LeftIcons>
       <FilterToggled onClick={() => onModal('FILTER')}>
         <FilterIcon src="/assets/filter.svg" />

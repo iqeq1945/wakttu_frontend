@@ -2,6 +2,7 @@ import { RoomDesc as CRoomDesc } from '@/components';
 import { setGame } from '@/redux/game/gameSlice';
 import { openModal } from '@/redux/modal/modalSlice';
 import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
+import { client } from '@/services/api';
 import { enter, socket } from '@/services/socket/socket';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -12,8 +13,10 @@ const RoomDesc = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const onEnter = () => {
-    const { id, password } = roomInfo;
+  const onEnter = async () => {
+    const data = (await client.get(`room/${roomInfo.id}`)).data;
+    const { id, password } = data;
+
     if (password !== null) {
       dispatch(openModal('PASSWORD'));
       return;
