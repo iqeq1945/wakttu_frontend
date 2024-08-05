@@ -17,7 +17,7 @@ const Chat = ({ user, chat, date }: Props) => {
   return (
     <PlayerChat>
       <CPlayer>
-        <PlayerIcon src="/assets/amoeba.svg" />
+        <PlayerIcon src="/assets/icons/amoeba.svg" />
         <PlayerName $color={user.color}>{user.name}</PlayerName>
         <ChatContent>{chat}</ChatContent>
       </CPlayer>

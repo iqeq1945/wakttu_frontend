@@ -76,7 +76,7 @@ const ChatBox = ({
           onKeyDown={handleEnter}
         />
         <SendMessage onClick={onClick}>
-          <SendIcon src="/assets/send.svg" />
+          <SendIcon src="/assets/icons/send.svg" />
         </SendMessage>
       </MessageBlock>
     </CChat>

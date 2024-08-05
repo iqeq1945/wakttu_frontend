@@ -5,7 +5,7 @@ import { MainTab } from '@/components';
 const Header = () => {
   return (
     <MainHeaderBlock>
-      <HeaderLogo src="/assets/logo.svg" />
+      <HeaderLogo src="/assets/icons/logo.svg" />
       <WrapContent>
         <MainTab menuName="게임 소개" href="/" />
         <MainTab menuName="공지" href="/" />

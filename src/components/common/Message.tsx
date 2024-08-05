@@ -11,9 +11,9 @@ const Message = ({ message, error }: Props) => {
 const CMessage = styled.span<{ $error: boolean }>`
   color: ${({ $error }) => {
     return $error ? '#FF6565;' : '#282828;';
-  }}
+  }};
 
-  font-family: WantedSans-Medium;
+  font-family: 'WantedSans-Medium';
 `;
 
 export default Message;

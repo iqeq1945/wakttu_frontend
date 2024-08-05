@@ -53,7 +53,7 @@ const List = ({ roomList, onClick, filter }: Props) => {
                         <SemiText $color={true}>/</SemiText>
                         <SemiText>{room.total}</SemiText>
                       </RoomCount>
-                      {room.password && <Lock src="/assets/lock.svg" />}
+                      {room.password && <Lock src="/assets/icons/lock.svg" />}
                     </RoomNameCount>
                     <RoomGame>
                       <SemiText>

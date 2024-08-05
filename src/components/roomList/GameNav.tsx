@@ -22,14 +22,14 @@ const GameNav = ({ onModal, children, onRoomList }: Props) => {
     <CGameNav>
       <LeftIcons>
         <CreateRoomBtn onClick={() => onModal('CREATE_ROOM')}>
-          <Plus src="/assets/plus.svg" />
+          <Plus src="/assets/icons/plus.svg" />
           <PlusTitle>방 만들기</PlusTitle>
         </CreateRoomBtn>
-        <SearchBtn src="/assets/search.svg" />
-        <RefreshBtn src="/assets/refresh.svg" onClick={onRoomList} />
+        <SearchBtn src="/assets/icons/search.svg" />
+        <RefreshBtn src="/assets/icons/refresh.svg" onClick={onRoomList} />
       </LeftIcons>
       <FilterToggled onClick={() => onModal('FILTER')}>
-        <FilterIcon src="/assets/filter.svg" />
+        <FilterIcon src="/assets/icons/filter.svg" />
         {children}
       </FilterToggled>
     </CGameNav>

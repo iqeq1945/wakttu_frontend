@@ -18,13 +18,13 @@ const RoomNav = ({ onExit, onModal, host }: Props) => {
     <CRoomNav>
       <CButton>
         <ExitButton onClick={onExit}>
-          <ExitIcon src="/assets/exit.svg" />
+          <ExitIcon src="/assets/icons/exit.svg" />
           <ButtonText>나가기</ButtonText>
         </ExitButton>
       </CButton>
       {host && (
         <UpdateButton onClick={onModal}>
-          <UpdateIcon src="/assets/update.svg" />
+          <UpdateIcon src="/assets/icons/update.svg" />
           <ButtonText>방 설정</ButtonText>
         </UpdateButton>
       )}

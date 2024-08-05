@@ -21,11 +21,11 @@ const PlayerInfo = ({ user }: any) => {
       <PlayerProfile src="/assets/player-profile.png" />
       <Info>
         <WrapPlayerName>
-          <PlayerIcon src="/assets/amoeba.svg" />
+          <PlayerIcon src="/assets/icons/amoeba.svg" />
           <PlayerName>{user.name}</PlayerName>
         </WrapPlayerName>
         <Level>
-          <LevelBar src="/assets/lvl-bar.svg" />
+          <LevelBar src="/assets/icons/lvl-bar.svg" />
           <LevelInfo>
             <WrapText>
               <LevelText $variant="title">레벨</LevelText>
@@ -38,7 +38,7 @@ const PlayerInfo = ({ user }: any) => {
           </LevelInfo>
         </Level>
         <WrapCoin>
-          <Wallet src="/assets/wallet.svg" />
+          <Wallet src="/assets/icons/wallet.svg" />
           <Coin>999,999,999,999</Coin>
         </WrapCoin>
       </Info>

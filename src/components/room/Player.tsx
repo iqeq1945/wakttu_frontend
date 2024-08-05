@@ -25,12 +25,12 @@ const Player = ({ $ready, user, myName, host, onKick }: Props) => {
           <PlayerInfo>
             <PlayerProfile src="/assets/player-profile.png" />
             <CBadge>
-              <PlayerIcon src="/assets/amoeba.svg" />
+              <PlayerIcon src="/assets/icons/amoeba.svg" />
               <PlayerName>{user.name}</PlayerName>
             </CBadge>
             {myName === host && user.name !== host && (
               <KickIcon
-                src="/assets/kick.svg"
+                src="/assets/icons/kick.svg"
                 onClick={() => onKick({ id: user.id, name: user.name })}
               />
             )}
