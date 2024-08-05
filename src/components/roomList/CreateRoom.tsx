@@ -140,9 +140,9 @@ const CreateRoom = ({
           <CheckBox onClick={() => onSelect('option', '매너')}>
             <CCheck>
               {roomInfo.option.indexOf('매너') === -1 ? (
-                <CheckIcon src="/assets/icons/icons/check-off.svg" />
+                <CheckIcon src="/assets/icons/check-off.svg" />
               ) : (
-                <CheckIcon src="/assets/icons/icons/check-on.svg" />
+                <CheckIcon src="/assets/icons/check-on.svg" />
               )}
               <Selected>매너</Selected>
             </CCheck>
