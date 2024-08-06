@@ -1,15 +1,28 @@
 import { PlayerInfo as CPlyerInfo } from '@/components';
-import { selectUserInfo } from '@/redux/user/userSlice';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { selectUserInfo, setUserInfo } from '@/redux/user/userSlice';
+import { client } from '@/services/api';
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const PlayerInfo = () => {
-  const [isConnected, setIsConnected] = useState(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
   const user = useSelector(selectUserInfo);
+  const dispatch = useDispatch();
+
+  const getUser = useCallback(async () => {
+    const { data } = await client.get('/auth/status');
+    dispatch(setUserInfo(data.user));
+  }, [dispatch]);
+
   useEffect(() => {
-    setIsConnected(true);
+    setLoading(true);
   }, []);
-  return isConnected && <CPlyerInfo user={user} />;
+
+  useEffect(() => {
+    getUser();
+  }, [getUser]);
+
+  return isLoading && <CPlyerInfo user={user} />;
 };
 
 export default PlayerInfo;

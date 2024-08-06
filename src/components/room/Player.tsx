@@ -1,3 +1,4 @@
+import { getIcon } from '@/modules/UserInfo';
 import {
   CPlayer,
   PlayerInfo,
@@ -18,6 +19,9 @@ interface Props {
 }
 
 const Player = ({ $ready, user, myName, host, onKick }: Props) => {
+  console.log(user);
+  const icon = getIcon(user.score, user.provider);
+
   return (
     <CPlayer>
       {user.name && (
@@ -25,7 +29,7 @@ const Player = ({ $ready, user, myName, host, onKick }: Props) => {
           <PlayerInfo>
             <PlayerProfile src="/assets/player-profile.png" />
             <CBadge>
-              <PlayerIcon src="/assets/icons/amoeba.svg" />
+              <PlayerIcon src={icon} />
               <PlayerName>{user.name}</PlayerName>
             </CBadge>
             {myName === host && user.name !== host && (

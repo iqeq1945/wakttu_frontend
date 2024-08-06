@@ -29,9 +29,12 @@ const List = () => {
 
   useEffect(() => {
     socket.on('roomList', (data) => {
-      const copy = [...data].sort((a, b) =>
-        filter.time === 'desc' ? a.idx! - b.idx! : b.idx! - a.idx!
-      );
+      const copy = [...data]
+        .sort((a, b) =>
+          filter.time === 'desc' ? a.idx! - b.idx! : b.idx! - a.idx!
+        )
+        .filter((ele) => ele.users.length !== 0);
+
       setRoomList(copy);
     });
 

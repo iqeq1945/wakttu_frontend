@@ -32,6 +32,5 @@ export const getUserDesc = (score: number, provider = null) => {
   const icon = getIcon(score, provider);
   const level = getLevel(score);
   const exp = getExp(score);
-  console.log(icon);
   return { icon, level, exp };
 };

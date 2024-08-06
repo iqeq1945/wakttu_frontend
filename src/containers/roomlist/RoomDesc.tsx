@@ -32,6 +32,7 @@ const RoomDesc = () => {
     socket.on('enter', async (data: any) => {
       if (data) {
         const { roomInfo, game } = data;
+        console.log(roomInfo);
         await dispatch(setRoomInfo(roomInfo));
         await dispatch(setGame(game));
         router.push(`/room/${roomInfo.id}`);
