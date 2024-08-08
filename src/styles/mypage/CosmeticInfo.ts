@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 import { COLORS } from "@/styles/theme";
 
-export type ItemVariant = 'skin' | 'head' | 'hand' | 'eye'
+export type CosmeticVariant = 'skin' | 'head' | 'hand' | 'eye';
 export type InfoVariant = 'title' | 'content';
 
-const itemStyles = {
+const Styles = {
   skin: {
     backgroundColor: '#B6ECC5',
     color: '#155126'
@@ -23,57 +23,67 @@ const itemStyles = {
   }
 };
 
-
-const TitleContainer = styled.div`
+const TitleSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 
-  width: 21rem;
+  width: 100%;
   height: 3.5rem;
-  padding: 0 0.625rem;
+  padding: 1rem 0.625rem;
   gap: 0.5rem;
 
   border-radius: 1rem;
   border: 1px solid ${COLORS['gray-4']};
   box-sizing: border-box;
-
-  font-size: 20px;
-  font-weight: 600;
-  color: ${COLORS.text};
 `;
 
-const Itemtag = styled.div<{ $itemType?: ItemVariant }>`
-  padding: 0.25rem 0.625rem;
+const Tag = styled.div<{ $itemType?: CosmeticVariant }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+  padding: 0.25rem 0.625rem;
   border-radius: 0.5rem;
-  border: 1px solid ${COLORS['gray-4']};
-  
-  font-size: 14px;
+
+  font-size: 0.875rem;
+  font-weight: 600;
 
   ${({ $itemType }) => {
-    const styles = itemStyles[$itemType || 'skin'];
+    const style = Styles[$itemType || 'skin'];
     return css`
-      background-color: ${styles.backgroundColor};
-      color: ${styles.color};
+      background-color: ${style.backgroundColor};
+      color: ${style.color};
     `;
   }}
 `;
 
+const Title = styled.div`
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: ${COLORS.text};
+  line-height: normal;
+`;
 
-const ItemContainer = styled.div`
-  position: relative;
+const InfoSection = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
 
-  height: 33.9375rem;
+  flex-grow: 1;
 
   border-radius: 1rem;
   border: 1px solid ${COLORS['gray-4']};
-
   overflow: hidden;
+`;
+
+const InfoTop = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+
+  height: 21rem;
 
   &::before {
     content:'';
@@ -81,55 +91,49 @@ const ItemContainer = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    height: 50%;
+    height: 100%;
 
     background-image: url('/assets/mypage-background.png');
     background-size: cover;
-    background-position: center;
-    opacity: 0.3;
+    background-repeat: no-repeat;
+    opacity: 0.7;
   }
 `;
 
-const Background = styled.div<{ $itemType?: ItemVariant }>`
+const Background = styled.div<{ $itemType?: CosmeticVariant }>`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 50%;
+  height: 100%;
 
   z-index: -1;
   
   ${({ $itemType }) => {
-    const styles = itemStyles[$itemType || 'skin'];
+    const style = Styles[$itemType || 'skin'];
     return css`
-      background-color: ${styles.backgroundColor};
-      background: linear-gradient(180deg, ${styles.backgroundColor}, white);
+      background-color: ${style.backgroundColor};
+      background: linear-gradient(180deg, ${style.backgroundColor}, white);
     `;
   }}
 `;
 
-const ImageContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const CosmeticImage = styled.img`
+  position: absolute;
 
-  width: 21rem;
-  height: 21rem;
-`;
-
-const ItemImage = styled.img`
   width: 13.5rem;
   height: 13.5rem;
-  object-fit: contain;
+  object-fit: fill;
   z-index: 2;
 `;
 
-const ItemInfo = styled.div`
+const InfoBottom = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
 
-  gap: 1rem;
+  width: 21rem;
+  gap: 0.5rem;
   padding: 1.5rem;
 `;
 
@@ -144,6 +148,10 @@ const Wrap = styled.ul`
 `;
 
 const Info = styled.li<{ $variant?: InfoVariant }>`
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+
   ${({ $variant }) => {
     switch ($variant) {
       case "title":
@@ -171,38 +179,40 @@ const Info = styled.li<{ $variant?: InfoVariant }>`
   }}
 `;
 
-const GetButton = styled.div<{ $itemType?: ItemVariant }>`
+const GetButton = styled.div<{ $itemType?: CosmeticVariant }>`
   display: flex;
   justify-content: center;
   align-items: center;
+  align-self: stretch;
 
   width: 100%;
   height: 4.3125rem;
 
   border-radius: 1rem;
-  border: 1px solid ${COLORS["gray-4"]};
+  border: 1px solid rgba(0, 0, 0, 0.10);
   cursor: pointer;
 
   font-size: 1.5rem;
   font-weight: 600;
 
   ${({ $itemType }) => {
-    const styles = itemStyles[$itemType || 'skin'];
+    const style = Styles[$itemType || 'skin'];
     return css`
-      background-color: ${styles.backgroundColor};
-      color: ${styles.color};
+      background-color: ${style.backgroundColor};
+      color: ${style.color};
     `;
   }}
 `;
 
 export {
-  TitleContainer,
-  Itemtag,
-  ItemContainer,
+  TitleSection,
+  Tag,
+  Title,
+  InfoSection,
+  InfoTop,
   Background,
-  ImageContainer,
-  ItemImage,
-  ItemInfo,
+  CosmeticImage,
+  InfoBottom,
   Wrap,
   Info,
   GetButton

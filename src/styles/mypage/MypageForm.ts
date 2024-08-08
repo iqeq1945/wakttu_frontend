@@ -3,50 +3,48 @@ import { COLORS } from "@/styles/theme";
 
 const Container = styled.div`
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 65.875rem;
+  padding: 2rem;
+
+  border-radius: 1rem;
+  border: 2px solid ${COLORS['gray-4']};
+
   z-index: 10;
-  
+  overflow: hidden;
 `;
 
 const ContainerContent = styled.div`
   display: flex;
-  justify-content: start;
-  align-items: start;
-
-  width: 65.875rem;
-  height: 48.625rem;
-  padding: 2rem;
-
   gap: 2rem;
-
-  border-radius: 1rem;
-  border: 2px solid ${COLORS['gray-4']};
 `;
 
 const LeftWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   width: 25rem;
-  height: 100%;
   padding: 2rem;
 
   gap: 0.9375rem;
 
   border-radius: 1rem;
   border: 1px solid ${COLORS['gray-4']};
-  box-sizing: border-box;
 `;
 
 const RightWrapper = styled.div`
   display: flex;
-  justify-content: start;
-  align-items: start;
-  overflow-y: scroll;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
 
-  width: 100%;
-  height: 100%;
+  width: 34rem;
+  height: 46.625rem;
 
   border-radius: 1rem;
   border: 1px solid ${COLORS['gray-4']};

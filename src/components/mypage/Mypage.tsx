@@ -1,13 +1,14 @@
 
 import { Container, ContainerContent, LeftWrapper, RightWrapper } from "@/styles/mypage/MypageForm";
-import CollectionDetail from "./CollectionDetail";
+import CosmeticInfo from "./CosmeticInfo";
+import CosmeticList from "./CosmeticList";
 
 const Mypage = () => {
   return (
     <Container>
       <ContainerContent>
-        <CollectionDetail />
-        <RightWrapper>?</RightWrapper>
+        <CosmeticInfo />
+        <CosmeticList />
       </ContainerContent>
     </Container>
   );
