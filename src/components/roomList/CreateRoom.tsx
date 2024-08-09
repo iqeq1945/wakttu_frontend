@@ -56,6 +56,7 @@ const CreateRoom = ({
             name="title"
             defaultValue={roomInfo.title}
             onChange={onRoomInfo}
+            maxLength={10}
           />
         </CCreate>
         <CCreate>
@@ -65,6 +66,7 @@ const CreateRoom = ({
             type="password"
             onChange={onRoomInfo}
             autoComplete="off"
+            maxLength={8}
           />
         </CCreate>
         <CCreate>

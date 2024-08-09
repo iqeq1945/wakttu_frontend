@@ -4,12 +4,14 @@ interface FilterState {
   time: string | undefined;
   type: number | undefined;
   start: boolean | undefined;
+  keyword: string | undefined;
 }
 
 const initialState: FilterState = {
   time: undefined,
   type: undefined,
   start: undefined,
+  keyword: undefined,
 };
 
 export const filterSlice = createSlice({

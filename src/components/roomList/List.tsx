@@ -15,7 +15,6 @@ import {
   Status,
   Lock,
 } from '@/styles/roomList/List';
-import { useEffect } from 'react';
 
 interface Props {
   roomList: Room[];
@@ -24,15 +23,18 @@ interface Props {
     time: string | undefined;
     start: boolean | undefined;
     type: number | undefined;
+    keyword: string | undefined;
   };
 }
 
 const List = ({ roomList, onClick, filter }: Props) => {
   const checkFilter = (room: Room) => {
-    const { type, start } = room;
+    const { type, start, title } = room;
     return (
       (filter.type === type || filter.type === undefined) &&
-      (filter.start === start || filter.start === undefined)
+      (filter.start === start || filter.start === undefined) &&
+      (filter.keyword === undefined ||
+        (title as string).includes(filter.keyword))
     );
   };
 
