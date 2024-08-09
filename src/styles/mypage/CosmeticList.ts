@@ -1,46 +1,47 @@
 import styled, { css } from "styled-components";
 import { COLORS } from "@/styles/theme";
-import { scrollbarStyles } from "../common/Scrollbar";
+import { scrollbarStyles } from "./Scrollbar";
+import { BackgroundImage, CosmeticBackground, CosmeticVariant } from "./CosmeticType";
 
 export type Variant = 'block' | 'none';
 
 const TopBar = styled.div`
+  position: relative;
+  z-index: 3;
+  height: 3.75rem;
+`;
+
+const Wrap = styled.div`
+  position: absolute;
+  width: 34rem;
+`;
+
+const WrapFlex = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  align-self: stretch;
 `;
-
 
 const DropdownSelect = styled.div<{ isOpen: boolean }>`
   display: flex;
   flex-direction: column;
-  top: 100%;
-  left: 0;
+  overflow: hidden;
 
   width: 12.625rem;
   max-height: ${({ isOpen }) => (isOpen ? '15rem' : '2.75rem')};
   
-  border-radius: 0.5rem;
   border: 1px solid ${COLORS["gray-4"]};
+  border-radius: 0.5rem;
   background-color: #fff;
 
-  list-style-type: none;
-
-  transition: max-height 0.5s;
-  overflow: hidden;
   cursor: pointer;
-
   transition: max-height 0.3s ease;
-  z-index: 3;
 `;
 
 const SelectOption = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  height: 2.75rem;
 
   padding: 0.625rem 1rem;
   background-color: #fff;
@@ -55,18 +56,17 @@ const DropdownImage = styled.img<{ isOpen: boolean }>`
   width: 1.5rem;
   height: 1.5rem;
 
-  transition: transform 0.3s ease;
   transform: ${({ isOpen }) => (isOpen ? 'rotateX(180deg)' : 'rotateX(0deg)')};
+  transition: transform 0.3s ease;
 `;
 
 const DropdownWrapper = styled.div`
   display: flex;
   flex-direction: column;
-
-  max-height: 90vh;
   overflow-y: auto;
 
-   ${scrollbarStyles}
+  max-height: 90vh;
+  ${scrollbarStyles};
 `;
 
 const DropdownOption = styled.div`
@@ -99,11 +99,38 @@ const LeaveIcon = styled.img`
 `;
 
 const ListContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  
+  padding-bottom: 2rem;
+  gap: 2rem;
 
+  ${scrollbarStyles};
 `;
 
 const Item = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 
+  width: 10rem;
+  height: 10rem;
+
+  border: 1px solid ${COLORS["gray-4"]};
+  border-radius: 1rem;
+  box-sizing: border-box;
+
+  ${BackgroundImage}
+  cursor: pointer;
+`;
+
+const ItemImage = styled.img`
+  z-index: 2;
+  width: 6.625rem;
+  height: 6.625rem;
 `;
 
 export {
@@ -117,6 +144,9 @@ export {
   Leave,
   LeaveText,
   LeaveIcon,
+  Wrap,
+  WrapFlex,
   ListContainer,
-  Item
+  Item,
+  ItemImage
 }

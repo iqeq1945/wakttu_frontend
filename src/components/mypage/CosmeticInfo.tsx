@@ -1,4 +1,5 @@
-import { Background, CosmeticImage, GetButton, Info, InfoBottom, InfoSection, InfoTop, Tag, Title, TitleSection, Wrap } from "@/styles/mypage/CosmeticInfo"
+import { CosmeticImage, GetButton, Info, InfoBottom, InfoSection, InfoTop, Tag, Title, TitleSection, Wrap } from "@/styles/mypage/CosmeticInfo"
+import { CosmeticBackground } from "@/styles/mypage/CosmeticType";
 import { LeftWrapper } from "@/styles/mypage/MypageForm"
 
 const CosmeticInfo = () => {
@@ -11,7 +12,7 @@ const CosmeticInfo = () => {
 
       <InfoSection>
         <InfoTop>
-          <Background $itemType="skin"></Background>
+          <CosmeticBackground $itemType="skin"></CosmeticBackground>
           <CosmeticImage src="/assets/ipali.png" />
         </InfoTop>
 

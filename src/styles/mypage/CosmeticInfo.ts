@@ -1,27 +1,8 @@
 import styled, { css } from "styled-components";
 import { COLORS } from "@/styles/theme";
+import { BackgroundImage, CosmeticType, CosmeticVariant } from "./CosmeticType";
 
-export type CosmeticVariant = 'skin' | 'head' | 'hand' | 'eye';
 export type InfoVariant = 'title' | 'content';
-
-const Styles = {
-  skin: {
-    backgroundColor: '#B6ECC5',
-    color: '#155126'
-  },
-  head: {
-    backgroundColor: '#85E2FF',
-    color: '#004E66'
-  },
-  hand: {
-    backgroundColor: '#FFF6A2',
-    color: '#665C00'
-  },
-  eye: {
-    backgroundColor: '#FFA2A2',
-    color: '#660000'
-  }
-};
 
 const TitleSection = styled.div`
   display: flex;
@@ -49,34 +30,26 @@ const Tag = styled.div<{ $itemType?: CosmeticVariant }>`
   font-size: 0.875rem;
   font-weight: 600;
 
-  ${({ $itemType }) => {
-    const style = Styles[$itemType || 'skin'];
-    return css`
-      background-color: ${style.backgroundColor};
-      color: ${style.color};
-    `;
-  }}
+  ${CosmeticType}
 `;
 
 const Title = styled.div`
   font-size: 1.25rem;
   font-weight: 600;
   color: ${COLORS.text};
-  line-height: normal;
 `;
 
 const InfoSection = styled.div`
   display: flex;
   flex-direction: column;
-
   flex-grow: 1;
 
-  border-radius: 1rem;
   border: 1px solid ${COLORS['gray-4']};
+  border-radius: 1rem;
   overflow: hidden;
 `;
 
-const InfoTop = styled.div`
+const InfoTop = styled.div<{ $itemType?: CosmeticVariant }>`
   position: relative;
   display: flex;
   justify-content: center;
@@ -84,47 +57,16 @@ const InfoTop = styled.div`
   align-self: stretch;
 
   height: 21rem;
-
-  &::before {
-    content:'';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-    background-image: url('/assets/mypage-background.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    opacity: 0.7;
-  }
-`;
-
-const Background = styled.div<{ $itemType?: CosmeticVariant }>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  z-index: -1;
-  
-  ${({ $itemType }) => {
-    const style = Styles[$itemType || 'skin'];
-    return css`
-      background-color: ${style.backgroundColor};
-      background: linear-gradient(180deg, ${style.backgroundColor}, white);
-    `;
-  }}
+  ${BackgroundImage};
 `;
 
 const CosmeticImage = styled.img`
   position: absolute;
-
+  z-index: 2;
+  
   width: 13.5rem;
   height: 13.5rem;
   object-fit: fill;
-  z-index: 2;
 `;
 
 const InfoBottom = styled.div`
@@ -133,8 +75,8 @@ const InfoBottom = styled.div`
   align-items: center;
 
   width: 21rem;
-  gap: 0.5rem;
   padding: 1.5rem;
+  gap: 0.5rem;
 `;
 
 
@@ -143,7 +85,6 @@ const Wrap = styled.ul`
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-
   gap: 1rem;
 `;
 
@@ -188,20 +129,14 @@ const GetButton = styled.div<{ $itemType?: CosmeticVariant }>`
   width: 100%;
   height: 4.3125rem;
 
-  border-radius: 1rem;
   border: 1px solid rgba(0, 0, 0, 0.10);
+  border-radius: 1rem;
   cursor: pointer;
 
   font-size: 1.5rem;
   font-weight: 600;
 
-  ${({ $itemType }) => {
-    const style = Styles[$itemType || 'skin'];
-    return css`
-      background-color: ${style.backgroundColor};
-      color: ${style.color};
-    `;
-  }}
+  ${CosmeticType}
 `;
 
 export {
@@ -210,7 +145,6 @@ export {
   Title,
   InfoSection,
   InfoTop,
-  Background,
   CosmeticImage,
   InfoBottom,
   Wrap,
