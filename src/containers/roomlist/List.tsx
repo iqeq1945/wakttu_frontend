@@ -2,7 +2,6 @@ import { List as CList } from '@/components';
 import { selectFilter } from '@/redux/filter/filterSlice';
 import { setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { getRoomList, Room, socket } from '@/services/socket/socket';
-import { Router } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -30,9 +29,12 @@ const List = () => {
 
   useEffect(() => {
     socket.on('roomList', (data) => {
-      const copy = [...data].sort((a, b) =>
-        filter.time === 'desc' ? a.idx! - b.idx! : b.idx! - a.idx!
-      );
+      const copy = [...data]
+        .sort((a, b) =>
+          filter.time === 'desc' ? a.idx! - b.idx! : b.idx! - a.idx!
+        )
+        .filter((ele) => ele.users.length !== 0);
+
       setRoomList(copy);
     });
 

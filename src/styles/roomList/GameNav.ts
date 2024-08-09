@@ -45,13 +45,50 @@ const Plus = styled.img`
   height: 1.125rem;
 `;
 
-const SearchBtn = styled.img`
+const CSearch = styled.div<{ $open: boolean }>`
   display: flex;
+  width: ${({ $open }) => {
+    return $open ? '15.625rem' : 'auto';
+  }};
+  height: 2.75rem;
+  padding: 0.625rem 0.5rem;
   align-items: center;
-
-  width: 1.2rem;
-  height: 1.2rem;
   gap: 0.625rem;
+
+  position: relative;
+
+  border-radius: 0.5rem;
+  border: ${({ $open }) => {
+    return $open ? `2px solid ${COLORS['gray-4']}` : 'none';
+  }};
+  background: ${COLORS.bg};
+`;
+
+const SearchBtn = styled.img`
+  height: 1.2rem;
+
+  cursor: pointer;
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  height: auto;
+  margin: 0;
+
+  outline: none;
+  border: none;
+
+  color: ${COLORS['gray-2']};
+
+  font-family: 'WantedSans-Medium';
+  font-size: ${FONT_SIZES['body-1']};
+`;
+
+const CloseBtn = styled.img`
+  position: absolute;
+  right: 0.5rem;
+  width: 1.3rem;
+  height: 1.3rem;
 
   cursor: pointer;
 `;
@@ -91,7 +128,10 @@ export {
   Plus,
   PlusTitle,
   SearchBtn,
+  CloseBtn,
   RefreshBtn,
   FilterToggled,
   FilterIcon,
+  CSearch,
+  SearchInput,
 };

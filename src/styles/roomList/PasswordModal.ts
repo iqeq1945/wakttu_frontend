@@ -38,16 +38,35 @@ const Text = styled.span`
   font-size: ${FONT_SIZES['body-1']};
 `;
 
-const Input = styled.input`
+const CInput = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Input = styled.input<{ $error: boolean }>`
+  display: flex;
+  width: 19rem;
   padding: 0.75rem 1rem;
   align-items: center;
   gap: 0.625rem;
   align-self: stretch;
 
   border-radius: 0.5rem;
-  border: 1px solid ${COLORS['gray-4']};
+  border: 1px solid
+    ${({ $error }) => {
+      return $error ? '#FF6565' : COLORS['gray-4'];
+    }};
   background: ${COLORS.bg};
+
+  outline: none;
+`;
+
+const Error = styled.span`
+  color: #ff6565;
+  text-align: right;
+  font-family: 'WantedSans-Medium';
+  font-size: 0.75rem;
 `;
 
 const CButton = styled.div`
@@ -106,7 +125,9 @@ export {
   Modal,
   Container,
   Text,
+  CInput,
   Input,
+  Error,
   CButton,
   ConfirmButton,
   CancleButton,

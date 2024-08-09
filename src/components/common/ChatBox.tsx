@@ -74,9 +74,10 @@ const ChatBox = ({
           maxLength={50}
           onChange={onChange}
           onKeyDown={handleEnter}
+          autoComplete="off"
         />
         <SendMessage onClick={onClick}>
-          <SendIcon src="/assets/send.svg" />
+          <SendIcon src="/assets/icons/send.svg" />
         </SendMessage>
       </MessageBlock>
     </CChat>

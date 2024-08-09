@@ -1,3 +1,4 @@
+import { getIcon } from '@/modules/UserInfo';
 import {
   PlayerChat,
   CPlayer,
@@ -5,7 +6,7 @@ import {
   PlayerIcon,
   ChatContent,
   DateContent,
-} from "@/styles/common/Chat";
+} from '@/styles/common/Chat';
 
 interface Props {
   user: any;
@@ -14,11 +15,12 @@ interface Props {
 }
 
 const Chat = ({ user, chat, date }: Props) => {
+  const icon = getIcon(user.score, user.provider);
   return (
     <PlayerChat>
       <CPlayer>
-        <PlayerIcon src="/assets/amoeba.svg" />
-        <PlayerName>{user.name}</PlayerName>
+        <PlayerIcon src={icon} />
+        <PlayerName $color={user.color}>{user.name}</PlayerName>
         <ChatContent>{chat}</ChatContent>
       </CPlayer>
       <DateContent>{date}</DateContent>

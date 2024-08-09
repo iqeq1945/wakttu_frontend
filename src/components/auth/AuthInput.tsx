@@ -8,7 +8,7 @@ const AuthInput = ({ ...props }) => {
         <span>{props.desc}</span>
       </FormLabel>
       <FormItem>
-        <input {...props} onClick={() => ''} />
+        <input {...props} autoComplete="off" onClick={() => ''} />
         {props.onClick && (
           <div onClick={async () => await props.onClick(props.value)}>
             중복 확인

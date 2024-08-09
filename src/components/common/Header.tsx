@@ -12,7 +12,7 @@ import { Tab } from '@/components';
 const Header = ({ user }: any) => {
   return (
     <HeaderBlock>
-      <HeaderLogo src="/assets/logo.svg" />
+      <HeaderLogo src="/assets/icons/logo.svg" />
       <WrapContent>
         <Tab menuName="방 목록" href="/roomlist" />
         <Tab menuName="마이 페이지" href="/roomlist" />
@@ -20,7 +20,7 @@ const Header = ({ user }: any) => {
         <Tab menuName="상점" href="/roomlist" />
         <Tab menuName="옵션" href="/roomlist" />
         <Player>
-          <Rank src="/assets/amoeba.svg" />
+          <Rank src="/assets/icons/amoeba.svg" />
           <Line />
           <PlayerName>{user.name}</PlayerName>
         </Player>

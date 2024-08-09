@@ -47,7 +47,7 @@ const UpdateRoom = ({
     <Modal>
       <CCreateRoom ref={modalRef}>
         <LabelWithIcon>
-          <CreateIcon src="/assets/plus-green.svg" />
+          <CreateIcon src="/assets/icons/plus-green.svg" />
           <CreateLabel>방 만들기</CreateLabel>
         </LabelWithIcon>
         <CCreate>
@@ -83,10 +83,10 @@ const UpdateRoom = ({
           <CLabel>게임 유형</CLabel>
           <Dropdown onClick={() => onDropdown(0)}>
             <Selected>{roomInfo.type === 0 ? '끝말잇기' : '쿵쿵따'}</Selected>
-            {!isDown[0] && <DropdownLine src="/assets/down-line.svg" />}
+            {!isDown[0] && <DropdownLine src="/assets/icons/down-line.svg" />}
             {isDown[0] && (
               <>
-                <DropdownLine src="/assets/up-line.svg" />
+                <DropdownLine src="/assets/icons/up-line.svg" />
                 <DropdownItem onClick={() => onSelect('type', 0)}>
                   끝말잇기
                 </DropdownItem>
@@ -112,10 +112,10 @@ const UpdateRoom = ({
           <CLabel>라운드시간</CLabel>
           <Dropdown onClick={() => onDropdown(1)}>
             <Selected>{roomInfo.time! / 1000}초</Selected>
-            {!isDown[1] && <DropdownLine src="/assets/down-line.svg" />}
+            {!isDown[1] && <DropdownLine src="/assets/icons/down-line.svg" />}
             {isDown[1] && (
               <>
-                <DropdownLine src="/assets/up-line.svg" />
+                <DropdownLine src="/assets/icons/up-line.svg" />
                 <DropdownItem onClick={() => onSelect('time', 30000)}>
                   30초
                 </DropdownItem>
@@ -137,9 +137,9 @@ const UpdateRoom = ({
           <CheckBox onClick={() => onSelect('option', '매너')}>
             <CCheck>
               {roomInfo.option!.indexOf('매너') === -1 ? (
-                <CheckIcon src="/assets/check-off.svg" />
+                <CheckIcon src="/assets/icons/check-off.svg" />
               ) : (
-                <CheckIcon src="/assets/check-on.svg" />
+                <CheckIcon src="/assets/icons/check-on.svg" />
               )}
               <Selected>매너</Selected>
             </CCheck>
@@ -147,9 +147,9 @@ const UpdateRoom = ({
           <CheckBox onClick={() => onSelect('option', '외수')}>
             <CCheck>
               {roomInfo.option!.indexOf('외수') === -1 ? (
-                <CheckIcon src="/assets/check-off.svg" />
+                <CheckIcon src="/assets/icons/check-off.svg" />
               ) : (
-                <CheckIcon src="/assets/check-on.svg" />
+                <CheckIcon src="/assets/icons/check-on.svg" />
               )}
               <Selected>외수</Selected>
             </CCheck>

@@ -55,9 +55,9 @@ const CPlayer = styled.div`
   align-items: center;
 `;
 
-const PlayerName = styled.h5`
+const PlayerName = styled.h5<{ $color: string }>`
   margin-left: 0.375rem;
-  color: ${COLORS.text};
+  color: ${({ $color }) => $color};
   font-family: 'WantedSans-Semibold';
   white-space: nowrap;
 `;
