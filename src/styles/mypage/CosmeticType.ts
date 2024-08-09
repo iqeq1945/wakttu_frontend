@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { COLORS } from "../theme";
+
 
 export type CosmeticVariant = "all" | "skin" | "head" | "hand" | "eye";
 

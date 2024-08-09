@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { COLORS } from "@/styles/theme";
 import { scrollbarStyles } from "./Scrollbar";
-import { BackgroundImage, CosmeticBackground, CosmeticVariant } from "./CosmeticType";
+import { BackgroundImage } from "./CosmeticType";
 
 export type Variant = 'block' | 'none';
 

@@ -1,12 +1,15 @@
 
+import { closeModal } from "@/redux/modal/modalSlice";
 import { SelectOption, Wrap, DropdownSelect, DropdownOption, DropdownWrapper, Item, Leave, ListContainer, TopBar, DropdownText, DropdownImage, LeaveIcon, LeaveText, ItemImage, WrapFlex } from "@/styles/mypage/CosmeticList";
-import { CosmeticBackground, CosmeticStyles, CosmeticVariant } from "@/styles/mypage/CosmeticType";
+import { CosmeticBackground, CosmeticStyles } from "@/styles/mypage/CosmeticType";
 import { RightWrapper } from "@/styles/mypage/MypageForm";
 import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const options = Object.values(CosmeticStyles).map(style => style.name);
 
 const CosmeticList = () => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
   const dropDownRef = useRef<HTMLDivElement>(null);
@@ -21,6 +24,10 @@ const CosmeticList = () => {
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
     setIsOpen(false);
+  }
+
+  const handleLeaveClick = () => {
+    dispatch(closeModal());
   }
 
   useEffect(() => {
@@ -48,7 +55,7 @@ const CosmeticList = () => {
               </DropdownWrapper>
             </DropdownSelect>
 
-            <Leave>
+            <Leave onClick={handleLeaveClick}>
               <LeaveText>나가기</LeaveText>
               <LeaveIcon src="/assets/right-line.svg" />
             </Leave>
