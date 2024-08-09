@@ -15,8 +15,12 @@ const Tab = ({ menuName, href }: Props) => {
 
   const handleClick = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    if (!modal.open) {
-      dispatch(openModal('Mypage'));
+    if (menuName === '마이 페이지') {
+      if (!modal.open) {
+        dispatch(openModal('Mypage'));
+      } else {
+        dispatch(closeModal());
+      }
     }
   };
 
