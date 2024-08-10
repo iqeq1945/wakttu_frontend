@@ -43,10 +43,10 @@ const PlayerInfo = ({ user }: any) => {
             </WrapText>
           </LevelInfo>
         </Level>
-        <WrapCoin>
+        {/*<WrapCoin>
           <Wallet src="/assets/icons/wallet.svg" />
           <Coin>999,999,999,999</Coin>
-        </WrapCoin>
+        </WrapCoin>*/}
       </Info>
     </CPlayerInfo>
   );
