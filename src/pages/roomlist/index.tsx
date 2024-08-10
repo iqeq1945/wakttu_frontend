@@ -11,20 +11,53 @@ import {
   Copyright,
 } from '@/styles/roomList/RoomList';
 import PlayerInfo from '@/containers/roomlist/PlayerInfo';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectModal } from '@/redux/modal/modalSlice';
 import CreateRoom from '@/containers/roomlist/CreateRoom';
 import PasswordModal from '@/containers/roomlist/PasswordModal';
+import UserList from '@/containers/roomlist/UserList';
+import { useEffect, useState } from 'react';
+import { enter, socket } from '@/services/socket/socket';
+import { setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
+import { setGame } from '@/redux/game/gameSlice';
+import { useRouter } from 'next/router';
 
 const RoomList = () => {
   const modal = useSelector(selectModal);
+  const [toggle, setToggle] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!socket.connected) socket.connect();
+  }, []);
+
+  useEffect(() => {
+    socket.on('createRoom', (data) => {
+      enter(data);
+    });
+
+    socket.on('enter', async (data: any) => {
+      if (data) {
+        const { roomInfo, game } = data;
+        await dispatch(setRoomInfo(roomInfo));
+        await dispatch(setGame(game));
+        router.push(`/room/${roomInfo.id}`);
+      }
+    });
+
+    return () => {
+      socket.off('createRoom');
+      socket.off('enter');
+    };
+  }, [dispatch, router]);
 
   return (
     <Container>
       <Header />
       <WrapRoomList>
         <LeftWrapper>
-          <RoomDesc />
+          {!toggle ? <UserList /> : <RoomDesc />}
           <PlayerInfo />
           <Copyright>
             © copyright WAKTTU.
@@ -34,7 +67,7 @@ const RoomList = () => {
         </LeftWrapper>
         <RightWrapper>
           <GameNav />
-          <List />
+          <List setToggle={setToggle} />
           <Chat />
         </RightWrapper>
       </WrapRoomList>

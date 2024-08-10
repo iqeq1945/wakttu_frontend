@@ -19,7 +19,6 @@ interface Props {
 }
 
 const Player = ({ $ready, user, myName, host, onKick }: Props) => {
-  console.log(user);
   const icon = getIcon(user.score, user.provider);
 
   return (

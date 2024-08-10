@@ -2,21 +2,27 @@ import { List as CList } from '@/components';
 import { selectFilter } from '@/redux/filter/filterSlice';
 import { setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { getRoomList, Room, socket } from '@/services/socket/socket';
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const List = () => {
+const List = ({ setToggle }: any) => {
   const [roomList, setRoomList] = useState<Room[]>([]);
 
   const dispatch = useDispatch();
   const filter = useSelector(selectFilter);
 
-  const setRoomDesc = (data: any) => {
+  const setRoomDesc = (data: any, e: MouseEvent) => {
+    e.stopPropagation();
     dispatch(setRoomInfo(data));
+    setToggle(true);
+  };
+
+  const onToggle = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    setToggle(false);
   };
 
   useEffect(() => {
-    if (!socket.connected) socket.connect();
     getRoomList();
   }, []);
 
@@ -43,7 +49,14 @@ const List = () => {
     };
   }, [filter.time, roomList]);
 
-  return <CList roomList={roomList} onClick={setRoomDesc} filter={filter} />;
+  return (
+    <CList
+      roomList={roomList}
+      onClick={setRoomDesc}
+      filter={filter}
+      onToggle={onToggle}
+    />
+  );
 };
 
 export default List;
