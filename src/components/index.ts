@@ -28,3 +28,6 @@ export { default as List } from './roomList/List';
 export { default as FilterBox } from './roomList/FilterBox';
 export { default as CreateRoom } from './roomList/CreateRoom';
 export { default as PasswordModal } from './roomList/PasswordModal';
+
+export { default as CosmeticInfo } from './book/CosmeticInfo';
+export { default as CosmeticList } from './book/CosmeticList';

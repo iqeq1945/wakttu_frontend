@@ -31,8 +31,9 @@ const WrapContent = styled.ul`
   gap: 1.5rem;
 `;
 
-const Content = styled.a`
+const Content = styled.div`
   color: ${COLORS.text};
+  cursor: pointer;
 `;
 
 const Player = styled.div`
