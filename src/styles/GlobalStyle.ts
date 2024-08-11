@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import { COLORS } from './theme';
+import { createGlobalStyle } from "styled-components";
+import { COLORS } from "./theme";
 
 export const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -72,6 +72,10 @@ export const GlobalStyle = createGlobalStyle`
       url('/media/WantedSans-ExtraBlack.woff2') format('woff2');
   }
 
+  *{
+    box-sizing: border-box;
+  }
+  
   #__next,
   body,
   html {

@@ -1,18 +1,43 @@
-import { CPlayerList, WrapPlayerList } from "@/styles/room/PlayerList";
-import { Player } from "@/components";
+import { CPlayerList, WrapPlayerList } from '@/styles/room/PlayerList';
+import { Player } from '@/components';
+import { useSelector } from 'react-redux';
+import { selectUserName } from '@/redux/user/userSlice';
 
-const PlayerList = () => {
+interface Props {
+  users: any[];
+  ready: any[];
+  host: string;
+  onKick: (data: { id: string; name: string }) => void;
+}
+
+const PlayerList = ({ users, ready, host, onKick }: Props) => {
+  const arr = [...users];
+  const len = arr.length;
+  const myName = useSelector(selectUserName);
+
+  for (let i = 0; i < 8 - len; i++) arr.push({ id: i, name: undefined });
+
+  const checkReady = (userId: string) => {
+    const idx = ready.findIndex((x) => x.userId === userId);
+    if (idx >= 0) return true;
+    return false;
+  };
+
   return (
     <CPlayerList>
       <WrapPlayerList>
-        <Player $ready={true} />
-        <Player $ready={true} />
-        <Player $ready={true} />
-        <Player $ready={false} />
-        <Player $ready={false} />
-        <Player $ready={false} />
-        <Player $ready={false} />
-        <Player $ready={false} />
+        {arr.map((user) => {
+          return (
+            <Player
+              key={user.id}
+              $ready={checkReady(user.id)}
+              user={user}
+              myName={myName as string}
+              host={host}
+              onKick={onKick}
+            />
+          );
+        })}
       </WrapPlayerList>
     </CPlayerList>
   );

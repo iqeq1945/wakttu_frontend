@@ -1,15 +1,26 @@
 import { Container } from '@/styles/common/Layout';
-import { ChatBox, GameNav, Header, PlayerList } from '@/components';
+import Header from '@/containers/common/Header';
 import { LeftFooter, RightWrapper, WrapRoom } from '@/styles/room/Room';
 import { LeftWrapper, Copyright } from '@/styles/room/Room';
-import { ORoomDesc, Ready } from '@/components';
+import RoomNav from '@/containers/room/RoomNav';
+import Chat from '@/containers/room/Chat';
+import Ready from '@/containers/room/Ready';
+import PlayerList from '@/containers/room/PlyaerList';
+import RoomDesc from '@/containers/room/RoomDesc';
+import { useSelector } from 'react-redux';
+import { selectModal } from '@/redux/modal/modalSlice';
+import UpdateRoom from '@/containers/room/UpdateRoom';
+import KickModal from '@/containers/room/KickModal';
+
 const Room = () => {
+  const modal = useSelector(selectModal);
+
   return (
     <Container>
       <Header />
       <WrapRoom>
         <LeftWrapper>
-          <ORoomDesc />
+          <RoomDesc />
           <LeftFooter>
             <Ready />
             <Copyright>
@@ -20,11 +31,13 @@ const Room = () => {
           </LeftFooter>
         </LeftWrapper>
         <RightWrapper>
-          <GameNav />
+          <RoomNav />
           <PlayerList />
-          <ChatBox />
+          <Chat />
         </RightWrapper>
       </WrapRoom>
+      {modal.modalType === 'UPDATE_ROOM' && modal.open && <UpdateRoom />}
+      {modal.modalType === 'KICK' && modal.open && <KickModal />}
     </Container>
   );
 };

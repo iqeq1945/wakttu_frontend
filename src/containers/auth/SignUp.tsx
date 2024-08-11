@@ -2,9 +2,11 @@ import axios from 'axios';
 import { useState, FormEvent, MouseEvent } from 'react';
 
 import useInput from '@/hooks/useInput';
-import { API_URL } from '@/services/api';
+import { API_URL, client } from '@/services/api';
 import { onError } from '@/containers/auth/checkAuth';
-import { AuthForm, AuthInput } from '@/components/index';
+import { AuthForm, AuthInput, Message } from '@/components/index';
+
+import { REGEXP, ERROR_MESSAGE } from '@/constants/auth';
 
 interface ErrorProps {
   errorId: string;
@@ -26,6 +28,10 @@ interface Props {
 
 const SignUp = ({ onToggle }: Props) => {
   const [errors, setErrors] = useState<ErrorProps>();
+  const [sameId, setSameId] = useState<boolean>(false);
+  const [sameNickname, setSameNickname] = useState<boolean>(false);
+  const [idMessage, setIdMessage] = useState<string>('');
+  const [nicknameMessage, setNicknameMessage] = useState<string>('');
 
   const { inputs, onInputChange } = useInput<InputProps>({
     id: '',
@@ -35,28 +41,44 @@ const SignUp = ({ onToggle }: Props) => {
   });
 
   const { id, pw, confirmPw, nickname } = inputs;
-  let sameId = false,
-    sameNickname = false;
   const isSameIdValid = async (userId: string) => {
+    if (!REGEXP.userId.test(userId)) {
+      setIdMessage(ERROR_MESSAGE.idRegexError);
+      return;
+    }
     try {
-      const { data } = await axios.post(`${API_URL}/auth/check/id`, {
+      const { data } = await client.post('/auth/check/id', {
         id: userId,
       });
-      sameId = data.success;
+      setSameId(data.success);
+      if (data.success) {
+        setIdMessage('사용 가능한 아이디 입니다!');
+      } else {
+        setIdMessage('사용 불가능한 아이디 입니다!');
+      }
     } catch (error) {
-      if (axios.isAxiosError(error)) sameId = error?.response?.data.success;
+      if (axios.isAxiosError(error)) setSameId(error?.response?.data.success);
     }
   };
 
   const isSameNicknameValid = async (nickname: string) => {
+    if (!REGEXP.userNickname.test(nickname)) {
+      setNicknameMessage(ERROR_MESSAGE.nicknameRegexError);
+      return;
+    }
     try {
-      const { data } = await axios.post(`${API_URL}/auth/check/name`, {
+      const { data } = await client.post('/auth/check/name', {
         name: nickname,
       });
-      sameNickname = data.success;
+      setSameNickname(data.success);
+      if (data.success) {
+        setNicknameMessage('사용 가능한 닉네임 입니다!');
+      } else {
+        setNicknameMessage('사용 불가능한 닉네임 입니다!');
+      }
     } catch (error) {
       if (axios.isAxiosError(error))
-        sameNickname = error.response?.data.success;
+        setSameNickname(error.response?.data.success);
     }
   };
 
@@ -97,14 +119,20 @@ const SignUp = ({ onToggle }: Props) => {
     }
   };
 
+  const waktaLogin = async () => {
+    const { data } = await client.get('auth/wakta');
+    window.location.href = data.url;
+  };
+
   return (
     <AuthForm
       formTitle="회원가입"
       onSubmit={onSignUpSubmit}
       onToggle={onToggle}
+      onAuth={waktaLogin}
     >
       <AuthInput
-        label="아이디"
+        label="아이디 "
         desc="특수문자, 한글 제외 5~12자 내"
         type="text"
         placeholder="아이디 입력"
@@ -113,9 +141,10 @@ const SignUp = ({ onToggle }: Props) => {
         onChange={onInputChange}
         onClick={isSameIdValid}
       />
-      {errors && <span>{errors.errorId}</span>}
+      {!errors && <Message message={idMessage} error={!sameId} />}
+      {errors && <Message message={errors.errorId} error={true} />}
       <AuthInput
-        label="닉네임"
+        label="닉네임 "
         desc="특수문자 제외 2~8자 내"
         type="text"
         placeholder="닉네임 입력"
@@ -124,7 +153,8 @@ const SignUp = ({ onToggle }: Props) => {
         onChange={onInputChange}
         onClick={isSameNicknameValid}
       />
-      {errors && <span>{errors.errorNickname}</span>}
+      {!errors && <Message message={nicknameMessage} error={!sameNickname} />}
+      {errors && <Message message={errors.errorNickname} error={true} />}
       <AuthInput
         label="비밀번호"
         type="password"
@@ -133,7 +163,7 @@ const SignUp = ({ onToggle }: Props) => {
         value={pw}
         onChange={onInputChange}
       />
-      {errors && <span>{errors.errorPw}</span>}
+      {errors && <Message message={errors.errorPw} error={true} />}
       <AuthInput
         type="password"
         placeholder="비밀번호 재입력"
@@ -141,7 +171,7 @@ const SignUp = ({ onToggle }: Props) => {
         value={confirmPw}
         onChange={onInputChange}
       />
-      {errors && <span>{errors.errorConfirmPw}</span>}
+      {errors && <Message message={errors.errorConfirmPw} error={true} />}
     </AuthForm>
   );
 };

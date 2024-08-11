@@ -9,7 +9,7 @@ const CPlayerInfo = styled.article`
 
   width: 25rem;
 
-  gap: 2rem;
+  gap: 1.5rem;
   padding: 2.3rem 2rem;
 
   border-radius: 1rem;
@@ -45,7 +45,7 @@ const PlayerIcon = styled.img`
   height: 1.5rem;
 `;
 
-const PlayerName = styled.h4`
+const PlayerName = styled.h5`
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
@@ -65,8 +65,21 @@ const Level = styled.section`
   gap: 0.625rem;
 `;
 
-const LevelBar = styled.img`
+const LevelBar = styled.div`
+  width: 12.875rem;
   height: 0.5rem;
+
+  border-radius: 1rem;
+  background: ${COLORS['gray-4']};
+`;
+
+const GaugeBar = styled.div<{ $exp: number }>`
+  width: ${({ $exp }) => {
+    return $exp + '%';
+  }};
+  height: 100%;
+  border-radius: 1rem;
+  background: ${COLORS.primary};
 `;
 
 const LevelInfo = styled.ul`
@@ -134,6 +147,7 @@ export {
   PlayerName,
   Level,
   LevelBar,
+  GaugeBar,
   LevelInfo,
   LevelText,
   WrapText,

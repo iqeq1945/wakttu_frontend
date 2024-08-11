@@ -1,8 +1,24 @@
-import { Header, RoomDesc, PlayerInfo, GameNav } from '@/components';
+import GameNav from '@/containers/roomlist/GameNav';
+import List from '@/containers/roomlist/List';
+import RoomDesc from '@/containers/roomlist/RoomDesc';
+import Header from '@/containers/common/Header';
 import { Container } from '@/styles/common/Layout';
-import { WrapRoomList, LeftWrapper, RightWrapper, Copyright } from '@/styles/roomList/RoomList';
+import Chat from '@/containers/roomlist/Chat';
+import {
+  WrapRoomList,
+  LeftWrapper,
+  RightWrapper,
+  Copyright,
+} from '@/styles/roomList/RoomList';
+import PlayerInfo from '@/containers/roomlist/PlayerInfo';
+import { useSelector } from 'react-redux';
+import { selectModal } from '@/redux/modal/modalSlice';
+import CreateRoom from '@/containers/roomlist/CreateRoom';
+import PasswordModal from '@/containers/roomlist/PasswordModal';
 
 const RoomList = () => {
+  const modal = useSelector(selectModal);
+
   return (
     <Container>
       <Header />
@@ -18,8 +34,12 @@ const RoomList = () => {
         </LeftWrapper>
         <RightWrapper>
           <GameNav />
+          <List />
+          <Chat />
         </RightWrapper>
       </WrapRoomList>
+      {modal.modalType === 'CREATE_ROOM' && modal.open && <CreateRoom />}
+      {modal.modalType === 'PASSWORD' && modal.open && <PasswordModal />}
     </Container>
   );
 };

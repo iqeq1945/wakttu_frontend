@@ -2,16 +2,15 @@ import axios from 'axios';
 import { FormEvent, MouseEvent, useState } from 'react';
 
 import useInput from '@/hooks/useInput';
-import { API_URL, SOCKET } from '@/services/api';
+import { API_URL, client } from '@/services/api';
 import { ERROR_MESSAGE } from '@/constants/auth';
 import { AuthForm, AuthInput } from '@/components/index';
 import { isExistError, isIdValidError } from '@/containers/auth/checkAuth';
 
 import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
-import { setUserId } from '@/redux/user/userSlice';
-import { useCookies } from 'react-cookie';
+import { setUserInfo } from '@/redux/user/userSlice';
 import { closeModal } from '@/redux/modal/modalSlice';
+import styled from 'styled-components';
 
 interface InputProps {
   id: string;
@@ -55,9 +54,7 @@ const SignIn = ({ onToggle }: Props) => {
     return sameId;
   };
 
-  const router = useRouter();
   const dispatch = useDispatch();
-  const [cookies, setCookie] = useCookies(['ACCOUNT_TOKEN']);
 
   const onSignInSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -78,12 +75,12 @@ const SignIn = ({ onToggle }: Props) => {
       email: id,
       password: pw,
     };
-    await axios
-      .post(`${API_URL}/auth/login`, userInfo, { withCredentials: true })
+    await client
+      .post('auth/login', userInfo)
       .then((response) => {
         if (response.status === 201) {
           setErrors({ message: '', type: 'success' });
-          dispatch(setUserId(response.data.id));
+          dispatch(setUserInfo(response.data));
           dispatch(closeModal());
         }
       })
@@ -92,22 +89,23 @@ const SignIn = ({ onToggle }: Props) => {
           message: ERROR_MESSAGE.signInError,
           type: 'pw',
         });
-
         console.error(`로그인을 완료할 수 없습니다. ${error}`);
+        return;
       });
-    const data = await axios
-      .get(`${API_URL}/test`, { withCredentials: true })
-      .then((response) => {
-        return response.data;
-      })
-      .catch((error) => {
-        setErrors({ message: ERROR_MESSAGE.signInError, type: 'undefined' });
-        console.error(`알수없는 이유로 정보 가져오기 실패, ${error}`);
-      });
-    console.log(data);
   };
+
+  const waktaLogin = async () => {
+    const { data } = await client.get('auth/wakta');
+    window.location.href = data.url;
+  };
+
   return (
-    <AuthForm formTitle="로그인" onSubmit={onSignInSubmit} onToggle={onToggle}>
+    <AuthForm
+      formTitle="로그인"
+      onSubmit={onSignInSubmit}
+      onToggle={onToggle}
+      onAuth={waktaLogin}
+    >
       <AuthInput
         label="아이디"
         type="text"

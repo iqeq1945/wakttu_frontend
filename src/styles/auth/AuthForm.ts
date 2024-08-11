@@ -14,8 +14,7 @@ const ModalContainer = styled.div`
 `;
 
 const Modal = styled.div`
-  display: inline-flex;
-  width: 19.375rem;
+  display: flex;
   padding: 3rem 2.5rem;
   justify-content: center;
   align-items: center;
@@ -51,6 +50,13 @@ const InputContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 1rem;
+  white-space: break-spaces;
+
+  & > p {
+    color: #ff6565;
+
+    font-family: WantedSans-Medium;
+  }
 `;
 
 const InputSection = styled.div`
@@ -101,11 +107,15 @@ const FormItem = styled.div`
   }
   & > div {
     display: flex;
+    white-space: nowrap;
     justify-content: center;
     align-items: center;
-    width: 5rem;
-    height: 1rem;
+    width: 4.5rem;
+    height: 1.8125rem;
     padding: 0.375rem 0.625rem;
+
+    position: absolute;
+    right: 0.5rem;
 
     border: none;
     border-radius: 0.5rem;
@@ -116,9 +126,6 @@ const FormItem = styled.div`
     color: ${COLORS.bg};
     font-family: 'WantedSans-Medium';
     font-size: ${FONT_SIZES['body-2']};
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
   }
 `;
 

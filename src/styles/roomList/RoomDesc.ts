@@ -1,7 +1,7 @@
-import styled, { css } from "styled-components";
-import { COLORS } from "@/styles/theme";
+import styled, { css } from 'styled-components';
+import { COLORS } from '@/styles/theme';
 
-export type InfoVariant = "title" | "desc";
+export type InfoVariant = 'title' | 'desc';
 
 const CRoomDesc = styled.article`
   display: flex;
@@ -15,7 +15,7 @@ const CRoomDesc = styled.article`
   gap: 0.9375rem;
 
   border-radius: 1rem;
-  border: 2px solid ${COLORS["gray-4"]};
+  border: 2px solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
 `;
 
@@ -29,7 +29,7 @@ const WrapRoomTitle = styled.section`
   padding: 1rem 0.625rem;
 
   border-radius: 1rem;
-  border: 1px solid ${COLORS["gray-4"]};
+  border: 1px solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
 `;
 
@@ -75,9 +75,9 @@ const Info = styled.li<{ $variant?: InfoVariant }>`
 
   ${({ $variant }) => {
     switch ($variant) {
-      case "title":
+      case 'title':
         return css`
-          color: ${COLORS["gray-2"]};
+          color: ${COLORS['gray-2']};
         `;
     }
   }}
@@ -103,26 +103,26 @@ const Mod = styled.div`
   padding: 1.25rem 1rem;
 
   border-radius: 1rem;
-  border: 1px solid ${COLORS["gray-4"]};
+  border: 1px solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
 `;
 
 const ModText = styled.h5`
-  color: ${COLORS["gray-2"]};
+  color: ${COLORS['gray-2']};
 `;
 
-const WatingLarge = styled.div`
+const WatingLarge = styled.div<{ $start?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
 
   width: 6.875rem;
-  height: 2rem;
+  height: 4rem;
   padding: 1rem;
 
   border-radius: 1rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  background: ${COLORS["gray-5"]};
+  background: ${({ $start }) => ($start ? '#FFF6A2' : COLORS['gray-5'])};
 `;
 
 const WatingText = styled.h5`
@@ -143,7 +143,7 @@ const JoinButton = styled.button`
   background: ${COLORS.primary};
 
   &:hover {
-    background-color: ${COLORS["primary-hov"]};
+    background-color: ${COLORS['primary-hov']};
     transition: 0.2s ease-in;
   }
 `;
