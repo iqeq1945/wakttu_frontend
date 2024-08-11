@@ -21,6 +21,8 @@ const HeaderLogo = styled.img`
   flex-shrink: 0;
   width: 3.59938rem;
   height: 1.5rem;
+
+  cursor: pointer;
 `;
 
 const WrapContent = styled.ul`

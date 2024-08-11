@@ -6,11 +6,7 @@ import {
   setReady,
 } from '@/redux/game/gameSlice';
 import { openModal, setDataModal } from '@/redux/modal/modalSlice';
-import {
-  selectRoomId,
-  selectRoomUsers,
-  setRoomInfo,
-} from '@/redux/roomInfo/roomInfoSlice';
+import { selectRoomUsers, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { socket } from '@/services/socket/socket';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
