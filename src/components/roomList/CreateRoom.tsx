@@ -84,10 +84,12 @@ const CreateRoom = ({
           <CLabel>게임 유형</CLabel>
           <Dropdown onClick={() => onDropdown(0)}>
             <Selected>{roomInfo.type === 0 ? '끝말잇기' : '쿵쿵따'}</Selected>
-            {!isDown[0] && <DropdownLine src="/assets/icons/down-line.svg" />}
+            <DropdownLine
+              isOpen={isDown[0]}
+              src="/assets/icons/down-line.svg"
+            />
             {isDown[0] && (
               <>
-                <DropdownLine src="/assets/icons/up-line.svg" />
                 <DropdownItem onClick={() => onSelect('type', 0)}>
                   끝말잇기
                 </DropdownItem>
@@ -113,10 +115,12 @@ const CreateRoom = ({
           <CLabel>라운드시간</CLabel>
           <Dropdown onClick={() => onDropdown(1)}>
             <Selected>{roomInfo.time / 1000}초</Selected>
-            {!isDown[1] && <DropdownLine src="/assets/icons/down-line.svg" />}
+            <DropdownLine
+              isOpen={isDown[1]}
+              src="/assets/icons/down-line.svg"
+            />
             {isDown[1] && (
               <>
-                <DropdownLine src="/assets/icons/up-line.svg" />
                 <DropdownItem onClick={() => onSelect('time', 30000)}>
                   30초
                 </DropdownItem>

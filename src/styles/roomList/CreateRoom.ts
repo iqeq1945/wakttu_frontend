@@ -100,9 +100,12 @@ const CCheck = styled.div`
   align-items: center;
   gap: 0.5rem;
 `;
+
 const CheckIcon = styled.img`
   width: 1.25rem;
   height: 1.25rem;
+
+  cursor: pointer;
 `;
 
 const Dropdown = styled.ul`
@@ -113,31 +116,49 @@ const Dropdown = styled.ul`
   align-self: stretch;
 
   width: 12.5rem;
-  padding: 0.625rem 1rem;
+  padding: 0.625rem 0;
 
   border-radius: 0.5rem;
   border: 1px solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
+
+  cursor: pointer;
+
+  & > span {
+    margin-left: 1rem;
+  }
 `;
 
 const DropdownItem = styled.li`
   width: 12.5rem;
 
-  padding: 6px 0;
+  padding: 0.375rem 1rem;
   text-align: left;
   color: ${COLORS.text};
 
   font-family: 'WantedSans-Medium';
   font-size: ${FONT_SIZES['body-1']};
 
+  cursor: pointer;
+
   &:first-of-type {
-    padding-top: 12px;
+    margin-top: 0.75rem;
+  }
+
+  &:hover {
+    background-color: ${COLORS['gray-4']};
   }
 `;
 
-const DropdownLine = styled.img`
+const DropdownLine = styled.img<{ isOpen: boolean }>`
   width: 1.5rem;
   height: 1.5rem;
+  margin-right: 1rem;
+
+  cursor: pointer;
+
+  transform: ${({ isOpen }) => (isOpen ? 'rotateX(180deg)' : 'rotateX(0deg)')};
+  transition: transform 0.3s ease;
 `;
 
 const Selected = styled.span`
@@ -166,6 +187,8 @@ const ConfirmButton = styled.button`
   border: none;
   background: ${COLORS.primary};
 
+  cursor: pointer;
+
   &:hover {
     background: ${COLORS['primary-hov']};
   }
@@ -181,6 +204,8 @@ const CancleButton = styled.button`
   border-radius: 0.5rem;
   border: 1px solid var(--Outline-Black, rgba(0, 0, 0, 0.1));
   background: ${COLORS['gray-4']};
+
+  cursor: pointer;
 
   &:hover {
     background: ${COLORS['gray-5']};
