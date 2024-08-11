@@ -98,6 +98,13 @@ export const getRoomList = () => {
 };
 
 /*
+ * 유저 목록 가져오기
+ */
+export const getUserList = () => {
+  socket.emit('list');
+};
+
+/*
  * 방 입장
  * 비밀번호가 걸려있는경우 값입력 , 없는 경우 'undefined' 값을 줌.
  */

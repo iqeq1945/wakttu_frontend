@@ -15,10 +15,12 @@ import {
   Status,
   Lock,
 } from '@/styles/roomList/List';
+import { MouseEvent } from 'react';
 
 interface Props {
   roomList: Room[];
-  onClick: (data: any) => void;
+  onClick: (data: any, e: MouseEvent) => void;
+  onToggle: (e: MouseEvent<HTMLDivElement>) => void;
   filter: {
     time: string | undefined;
     start: boolean | undefined;
@@ -27,7 +29,7 @@ interface Props {
   };
 }
 
-const List = ({ roomList, onClick, filter }: Props) => {
+const List = ({ roomList, onClick, filter, onToggle }: Props) => {
   const checkFilter = (room: Room) => {
     const { type, start, title } = room;
     return (
@@ -39,12 +41,12 @@ const List = ({ roomList, onClick, filter }: Props) => {
   };
 
   return (
-    <CList>
+    <CList onClick={onToggle}>
       <CItem>
         {roomList.map((room) => {
           if (checkFilter(room))
             return (
-              <Item key={room.id} onClick={() => onClick(room)}>
+              <Item key={room.id} onClick={(e) => onClick(room, e)}>
                 <Summary>
                   <RoomNumber number={room.idx as number} />
                   <RoomInfo>

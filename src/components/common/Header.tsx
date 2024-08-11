@@ -9,10 +9,15 @@ import {
 } from '@/styles/common/Header';
 import { Tab } from '@/components';
 
-const Header = ({ user }: any) => {
+interface Props {
+  user: any;
+  goHome: () => void;
+}
+
+const Header = ({ user, goHome }: Props) => {
   return (
     <HeaderBlock>
-      <HeaderLogo src="/assets/icons/logo.svg" />
+      <HeaderLogo src="/assets/icons/logo.svg" onClick={goHome} />
       <WrapContent>
         <Tab menuName="방 목록" href="/roomlist" />
         <Tab menuName="마이 페이지" href="/roomlist" />
