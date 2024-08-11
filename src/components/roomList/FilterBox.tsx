@@ -37,10 +37,10 @@ const FilterBox = ({
         <DropdownLabel>생성순</DropdownLabel>
         <Dropdown onClick={() => onDropdown(0)}>
           <Selected>{selected[0]}</Selected>
-          {!isDown[0] && <DropdownLine src="/assets/icons/down-line.svg" />}
+
+          <DropdownLine isOpen={isDown[0]} src="/assets/icons/down-line.svg" />
           {isDown[0] && (
             <>
-              <DropdownLine src="/assets/icons/up-line.svg" />
               <DropdownItem
                 data-value="asc"
                 onClick={(e: MouseEvent) => onSelect(e, 0)}
@@ -61,10 +61,9 @@ const FilterBox = ({
         <DropdownLabel>게임</DropdownLabel>
         <Dropdown onClick={() => onDropdown(1)}>
           <Selected>{selected[1]}</Selected>
-          {!isDown[1] && <DropdownLine src="/assets/icons/down-line.svg" />}
+          <DropdownLine isOpen={isDown[1]} src="/assets/icons/down-line.svg" />
           {isDown[1] && (
             <>
-              <DropdownLine src="/assets/icons/up-line.svg" />
               <DropdownItem onClick={(e: MouseEvent) => onSelect(e, 1)}>
                 전체
               </DropdownItem>
@@ -88,10 +87,9 @@ const FilterBox = ({
         <DropdownLabel>방 상태</DropdownLabel>
         <Dropdown onClick={() => onDropdown(2)}>
           <Selected>{selected[2]}</Selected>
-          {!isDown[2] && <DropdownLine src="/assets/icons/down-line.svg" />}
+          <DropdownLine isOpen={isDown[2]} src="/assets/icons/down-line.svg" />
           {isDown[2] && (
             <>
-              <DropdownLine src="/assets/icons/up-line.svg" />
               <DropdownItem onClick={(e: MouseEvent) => onSelect(e, 2)}>
                 전체
               </DropdownItem>
