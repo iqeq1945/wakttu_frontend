@@ -1,5 +1,5 @@
 import { Content } from '@/styles/common/Header';
-
+import Router from 'next/router';
 interface Props {
   menuName: string;
   href: string;
@@ -7,7 +7,7 @@ interface Props {
 
 const Tab = ({ menuName, href }: Props) => {
   return (
-    <Content href={href}>
+    <Content onClick={() => Router.push(href)}>
       <li>{menuName}</li>
     </Content>
   );
