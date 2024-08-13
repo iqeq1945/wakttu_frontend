@@ -1,6 +1,7 @@
 import { ChatBox } from '@/components';
 import useInput from '@/hooks/useInput';
 import { getTime } from '@/modules/Date';
+import { clean } from '@/modules/Slang';
 import { sendLobbyChat, socket } from '@/services/socket/socket';
 import { useEffect, useState, useRef } from 'react';
 
@@ -24,7 +25,7 @@ const Chat = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onSendMessage = () => {
-    if (inputs.chat) sendLobbyChat(inputs.chat);
+    if (inputs.chat) sendLobbyChat(clean(inputs.chat));
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
   };
