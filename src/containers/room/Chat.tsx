@@ -1,6 +1,7 @@
 import { ChatBox } from '@/components';
 import useInput from '@/hooks/useInput';
 import { getTime } from '@/modules/Date';
+import { clean } from '@/modules/Slang';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { sendChat, socket } from '@/services/socket/socket';
 import { useEffect, useState, useRef } from 'react';
@@ -30,7 +31,7 @@ const Chat = () => {
     if (inputs.chat) {
       sendChat({
         roomId,
-        chat: inputs.chat,
+        chat: clean(inputs.chat),
         roundTime: null,
         turnTime: null,
         score: null,
