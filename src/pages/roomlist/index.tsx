@@ -23,14 +23,22 @@ import { setGame } from '@/redux/game/gameSlice';
 import { useRouter } from 'next/router';
 
 const RoomList = () => {
+  const [isConnect, setConnected] = useState(false);
   const modal = useSelector(selectModal);
   const [toggle, setToggle] = useState<boolean>(false);
   const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
-    if (!socket.connected) socket.connect();
+    if (!socket.connected) {
+      socket.connect();
+      setConnected(true);
+    }
   }, []);
+
+  useEffect(() => {
+    if (!isConnect && !socket.connected) router.push('/');
+  }, [isConnect, router]);
 
   useEffect(() => {
     socket.on('createRoom', (data) => {
