@@ -1,0 +1,51 @@
+/* InputEffect */
+@keyframes typingAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fontSizeAnimation {
+  50% {
+    font-size: 36px;
+  }
+
+  100% {
+    font-size: 24px;
+  }
+}
+
+.typingAnimation {
+  animation: typingAnimation 0.1s ease forwards, fontSizeAnimation 0.05s;
+}
+
+.typingNone {
+  display: none;
+}
+
+.typingContainer {
+  display: flex;
+  margin: 10px;
+}
+
+/* ErrorEffect */
+@keyframes textDecorationEffect {
+  50% {
+    text-decoration: line-through;
+  }
+
+  100% {
+    text-decoration: line-through;
+  }
+}
+
+.typingWrong {
+  color: #ff385c;
+  animation: textDecorationEffect 0.7s step-end 3 forwards;
+}
