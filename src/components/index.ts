@@ -32,3 +32,10 @@ export { default as UserList } from './roomList/UserList';
 
 export { default as CosmeticInfo } from './book/CosmeticInfo';
 export { default as CosmeticList } from './book/CosmeticList';
+
+export { default as GHeader } from './game/last/Header';
+export { default as GInfo } from './game/last/Info';
+export { default as Last } from './game/last/Last';
+export { default as LastPlayerList } from './game/last/PlayerList';
+export { default as GChatBox } from './game/last/ChatBox';
+export { default as GChat } from './game/last/Chat';

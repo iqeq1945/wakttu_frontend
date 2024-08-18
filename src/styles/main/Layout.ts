@@ -1,10 +1,5 @@
 import styled from 'styled-components';
-import { ContentContainer, Container } from '../common/Layout';
-
-const MainContainer = styled(ContentContainer)`
-  height: 100vh;
-  background: url('/assets/background.png') lightgray 50% / cover no-repeat;
-`;
+import { Container } from '../common/Layout';
 
 const Wrapper = styled(Container)`
   padding: 19.625rem 0rem 26rem;
@@ -12,4 +7,4 @@ const Wrapper = styled(Container)`
   align-items: flex-end;
   gap: 0;
 `;
-export { MainContainer, Wrapper };
+export { Wrapper };
