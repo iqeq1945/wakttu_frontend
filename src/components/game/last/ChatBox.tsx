@@ -6,7 +6,7 @@ import {
   SendMessage,
   SendIcon,
 } from '@/styles/last/Chat';
-import { GChat } from '@/components';
+import { Answer, GChat } from '@/components';
 import {
   ChangeEventHandler,
   useEffect,
@@ -20,18 +20,22 @@ interface Props {
   log: LogProps[];
   message: string;
   onChange: ChangeEventHandler;
-  onClick: () => void;
+  onMessage: () => void;
+  onAnswer: () => void;
   chatBoxRef: RefObject<HTMLDivElement>;
   inputRef: RefObject<HTMLInputElement>;
+  myTurn: boolean;
 }
 
 const ChatBox = ({
   log,
   message,
   onChange,
-  onClick,
+  onMessage,
+  onAnswer,
   chatBoxRef,
   inputRef,
+  myTurn,
 }: Props) => {
   const scrollToBottom = useCallback(() => {
     if (chatBoxRef.current) {
@@ -42,10 +46,11 @@ const ChatBox = ({
   const handleEnter = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter') {
-        onClick();
+        if (myTurn) onMessage();
+        else onAnswer();
       }
     },
-    [onClick]
+    [myTurn, onAnswer, onMessage]
   );
 
   useEffect(() => {
@@ -53,34 +58,43 @@ const ChatBox = ({
   }, [log, scrollToBottom]);
 
   return (
-    <CChat>
-      <ChatLog ref={chatBoxRef}>
-        {log.map((element, idx) => {
-          return (
-            <GChat
-              key={idx}
-              user={element.user}
-              chat={element.chat}
-              date={element.date}
-            />
-          );
-        })}
-      </ChatLog>
-      <MessageBlock>
-        <MessageInput
-          ref={inputRef}
-          name="chat"
-          value={message}
-          maxLength={100}
-          onChange={onChange}
-          onKeyDown={handleEnter}
-          autoComplete="off"
-        />
-        <SendMessage onClick={onClick}>
-          <SendIcon src="/assets/icons/send.svg" />
-        </SendMessage>
-      </MessageBlock>
-    </CChat>
+    <>
+      {myTurn ? <Answer chat={message} /> : ''}
+      <CChat>
+        <ChatLog ref={chatBoxRef}>
+          {log.map((element, idx) => {
+            return (
+              <GChat
+                key={idx}
+                user={element.user}
+                chat={element.chat}
+                date={element.date}
+              />
+            );
+          })}
+        </ChatLog>
+        <MessageBlock>
+          <MessageInput
+            ref={inputRef}
+            name="chat"
+            value={message}
+            maxLength={100}
+            onChange={onChange}
+            onKeyDown={handleEnter}
+            autoComplete="off"
+          />
+          {myTurn ? (
+            <SendMessage onClick={onAnswer}>
+              <SendIcon src="/assets/icons/send.svg" />
+            </SendMessage>
+          ) : (
+            <SendMessage onClick={onMessage}>
+              <SendIcon src="/assets/icons/send.svg" />
+            </SendMessage>
+          )}
+        </MessageBlock>
+      </CChat>
+    </>
   );
 };
 

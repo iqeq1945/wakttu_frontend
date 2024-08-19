@@ -9,6 +9,7 @@ const CChat = styled.div`
   padding: 2rem;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   gap: 1rem;
 
   border: 2px solid ${COLORS['gray-4']};

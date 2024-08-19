@@ -49,7 +49,7 @@ const Info = () => {
           <CTimer>
             <TimerItem>
               <LeftTimer>
-                <TimerIcon src="/assets/icons/timer.svg" />
+                <TimerIcon src="/assets/game/timer.svg" />
                 <TimerText>라운드 남은 시간</TimerText>
               </LeftTimer>
               <RightTimer>
@@ -61,7 +61,7 @@ const Info = () => {
             </TimerItem>
             <TimerItem>
               <LeftTimer>
-                <TimerIcon src="/assets/icons/timer.svg" />
+                <TimerIcon src="/assets/game/timer.svg" />
                 <TimerText>이번턴 남은 시간</TimerText>
               </LeftTimer>
               <RightTimer>
