@@ -7,69 +7,33 @@ import {
   Score,
   Skin,
 } from '@/styles/last/PlayList';
+import { Game } from '@/services/socket/socket';
 
-const PlayList = () => {
+interface Props {
+  users: any;
+  game: Game;
+}
+
+const PlayList = ({ users, game }: Props) => {
   return (
     <CPlayerList>
-      <CPlayer>
-        <Skin src="/assets/drom.svg" />
-        <CName>
-          <Host>
-            <span>방장</span>
-          </Host>
-          <Name>이파리는참지않아</Name>
-        </CName>
-        <Score>12345</Score>
-      </CPlayer>
-      <CPlayer $turn={true}>
-        <Skin src="/assets/drom.svg" />
-        <CName>
-          <Name>이파리는참지않아</Name>
-        </CName>
-        <Score>12345</Score>
-      </CPlayer>
-      <CPlayer>
-        <Skin src="/assets/drom.svg" />
-        <CName>
-          <Name>이파리는참지않아</Name>
-        </CName>
-        <Score>12345</Score>
-      </CPlayer>
-      <CPlayer>
-        <Skin src="/assets/drom.svg" />
-        <CName>
-          <Name>이파리는참지않아</Name>
-        </CName>
-        <Score>12345</Score>
-      </CPlayer>
-      <CPlayer>
-        <Skin src="/assets/drom.svg" />
-        <CName>
-          <Name>이파리는참지않아</Name>
-        </CName>
-        <Score>12345</Score>
-      </CPlayer>
-      <CPlayer>
-        <Skin src="/assets/drom.svg" />
-        <CName>
-          <Name>이파리는참지않아</Name>
-        </CName>
-        <Score>12345</Score>
-      </CPlayer>
-      <CPlayer>
-        <Skin src="/assets/drom.svg" />
-        <CName>
-          <Name>이파리는참지않아</Name>
-        </CName>
-        <Score>12345</Score>
-      </CPlayer>
-      <CPlayer>
-        <Skin src="/assets/drom.svg" />
-        <CName>
-          <Name>이파리는참지않아</Name>
-        </CName>
-        <Score>12345</Score>
-      </CPlayer>
+      {users.map((user: any, index: number) => {
+        return (
+          <CPlayer key={user.id} $turn={game.turn === index}>
+            <Skin src={'/assets/ipali.png'} />
+            <CName>
+              {user.name === game.host && (
+                <Host>
+                  <span>방장</span>
+                </Host>
+              )}
+
+              <Name>{user.name}</Name>
+            </CName>
+            <Score>{user.score}</Score>
+          </CPlayer>
+        );
+      })}
     </CPlayerList>
   );
 };

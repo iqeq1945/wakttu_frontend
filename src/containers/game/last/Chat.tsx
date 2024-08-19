@@ -23,78 +23,7 @@ const Chat = () => {
     return state.user.id === state.game.users[state.game.turn].userId;
   });
   const roomId = useSelector(selectRoomId) as string;
-  const [log, setLog] = useState<LogProps[]>([
-    {
-      user: {
-        name: '이파리는참고싶어',
-        provider: 'wataverse.games',
-        score: 4352,
-        color: '#000000',
-      },
-      chat: '안녕',
-      date: '오후 12:00:31',
-    },
-    {
-      user: {
-        name: '이파리는참고싶어',
-        provider: 'wataverse.games',
-        score: 4352,
-        color: '#000000',
-      },
-      chat: '안녕',
-      date: '오후 12:00:31',
-    },
-    {
-      user: {
-        name: '이파리는참고싶어',
-        provider: 'wataverse.games',
-        score: 4352,
-        color: '#000000',
-      },
-      chat: '안녕',
-      date: '오후 12:00:31',
-    },
-    {
-      user: {
-        name: '이파리는참고싶어',
-        provider: 'wataverse.games',
-        score: 4352,
-        color: '#000000',
-      },
-      chat: '안녕',
-      date: '오후 12:00:31',
-    },
-    {
-      user: {
-        name: '이파리는참고싶어',
-        provider: 'wataverse.games',
-        score: 4352,
-        color: '#000000',
-      },
-      chat: '안녕',
-      date: '오후 12:00:31',
-    },
-    {
-      user: {
-        name: '이파리는참고싶어',
-        provider: 'wataverse.games',
-        score: 4352,
-        color: '#000000',
-      },
-      chat: '안녕',
-      date: '오후 12:00:31',
-    },
-    {
-      user: {
-        name: '이파리는참고싶어',
-        provider: 'wataverse.games',
-        score: 4352,
-        color: '#000000',
-      },
-      chat: '안녕',
-      date: '오후 12:00:31',
-    },
-  ]);
+  const [log, setLog] = useState<LogProps[]>([]);
   const { inputs, setInputs, onInputChange } = useInput<InputProps>({
     chat: '',
   });

@@ -46,8 +46,8 @@ const ChatBox = ({
   const handleEnter = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter') {
-        if (myTurn) onMessage();
-        else onAnswer();
+        if (myTurn) onAnswer();
+        else onMessage();
       }
     },
     [myTurn, onAnswer, onMessage]

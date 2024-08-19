@@ -1,3 +1,4 @@
+import { Game } from '@/services/socket/socket';
 import {
   BChainText,
   BTimerBar,
@@ -24,7 +25,12 @@ import {
   Wrapper,
 } from '@/styles/last/Info';
 
-const Info = () => {
+interface Props {
+  game: Game;
+}
+
+const Info = ({ game }: Props) => {
+  const keyword = game.keyword!._id.split('');
   return (
     <Wrapper>
       <CChain $flag={true} />
@@ -33,16 +39,17 @@ const Info = () => {
           <CTarget>
             <RoundText>Round</RoundText>
             <TargetRound>
-              <NumberText>4</NumberText>
+              <NumberText>{game.round}</NumberText>
             </TargetRound>
           </CTarget>
           <CTargetList>
-            <RoundText $type={false}>이</RoundText>
-            <RoundText $type={false}>세</RoundText>
-            <RoundText $type={false}>계</RoundText>
-            <RoundText $type={true}>아</RoundText>
-            <RoundText $type={false}>이</RoundText>
-            <RoundText $type={false}>돌</RoundText>
+            {keyword.map((word: string) => {
+              return (
+                <RoundText key={word} $type={game.target === word}>
+                  {word}
+                </RoundText>
+              );
+            })}
           </CTargetList>
         </CRound>
         <CTime>
@@ -53,7 +60,7 @@ const Info = () => {
                 <TimerText>라운드 남은 시간</TimerText>
               </LeftTimer>
               <RightTimer>
-                <RemainText>8888.1초</RemainText>
+                <RemainText>{game.roundTime / 1000.0}초</RemainText>
                 <TimerBar>
                   <GaugeBar gauge={80} />
                 </TimerBar>
@@ -65,7 +72,7 @@ const Info = () => {
                 <TimerText>이번턴 남은 시간</TimerText>
               </LeftTimer>
               <RightTimer>
-                <RemainText>8.1초</RemainText>
+                <RemainText>{game.turnTime / 1000.0}초</RemainText>
                 <BTimerBar>
                   <GaugeBar gauge={30} />
                 </BTimerBar>

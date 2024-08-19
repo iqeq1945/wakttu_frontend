@@ -1,3 +1,4 @@
+import { Room } from '@/services/socket/socket';
 import {
   Button,
   ButtonText,
@@ -10,7 +11,11 @@ import {
   Title,
 } from '@/styles/last/Header';
 
-const Header = () => {
+interface Props {
+  roomInfo: Room;
+}
+
+const Header = ({ roomInfo }: Props) => {
   return (
     <CHeader>
       <CButton>
@@ -25,8 +30,8 @@ const Header = () => {
         </Button>
       </CButton>
       <CTitle>
-        <Index>707070</Index>
-        <Title>즐겁게 즐기자 왁뚜!</Title>
+        <Index>[ {roomInfo.idx} ]</Index>
+        <Title>{roomInfo.title}</Title>
       </CTitle>
       <CButton>
         <ExitButton>
