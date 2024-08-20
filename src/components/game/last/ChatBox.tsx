@@ -6,7 +6,7 @@ import {
   SendMessage,
   SendIcon,
 } from '@/styles/last/Chat';
-import { Answer, GChat } from '@/components';
+import { Answer as CAnswer, GChat } from '@/components';
 import {
   ChangeEventHandler,
   useEffect,
@@ -15,6 +15,8 @@ import {
   useCallback,
 } from 'react';
 import { LogProps } from '@/containers/roomlist/Chat';
+import { Game } from '@/services/socket/socket';
+import { Answer } from '@/redux/answer/answerSlice';
 
 interface Props {
   log: LogProps[];
@@ -25,6 +27,8 @@ interface Props {
   chatBoxRef: RefObject<HTMLDivElement>;
   inputRef: RefObject<HTMLInputElement>;
   myTurn: boolean;
+  game: Game;
+  answer: Answer;
 }
 
 const ChatBox = ({
@@ -36,6 +40,8 @@ const ChatBox = ({
   chatBoxRef,
   inputRef,
   myTurn,
+  game,
+  answer,
 }: Props) => {
   const scrollToBottom = useCallback(() => {
     if (chatBoxRef.current) {
@@ -59,7 +65,7 @@ const ChatBox = ({
 
   return (
     <>
-      {myTurn ? <Answer chat={message} /> : ''}
+      {myTurn ? answer.pause && <CAnswer chat={message} game={game} /> : ''}
       <CChat>
         <ChatLog ref={chatBoxRef}>
           {log.map((element, idx) => {
@@ -83,7 +89,7 @@ const ChatBox = ({
             onKeyDown={handleEnter}
             autoComplete="off"
           />
-          {myTurn ? (
+          {answer.pause && myTurn ? (
             <SendMessage onClick={onAnswer}>
               <SendIcon src="/assets/icons/send.svg" />
             </SendMessage>

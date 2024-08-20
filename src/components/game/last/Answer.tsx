@@ -1,3 +1,4 @@
+import { Game } from '@/services/socket/socket';
 import {
   BTimerBar,
   Container,
@@ -18,8 +19,10 @@ import { LeftTimer, RightTimer } from '@/styles/last/Info';
 
 interface Props {
   chat: string;
+  game: Game;
 }
-const Answer = ({ chat }: Props) => {
+
+const Answer = ({ chat, game }: Props) => {
   return (
     <Container>
       <Modal>
@@ -28,7 +31,7 @@ const Answer = ({ chat }: Props) => {
             당신의 차례! 아래의 채팅 창에서 답을 입력하세요.
           </TitleText>
         </ModalTitle>
-        <TargetText>온</TargetText>
+        <TargetText>{game.target}</TargetText>
         <CTimer>
           <LeftTimer>
             <TimerIcon src="/assets/game/timer.svg" />

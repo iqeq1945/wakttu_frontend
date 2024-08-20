@@ -84,7 +84,7 @@ const Info = ({ game }: Props) => {
       <CChain>
         <CText>
           <ChainText>CHAIN</ChainText>
-          <BChainText>2</BChainText>
+          <BChainText>{game.chain}</BChainText>
         </CText>
       </CChain>
     </Wrapper>

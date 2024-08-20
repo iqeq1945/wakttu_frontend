@@ -2,6 +2,8 @@ import { GChatBox } from '@/components';
 import useInput from '@/hooks/useInput';
 import { getTime } from '@/modules/Date';
 import { clean } from '@/modules/Slang';
+import { selectAnswer } from '@/redux/answer/answerSlice';
+import { selectGame } from '@/redux/game/gameSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { RootState } from '@/redux/store';
 import { sendChat, socket } from '@/services/socket/socket';
@@ -23,6 +25,9 @@ const Chat = () => {
     return state.user.id === state.game.users[state.game.turn].userId;
   });
   const roomId = useSelector(selectRoomId) as string;
+  const game = useSelector(selectGame);
+  const answer = useSelector(selectAnswer);
+
   const [log, setLog] = useState<LogProps[]>([]);
   const { inputs, setInputs, onInputChange } = useInput<InputProps>({
     chat: '',
@@ -35,9 +40,9 @@ const Chat = () => {
     if (inputs.chat) {
       sendChat({
         roomId,
-        chat: '',
-        roundTime: 88.2,
-        turnTime: 8.1,
+        chat: inputs.chat,
+        roundTime: 8000,
+        turnTime: 6000,
         score: 100,
       });
     }
@@ -88,6 +93,8 @@ const Chat = () => {
       inputRef={inputRef}
       chatBoxRef={chatBoxRef}
       myTurn={myTurn}
+      game={game}
+      answer={answer}
     />
   );
 };

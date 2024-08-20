@@ -13,22 +13,23 @@ import {
   WordText,
 } from '@/styles/last/Game';
 
-const Game = () => {
+interface Props {
+  history: any[];
+}
+
+const Game = ({ history }: Props) => {
   return (
     <CMain>
       <Left src="/assets/game/blinker.svg" />
       <Main>
         <CTrain>
           <CWord>
-            <WordText>아이네</WordText>
+            <WordText>{history[0]._id}</WordText>
             <CDesc>
               <Category>
-                <span>명</span>
+                <span>{history[0].type}</span>
               </Category>
-              <Desc>
-                버츄얼 그룹 ‘이세계아이돌’의 멤버. 보라색을 좋아하며 멤버중
-                첫째이다. MBTI는 INFP이며ffffffffffffff
-              </Desc>
+              <Desc>{history[0].mean}</Desc>
             </CDesc>
           </CWord>
         </CTrain>
