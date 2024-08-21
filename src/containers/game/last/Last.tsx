@@ -1,4 +1,5 @@
 import { Last as CLast } from '@/components';
+import { createTimer } from '@/modules/Timer';
 import { setAnswer, setPause } from '@/redux/answer/answerSlice';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
 import { socket } from '@/services/socket/socket';
@@ -7,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Last = () => {
   const game = useSelector(selectGame);
+  const [timer, setTimer] = useState<any>();
   const [history, setHistory] = useState<any[]>([
     {
       id: game.keyword._id,
@@ -33,7 +35,6 @@ const Last = () => {
     });
 
     return () => {
-      socket.off('last.round');
       socket.off('last.game');
     };
   }, [dispatch, game.keyword]);
