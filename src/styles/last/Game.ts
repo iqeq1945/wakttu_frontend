@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { COLORS, FONT_SIZES } from '../theme';
 
 export const CMain = styled.div`
@@ -23,12 +23,21 @@ export const Right = styled.img`
 `;
 
 export const Main = styled.div`
-  display: inline-flex;
-  justify-content: center;
+  display: flex;
+  width: 100%;
+  overflow-x: visible;
+  justify-content: flex-end;
   align-items: flex-end;
   gap: 1.3125rem;
 
   flex: 1 0 0;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const CTrain = styled.div`
@@ -89,7 +98,6 @@ export const Category = styled.div`
   align-items: center;
   border-radius: 12.5rem;
   background: ${COLORS.pupple};
-  flex: 1 0 0;
 
   & > span {
     width: 1rem;

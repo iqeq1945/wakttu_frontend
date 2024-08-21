@@ -15,10 +15,10 @@ const ContentContainer = styled.div<{ path?: string }>`
 `;
     else if (path?.includes('/game'))
       return `height: 100vh;
-    background-image :  url('/assets/mypage-background.png') ,linear-gradient(180deg, #E4CEFF 0%, #AAF0FF 100%);
     background-color : lightgray;
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-image :  url('/assets/mypage-background.png') ,linear-gradient(180deg, #E4CEFF 0%, #AAF0FF 100%);
+    background-size: 50%;
+    background-repeat: repeat;
     padding-bottom:0;
     `;
   }}
