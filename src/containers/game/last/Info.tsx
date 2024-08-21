@@ -1,5 +1,5 @@
 import { GInfo } from '@/components';
-import { setAnswer, setPause } from '@/redux/answer/answerSlice';
+import { setPause } from '@/redux/answer/answerSlice';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { selectUserName } from '@/redux/user/userSlice';

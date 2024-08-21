@@ -43,9 +43,9 @@ const Info = ({ game }: Props) => {
             </TargetRound>
           </CTarget>
           <CTargetList>
-            {keyword.map((word: string) => {
+            {keyword.map((word: string, index: number) => {
               return (
-                <RoundText key={word} $type={game.target === word}>
+                <RoundText key={word} $type={game.round - 1 === index}>
                   {word}
                 </RoundText>
               );

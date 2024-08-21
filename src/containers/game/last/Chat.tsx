@@ -9,7 +9,7 @@ import { RootState } from '@/redux/store';
 import { sendChat, socket } from '@/services/socket/socket';
 import { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
-
+import countScore from '@/modules/Score';
 interface InputProps {
   chat: string;
 }

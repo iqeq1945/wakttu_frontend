@@ -1,8 +1,19 @@
 import styled, { keyframes } from 'styled-components';
 import { COLORS, FONT_SIZES } from '../theme';
 
+const translate = keyframes`
+  0%{
+  transform : translate(0, 2rem);
+  }
+
+  100%{
+    transform : translate(0,0);
+  }
+`;
+
 export const CMain = styled.div`
   display: flex;
+  position: relative;
   align-items: flex-end;
   width: 111.9375rem;
   height: 21.9375rem;
@@ -26,7 +37,7 @@ export const Main = styled.div`
   display: flex;
   width: 100%;
   overflow-x: visible;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: flex-end;
   gap: 1.3125rem;
 
@@ -65,7 +76,7 @@ export const CWord = styled.div`
   width: 15.875rem;
   height: 6.625rem;
   margin: 6.94rem 2.06rem 6.63rem 5.56rem;
-  padding: 1.25rem 0.625rem;
+  padding: 1rem 0.625rem;
   flex-direction: column;
   align-items: center;
   gap: 0.625rem;
@@ -80,8 +91,12 @@ export const CWordC = styled(CWord)`
 `;
 
 export const WordText = styled.h3`
+  width: 100%;
   color: ${COLORS.text};
+  overflow: hidden;
   text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   font-family: 'WantedSans-SemiBold';
 `;
@@ -89,6 +104,7 @@ export const WordText = styled.h3`
 export const CDesc = styled.div`
   display: flex;
   width: 100%;
+  justify-content: center;
   align-items: flex-start;
   gap: 0.25rem;
 `;
@@ -124,4 +140,34 @@ export const Desc = styled.span`
 
   font-family: 'WantedSans-Medium';
   font-size: ${FONT_SIZES.caption};
+`;
+
+export const NameText = styled.span<{ $name?: boolean }>`
+  color: ${({ $name }) => {
+    return $name ? COLORS.pupple : COLORS['gray-2'];
+  }};
+  text-align: center;
+
+  font-family: 'WantedSans-SemiBold';
+  font-size: ${FONT_SIZES['subtitle-1']};
+`;
+
+export const CHistory = styled.div`
+  position: absolute;
+  top: -8rem;
+  left: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 20.2rem;
+  overflow: scroll;
+
+  gap: 0.25rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;

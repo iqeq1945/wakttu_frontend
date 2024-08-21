@@ -1,7 +1,9 @@
+import { Game as Type } from '@/services/socket/socket';
 import {
   Category,
   CCargo,
   CDesc,
+  CHistory,
   CMain,
   CTrain,
   CWord,
@@ -9,64 +11,56 @@ import {
   Desc,
   Left,
   Main,
+  NameText,
   Right,
   WordText,
 } from '@/styles/last/Game';
+import { RefObject, useCallback, useEffect } from 'react';
 
 interface Props {
   history: any[];
+  game: Type;
+  historyBoxRef: RefObject<HTMLDivElement>;
 }
 
-const Game = ({ history }: Props) => {
+const Game = ({ history, game, historyBoxRef }: Props) => {
+  const scrollToBottom = useCallback(() => {
+    if (historyBoxRef.current) {
+      historyBoxRef.current.scrollTop = historyBoxRef.current.scrollHeight;
+    }
+  }, [historyBoxRef]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [history, scrollToBottom]);
+
   return (
     <CMain>
       <Left src="/assets/game/blinker.svg" />
+
       <Main>
         <CTrain>
           <CWord>
-            <WordText>{history[0].id}</WordText>
-            <CDesc>
-              <Category>
-                <span>{history[0].type[0]}</span>
-              </Category>
-              <Desc>{history[0].mean}</Desc>
-            </CDesc>
+            <WordText>효과이미지</WordText>
           </CWord>
         </CTrain>
         <CCargo>
           <CWordC>
-            <WordText>네온</WordText>
+            <WordText>{history[history.length - 1].id}</WordText>
             <CDesc>
               <Category>
-                <span>명</span>
+                <span>{history[history.length - 1].type[0]}</span>
               </Category>
-              <Desc>의미</Desc>
+              <Desc>{history[history.length - 1].mean}</Desc>
             </CDesc>
           </CWordC>
         </CCargo>
         <CCargo>
           <CWordC>
-            <WordText>네온</WordText>
+            <WordText>{game.target}</WordText>
             <CDesc>
-              <Category>
-                <span>명</span>
-              </Category>
-              <Desc>
-                뜻ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-              </Desc>
-            </CDesc>
-          </CWordC>
-        </CCargo>
-        <CCargo>
-          <CWordC>
-            <WordText>온</WordText>
-            <CDesc>
-              <Category>
-                <span>명</span>
-              </Category>
-              <Desc>
-                뜻ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-              </Desc>
+              <NameText $name={true}>{game.users[game.turn].name}</NameText>
+              <NameText> 님의 차례!</NameText>
             </CDesc>
           </CWordC>
         </CCargo>

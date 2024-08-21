@@ -7,6 +7,7 @@ import roomInfoReducer from './roomInfo/roomInfoSlice';
 import filterReducer from './filter/filterSlice';
 import gameReducer from './game/gameSlice';
 import answerReducer from './answer/answerSlice';
+import timerReducer from './timer/timerSlice';
 
 export interface RootState {
   user: ReturnType<typeof userReducer>;
@@ -15,6 +16,7 @@ export interface RootState {
   game: ReturnType<typeof gameReducer>;
   filter: ReturnType<typeof filterReducer>;
   answer: ReturnType<typeof answerReducer>;
+  timer: ReturnType<typeof timerReducer>;
 }
 
 const reducers = combineReducers({
@@ -24,13 +26,14 @@ const reducers = combineReducers({
   game: gameReducer,
   filter: filterReducer,
   answer: answerReducer,
+  timer: timerReducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
   whitelist: ['user'],
-  blacklist: ['modal', 'roomInfo', 'game', 'filter', 'answer'],
+  blacklist: ['modal', 'roomInfo', 'game', 'filter', 'answer', 'timer'],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
