@@ -18,8 +18,14 @@ export const formatTime = (time: number): string => {
 export const createTimer = (
   roundTime: number | string,
   onTick: (remainingTime: number) => void,
-  onTimeout: () => void,
-): { start: () => void; stop: () => void; getRemainingTime: () => number; pause: () => void; resume: () => void } => {
+  onTimeout: () => void
+): {
+  start: () => void;
+  stop: () => void;
+  getRemainingTime: () => number;
+  pause: () => void;
+  resume: () => void;
+} => {
   let startTime = 0;
   let timeoutId: NodeJS.Timeout | null = null;
   let remainingTime = 0;
@@ -28,7 +34,7 @@ export const createTimer = (
 
   let duration: number;
 
-  /** 
+  /**
    * 라운드 시간 별 턴시간
    * string = 전체 게임 시간-라운드 시간 (60초)
    * number = 턴시간 (15초 ~ 5초)
@@ -36,7 +42,7 @@ export const createTimer = (
   if (typeof roundTime === 'string') {
     duration = 60000;
   } else {
-    if (51000 <= roundTime && roundTime <= 60000) {
+    if (51000 <= roundTime && roundTime <= 61000) {
       duration = 15000;
     } else if (41000 <= roundTime && roundTime < 51000) {
       duration = 12000;
@@ -57,7 +63,7 @@ export const createTimer = (
 
   /**
    * 타이머 시작 함수
-   * 1초마다 tick 호출
+   * 0.1초마다 tick 호출
    */
   const start = (): void => {
     startTime = Date.now();
@@ -113,7 +119,10 @@ export const createTimer = (
    */
   const tick = (): void => {
     const currentTime = Date.now();
-    remainingTime = Math.max(duration - (elapsedTime + (currentTime - startTime)), 0);
+    remainingTime = Math.max(
+      duration - (elapsedTime + (currentTime - startTime)),
+      0
+    );
     onTick(remainingTime);
     if (remainingTime <= 0) {
       stop();

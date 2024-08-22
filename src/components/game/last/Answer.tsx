@@ -20,9 +20,10 @@ import { LeftTimer, RightTimer } from '@/styles/last/Info';
 interface Props {
   chat: string;
   game: Game;
+  time: number;
 }
 
-const Answer = ({ chat, game }: Props) => {
+const Answer = ({ chat, game, time }: Props) => {
   return (
     <Container>
       <Modal>
@@ -50,7 +51,7 @@ const Answer = ({ chat, game }: Props) => {
             <TimerText>이번턴 남은 시간</TimerText>
           </LeftTimer>
           <RightTimer>
-            <RemainText>8.1초</RemainText>
+            <RemainText>{(time / 1000).toFixed(1)}</RemainText>
             <BTimerBar>
               <GaugeBar gauge={40} />
             </BTimerBar>

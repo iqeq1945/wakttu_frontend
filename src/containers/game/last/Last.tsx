@@ -1,14 +1,17 @@
 import { Last as CLast } from '@/components';
-import { createTimer } from '@/modules/Timer';
 import { setAnswer, setPause } from '@/redux/answer/answerSlice';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
 import { socket } from '@/services/socket/socket';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Timer } from '@/modules/Time';
 
-const Last = () => {
+interface Props {
+  timer: Timer;
+}
+
+const Last = ({ timer }: Props) => {
   const game = useSelector(selectGame);
-  const [timer, setTimer] = useState<any>();
   const [history, setHistory] = useState<any[]>([
     {
       id: game.keyword._id,
@@ -30,14 +33,19 @@ const Last = () => {
           pause: false,
         })
       );
-      if (success) setHistory((prev) => [...prev, word]);
+      if (success) {
+        setHistory((prev) => [...prev, word]);
+        timer.stop();
+      } else {
+        timer.resume();
+      }
       dispatch(setPause(true));
     });
 
     return () => {
       socket.off('last.game');
     };
-  }, [dispatch, game.keyword]);
+  }, [dispatch, game.keyword, timer]);
 
   return <CLast history={history} game={game} historyBoxRef={historyBoxRef} />;
 };

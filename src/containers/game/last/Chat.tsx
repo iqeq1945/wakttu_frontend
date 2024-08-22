@@ -2,6 +2,7 @@ import { GChatBox } from '@/components';
 import useInput from '@/hooks/useInput';
 import { getTime } from '@/modules/Date';
 import { clean } from '@/modules/Slang';
+import { Timer } from '@/modules/Time';
 import { selectAnswer } from '@/redux/answer/answerSlice';
 import { selectGame } from '@/redux/game/gameSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
@@ -9,7 +10,7 @@ import { RootState } from '@/redux/store';
 import { sendChat, socket } from '@/services/socket/socket';
 import { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import countScore from '@/modules/Score';
+
 interface InputProps {
   chat: string;
 }
@@ -20,7 +21,12 @@ export interface LogProps {
   date: string;
 }
 
-const Chat = () => {
+interface TimeProps {
+  timer: Timer;
+  time: number;
+}
+
+const Chat = ({ timer, time }: TimeProps) => {
   const myTurn = useSelector((state: RootState) => {
     return state.user.id === state.game.users[state.game.turn].userId;
   });
@@ -45,6 +51,7 @@ const Chat = () => {
         turnTime: 6000,
         score: 100,
       });
+      timer.pause();
     }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
@@ -95,6 +102,7 @@ const Chat = () => {
       myTurn={myTurn}
       game={game}
       answer={answer}
+      time={time}
     />
   );
 };
