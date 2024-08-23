@@ -1,3 +1,5 @@
+import { hangulTools } from '@/modules/Hangul';
+import { selectTimer } from '@/redux/timer/timerSlice';
 import { Game } from '@/services/socket/socket';
 import {
   BTimerBar,
@@ -16,14 +18,19 @@ import {
   TitleText,
 } from '@/styles/last/Answer';
 import { LeftTimer, RightTimer } from '@/styles/last/Info';
+import { useSelector } from 'react-redux';
 
 interface Props {
   chat: string;
   game: Game;
-  time: number;
 }
 
-const Answer = ({ chat, game, time }: Props) => {
+const Answer = ({ chat, game }: Props) => {
+  const timer = useSelector(selectTimer);
+  const target = () => {
+    const res = hangulTools().dueum(game.target);
+    if (res !== game.target) return `(${res})`;
+  };
   return (
     <Container>
       <Modal>
@@ -32,16 +39,25 @@ const Answer = ({ chat, game, time }: Props) => {
             당신의 차례! 아래의 채팅 창에서 답을 입력하세요.
           </TitleText>
         </ModalTitle>
-        <TargetText>{game.target}</TargetText>
+        <TargetText>
+          {game.target}
+          {target()}
+        </TargetText>
         <CTimer>
           <LeftTimer>
             <TimerIcon src="/assets/game/timer.svg" />
             <TimerText>라운드 남은 시간</TimerText>
           </LeftTimer>
           <RightTimer>
-            <RemainText>88.1초</RemainText>
+            <RemainText>
+              {(timer.roundTime - timer.countTime) / 1000.0}초
+            </RemainText>
             <TimerBar>
-              <GaugeBar gauge={80} />
+              <GaugeBar
+                gauge={
+                  ((timer.roundTime - timer.countTime) / timer.roundTime) * 100
+                }
+              />
             </TimerBar>
           </RightTimer>
         </CTimer>
@@ -51,9 +67,15 @@ const Answer = ({ chat, game, time }: Props) => {
             <TimerText>이번턴 남은 시간</TimerText>
           </LeftTimer>
           <RightTimer>
-            <RemainText>{(time / 1000).toFixed(1)}</RemainText>
+            <RemainText>
+              {(timer.turnTime - timer.countTime) / 1000.0}
+            </RemainText>
             <BTimerBar>
-              <GaugeBar gauge={40} />
+              <GaugeBar
+                gauge={
+                  ((timer.turnTime - timer.countTime) / timer.turnTime) * 100
+                }
+              />
             </BTimerBar>
           </RightTimer>
         </CTimer>

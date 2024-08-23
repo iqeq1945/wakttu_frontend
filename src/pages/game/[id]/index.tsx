@@ -6,42 +6,67 @@ import Info from '@/containers/game/last/Info';
 import Last from '@/containers/game/last/Last';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
-import { lastRound, socket } from '@/services/socket/socket';
+import { socket } from '@/services/socket/socket';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { setPause } from '@/redux/answer/answerSlice';
-import { Timer } from '@/modules/Time';
+import {
+  selectTimer,
+  setTimer,
+  setTimerId,
+  setTurn,
+  tick,
+} from '@/redux/timer/timerSlice';
+
 const Game = () => {
   const dispatch = useDispatch();
   const game = useSelector(selectGame);
   const roomId = useSelector(selectRoomId) as string;
+  const timer = useSelector(selectTimer);
 
-  const [time, setTime] = useState<number>(0);
-
-  const onTick = (time: number) => {
-    setTime(time);
-  };
-  const timer = new Timer(game.roundTime, onTick);
+  if (timer.countTime === timer.turnTime) clearInterval(timer.timerId);
 
   useEffect(() => {
     socket.on('last.round', (data) => {
       dispatch(setGame(data));
       dispatch(setPause(true));
-      timer.start();
+      dispatch(setTimer(game.roundTime));
+      const timeId = setInterval(() => {
+        dispatch(tick());
+      }, 100);
+      dispatch(setTimerId(timeId));
     });
 
     return () => {
       socket.off('last.round');
     };
-  }, [dispatch, game.roundTime, roomId, timer]);
+  }, [dispatch, game.roundTime, roomId, timer.timerId]);
+
+  useEffect(() => {
+    socket.on('last.game', (data) => {
+      const { success } = data;
+      if (success) {
+        clearInterval(timer.timerId);
+        dispatch(setTurn());
+        const timeId = setInterval(() => {
+          dispatch(tick());
+        }, 100);
+        dispatch(setTimerId(timeId));
+      }
+    });
+
+    return () => {
+      socket.off('last.game');
+    };
+  }, [dispatch, timer.timerId]);
 
   return (
     <Container>
       <Header />
-      <Info time={time} />
-      <Last timer={timer} />
+      <Info />
+      <Last />
       <PlayerList />
-      <Chat timer={timer!} time={time} />
+      <Chat />
     </Container>
   );
 };

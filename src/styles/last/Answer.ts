@@ -1,7 +1,16 @@
-import { styled } from 'styled-components';
+import { keyframes, styled } from 'styled-components';
 import { COLORS, FONT_SIZES } from '../theme';
 
 const DROM_SHADOW = '0px 1px 10px 0px rgba(0, 0, 0, 0.15)';
+
+const gaugeAnimation = keyframes`
+  100% {
+    width:100%;
+  }
+  0%{
+    width: 0%;
+  }
+`;
 
 export const Container = styled.div`
   position: fixed;
@@ -120,12 +129,11 @@ export const BTimerBar = styled(TimerBar)`
 `;
 
 export const GaugeBar = styled.div<{ gauge: number }>`
-  width: ${({ gauge }) => {
-    return gauge + '%';
-  }};
+  width: 100%;
   height: 100%;
   border-radius: 6.25rem;
   background: ${COLORS.pupple};
+  animation: ${gaugeAnimation} ${gauge} linear;
 `;
 
 export const CAnswer = styled.div`

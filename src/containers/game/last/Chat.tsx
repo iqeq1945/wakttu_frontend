@@ -1,15 +1,17 @@
 import { GChatBox } from '@/components';
 import useInput from '@/hooks/useInput';
 import { getTime } from '@/modules/Date';
+import countScore from '@/modules/Score';
 import { clean } from '@/modules/Slang';
-import { Timer } from '@/modules/Time';
-import { selectAnswer } from '@/redux/answer/answerSlice';
+import { selectAnswer, setAnswer } from '@/redux/answer/answerSlice';
 import { selectGame } from '@/redux/game/gameSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { RootState } from '@/redux/store';
+import { selectTimer } from '@/redux/timer/timerSlice';
 import { sendChat, socket } from '@/services/socket/socket';
 import { useEffect, useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import wordRelay from '@/modules/WordRelay';
 
 interface InputProps {
   chat: string;
@@ -21,18 +23,16 @@ export interface LogProps {
   date: string;
 }
 
-interface TimeProps {
-  timer: Timer;
-  time: number;
-}
+const Chat = () => {
+  const dispatch = useDispatch();
 
-const Chat = ({ timer, time }: TimeProps) => {
   const myTurn = useSelector((state: RootState) => {
     return state.user.id === state.game.users[state.game.turn].userId;
   });
   const roomId = useSelector(selectRoomId) as string;
   const game = useSelector(selectGame);
   const answer = useSelector(selectAnswer);
+  const timer = useSelector(selectTimer);
 
   const [log, setLog] = useState<LogProps[]>([]);
   const { inputs, setInputs, onInputChange } = useInput<InputProps>({
@@ -44,14 +44,30 @@ const Chat = ({ timer, time }: TimeProps) => {
 
   const onSendAnswer = () => {
     if (inputs.chat) {
-      sendChat({
-        roomId,
-        chat: inputs.chat,
-        roundTime: 8000,
-        turnTime: 6000,
-        score: 100,
-      });
-      timer.pause();
+      const { isValid, message } = wordRelay(game.target, inputs.chat);
+      if (!isValid) {
+        dispatch(
+          setAnswer({
+            success: isValid,
+            answer: inputs.chat,
+            message: message,
+            pause: true,
+          })
+        );
+      } else {
+        sendChat({
+          roomId,
+          chat: inputs.chat,
+          roundTime: timer.roundTime - timer.countTime,
+          turnTime: timer.turnTime - timer.countTime,
+          score: countScore({
+            wordLength: inputs.chat.length,
+            chainCount: game.chain,
+            timeLimit: timer.turnTime,
+            remainingTime: timer.turnTime - timer.countTime,
+          }),
+        });
+      }
     }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
@@ -102,7 +118,6 @@ const Chat = ({ timer, time }: TimeProps) => {
       myTurn={myTurn}
       game={game}
       answer={answer}
-      time={time}
     />
   );
 };

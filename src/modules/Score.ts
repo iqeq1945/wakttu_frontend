@@ -25,7 +25,7 @@ const countScore = ({
     2 *
     ((5 + 7 * wordLength) ** 0.74 + 0.88 * chainCount) *
     (1 - timeTaken / ((2 * timeLimit) / 1000));
-  return calculate.toFixed();
+  return parseInt(calculate.toFixed(), 10);
 };
 
 export default countScore;

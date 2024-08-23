@@ -1,3 +1,4 @@
+import { hangulTools } from '@/modules/Hangul';
 import { Game as Type } from '@/services/socket/socket';
 import {
   Category,
@@ -24,6 +25,10 @@ interface Props {
 }
 
 const Game = ({ history, game, historyBoxRef }: Props) => {
+  const target = () => {
+    const res = hangulTools().dueum(game.target);
+    if (res !== game.target) return `(${res})`;
+  };
   const scrollToBottom = useCallback(() => {
     if (historyBoxRef.current) {
       historyBoxRef.current.scrollTop = historyBoxRef.current.scrollHeight;
@@ -57,7 +62,10 @@ const Game = ({ history, game, historyBoxRef }: Props) => {
         </CCargo>
         <CCargo>
           <CWordC>
-            <WordText>{game.target}</WordText>
+            <WordText>
+              {game.target}
+              {target()}
+            </WordText>
             <CDesc>
               <NameText $name={true}>{game.users[game.turn].name}</NameText>
               <NameText> 님의 차례!</NameText>

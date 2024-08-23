@@ -27,10 +27,9 @@ import {
 
 interface Props {
   game: Game;
-  time: number;
 }
 
-const Info = ({ game, time }: Props) => {
+const Info = ({ game }: Props) => {
   const keyword = game.keyword!._id.split('');
   return (
     <Wrapper>
@@ -61,7 +60,7 @@ const Info = ({ game, time }: Props) => {
                 <TimerText>라운드 남은 시간</TimerText>
               </LeftTimer>
               <RightTimer>
-                <RemainText>{time / 1000.0}초</RemainText>
+                <RemainText>{10000 / 1000.0}초</RemainText>
                 <TimerBar>
                   <GaugeBar gauge={80} />
                 </TimerBar>
@@ -73,7 +72,7 @@ const Info = ({ game, time }: Props) => {
                 <TimerText>이번턴 남은 시간</TimerText>
               </LeftTimer>
               <RightTimer>
-                <RemainText>{time / 1000.0}초</RemainText>
+                <RemainText>{10000 / 1000.0}초</RemainText>
                 <BTimerBar>
                   <GaugeBar gauge={30} />
                 </BTimerBar>

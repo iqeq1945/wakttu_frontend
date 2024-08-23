@@ -6,11 +6,7 @@ import { lastRound, socket } from '@/services/socket/socket';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-interface Props {
-  time: number;
-}
-
-const Info = ({ time }: Props) => {
+const Info = () => {
   const name = useSelector(selectUserName);
   const game = useSelector(selectGame);
   const roomId = useSelector(selectRoomId) as string;
@@ -27,7 +23,7 @@ const Info = ({ time }: Props) => {
     };
   }, [game.host, name, roomId]);
 
-  return <GInfo game={game} time={time} />;
+  return <GInfo game={game} />;
 };
 
 export default Info;
