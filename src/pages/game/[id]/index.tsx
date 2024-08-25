@@ -6,21 +6,11 @@ import Info from '@/containers/game/last/Info';
 import Last from '@/containers/game/last/Last';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
-import { lastRound, socket } from '@/services/socket/socket';
-import {
-  selectRoomId,
-  selectRoomInfo,
-  setRoomInfo,
-} from '@/redux/roomInfo/roomInfoSlice';
+import { socket } from '@/services/socket/socket';
+import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { useEffect, useRef, useState } from 'react';
-import { setPause } from '@/redux/answer/answerSlice';
-import {
-  selectTimer,
-  setTimer,
-  setTimerId,
-  setTurn,
-  tick,
-} from '@/redux/timer/timerSlice';
+import { clearAnswer, setPause } from '@/redux/answer/answerSlice';
+import { setTimer, tick } from '@/redux/timer/timerSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';
 import { useRouter } from 'next/router';
 
@@ -64,7 +54,7 @@ const Game = () => {
 
   useEffect(() => {
     socket.on('last.result', (data) => {
-      dispatch(setPause(false));
+      dispatch(clearAnswer());
       console.log('result:', data);
     });
 

@@ -1,3 +1,4 @@
+import { selectPause } from '@/redux/answer/answerSlice';
 import { selectTimer } from '@/redux/timer/timerSlice';
 import { Game } from '@/services/socket/socket';
 import {
@@ -32,6 +33,7 @@ interface Props {
 }
 
 const Info = ({ game }: Props) => {
+  const pause = useSelector(selectPause);
   const timer = useSelector(selectTimer);
   const keyword = game.keyword!._id.split('');
   return (
@@ -67,7 +69,11 @@ const Info = ({ game }: Props) => {
                   {((timer.roundTime - timer.countTime) / 1000.0).toFixed(1)}초
                 </RemainText>
                 <TimerBar>
-                  <GaugeBar key={game.target} gauge={timer.roundTime} />
+                  {pause ? (
+                    <GaugeBar key={game.target} gauge={timer.roundTime} />
+                  ) : (
+                    ''
+                  )}
                 </TimerBar>
               </RightTimer>
             </TimerItem>
@@ -81,7 +87,11 @@ const Info = ({ game }: Props) => {
                   {((timer.turnTime - timer.countTime) / 1000.0).toFixed(1)}초
                 </RemainText>
                 <BTimerBar>
-                  <GaugeBar key={game.target} gauge={timer.turnTime} />
+                  {pause ? (
+                    <GaugeBar key={game.target} gauge={timer.turnTime} />
+                  ) : (
+                    ''
+                  )}
                 </BTimerBar>
               </RightTimer>
             </TimerItem>

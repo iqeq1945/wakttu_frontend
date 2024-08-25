@@ -4,7 +4,6 @@ import {
   Category,
   CCargo,
   CDesc,
-  CHistory,
   CMain,
   CTrain,
   CWord,
@@ -21,10 +20,11 @@ import { RefObject, useCallback, useEffect } from 'react';
 interface Props {
   history: any[];
   game: Type;
+  answer: any;
   historyBoxRef: RefObject<HTMLDivElement>;
 }
 
-const Game = ({ history, game, historyBoxRef }: Props) => {
+const Game = ({ history, game, answer, historyBoxRef }: Props) => {
   const target = () => {
     const res = hangulTools().dueum(game.target);
     if (res !== game.target && res !== '') return `(${res})`;
