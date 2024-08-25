@@ -24,11 +24,11 @@ import { useSelector } from 'react-redux';
 interface Props {
   chat: string;
   game: Game;
+  timer: any;
+  pause: boolean;
 }
 
-const Answer = ({ chat, game }: Props) => {
-  const pause = useSelector(selectPause);
-  const timer = useSelector(selectTimer);
+const Answer = ({ chat, game, pause, timer }: Props) => {
   const target = () => {
     const res = hangulTools().dueum(game.target);
     if (res !== game.target && res !== '') return `(${res})`;

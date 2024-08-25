@@ -29,6 +29,8 @@ interface Props {
   myTurn: boolean;
   game: Game;
   answer: Answer;
+  pause: boolean;
+  timer: any;
 }
 
 const ChatBox = ({
@@ -42,6 +44,8 @@ const ChatBox = ({
   myTurn,
   game,
   answer,
+  pause,
+  timer,
 }: Props) => {
   const scrollToBottom = useCallback(() => {
     if (chatBoxRef.current) {
@@ -65,7 +69,11 @@ const ChatBox = ({
 
   return (
     <>
-      {myTurn ? answer.pause && <CAnswer chat={message} game={game} /> : ''}
+      {myTurn
+        ? answer.pause && (
+            <CAnswer chat={message} game={game} pause={pause} timer={timer} />
+          )
+        : ''}
       <CChat>
         <ChatLog ref={chatBoxRef}>
           {log.map((element, idx) => {

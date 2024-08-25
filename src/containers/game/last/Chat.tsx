@@ -3,7 +3,11 @@ import useInput from '@/hooks/useInput';
 import { getTime } from '@/modules/Date';
 import countScore from '@/modules/Score';
 import { clean } from '@/modules/Slang';
-import { selectAnswer, setAnswer } from '@/redux/answer/answerSlice';
+import {
+  selectAnswer,
+  selectPause,
+  setAnswer,
+} from '@/redux/answer/answerSlice';
 import { selectGame } from '@/redux/game/gameSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { RootState } from '@/redux/store';
@@ -33,6 +37,7 @@ const Chat = () => {
   const game = useSelector(selectGame);
   const answer = useSelector(selectAnswer);
   const timer = useSelector(selectTimer);
+  const pause = useSelector(selectPause);
 
   const [log, setLog] = useState<LogProps[]>([]);
   const { inputs, setInputs, onInputChange } = useInput<InputProps>({
@@ -116,6 +121,8 @@ const Chat = () => {
       myTurn={myTurn}
       game={game}
       answer={answer}
+      timer={timer}
+      pause={pause}
     />
   );
 };
