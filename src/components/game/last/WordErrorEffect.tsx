@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import wordStyle from '@/styles/modules/gameEffect/wordInputEffect.module.css';
+import { TypingWrong } from '@/styles/game/wordEffect';
 
 interface Props {
-  word: string;
+  word: string
 }
 
 /** 잘못된 단어 출력 이펙트
@@ -16,7 +16,7 @@ const WordErrorEffect: React.FC<Props> = ({ word }) => {
   }, [word])
 
   return (
-    <div className={wordStyle.typingWrong}>{wrongWord}</div>
+    <TypingWrong>{wrongWord}</TypingWrong>
   )
 }
 
