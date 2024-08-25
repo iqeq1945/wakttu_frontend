@@ -33,7 +33,6 @@ const Chat = () => {
         roomId,
         chat: clean(inputs.chat),
         roundTime: null,
-        turnTime: null,
         score: null,
       });
     }

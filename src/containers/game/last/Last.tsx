@@ -1,14 +1,17 @@
 import { Last as CLast } from '@/components';
 import { setAnswer, setPause } from '@/redux/answer/answerSlice';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
-import { selectTimer, setTimer } from '@/redux/timer/timerSlice';
+import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
+import { setTurn } from '@/redux/timer/timerSlice';
+import { selectUserName } from '@/redux/user/userSlice';
 import { socket } from '@/services/socket/socket';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Last = () => {
+  const roomId = useSelector(selectRoomId);
+  const name = useSelector(selectUserName);
   const game = useSelector(selectGame);
-  const timer = useSelector(selectTimer);
   const [history, setHistory] = useState<any[]>([
     {
       id: game.keyword._id,
@@ -32,6 +35,13 @@ const Last = () => {
       );
       if (success) {
         setHistory((prev) => [...prev, word]);
+        dispatch(setPause(false));
+        setTimeout(() => {
+          dispatch(
+            setTurn({ roundTime: game.roundTime, turnTime: game.turnTime })
+          );
+          if (name === game.host) socket.emit('pong', roomId);
+        }, 3000);
       }
       dispatch(setPause(true));
     });

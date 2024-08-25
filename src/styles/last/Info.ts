@@ -1,7 +1,16 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { COLORS, FONT_SIZES } from '../theme';
 
 const DROM_SHADOW = '0px 1px 10px 0px rgba(0, 0, 0, 0.15)';
+
+const GAUGE = keyframes`
+  0% {
+    width: 100%;
+  }
+  100%{
+    width: 0%;
+  }
+`;
 
 export const Wrapper = styled.div`
   position: absolute;
@@ -159,12 +168,15 @@ export const BTimerBar = styled(TimerBar)`
 `;
 
 export const GaugeBar = styled.div<{ gauge: number }>`
-  width: ${({ gauge }) => {
-    return gauge + '%';
-  }};
   height: 100%;
   border-radius: 6.25rem;
   background: ${COLORS.pupple};
+
+  animation: ${GAUGE}
+    ${({ gauge }) => {
+      return gauge + 'ms';
+    }}
+    linear;
 `;
 
 export const CChain = styled.div<{ $flag?: boolean }>`

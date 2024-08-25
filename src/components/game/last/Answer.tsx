@@ -1,4 +1,5 @@
 import { hangulTools } from '@/modules/Hangul';
+import { selectPause } from '@/redux/answer/answerSlice';
 import { selectTimer } from '@/redux/timer/timerSlice';
 import { Game } from '@/services/socket/socket';
 import {
@@ -29,7 +30,8 @@ const Answer = ({ chat, game }: Props) => {
   const timer = useSelector(selectTimer);
   const target = () => {
     const res = hangulTools().dueum(game.target);
-    if (res !== game.target) return `(${res})`;
+    if (res !== game.target && res !== '') return `(${res})`;
+    else return '';
   };
   return (
     <Container>
@@ -50,14 +52,10 @@ const Answer = ({ chat, game }: Props) => {
           </LeftTimer>
           <RightTimer>
             <RemainText>
-              {(timer.roundTime - timer.countTime) / 1000.0}초
+              {((timer.roundTime - timer.countTime) / 1000.0).toFixed(1)}초
             </RemainText>
             <TimerBar>
-              <GaugeBar
-                gauge={
-                  ((timer.roundTime - timer.countTime) / timer.roundTime) * 100
-                }
-              />
+              <GaugeBar key={game.target} gauge={timer.roundTime} />
             </TimerBar>
           </RightTimer>
         </CTimer>
@@ -68,14 +66,10 @@ const Answer = ({ chat, game }: Props) => {
           </LeftTimer>
           <RightTimer>
             <RemainText>
-              {(timer.turnTime - timer.countTime) / 1000.0}
+              {((timer.turnTime - timer.countTime) / 1000.0).toFixed(1)}초
             </RemainText>
             <BTimerBar>
-              <GaugeBar
-                gauge={
-                  ((timer.turnTime - timer.countTime) / timer.turnTime) * 100
-                }
-              />
+              <GaugeBar key={game.target} gauge={timer.turnTime} />
             </BTimerBar>
           </RightTimer>
         </CTimer>

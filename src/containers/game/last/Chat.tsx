@@ -59,7 +59,6 @@ const Chat = () => {
           roomId,
           chat: inputs.chat,
           roundTime: timer.roundTime - timer.countTime,
-          turnTime: timer.turnTime - timer.countTime,
           score: countScore({
             wordLength: inputs.chat.length,
             chainCount: game.chain,
@@ -78,7 +77,6 @@ const Chat = () => {
         roomId,
         chat: clean(inputs.chat),
         roundTime: null,
-        turnTime: null,
         score: null,
       });
     }

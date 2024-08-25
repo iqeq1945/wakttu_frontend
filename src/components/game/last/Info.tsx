@@ -1,3 +1,4 @@
+import { selectTimer } from '@/redux/timer/timerSlice';
 import { Game } from '@/services/socket/socket';
 import {
   BChainText,
@@ -24,12 +25,14 @@ import {
   TimerText,
   Wrapper,
 } from '@/styles/last/Info';
+import { useSelector } from 'react-redux';
 
 interface Props {
   game: Game;
 }
 
 const Info = ({ game }: Props) => {
+  const timer = useSelector(selectTimer);
   const keyword = game.keyword!._id.split('');
   return (
     <Wrapper>
@@ -45,7 +48,7 @@ const Info = ({ game }: Props) => {
           <CTargetList>
             {keyword.map((word: string, index: number) => {
               return (
-                <RoundText key={word} $type={game.round - 1 === index}>
+                <RoundText key={index} $type={game.round - 1 === index}>
                   {word}
                 </RoundText>
               );
@@ -60,9 +63,11 @@ const Info = ({ game }: Props) => {
                 <TimerText>라운드 남은 시간</TimerText>
               </LeftTimer>
               <RightTimer>
-                <RemainText>{10000 / 1000.0}초</RemainText>
+                <RemainText>
+                  {((timer.roundTime - timer.countTime) / 1000.0).toFixed(1)}초
+                </RemainText>
                 <TimerBar>
-                  <GaugeBar gauge={80} />
+                  <GaugeBar key={game.target} gauge={timer.roundTime} />
                 </TimerBar>
               </RightTimer>
             </TimerItem>
@@ -72,9 +77,11 @@ const Info = ({ game }: Props) => {
                 <TimerText>이번턴 남은 시간</TimerText>
               </LeftTimer>
               <RightTimer>
-                <RemainText>{10000 / 1000.0}초</RemainText>
+                <RemainText>
+                  {((timer.turnTime - timer.countTime) / 1000.0).toFixed(1)}초
+                </RemainText>
                 <BTimerBar>
-                  <GaugeBar gauge={30} />
+                  <GaugeBar key={game.target} gauge={timer.turnTime} />
                 </BTimerBar>
               </RightTimer>
             </TimerItem>

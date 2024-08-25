@@ -12,7 +12,6 @@ export interface Chat {
   roomId: string;
   chat: string;
   roundTime: number | null;
-  turnTime: number | null;
   score: number | null;
 }
 

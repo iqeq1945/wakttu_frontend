@@ -15,6 +15,7 @@ const Info = () => {
     const opening = setTimeout(() => {
       if (game.host === name) {
         lastRound(roomId);
+        console.log('opening');
       }
     }, 5000);
 

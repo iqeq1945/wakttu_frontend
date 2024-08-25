@@ -3,11 +3,11 @@ import { COLORS, FONT_SIZES } from '../theme';
 
 const DROM_SHADOW = '0px 1px 10px 0px rgba(0, 0, 0, 0.15)';
 
-const gaugeAnimation = keyframes`
-  100% {
-    width:100%;
+const GAUGE = keyframes`
+  0% {
+    width: 100%;
   }
-  0%{
+  100%{
     width: 0%;
   }
 `;
@@ -129,11 +129,15 @@ export const BTimerBar = styled(TimerBar)`
 `;
 
 export const GaugeBar = styled.div<{ gauge: number }>`
-  width: 100%;
+  width: 0%;
   height: 100%;
   border-radius: 6.25rem;
   background: ${COLORS.pupple};
-  animation: ${gaugeAnimation} ${gauge} linear;
+  animation: ${GAUGE}
+    ${({ gauge }) => {
+      return gauge + 'ms';
+    }}
+    linear;
 `;
 
 export const CAnswer = styled.div`

@@ -27,7 +27,8 @@ interface Props {
 const Game = ({ history, game, historyBoxRef }: Props) => {
   const target = () => {
     const res = hangulTools().dueum(game.target);
-    if (res !== game.target) return `(${res})`;
+    if (res !== game.target && res !== '') return `(${res})`;
+    else return '';
   };
   const scrollToBottom = useCallback(() => {
     if (historyBoxRef.current) {

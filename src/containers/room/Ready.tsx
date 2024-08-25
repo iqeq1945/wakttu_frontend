@@ -1,5 +1,10 @@
 import { Ready as CReady } from '@/components';
-import { selectHost, selectReadyUser, setGame } from '@/redux/game/gameSlice';
+import {
+  selectHost,
+  selectReadyUser,
+  setGame,
+  setReady,
+} from '@/redux/game/gameSlice';
 import { selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { selectUserName } from '@/redux/user/userSlice';
 import { kungStart, lastStart, ready, socket } from '@/services/socket/socket';
@@ -42,6 +47,10 @@ const Ready = () => {
   };
 
   useEffect(() => {
+    socket.on('ready', (data) => {
+      dispatch(setReady(data));
+    });
+
     socket.on('last.start', async (data) => {
       await dispatch(setGame(data));
       router.push(`/game/${roomInfo.id}`);
@@ -53,6 +62,7 @@ const Ready = () => {
     });
 
     return () => {
+      socket.off('ready');
       socket.off('last.start');
       socket.off('kung.start');
     };
