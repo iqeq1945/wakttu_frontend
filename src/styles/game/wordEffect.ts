@@ -13,10 +13,10 @@ const typingAnimation = keyframes`
 
 const fontSizeAnimation = keyframes`
   50% {
-    font-size: 36px;
+    font-size: 2.5rem;
   }
   100% {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 `;
 
@@ -29,29 +29,27 @@ const textDecorationEffect = keyframes`
   }
 `;
 
-
 const TypingContainer = styled.div`
-  display: flex;
-  margin: 10px;
+  position: absolute;
+  display: inherit;
+  font: inherit;
+  justify-content: center;
 `;
 
 const TypingSpan = styled.span<{ isTyped: boolean }>`
+  font: inherit;
   ${({ isTyped }) =>
     isTyped
       ? css`
-          animation: ${typingAnimation} 0.1s ease forwards, ${fontSizeAnimation} 0.05s;
+          animation: ${typingAnimation} 1s ease forwards,
+            ${fontSizeAnimation} 0.01s;
         `
       : 'none'};
 `;
-
 
 const TypingWrong = styled.span`
   color: #ff385c;
   animation: ${textDecorationEffect} 0.7s step-end 3 forwards;
 `;
 
-export {
-  TypingContainer,
-  TypingSpan,
-  TypingWrong
-}
+export { TypingContainer, TypingSpan, TypingWrong };

@@ -13,15 +13,23 @@ import {
   Main,
   NameText,
   Right,
+  SWheel,
+  BWheel,
   WordText,
+  Light,
+  CLeft,
+  MissionText,
+  CRight,
 } from '@/styles/last/Game';
 import { RefObject, useCallback, useEffect } from 'react';
+import WordErrorEffect from './WordErrorEffect';
+import WordEffect from './WordEffect';
 
 interface Props {
   history: any[];
   game: Type;
   answer: any;
-  historyBoxRef: RefObject<HTMLDivElement>;
+  historyBoxRef?: RefObject<HTMLDivElement>;
 }
 
 const Game = ({ history, game, answer, historyBoxRef }: Props) => {
@@ -30,7 +38,8 @@ const Game = ({ history, game, answer, historyBoxRef }: Props) => {
     if (res !== game.target && res !== '') return `(${res})`;
     else return '';
   };
-  const scrollToBottom = useCallback(() => {
+  {
+    /** const scrollToBottom = useCallback(() => {
     if (historyBoxRef.current) {
       historyBoxRef.current.scrollTop = historyBoxRef.current.scrollHeight;
     }
@@ -38,21 +47,40 @@ const Game = ({ history, game, answer, historyBoxRef }: Props) => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [history, scrollToBottom]);
+  }, [history, scrollToBottom]);*/
+  }
 
   return (
     <CMain>
-      <Left src="/assets/game/blinker.svg" />
+      <CLeft>
+        <Left src="/assets/game/blinker.svg" />
+        {answer.success && <Light src="assets/game/red.svg" top="4.6rem" />}
+        {answer.success === undefined && (
+          <Light src="assets/game/yellow.svg" top="8.25rem" />
+        )}
+        {answer.success === false && (
+          <Light src="assets/game/green.svg" top="11.8rem" />
+        )}
+      </CLeft>
 
       <Main>
         <CTrain>
           <CWord>
-            <WordText>효과이미지</WordText>
+            <WordText>끝말잇기!</WordText>
           </CWord>
+          {answer.success && (
+            <>
+              <SWheel src="/assets/game/wheel.svg" />
+              <BWheel src="/assets/game/wheel.svg" left="9.8rem" />
+              <BWheel src="/assets/game/wheel.svg" left="16.8rem" />
+            </>
+          )}
         </CTrain>
         <CCargo>
           <CWordC>
-            <WordText>{history[history.length - 1].id}</WordText>
+            <WordText>
+              <WordEffect word={history[history.length - 1].id} />
+            </WordText>
             <CDesc>
               <Category>
                 <span>{history[history.length - 1].type[0]}</span>
@@ -60,6 +88,12 @@ const Game = ({ history, game, answer, historyBoxRef }: Props) => {
               <Desc>{history[history.length - 1].mean}</Desc>
             </CDesc>
           </CWordC>
+          {answer.success && (
+            <>
+              <BWheel src="/assets/game/wheel.svg" left="1.2rem" />
+              <BWheel src="/assets/game/wheel.svg" left="12.5rem" />
+            </>
+          )}
         </CCargo>
         <CCargo>
           <CWordC>
@@ -68,13 +102,27 @@ const Game = ({ history, game, answer, historyBoxRef }: Props) => {
               {target()}
             </WordText>
             <CDesc>
-              <NameText $name={true}>{game.users[game.turn].name}</NameText>
+              <NameText $name={true}>
+                {/*game.users[game.turn].name */}
+              </NameText>
               <NameText> 님의 차례!</NameText>
             </CDesc>
+            {answer.success === false && (
+              <WordErrorEffect word={answer.answer} />
+            )}
           </CWordC>
+          {answer.success && (
+            <>
+              <BWheel src="/assets/game/wheel.svg" left="1.2rem" />
+              <BWheel src="/assets/game/wheel.svg" left="12.5rem" />
+            </>
+          )}
         </CCargo>
       </Main>
-      <Right src="/assets/game/mission.svg" />
+      <CRight>
+        <Right src="/assets/game/mission.svg" />
+        <MissionText>{game.mission}</MissionText>
+      </CRight>
     </CMain>
   );
 };

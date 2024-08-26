@@ -1,17 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface Answer {
-  success: boolean;
-  answer: string;
-  message: string;
+  success?: boolean;
+  answer?: string;
+  message?: string;
   pause: boolean;
+  word: any;
 }
 
 const initialState: Answer = {
-  success: false,
-  answer: '',
-  message: '',
+  success: undefined,
+  answer: undefined,
+  message: undefined,
   pause: false,
+  word: undefined,
 };
 
 export const answerSlice = createSlice({

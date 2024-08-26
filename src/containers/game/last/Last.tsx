@@ -1,5 +1,10 @@
 import { Last as CLast } from '@/components';
-import { selectAnswer, setAnswer, setPause } from '@/redux/answer/answerSlice';
+import {
+  clearAnswer,
+  selectAnswer,
+  setAnswer,
+  setPause,
+} from '@/redux/answer/answerSlice';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { setTurn } from '@/redux/timer/timerSlice';
@@ -32,13 +37,16 @@ const Last = () => {
           success,
           answer,
           message,
-          pause: false,
+          pause: !success,
+          word: word,
         })
       );
+      setTimeout(() => {
+        dispatch(clearAnswer());
+      }, 2200);
       if (success) {
         if (name === game.host) socket.emit('pong', roomId);
         setHistory((prev) => [...prev, word]);
-        dispatch(setPause(false));
         setTimeout(() => {
           dispatch(
             setTurn({ roundTime: game.roundTime, turnTime: game.turnTime })

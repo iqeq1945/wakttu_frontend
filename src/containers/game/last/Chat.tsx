@@ -57,6 +57,7 @@ const Chat = () => {
             answer: inputs.chat,
             message: message,
             pause: true,
+            word: undefined,
           })
         );
       } else {
