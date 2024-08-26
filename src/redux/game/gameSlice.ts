@@ -3,6 +3,8 @@ import { Game } from '@/services/socket/socket';
 
 interface Users {
   id: string;
+  userId: string;
+  charactor: JSON;
   score: number;
 }
 

@@ -1,10 +1,5 @@
 import { PlayerList as CPlayerList } from '@/components';
-import {
-  selectHost,
-  selectReadyUser,
-  setGame,
-  setReady,
-} from '@/redux/game/gameSlice';
+import { selectHost, selectReadyUser, setGame } from '@/redux/game/gameSlice';
 import { openModal, setDataModal } from '@/redux/modal/modalSlice';
 import { selectRoomUsers, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { socket } from '@/services/socket/socket';
@@ -32,13 +27,8 @@ const PlayerList = () => {
       }
     });
 
-    socket.on('ready', (data) => {
-      dispatch(setReady(data));
-    });
-
     return () => {
       socket.off('enter');
-      socket.off('ready');
     };
   }, [dispatch]);
 

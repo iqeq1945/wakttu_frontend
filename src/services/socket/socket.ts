@@ -12,7 +12,6 @@ export interface Chat {
   roomId: string;
   chat: string;
   roundTime: number | null;
-  turnTime: number | null;
   score: number | null;
 }
 
@@ -47,7 +46,7 @@ export interface Game {
   turn: number;
   total: number;
   users: { [x: string]: any }[];
-  keyword: string | undefined;
+  keyword: any | undefined;
   target: string;
   option: boolean[] | undefined;
   chain: number;
