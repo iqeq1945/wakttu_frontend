@@ -16,6 +16,7 @@ import { sendChat, socket } from '@/services/socket/socket';
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import wordRelay from '@/modules/WordRelay';
+import { selectUserId } from '@/redux/user/userSlice';
 
 interface InputProps {
   chat: string;
@@ -30,14 +31,14 @@ export interface LogProps {
 const Chat = () => {
   const dispatch = useDispatch();
 
-  const myTurn = useSelector((state: RootState) => {
-    return state.user.id === state.game.users[state.game.turn].userId;
-  });
+  const userId = useSelector(selectUserId);
   const roomId = useSelector(selectRoomId) as string;
   const game = useSelector(selectGame);
   const answer = useSelector(selectAnswer);
   const timer = useSelector(selectTimer);
   const pause = useSelector(selectPause);
+
+  const [myTurn, setMyTurn] = useState(false);
 
   const [log, setLog] = useState<LogProps[]>([]);
   const { inputs, setInputs, onInputChange } = useInput<InputProps>({
@@ -89,6 +90,10 @@ const Chat = () => {
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
   };
+
+  useEffect(() => {
+    setMyTurn(userId === game.users[game.turn].userId);
+  }, [game.turn, game.users, userId]);
 
   useEffect(() => {
     socket.on('alarm', (data) => {

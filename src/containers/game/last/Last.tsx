@@ -19,14 +19,22 @@ const Last = () => {
   const game = useSelector(selectGame);
   const answer = useSelector(selectAnswer);
 
-  const [history, setHistory] = useState<any[]>([
-    {
-      id: game.keyword._id,
-      ...game.keyword,
-    },
-  ]);
+  const [history, setHistory] = useState<
+    { id: string; mean: string; type: string; [x: string]: any }[]
+  >([{ id: '', mean: '', type: '' }]);
   const dispatch = useDispatch();
   const historyBoxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setHistory([
+      {
+        id: game.keyword!._id,
+        ...game.keyword,
+        mean: game.keyword!.mean,
+        type: game.keyword!.type,
+      },
+    ]);
+  }, [game.keyword]);
 
   useEffect(() => {
     socket.on('last.game', (data) => {

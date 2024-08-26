@@ -46,7 +46,7 @@ export interface Game {
   turn: number;
   total: number;
   users: { [x: string]: any }[];
-  keyword: any | undefined;
+  keyword: { [x: string]: any } | undefined;
   target: string;
   option: boolean[] | undefined;
   chain: number;
