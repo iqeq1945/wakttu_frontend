@@ -19,16 +19,18 @@ import {
   TitleText,
 } from '@/styles/last/Answer';
 import { LeftTimer, RightTimer } from '@/styles/last/Info';
-import { useSelector } from 'react-redux';
+import { Answer as TypeAnswer } from '@/redux/answer/answerSlice';
+import WordErrorEffect from './WordErrorEffect';
 
 interface Props {
   chat: string;
   game: Game;
   timer: any;
   pause: boolean;
+  answer: TypeAnswer;
 }
 
-const Answer = ({ chat, game, pause, timer }: Props) => {
+const Answer = ({ chat, game, pause, timer, answer }: Props) => {
   const target = () => {
     const res = hangulTools().dueum(game.target);
     if (res !== game.target && res !== '') return `(${res})`;
@@ -46,6 +48,7 @@ const Answer = ({ chat, game, pause, timer }: Props) => {
           {game.target}
           {target()}
         </TargetText>
+        {answer.answer && <WordErrorEffect word={answer.answer} />}
         <CTimer>
           <LeftTimer>
             <TimerIcon src="/assets/game/timer.svg" />
@@ -78,7 +81,7 @@ const Answer = ({ chat, game, pause, timer }: Props) => {
                 <GaugeBar key={game.target} gauge={timer.turnTime} />
               ) : (
                 ''
-              )}{' '}
+              )}
             </BTimerBar>
           </RightTimer>
         </CTimer>

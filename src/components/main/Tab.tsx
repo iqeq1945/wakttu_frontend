@@ -7,7 +7,7 @@ interface Props {
 
 const Tab = ({ menuName, href }: Props) => {
   return (
-    <MainContent href={href}>
+    <MainContent>
       <li>{menuName}</li>
     </MainContent>
   );

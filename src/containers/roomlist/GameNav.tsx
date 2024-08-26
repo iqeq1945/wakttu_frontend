@@ -15,11 +15,11 @@ const GameNav = () => {
   const filter = useSelector(selectFilter);
   const { keyword } = inputs;
 
-  const [isOpen, setOpen] = useState<boolean>(false);
+  const [isopen, setOpen] = useState<boolean>(false);
 
   const onSearchOpen = () => {
-    if (isOpen) setInputs({ keyword: undefined });
-    setOpen(!isOpen);
+    if (isopen) setInputs({ keyword: undefined });
+    setOpen(!isopen);
   };
 
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ const GameNav = () => {
       onRoomList={onRoomList}
       keyword={keyword}
       onChange={onInputChange}
-      open={isOpen}
+      open={isopen}
       onClick={onSearchOpen}
     >
       <FilterBox />

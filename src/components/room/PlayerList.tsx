@@ -7,16 +7,11 @@ interface Props {
   users: any[];
   ready: any[];
   host: string;
+  name: string;
   onKick: (data: { id: string; name: string }) => void;
 }
 
-const PlayerList = ({ users, ready, host, onKick }: Props) => {
-  const arr = [...users];
-  const len = arr.length;
-  const myName = useSelector(selectUserName);
-
-  for (let i = 0; i < 8 - len; i++) arr.push({ id: i, name: undefined });
-
+const PlayerList = ({ users, ready, host, name, onKick }: Props) => {
   const checkReady = (userId: string) => {
     const idx = ready.findIndex((x) => x.userId === userId);
     if (idx >= 0) return true;
@@ -26,13 +21,13 @@ const PlayerList = ({ users, ready, host, onKick }: Props) => {
   return (
     <CPlayerList>
       <WrapPlayerList>
-        {arr.map((user) => {
+        {users.map((user) => {
           return (
             <Player
               key={user.id}
               $ready={checkReady(user.id)}
               user={user}
-              myName={myName as string}
+              myName={name as string}
               host={host}
               onKick={onKick}
             />

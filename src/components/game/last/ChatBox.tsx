@@ -71,7 +71,13 @@ const ChatBox = ({
     <>
       {myTurn
         ? answer.pause && (
-            <CAnswer chat={message} game={game} pause={pause} timer={timer} />
+            <CAnswer
+              chat={message}
+              game={game}
+              pause={pause}
+              timer={timer}
+              answer={answer}
+            />
           )
         : ''}
       <CChat>

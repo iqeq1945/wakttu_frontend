@@ -30,12 +30,12 @@ import { useSelector } from 'react-redux';
 
 interface Props {
   game: Game;
+  pause: boolean;
+  timer: any;
+  keyword: string[];
 }
 
-const Info = ({ game }: Props) => {
-  const pause = useSelector(selectPause);
-  const timer = useSelector(selectTimer);
-  const keyword = game.keyword!._id.split('');
+const Info = ({ game, pause, timer, keyword }: Props) => {
   return (
     <Wrapper>
       <CChain $flag={true} />

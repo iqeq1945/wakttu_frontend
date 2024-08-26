@@ -11,6 +11,19 @@ const translate = keyframes`
   }
 `;
 
+const rotate = keyframes`
+ from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(-360deg);
+    -o-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+  }
+`;
+
 export const CMain = styled.div`
   display: flex;
   position: relative;
@@ -22,15 +35,41 @@ export const CMain = styled.div`
   margin-top: 5.685rem;
 `;
 
+export const CLeft = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 export const Left = styled.img`
   width: 5.625rem;
   flex-shrink: 0;
+`;
+export const Light = styled.img<{ top: string }>`
+  position: absolute;
+  top: ${({ top }) => {
+    return top;
+  }};
+
+  width: 4.625rem;
+`;
+
+export const CRight = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 export const Right = styled.img`
   width: 12.6875rem;
   height: 21.5625rem;
   flex-shrink: 0;
+`;
+export const MissionText = styled.h2`
+  position: absolute;
+  top: 10.5rem;
+
+  color: ${COLORS.text};
+  text-align: center;
+  font-family: 'WantedSans-Bold';
 `;
 
 export const Main = styled.div`
@@ -52,6 +91,7 @@ export const Main = styled.div`
 `;
 
 export const CTrain = styled.div`
+  position: relative;
   width: 23.5rem;
   height: 20.1875rem;
   flex-shrink: 0;
@@ -61,7 +101,27 @@ export const CTrain = styled.div`
   background-size: cover;
 `;
 
+export const SWheel = styled.img`
+  position: absolute;
+  width: 4.6rem;
+  left: 2.5rem;
+  bottom: 0.3rem;
+
+  animation: ${rotate} 2s ease-in-out 0.5s 1;
+`;
+export const BWheel = styled.img<{ left: string }>`
+  position: absolute;
+  width: 5.7rem;
+  left: ${({ left }) => {
+    return left;
+  }};
+  bottom: 0.2rem;
+
+  animation: ${rotate} 2s ease-in-out 0.5s 1;
+`;
+
 export const CCargo = styled.div`
+  position: relative;
   width: 19.4375rem;
   height: 15.4375rem;
   flex-shrink: 0;
@@ -78,6 +138,7 @@ export const CWord = styled.div`
   margin: 6.94rem 2.06rem 6.63rem 5.56rem;
   padding: 1rem 0.625rem;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 0.625rem;
   flex-shrink: 0;
@@ -91,7 +152,10 @@ export const CWordC = styled(CWord)`
 `;
 
 export const WordText = styled.h3`
+  display: flex;
+  justify-content: center;
   width: 100%;
+  height: 2rem;
   color: ${COLORS.text};
   overflow: hidden;
   text-align: center;
@@ -105,7 +169,7 @@ export const CDesc = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.25rem;
 `;
 
