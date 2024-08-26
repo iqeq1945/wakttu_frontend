@@ -1,34 +1,59 @@
 import type { AppProps } from 'next/app';
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import '@/styles/globals.css';
-import layout from '@/styles/modules/layout.module.css'
+import { GlobalStyle } from '@/styles/GlobalStyle';
+import { ContentContainer } from '@/styles/common/Layout';
 
+import { CookiesProvider } from 'react-cookie';
 import { Provider } from 'react-redux';
-import { store } from '@/redux/store';
+import store from '@/redux/store';
 
-import { handleResize } from "@/modules/BaseFontSize";
+import { handleResize } from '@/modules/BaseFontSize';
+import { isMobileDevice } from '@/modules/Mobile';
 
-const App = ({ Component, pageProps }: AppProps) => {
-    useEffect(() => {
-        const resizeHandler = () => handleResize();
-    
-        handleResize();
-    
-        window.addEventListener("resize", resizeHandler);
-    
-        return () => {
-            window.removeEventListener("resize", resizeHandler);
-        };
-    }, []);
+import { usePathname } from 'next/navigation';
 
-    return (
+const App = ({ Component, pageProps, router }: AppProps) => {
+  const queryClient = new QueryClient();
+  const [isMobile, setIsMobile] = useState(false);
+
+  const path = usePathname();
+
+  useEffect(() => {
+    setIsMobile(isMobileDevice());
+
+    if (!isMobile) {
+      const resizeHandler = () => handleResize();
+
+      handleResize();
+
+      window.addEventListener('resize', resizeHandler);
+
+      return () => {
+        window.removeEventListener('resize', resizeHandler);
+      };
+    }
+  }, [isMobile]);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <CookiesProvider>
         <Provider store={store}>
-            <div className={layout.contentContainer}>
-                <Component {...pageProps} />
-            </div>
+          <GlobalStyle />
+          <ContentContainer path={path}>
+            {isMobile ? (
+              <h1>PC로 접속해 주세요.</h1>
+            ) : (
+              <Component {...pageProps} />
+            )}
+          </ContentContainer>
         </Provider>
-    );
-}
+        <ReactQueryDevtools initialIsOpen={false} />
+      </CookiesProvider>
+    </QueryClientProvider>
+  );
+};
 
-export default App
+export default App;
