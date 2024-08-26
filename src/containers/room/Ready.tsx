@@ -53,12 +53,12 @@ const Ready = () => {
 
     socket.on('last.start', async (data) => {
       await dispatch(setGame(data));
-      router.push(`/game/${roomInfo.id}`);
+      router.push('/game');
     });
 
     socket.on('kung.start', async (data) => {
       await dispatch(setGame(data));
-      router.push(`/game/${roomInfo.id}`);
+      router.push('/game');
     });
 
     return () => {

@@ -50,7 +50,7 @@ const RoomList = () => {
         const { roomInfo, game } = data;
         await dispatch(setRoomInfo(roomInfo));
         await dispatch(setGame(game));
-        router.push(`/room/${roomInfo.id}`);
+        router.push('/room');
       }
     });
 
