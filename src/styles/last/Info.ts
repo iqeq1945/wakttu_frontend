@@ -168,15 +168,16 @@ export const BTimerBar = styled(TimerBar)`
 `;
 
 export const GaugeBar = styled.div<{ gauge: number }>`
+  width: 100%;
   height: 100%;
   border-radius: 6.25rem;
   background: ${COLORS.pupple};
 
-  animation: ${GAUGE}
-    ${({ gauge }) => {
-      return gauge + 'ms';
-    }}
-    linear;
+  transition: ${({ gauge }) => {
+    return `transform ${gauge}ms linear 0.2s`;
+  }};
+  transform: scaleX(0);
+  transform-origin: left;
 `;
 
 export const CChain = styled.div<{ $flag?: boolean }>`

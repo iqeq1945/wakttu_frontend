@@ -1,30 +1,20 @@
-import { Last } from '@/components';
-import { selectAnswer, setAnswer } from '@/redux/answer/answerSlice';
-import { selectGame } from '@/redux/game/gameSlice';
-import { useDispatch, useSelector } from 'react-redux';
-const Test = () => {
-  const game = useSelector(selectGame);
-  const answer = useSelector(selectAnswer);
-  const dispatch = useDispatch();
+import { GaugeBar, TimerBar } from '@/styles/last/Answer';
+import { useEffect, useState } from 'react';
 
-  setTimeout(() => {
-    dispatch(
-      setAnswer({
-        answer: '',
-        success: true,
-        message: '',
-        word: '',
-        pause: false,
-      })
-    );
-  }, 2000);
+const Test = () => {
+  const [gauge, setGauge] = useState(1);
+  const [timer, setTimer] = useState({
+    rounTime: 5000,
+    turnTime: 20000,
+    countTime: 0,
+  });
+
   return (
-    <Last
-      history={[{ id: '테스팅', type: '명사', mean: '의미' }]}
-      game={game}
-      answer={answer}
-      historyBoxRef={undefined}
-    />
+    <>
+      <TimerBar>
+        <GaugeBar gauge={timer.rounTime} />
+      </TimerBar>
+    </>
   );
 };
 

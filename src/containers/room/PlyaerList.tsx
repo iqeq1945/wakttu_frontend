@@ -12,7 +12,7 @@ const PlayerList = () => {
   const ready = useSelector(selectReadyUser);
   const host = useSelector(selectHost);
   const myName = useSelector(selectUserName);
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState<any[]>([]);
 
   const dispatch = useDispatch();
 
@@ -22,7 +22,7 @@ const PlayerList = () => {
   };
 
   useEffect(() => {
-    let copy = users;
+    let copy = [...users];
     if (copy.length > 0) {
       const len = copy.length;
       for (let i = 0; i < 8 - len; i++) copy.push({ id: i, name: undefined });

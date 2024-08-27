@@ -1,5 +1,3 @@
-import { selectPause } from '@/redux/answer/answerSlice';
-import { selectTimer } from '@/redux/timer/timerSlice';
 import { Game } from '@/services/socket/socket';
 import {
   BChainText,
@@ -26,7 +24,6 @@ import {
   TimerText,
   Wrapper,
 } from '@/styles/last/Info';
-import { useSelector } from 'react-redux';
 
 interface Props {
   game: Game;
