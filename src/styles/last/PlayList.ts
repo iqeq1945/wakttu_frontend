@@ -72,13 +72,13 @@ export const Host = styled.div`
 
   border-radius: 1.875rem;
   background: ${COLORS.pupple};
-  
+
   & > span {
     color: ${COLORS.bg};
     text-align: center;
 
     font-family: 'WantedSans-SemiBold';
-    font-size: ${FONT_SIZES['subtitle-1']}
+    font-size: ${FONT_SIZES['subtitle-1']};
     font-style: normal;
     font-weight: 600;
     line-height: normal;

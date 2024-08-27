@@ -1,10 +1,8 @@
 import { RoomDesc as CRoomDesc } from '@/components';
-import { setGame } from '@/redux/game/gameSlice';
 import { openModal } from '@/redux/modal/modalSlice';
 import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { client } from '@/services/api';
 import { enter } from '@/services/socket/socket';
-import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
 const RoomDesc = () => {

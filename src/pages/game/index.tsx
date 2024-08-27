@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
 import { socket } from '@/services/socket/socket';
 import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { clearAnswer, setPause } from '@/redux/answer/answerSlice';
 import { setTimer, tick } from '@/redux/timer/timerSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';

@@ -5,23 +5,23 @@ import {
   setAnswer,
   setPause,
 } from '@/redux/answer/answerSlice';
-import { selectGame, setGame } from '@/redux/game/gameSlice';
+import { selectGame, selectWhoisTurn, setGame } from '@/redux/game/gameSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { setTurn } from '@/redux/timer/timerSlice';
-import { selectUserName } from '@/redux/user/userSlice';
 import { socket } from '@/services/socket/socket';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Last = () => {
   const roomId = useSelector(selectRoomId);
-  const name = useSelector(selectUserName);
+  const name = useSelector(selectWhoisTurn);
   const game = useSelector(selectGame);
   const answer = useSelector(selectAnswer);
 
   const [history, setHistory] = useState<
     { id: string; mean: string; type: string; [x: string]: any }[]
   >([{ id: '', mean: '', type: '' }]);
+
   const dispatch = useDispatch();
   const historyBoxRef = useRef<HTMLDivElement>(null);
 
@@ -34,7 +34,7 @@ const Last = () => {
         type: game.keyword!.type,
       },
     ]);
-  }, [game.keyword]);
+  }, []);
 
   useEffect(() => {
     socket.on('last.game', (data) => {
@@ -68,12 +68,13 @@ const Last = () => {
     return () => {
       socket.off('last.game');
     };
-  }, [dispatch, game.keyword]);
+  }, [dispatch, game.keyword, name, roomId]);
 
   return (
     <CLast
       history={history}
       game={game}
+      name={name}
       answer={answer}
       historyBoxRef={historyBoxRef}
     />

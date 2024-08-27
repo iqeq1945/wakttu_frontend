@@ -1,5 +1,5 @@
 import { TypingContainer, TypingSpan } from '@/styles/game/wordEffect';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
 interface Props {
   word: string;
@@ -8,6 +8,11 @@ interface Props {
 const WordEffect: React.FC<Props> = ({ word }) => {
   const [displayWord, setDisplayWord] = useState<string>('');
   const [count, setCount] = useState<number>(0);
+
+  useEffect(() => {
+    setDisplayWord('');
+    setCount(0);
+  }, [word]);
 
   useEffect(() => {
     const wordLength = word.length;
@@ -23,7 +28,7 @@ const WordEffect: React.FC<Props> = ({ word }) => {
     return () => {
       clearInterval(typingInterval);
     };
-  }, [word, count]);
+  }, [count, word]);
 
   return (
     <TypingContainer>
@@ -33,7 +38,7 @@ const WordEffect: React.FC<Props> = ({ word }) => {
         </TypingSpan>
       ))}
     </TypingContainer>
-  )
-}
+  );
+};
 
-export default WordEffect
+export default WordEffect;
