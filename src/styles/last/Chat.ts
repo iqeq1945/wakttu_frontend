@@ -47,7 +47,7 @@ const ChatLog = styled.div`
 const PlayerChat = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const CPlayer = styled.div`
