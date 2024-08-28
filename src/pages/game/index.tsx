@@ -10,7 +10,7 @@ import { lastRound, socket } from '@/services/socket/socket';
 import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { useEffect } from 'react';
 import { clearAnswer, setPause } from '@/redux/answer/answerSlice';
-import { setTimer, tick } from '@/redux/timer/timerSlice';
+import { clearTimer, setTimer, tick } from '@/redux/timer/timerSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';
 import { useRouter } from 'next/router';
 
@@ -31,6 +31,7 @@ const Game = () => {
   useEffect(() => {
     socket.on('last.round', (data) => {
       dispatch(setPause(false));
+      dispatch(clearTimer());
       dispatch(setGame(data));
 
       console.log('round loading start');
@@ -47,7 +48,7 @@ const Game = () => {
     return () => {
       socket.off('last.round');
     };
-  }, [dispatch]);
+  }, [dispatch, game.host, roomInfo.id, user.name]);
 
   useEffect(() => {
     socket.on('ping', () => {

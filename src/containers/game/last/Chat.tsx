@@ -13,7 +13,7 @@ import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { RootState } from '@/redux/store';
 import { selectTimer } from '@/redux/timer/timerSlice';
 import { sendChat, socket } from '@/services/socket/socket';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import wordRelay from '@/modules/WordRelay';
 import { selectUserId } from '@/redux/user/userSlice';
@@ -91,6 +91,13 @@ const Chat = () => {
     if (inputRef.current) inputRef.current.focus();
   };
 
+  const handleEnter = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      if (myTurn && pause) onSendAnswer();
+      else onSendMessage();
+    }
+  };
+
   useEffect(() => {
     setMyTurn(userId === game.users[game.turn].userId);
   }, [game.turn, game.users, userId]);
@@ -122,6 +129,7 @@ const Chat = () => {
       onChange={onInputChange}
       onMessage={onSendMessage}
       onAnswer={onSendAnswer}
+      handleEnter={handleEnter}
       inputRef={inputRef}
       chatBoxRef={chatBoxRef}
       myTurn={myTurn}

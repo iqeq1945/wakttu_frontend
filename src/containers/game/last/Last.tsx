@@ -42,7 +42,6 @@ const Last = () => {
   useEffect(() => {
     socket.on('last.game', (data) => {
       const { success, answer, game, message, word } = data;
-      dispatch(setGame(game));
       dispatch(
         setAnswer({
           success,
@@ -52,6 +51,7 @@ const Last = () => {
           word: word,
         })
       );
+      dispatch(setGame(game));
       if (success) {
         if (name === game.host) socket.emit('pong', roomId);
         setHistory((prev) => [...prev, word]);
