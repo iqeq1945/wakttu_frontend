@@ -69,17 +69,17 @@ const ChatBox = ({
 
   return (
     <>
-      {myTurn
-        ? answer.pause && (
-            <CAnswer
-              chat={message}
-              game={game}
-              pause={pause}
-              timer={timer}
-              answer={answer}
-            />
-          )
-        : ''}
+      {myTurn ? (
+        <CAnswer
+          chat={message}
+          game={game}
+          timer={timer}
+          answer={answer}
+          pause={pause}
+        />
+      ) : (
+        ''
+      )}
       <CChat>
         <ChatLog ref={chatBoxRef}>
           {log.map((element, idx) => {

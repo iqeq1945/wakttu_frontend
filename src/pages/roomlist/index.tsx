@@ -30,11 +30,8 @@ const RoomList = () => {
 
   useEffect(() => {
     if (!socket.connected) {
-      socket.connect();
-      if (!socket.connected) {
-        router.push('/');
-        return;
-      }
+      router.push('/');
+      return;
     }
   }, [router]);
 

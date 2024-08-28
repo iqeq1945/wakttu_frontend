@@ -9,6 +9,7 @@ import {
   selectUserId,
   setUserInfo,
 } from '@/redux/user/userSlice';
+import { socket } from '@/services/socket/socket';
 
 const MainFormContainer = () => {
   const dispatch = useDispatch();
@@ -28,8 +29,10 @@ const MainFormContainer = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (userId) setIsLogined(true);
-    else setIsLogined(false);
+    if (userId) {
+      setIsLogined(true);
+      socket.connect();
+    } else setIsLogined(false);
   }, [userId]);
 
   const onModal = (e: MouseEvent<HTMLElement>) => {
@@ -40,6 +43,7 @@ const MainFormContainer = () => {
   const start = (e: MouseEvent<HTMLElement>) => {
     if (isLogined) {
       e.stopPropagation();
+      if (!socket.connected) router.reload();
       router.push('/roomlist');
       return;
     }

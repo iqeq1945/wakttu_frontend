@@ -10,10 +10,10 @@ const PlayerInfo = () => {
   const dispatch = useDispatch();
 
   const getUser = useCallback(async () => {
-    const { data } = await client.get('/auth/status');
-    dispatch(setUserInfo(data.user));
+    const { data } = await client.get(`/user/${user.id}`);
+    dispatch(setUserInfo(data));
     setLoading(false);
-  }, [dispatch]);
+  }, [dispatch, user.id]);
 
   useEffect(() => {
     getUser();

@@ -6,7 +6,7 @@ import Info from '@/containers/game/last/Info';
 import Last from '@/containers/game/last/Last';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
-import { socket } from '@/services/socket/socket';
+import { lastRound, socket } from '@/services/socket/socket';
 import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { useEffect } from 'react';
 import { clearAnswer, setPause } from '@/redux/answer/answerSlice';
@@ -22,6 +22,13 @@ const Game = () => {
   const user = useSelector(selectUserInfo);
 
   useEffect(() => {
+    if (!socket.connected) {
+      router.push('/');
+      return;
+    }
+  }, [router]);
+
+  useEffect(() => {
     socket.on('last.round', (data) => {
       dispatch(setPause(false));
       dispatch(setGame(data));
@@ -34,7 +41,7 @@ const Game = () => {
         );
         dispatch(setPause(true));
         if (game.host === user.name) socket.emit('ping', roomInfo.id);
-      }, 3000);
+      }, 5000);
     });
 
     return () => {

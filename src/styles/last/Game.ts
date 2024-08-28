@@ -99,9 +99,11 @@ export const SWheel = styled.img<{ $rotate?: boolean }>`
   left: 2.5rem;
   bottom: 0.3rem;
 
-  transition: transform 2s ease-in-out 0.5s;
+  transition: ${({ $rotate }) =>
+    $rotate ? 'transform 2s ease-in-out 0.5s' : 'transform 0 ease-in-out 0.5s'};
+
   ${({ $rotate }) => {
-    return $rotate ? 'transform : rotate(-360deg);' : '';
+    return $rotate ? 'transform : rotate(-360deg)' : '';
   }};
 `;
 
@@ -113,7 +115,9 @@ export const BWheel = styled.img<{ left: string; $rotate?: boolean }>`
   }};
   bottom: 0.2rem;
 
-  transition: transform 2s ease-in-out 0.5s;
+  transition: ${({ $rotate }) =>
+    $rotate ? 'transform 2s ease-in-out 0.5s' : 'transform 0 ease-in-out 0.5s'};
+
   ${({ $rotate }) => {
     return $rotate ? 'transform : rotate(-360deg)' : '';
   }};

@@ -1,6 +1,7 @@
 import { Last as CLast } from '@/components';
 import {
   clearAnswer,
+  failAnswer,
   selectAnswer,
   setAnswer,
   setPause,
@@ -8,13 +9,15 @@ import {
 import { selectGame, selectWhoisTurn, setGame } from '@/redux/game/gameSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { setTurn } from '@/redux/timer/timerSlice';
+import { selectUserName } from '@/redux/user/userSlice';
 import { socket } from '@/services/socket/socket';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Last = () => {
   const roomId = useSelector(selectRoomId);
-  const name = useSelector(selectWhoisTurn);
+  const name = useSelector(selectUserName);
+  const whoIsTurn = useSelector(selectWhoisTurn);
   const game = useSelector(selectGame);
   const answer = useSelector(selectAnswer);
 
@@ -49,9 +52,6 @@ const Last = () => {
           word: word,
         })
       );
-      setTimeout(() => {
-        dispatch(clearAnswer());
-      }, 2200);
       if (success) {
         if (name === game.host) socket.emit('pong', roomId);
         setHistory((prev) => [...prev, word]);
@@ -61,7 +61,11 @@ const Last = () => {
           );
           dispatch(setPause(true));
           if (name === game.host) socket.emit('ping', roomId);
-        }, 3000);
+        }, 5000);
+      } else {
+        setTimeout(() => {
+          dispatch(failAnswer());
+        }, 2200);
       }
     });
 
@@ -74,7 +78,7 @@ const Last = () => {
     <CLast
       history={history}
       game={game}
-      name={name}
+      name={whoIsTurn}
       answer={answer}
       historyBoxRef={historyBoxRef}
     />

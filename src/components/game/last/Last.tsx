@@ -33,7 +33,7 @@ interface Props {
   historyBoxRef?: RefObject<HTMLDivElement>;
 }
 
-const Game = ({ history, game, answer, historyBoxRef }: Props) => {
+const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
   const target = () => {
     const res = hangulTools().dueum(game.target);
     if (res !== game.target && res !== '') return `(${res})`;
@@ -58,7 +58,7 @@ const Game = ({ history, game, answer, historyBoxRef }: Props) => {
         <Light
           src="assets/game/red.svg"
           top="4.6rem"
-          onLight={answer.success}
+          onLight={answer.success === false}
         />
         <Light
           src="assets/game/yellow.svg"
@@ -68,7 +68,7 @@ const Game = ({ history, game, answer, historyBoxRef }: Props) => {
         <Light
           src="assets/game/green.svg"
           top="11.8rem"
-          onLight={answer.success === false}
+          onLight={answer.success}
         />
       </CLeft>
 
@@ -77,16 +77,19 @@ const Game = ({ history, game, answer, historyBoxRef }: Props) => {
           <CWord>
             <WordText>끝말잇기!</WordText>
           </CWord>
-          <SWheel src="/assets/game/wheel.svg" $rotate={answer.success} />
+          <SWheel
+            src="/assets/game/wheel.svg"
+            $rotate={answer.success === true}
+          />
           <BWheel
             src="/assets/game/wheel.svg"
             left="9.8rem"
-            $rotate={answer.success}
+            $rotate={answer.success === true}
           />
           <BWheel
             src="/assets/game/wheel.svg"
             left="16.8rem"
-            $rotate={answer.success}
+            $rotate={answer.success === true}
           />
         </CTrain>
         <CCargo>
@@ -104,39 +107,40 @@ const Game = ({ history, game, answer, historyBoxRef }: Props) => {
           <BWheel
             src="/assets/game/wheel.svg"
             left="1.2rem"
-            $rotate={answer.success}
+            $rotate={answer.success === true}
           />
           <BWheel
             src="/assets/game/wheel.svg"
             left="12.5rem"
-            $rotate={answer.success}
+            $rotate={answer.success === true}
           />
         </CCargo>
         <CCargo>
           <CWordC>
             <WordText>
-              {game.target}
-              {target()}
+              {answer.success === false ? (
+                <WordErrorEffect word={answer.answer} />
+              ) : (
+                <>
+                  {game.target}
+                  {target()}
+                </>
+              )}
             </WordText>
             <CDesc>
-              <NameText $name={true}>
-                {/*game.users[game.turn].name */}
-              </NameText>
+              <NameText $name={true}>{name}</NameText>
               <NameText> 님의 차례!</NameText>
             </CDesc>
-            {answer.success === false && (
-              <WordErrorEffect word={answer.answer} />
-            )}
           </CWordC>
           <BWheel
             src="/assets/game/wheel.svg"
             left="1.2rem"
-            $rotate={answer.success}
+            $rotate={answer.success === true}
           />
           <BWheel
             src="/assets/game/wheel.svg"
             left="12.5rem"
-            $rotate={answer.success}
+            $rotate={answer.success === true}
           />
         </CCargo>
       </Main>

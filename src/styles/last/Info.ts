@@ -167,16 +167,16 @@ export const BTimerBar = styled(TimerBar)`
   background: #605774;
 `;
 
-export const GaugeBar = styled.div<{ gauge: number }>`
+export const GaugeBar = styled.div<{ gauge: number; pause: boolean }>`
   width: 100%;
   height: 100%;
   border-radius: 6.25rem;
   background: ${COLORS.pupple};
 
-  transition: ${({ gauge }) => {
-    return `transform ${gauge}ms linear 0.2s`;
+  transition: ${({ gauge, pause }) => {
+    return pause ? `transform ${gauge}ms linear 0.2s` : '';
   }};
-  transform: scaleX(0);
+  transform: scaleX(${({ pause }) => (pause ? 0 : 1)});
   transform-origin: left;
 `;
 
