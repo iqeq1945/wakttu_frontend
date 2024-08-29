@@ -1,39 +1,20 @@
-import { Container, GaugeBar, TimerBar } from '@/styles/last/Answer';
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const Test = () => {
-  const [pause, setPause] = useState(false);
-  const [timer, setTimer] = useState({
-    rounTime: 20000,
-    turnTime: 20000,
-    countTime: 0,
-  });
+  const count = 100;
+  const [score, setScore] = useState(0);
 
-  useEffect(() => {
-    setTimeout(() => {
-      console.log('true');
-      setPause(true);
-    }, 2000);
-    setTimeout(() => {
-      console.log('false');
-      setPause(false);
-    }, 5000);
-    setTimeout(() => {
-      console.log('true');
-      setTimer((prev) => {
-        return { ...prev, rounTime: 5000 };
-      });
-      setPause(true);
-    }, 7000);
+  const enter = useCallback(() => {
+    let num = count;
+    const timeId = setInterval(() => {
+      if (num <= 0) clearInterval(timeId);
+      setScore((prev) => prev + 1);
+      num -= 1;
+    }, 5);
   }, []);
-
   return (
     <>
-      <Container pause={pause}>
-        <TimerBar>
-          <GaugeBar gauge={timer.rounTime} pause={pause} />
-        </TimerBar>
-      </Container>
+      {score} <button onClick={enter}>버튼</button>
     </>
   );
 };

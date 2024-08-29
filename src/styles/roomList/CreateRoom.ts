@@ -150,14 +150,14 @@ const DropdownItem = styled.li`
   }
 `;
 
-const DropdownLine = styled.img<{ isOpen: boolean }>`
+const DropdownLine = styled.img<{ isopen: boolean }>`
   width: 1.5rem;
   height: 1.5rem;
   margin-right: 1rem;
 
   cursor: pointer;
 
-  transform: ${({ isOpen }) => (isOpen ? 'rotateX(180deg)' : 'rotateX(0deg)')};
+  transform: ${({ isopen }) => (isopen ? 'rotateX(180deg)' : 'rotateX(0deg)')};
   transition: transform 0.3s ease;
 `;
 

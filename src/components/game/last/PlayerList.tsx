@@ -9,6 +9,7 @@ import {
 } from '@/styles/last/PlayList';
 import { Game } from '@/services/socket/socket';
 import { Answer } from '@/redux/answer/answerSlice';
+import { ScoreBox } from '@/components';
 
 interface Props {
   users: any;
@@ -32,7 +33,9 @@ const PlayList = ({ users, game, answer }: Props) => {
 
               <Name>{user.name}</Name>
             </CName>
-            <Score>{user.score}</Score>
+            <Score>
+              <ScoreBox score={user.score as number} />
+            </Score>
           </CPlayer>
         );
       })}
