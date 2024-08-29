@@ -1,6 +1,5 @@
 import { Last as CLast } from '@/components';
 import {
-  clearAnswer,
   failAnswer,
   selectAnswer,
   setAnswer,

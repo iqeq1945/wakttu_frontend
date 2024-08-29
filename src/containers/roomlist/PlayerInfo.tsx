@@ -1,7 +1,7 @@
 import { PlayerInfo as CPlyerInfo, Loading } from '@/components';
 import { selectUserInfo, setUserInfo } from '@/redux/user/userSlice';
 import { client } from '@/services/api';
-import { Suspense, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const PlayerInfo = () => {
@@ -19,15 +19,7 @@ const PlayerInfo = () => {
     getUser();
   }, [getUser]);
 
-  return (
-    <>
-      {isLoading ? (
-        <Suspense fallback={<Loading />} />
-      ) : (
-        <CPlyerInfo user={user} />
-      )}
-    </>
-  );
+  return <>{isLoading ? <Loading /> : <CPlyerInfo user={user} />}</>;
 };
 
 export default PlayerInfo;

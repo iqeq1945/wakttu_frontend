@@ -40,3 +40,4 @@ export { default as LastPlayerList } from './game/last/PlayerList';
 export { default as GChatBox } from './game/last/ChatBox';
 export { default as GChat } from './game/last/Chat';
 export { default as Answer } from './game/last/Answer';
+export { default as ScoreBox } from './game/last/ScoreBox';
