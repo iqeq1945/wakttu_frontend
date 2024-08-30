@@ -35,7 +35,7 @@ const GameNav = () => {
 
   useEffect(() => {
     dispatch(setFilter({ ...filter, keyword: keyword }));
-  }, [dispatch, keyword]);
+  }, [dispatch, filter, keyword]);
 
   return (
     <CGameNav
