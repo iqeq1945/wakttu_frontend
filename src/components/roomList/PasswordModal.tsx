@@ -11,7 +11,7 @@ import {
   CancleText,
   Container,
 } from '@/styles/roomList/PasswordModal';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, KeyboardEvent } from 'react';
 
 interface Props {
   onConfirm: () => void;
@@ -28,6 +28,13 @@ const PasswordModal = ({
   password,
   $error,
 }: Props) => {
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
+  };
+
   return (
     <Modal>
       <Container>
@@ -38,6 +45,7 @@ const PasswordModal = ({
             name="password"
             value={password}
             onChange={onChange}
+            onKeyDown={handleKeyDown}
             autoComplete="off"
             $error={$error}
           />
