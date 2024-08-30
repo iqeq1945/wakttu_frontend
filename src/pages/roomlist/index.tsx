@@ -21,14 +21,20 @@ import { enter, socket } from '@/services/socket/socket';
 import { setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { setGame } from '@/redux/game/gameSlice';
 import { useRouter } from 'next/router';
+import { selectUserId } from '@/redux/user/userSlice';
 
 const RoomList = () => {
   const modal = useSelector(selectModal);
+  const userId = useSelector(selectUserId);
   const [toggle, setToggle] = useState<boolean>(false);
   const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
+    if (!userId) {
+      router.push('/');
+      return;
+    }
     if (!socket.connected) {
       socket.connect();
     }
