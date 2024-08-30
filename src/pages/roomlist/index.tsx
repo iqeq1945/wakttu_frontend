@@ -30,10 +30,9 @@ const RoomList = () => {
 
   useEffect(() => {
     if (!socket.connected) {
-      router.push('/');
-      return;
+      socket.connect();
     }
-  }, [router]);
+  }, []);
 
   useEffect(() => {
     socket.on('createRoom', (data) => {
