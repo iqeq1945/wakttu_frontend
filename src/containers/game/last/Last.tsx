@@ -51,10 +51,6 @@ const Last = () => {
           );
           if (name === game.host) socket.emit('ping', roomId);
         }, 5000);
-      } else {
-        setTimeout(() => {
-          dispatch(failAnswer());
-        }, 2200);
       }
     });
 
