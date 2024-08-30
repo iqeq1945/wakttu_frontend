@@ -20,7 +20,7 @@ const Score = ({ score }: Props) => {
     return () => {
       clearInterval(ref.current);
     };
-  }, [score]);
+  }, [data, score]);
 
   return <>{data}</>;
 };

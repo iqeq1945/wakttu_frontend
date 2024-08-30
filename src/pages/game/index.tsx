@@ -31,7 +31,7 @@ const Game = () => {
 
   useEffect(() => {
     dispatch(clearHistory());
-  }, [game.round]);
+  }, [dispatch, game.round]);
 
   useEffect(() => {
     socket.on('last.round', (data) => {
