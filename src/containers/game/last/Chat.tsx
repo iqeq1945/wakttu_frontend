@@ -17,6 +17,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import wordRelay from '@/modules/WordRelay';
 import { selectUserId } from '@/redux/user/userSlice';
+import { selectHistory } from '@/redux/history/historySlice';
 
 interface InputProps {
   chat: string;
@@ -37,6 +38,7 @@ const Chat = () => {
   const answer = useSelector(selectAnswer);
   const timer = useSelector(selectTimer);
   const pause = useSelector(selectPause);
+  const history = useSelector(selectHistory);
 
   const [myTurn, setMyTurn] = useState(false);
 
@@ -48,15 +50,22 @@ const Chat = () => {
   const chatBoxRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const isInHistory = (keyword: string) => {
+    const idx = history.findIndex((item) => item.id === keyword);
+    return idx === -1 ? true : false;
+  };
+
   const onSendAnswer = () => {
     if (inputs.chat) {
       const { isValid, message } = wordRelay(game.target, inputs.chat);
-      if (!isValid) {
+      const isIn = isInHistory(inputs.chat);
+
+      if (!isValid || !isIn) {
         dispatch(
           setAnswer({
-            success: isValid,
+            success: false,
             answer: inputs.chat,
-            message: message,
+            message: message ? message : '',
             pause: true,
             word: undefined,
           })

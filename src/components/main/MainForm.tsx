@@ -15,6 +15,7 @@ import Link from 'next/link';
 import { selectUserInfo } from '@/redux/user/userSlice';
 import { useSelector } from 'react-redux';
 import { client } from '@/services/api';
+import { getIcon } from '@/modules/UserInfo';
 
 interface Props {
   isLogined: boolean;
@@ -25,6 +26,7 @@ interface Props {
 
 const MainForm = ({ isLogined, onModal, logout, start }: Props) => {
   const user = useSelector(selectUserInfo);
+  const icon = getIcon(user.score as number, user.provider as any);
 
   const waktaLogin = async (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -39,7 +41,7 @@ const MainForm = ({ isLogined, onModal, logout, start }: Props) => {
       </GameStart>
       {isLogined ? (
         <Player onClick={logout}>
-          <Rank src="/assets/icons/amoeba.svg" />
+          <Rank src={icon} />
           <Line />
           <PlayerName>{user.name}</PlayerName>
           <Link href="/">
