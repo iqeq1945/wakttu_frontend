@@ -11,7 +11,8 @@ import {
   CancleText,
   Container,
 } from '@/styles/roomList/PasswordModal';
-import { ChangeEvent, KeyboardEvent } from 'react';
+import { handleKeyDown } from '@/utils/keyboard';
+import { ChangeEvent } from 'react';
 
 interface Props {
   onConfirm: () => void;
@@ -29,11 +30,7 @@ const PasswordModal = ({
   $error,
 }: Props) => {
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-    }
-  };
+
 
   return (
     <Modal>

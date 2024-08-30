@@ -20,6 +20,7 @@ import {
   CancleButton,
   ButtonText,
 } from '@/styles/roomList/CreateRoom';
+import { handleKeyDown } from '@/utils/keyboard';
 import { RefObject } from 'react';
 
 interface Props {
@@ -56,6 +57,7 @@ const CreateRoom = ({
             name="title"
             defaultValue={roomInfo.title}
             onChange={onRoomInfo}
+            onKeyDown={handleKeyDown}
             maxLength={10}
           />
         </CCreate>
