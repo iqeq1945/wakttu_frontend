@@ -1,16 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import { COLORS, FONT_SIZES } from '../theme';
 
-const translate = keyframes`
-  0%{
-  transform : translate(0, 2rem);
-  }
-
-  100%{
-    transform : translate(0,0);
-  }
-`;
-
 const rotate = keyframes`
  from {
     -webkit-transform: rotate(0deg);
@@ -44,12 +34,14 @@ export const Left = styled.img`
   width: 5.625rem;
   flex-shrink: 0;
 `;
-export const Light = styled.img<{ top: string }>`
+export const Light = styled.img<{ top: string; onLight: boolean }>`
   position: absolute;
   top: ${({ top }) => {
     return top;
   }};
-
+  opacity: ${({ onLight }) => {
+    return onLight ? 1 : 0;
+  }};
   width: 4.625rem;
 `;
 
@@ -101,15 +93,21 @@ export const CTrain = styled.div`
   background-size: cover;
 `;
 
-export const SWheel = styled.img`
+export const SWheel = styled.img<{ $rotate?: boolean }>`
   position: absolute;
   width: 4.6rem;
   left: 2.5rem;
   bottom: 0.3rem;
 
-  animation: ${rotate} 2s ease-in-out 0.5s 1;
+  transition: ${({ $rotate }) =>
+    $rotate ? 'transform 2s ease-in-out 0.5s' : 'transform 0 ease-in-out 0.5s'};
+
+  ${({ $rotate }) => {
+    return $rotate ? 'transform : rotate(-360deg)' : '';
+  }};
 `;
-export const BWheel = styled.img<{ left: string }>`
+
+export const BWheel = styled.img<{ left: string; $rotate?: boolean }>`
   position: absolute;
   width: 5.7rem;
   left: ${({ left }) => {
@@ -117,7 +115,12 @@ export const BWheel = styled.img<{ left: string }>`
   }};
   bottom: 0.2rem;
 
-  animation: ${rotate} 2s ease-in-out 0.5s 1;
+  transition: ${({ $rotate }) =>
+    $rotate ? 'transform 2s ease-in-out 0.5s' : 'transform 0 ease-in-out 0.5s'};
+
+  ${({ $rotate }) => {
+    return $rotate ? 'transform : rotate(-360deg)' : '';
+  }};
 `;
 
 export const CCargo = styled.div`

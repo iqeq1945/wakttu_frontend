@@ -6,13 +6,14 @@ import Info from '@/containers/game/last/Info';
 import Last from '@/containers/game/last/Last';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
-import { socket } from '@/services/socket/socket';
+import { lastRound, socket } from '@/services/socket/socket';
 import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
-import { useEffect, useRef, useState } from 'react';
-import { clearAnswer, setPause } from '@/redux/answer/answerSlice';
-import { setTimer, tick } from '@/redux/timer/timerSlice';
+import { useEffect } from 'react';
+import { clearAnswer, setAnswer, setPause } from '@/redux/answer/answerSlice';
+import { clearTimer, setTimer, tick } from '@/redux/timer/timerSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';
 import { useRouter } from 'next/router';
+import { clearHistory } from '@/redux/history/historySlice';
 
 const Game = () => {
   const dispatch = useDispatch();
@@ -22,8 +23,21 @@ const Game = () => {
   const user = useSelector(selectUserInfo);
 
   useEffect(() => {
+    if (!socket.connected) {
+      router.push('/');
+      return;
+    }
+  }, [router]);
+
+  useEffect(() => {
+    dispatch(clearHistory());
+  }, [game.round]);
+
+  useEffect(() => {
     socket.on('last.round', (data) => {
       dispatch(setPause(false));
+      dispatch(clearTimer());
+      dispatch(clearAnswer());
       dispatch(setGame(data));
 
       console.log('round loading start');
@@ -32,18 +46,18 @@ const Game = () => {
         dispatch(
           setTimer({ roundTime: data.roundTime, turnTime: data.turnTime })
         );
-        dispatch(setPause(true));
         if (game.host === user.name) socket.emit('ping', roomInfo.id);
-      }, 3000);
+      }, 5000);
     });
 
     return () => {
       socket.off('last.round');
     };
-  }, [dispatch]);
+  }, [dispatch, game.host, roomInfo.id, user.name]);
 
   useEffect(() => {
     socket.on('ping', () => {
+      dispatch(setPause(true));
       dispatch(tick());
     });
 

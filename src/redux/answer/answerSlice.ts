@@ -16,6 +16,14 @@ const initialState: Answer = {
   word: undefined,
 };
 
+const failState: Answer = {
+  success: undefined,
+  answer: undefined,
+  message: undefined,
+  pause: true,
+  word: undefined,
+};
+
 export const answerSlice = createSlice({
   name: 'answer',
   initialState,
@@ -26,13 +34,17 @@ export const answerSlice = createSlice({
     clearAnswer: (state) => {
       return initialState;
     },
+    failAnswer: (state) => {
+      return failState;
+    },
     setPause: (state, action: PayloadAction<boolean>) => {
       return { ...state, pause: action.payload };
     },
   },
 });
 
-export const { setAnswer, clearAnswer, setPause } = answerSlice.actions;
+export const { setAnswer, clearAnswer, setPause, failAnswer } =
+  answerSlice.actions;
 
 export const selectAnswer = (state: { answer: Answer }) => state.answer;
 export const selectPause = (state: { answer: Answer }) => state.answer.pause;

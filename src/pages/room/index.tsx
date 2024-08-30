@@ -11,9 +11,20 @@ import { useSelector } from 'react-redux';
 import { selectModal } from '@/redux/modal/modalSlice';
 import UpdateRoom from '@/containers/room/UpdateRoom';
 import KickModal from '@/containers/room/KickModal';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { socket } from '@/services/socket/socket';
 
 const Room = () => {
   const modal = useSelector(selectModal);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!socket.connected) {
+      router.push('/');
+      return;
+    }
+  }, [router]);
 
   return (
     <Container>

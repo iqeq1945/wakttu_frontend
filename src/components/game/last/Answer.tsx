@@ -26,18 +26,18 @@ interface Props {
   chat: string;
   game: Game;
   timer: any;
-  pause: boolean;
   answer: TypeAnswer;
+  pause: boolean;
 }
 
-const Answer = ({ chat, game, pause, timer, answer }: Props) => {
+const Answer = ({ chat, game, timer, answer, pause }: Props) => {
   const target = () => {
     const res = hangulTools().dueum(game.target);
     if (res !== game.target && res !== '') return `(${res})`;
     else return '';
   };
   return (
-    <Container>
+    <Container pause={pause}>
       <Modal>
         <ModalTitle>
           <TitleText>
@@ -48,7 +48,11 @@ const Answer = ({ chat, game, pause, timer, answer }: Props) => {
           {game.target}
           {target()}
         </TargetText>
-        {answer.answer && <WordErrorEffect word={answer.answer} />}
+        {answer.success === false ? (
+          <WordErrorEffect word={answer.answer as string} />
+        ) : (
+          ''
+        )}
         <CTimer>
           <LeftTimer>
             <TimerIcon src="/assets/game/timer.svg" />
@@ -59,11 +63,11 @@ const Answer = ({ chat, game, pause, timer, answer }: Props) => {
               {((timer.roundTime - timer.countTime) / 1000.0).toFixed(1)}초
             </RemainText>
             <TimerBar>
-              {pause ? (
-                <GaugeBar key={game.target} gauge={timer.roundTime} />
-              ) : (
-                ''
-              )}
+              <GaugeBar
+                key={game.target}
+                gauge={timer.roundTime}
+                pause={pause}
+              />
             </TimerBar>
           </RightTimer>
         </CTimer>
@@ -77,11 +81,11 @@ const Answer = ({ chat, game, pause, timer, answer }: Props) => {
               {((timer.turnTime - timer.countTime) / 1000.0).toFixed(1)}초
             </RemainText>
             <BTimerBar>
-              {pause ? (
-                <GaugeBar key={game.target} gauge={timer.turnTime} />
-              ) : (
-                ''
-              )}
+              <GaugeBar
+                key={game.target}
+                gauge={timer.turnTime}
+                pause={pause}
+              />
             </BTimerBar>
           </RightTimer>
         </CTimer>
