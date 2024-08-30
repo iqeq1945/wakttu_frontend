@@ -13,6 +13,7 @@ import { clearAnswer, setPause } from '@/redux/answer/answerSlice';
 import { clearTimer, setTimer, tick } from '@/redux/timer/timerSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';
 import { useRouter } from 'next/router';
+import { clearHistory } from '@/redux/history/historySlice';
 
 const Game = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,10 @@ const Game = () => {
   }, [router]);
 
   useEffect(() => {
+    dispatch(clearHistory());
+  }, [game.round]);
+
+  useEffect(() => {
     socket.on('last.round', (data) => {
       dispatch(setPause(false));
       dispatch(clearTimer());
@@ -40,7 +45,6 @@ const Game = () => {
         dispatch(
           setTimer({ roundTime: data.roundTime, turnTime: data.turnTime })
         );
-        dispatch(setPause(true));
         if (game.host === user.name) socket.emit('ping', roomInfo.id);
       }, 5000);
     });
@@ -52,6 +56,7 @@ const Game = () => {
 
   useEffect(() => {
     socket.on('ping', () => {
+      dispatch(setPause(true));
       dispatch(tick());
     });
 

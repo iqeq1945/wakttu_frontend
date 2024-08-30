@@ -6,11 +6,16 @@ import {
   setPause,
 } from '@/redux/answer/answerSlice';
 import { selectGame, selectWhoisTurn, setGame } from '@/redux/game/gameSlice';
+import {
+  clearHistory,
+  selectHistory,
+  setHistory,
+} from '@/redux/history/historySlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { setTurn } from '@/redux/timer/timerSlice';
 import { selectUserName } from '@/redux/user/userSlice';
 import { socket } from '@/services/socket/socket';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Last = () => {
@@ -19,24 +24,10 @@ const Last = () => {
   const whoIsTurn = useSelector(selectWhoisTurn);
   const game = useSelector(selectGame);
   const answer = useSelector(selectAnswer);
-
-  const [history, setHistory] = useState<
-    { id: string; mean: string; type: string; [x: string]: any }[]
-  >([{ id: '', mean: '', type: '' }]);
+  const history = useSelector(selectHistory);
 
   const dispatch = useDispatch();
   const historyBoxRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setHistory([
-      {
-        id: game.keyword!._id,
-        ...game.keyword,
-        mean: game.keyword!.mean,
-        type: game.keyword!.type,
-      },
-    ]);
-  }, []);
 
   useEffect(() => {
     socket.on('last.game', (data) => {
@@ -53,12 +44,11 @@ const Last = () => {
       dispatch(setGame(game));
       if (success) {
         if (name === game.host) socket.emit('pong', roomId);
-        setHistory((prev) => [...prev, word]);
+        dispatch(setHistory(word));
         setTimeout(() => {
           dispatch(
             setTurn({ roundTime: game.roundTime, turnTime: game.turnTime })
           );
-          dispatch(setPause(true));
           if (name === game.host) socket.emit('ping', roomId);
         }, 5000);
       } else {
