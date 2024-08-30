@@ -1,7 +1,6 @@
 export { default as AuthForm } from './auth/AuthForm';
 export { default as AuthInput } from './auth/AuthInput';
 
-export { default as TemporaryLayout } from './layout/TemporaryLayout';
 export { default as MainHeader } from './main/Header';
 export { default as MainTab } from './main/Tab';
 export { default as MainForm } from './main/MainForm';
@@ -12,6 +11,7 @@ export { default as RoomNumber } from './common/RoomNumber';
 export { default as ChatBox } from './common/ChatBox';
 export { default as Chat } from './common/Chat';
 export { default as Message } from './common/Message';
+export { default as Loading } from './common/Loding';
 
 export { default as ORoomDesc } from './room/RoomDesc';
 export { default as Ready } from './room/Ready';
@@ -40,3 +40,4 @@ export { default as LastPlayerList } from './game/last/PlayerList';
 export { default as GChatBox } from './game/last/ChatBox';
 export { default as GChat } from './game/last/Chat';
 export { default as Answer } from './game/last/Answer';
+export { default as ScoreBox } from './game/last/ScoreBox';

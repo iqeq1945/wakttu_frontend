@@ -85,7 +85,7 @@ const CreateRoom = ({
           <Dropdown onClick={() => onDropdown(0)}>
             <Selected>{roomInfo.type === 0 ? '끝말잇기' : '쿵쿵따'}</Selected>
             <DropdownLine
-              isOpen={isDown[0]}
+              isopen={isDown[0]}
               src="/assets/icons/down-line.svg"
             />
             {isDown[0] && (
@@ -116,7 +116,7 @@ const CreateRoom = ({
           <Dropdown onClick={() => onDropdown(1)}>
             <Selected>{roomInfo.time / 1000}초</Selected>
             <DropdownLine
-              isOpen={isDown[1]}
+              isopen={isDown[1]}
               src="/assets/icons/down-line.svg"
             />
             {isDown[1] && (

@@ -1,30 +1,21 @@
-import { Last } from '@/components';
-import { selectAnswer, setAnswer } from '@/redux/answer/answerSlice';
-import { selectGame } from '@/redux/game/gameSlice';
-import { useDispatch, useSelector } from 'react-redux';
-const Test = () => {
-  const game = useSelector(selectGame);
-  const answer = useSelector(selectAnswer);
-  const dispatch = useDispatch();
+import { useCallback, useState } from 'react';
 
-  setTimeout(() => {
-    dispatch(
-      setAnswer({
-        answer: '',
-        success: true,
-        message: '',
-        word: '',
-        pause: false,
-      })
-    );
-  }, 2000);
+const Test = () => {
+  const count = 100;
+  const [score, setScore] = useState(0);
+
+  const enter = useCallback(() => {
+    let num = count;
+    const timeId = setInterval(() => {
+      if (num <= 0) clearInterval(timeId);
+      setScore((prev) => prev + 1);
+      num -= 1;
+    }, 5);
+  }, []);
   return (
-    <Last
-      history={[{ id: '테스팅', type: '명사', mean: '의미' }]}
-      game={game}
-      answer={answer}
-      historyBoxRef={undefined}
-    />
+    <>
+      {score} <button onClick={enter}>버튼</button>
+    </>
   );
 };
 

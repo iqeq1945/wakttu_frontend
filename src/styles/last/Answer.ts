@@ -12,7 +12,7 @@ const GAUGE = keyframes`
   }
 `;
 
-export const Container = styled.div`
+export const Container = styled.div<{ pause: boolean }>`
   position: fixed;
   top: 0;
   display: flex;
@@ -26,7 +26,9 @@ export const Container = styled.div`
 
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
-  z-index: 1000;
+  z-index: ${({ pause }) => (pause ? 1000 : -1000)};
+
+  opacity: ${({ pause }) => (pause ? 1 : 0)};
 `;
 
 export const Modal = styled.div`
@@ -128,16 +130,17 @@ export const BTimerBar = styled(TimerBar)`
   background: #605774;
 `;
 
-export const GaugeBar = styled.div<{ gauge: number }>`
-  width: 0%;
+export const GaugeBar = styled.div<{ gauge: number; pause: boolean }>`
+  width: 100%;
   height: 100%;
   border-radius: 6.25rem;
   background: ${COLORS.pupple};
-  animation: ${GAUGE}
-    ${({ gauge }) => {
-      return gauge + 'ms';
-    }}
-    linear;
+
+  transition: ${({ gauge, pause }) => {
+    return pause ? `transform ${gauge}ms linear 0.2s` : '';
+  }};
+  transform: scaleX(${({ pause }) => (pause ? 0 : 1)});
+  transform-origin: left;
 `;
 
 export const CAnswer = styled.div`

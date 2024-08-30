@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLORS } from '../theme';
+import { COLORS, FONT_SIZES } from '../theme';
 
 const CChat = styled.div`
   display: flex;
@@ -47,7 +47,7 @@ const ChatLog = styled.div`
 const PlayerChat = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const CPlayer = styled.div`
@@ -106,6 +106,16 @@ const MessageInput = styled.input`
 
   border: none;
   background: ${COLORS['gray-5']};
+
+  overflow: hidden;
+  color: ${COLORS.text};
+  text-overflow: ellipsis;
+
+  font-family: 'WantedSans-Medium';
+  font-size: ${FONT_SIZES['body-1']};
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 
   &:focus {
     outline: none;

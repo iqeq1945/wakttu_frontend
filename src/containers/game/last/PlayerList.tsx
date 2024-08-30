@@ -7,6 +7,7 @@ const PlayerList = () => {
   const users = useSelector(selectReadyUser);
   const game = useSelector(selectGame);
   const answer = useSelector(selectAnswer);
+
   return <LastPlayerList answer={answer} users={users} game={game} />;
 };
 

@@ -7,13 +7,7 @@ import {
   SendIcon,
 } from '@/styles/last/Chat';
 import { Answer as CAnswer, GChat } from '@/components';
-import {
-  ChangeEventHandler,
-  useEffect,
-  KeyboardEvent,
-  RefObject,
-  useCallback,
-} from 'react';
+import { ChangeEventHandler, useEffect, RefObject, useCallback } from 'react';
 import { LogProps } from '@/containers/roomlist/Chat';
 import { Game } from '@/services/socket/socket';
 import { Answer } from '@/redux/answer/answerSlice';
@@ -24,6 +18,7 @@ interface Props {
   onChange: ChangeEventHandler;
   onMessage: () => void;
   onAnswer: () => void;
+  handleEnter: (e: React.KeyboardEvent) => void;
   chatBoxRef: RefObject<HTMLDivElement>;
   inputRef: RefObject<HTMLInputElement>;
   myTurn: boolean;
@@ -39,6 +34,7 @@ const ChatBox = ({
   onChange,
   onMessage,
   onAnswer,
+  handleEnter,
   chatBoxRef,
   inputRef,
   myTurn,
@@ -53,33 +49,23 @@ const ChatBox = ({
     }
   }, [chatBoxRef]);
 
-  const handleEnter = useCallback(
-    (e: KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter') {
-        if (myTurn) onAnswer();
-        else onMessage();
-      }
-    },
-    [myTurn, onAnswer, onMessage]
-  );
-
   useEffect(() => {
     scrollToBottom();
   }, [log, scrollToBottom]);
 
   return (
     <>
-      {myTurn
-        ? answer.pause && (
-            <CAnswer
-              chat={message}
-              game={game}
-              pause={pause}
-              timer={timer}
-              answer={answer}
-            />
-          )
-        : ''}
+      {myTurn ? (
+        <CAnswer
+          chat={message}
+          game={game}
+          timer={timer}
+          answer={answer}
+          pause={pause}
+        />
+      ) : (
+        ''
+      )}
       <CChat>
         <ChatLog ref={chatBoxRef}>
           {log.map((element, idx) => {
@@ -103,7 +89,7 @@ const ChatBox = ({
             onKeyDown={handleEnter}
             autoComplete="off"
           />
-          {answer.pause && myTurn ? (
+          {pause && myTurn ? (
             <SendMessage onClick={onAnswer}>
               <SendIcon src="/assets/icons/send.svg" />
             </SendMessage>

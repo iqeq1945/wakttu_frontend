@@ -1,5 +1,3 @@
-import { selectPause } from '@/redux/answer/answerSlice';
-import { selectTimer } from '@/redux/timer/timerSlice';
 import { Game } from '@/services/socket/socket';
 import {
   BChainText,
@@ -26,7 +24,6 @@ import {
   TimerText,
   Wrapper,
 } from '@/styles/last/Info';
-import { useSelector } from 'react-redux';
 
 interface Props {
   game: Game;
@@ -69,11 +66,11 @@ const Info = ({ game, pause, timer, keyword }: Props) => {
                   {((timer.roundTime - timer.countTime) / 1000.0).toFixed(1)}초
                 </RemainText>
                 <TimerBar>
-                  {pause ? (
-                    <GaugeBar key={game.target} gauge={timer.roundTime} />
-                  ) : (
-                    ''
-                  )}
+                  <GaugeBar
+                    key={game.target}
+                    gauge={timer.roundTime}
+                    pause={pause}
+                  />
                 </TimerBar>
               </RightTimer>
             </TimerItem>
@@ -87,11 +84,11 @@ const Info = ({ game, pause, timer, keyword }: Props) => {
                   {((timer.turnTime - timer.countTime) / 1000.0).toFixed(1)}초
                 </RemainText>
                 <BTimerBar>
-                  {pause ? (
-                    <GaugeBar key={game.target} gauge={timer.turnTime} />
-                  ) : (
-                    ''
-                  )}
+                  <GaugeBar
+                    key={game.target}
+                    gauge={timer.turnTime}
+                    pause={pause}
+                  />
                 </BTimerBar>
               </RightTimer>
             </TimerItem>

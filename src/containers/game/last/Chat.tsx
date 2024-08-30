@@ -13,10 +13,11 @@ import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { RootState } from '@/redux/store';
 import { selectTimer } from '@/redux/timer/timerSlice';
 import { sendChat, socket } from '@/services/socket/socket';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import wordRelay from '@/modules/WordRelay';
 import { selectUserId } from '@/redux/user/userSlice';
+import { selectHistory } from '@/redux/history/historySlice';
 
 interface InputProps {
   chat: string;
@@ -37,6 +38,7 @@ const Chat = () => {
   const answer = useSelector(selectAnswer);
   const timer = useSelector(selectTimer);
   const pause = useSelector(selectPause);
+  const history = useSelector(selectHistory);
 
   const [myTurn, setMyTurn] = useState(false);
 
@@ -48,15 +50,22 @@ const Chat = () => {
   const chatBoxRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const isInHistory = (keyword: string) => {
+    const idx = history.findIndex((item) => item.id === keyword);
+    return idx === -1 ? true : false;
+  };
+
   const onSendAnswer = () => {
     if (inputs.chat) {
       const { isValid, message } = wordRelay(game.target, inputs.chat);
-      if (!isValid) {
+      const isIn = isInHistory(inputs.chat);
+
+      if (!isValid || !isIn) {
         dispatch(
           setAnswer({
-            success: isValid,
+            success: false,
             answer: inputs.chat,
-            message: message,
+            message: message ? message : '',
             pause: true,
             word: undefined,
           })
@@ -91,6 +100,13 @@ const Chat = () => {
     if (inputRef.current) inputRef.current.focus();
   };
 
+  const handleEnter = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      if (myTurn && pause) onSendAnswer();
+      else onSendMessage();
+    }
+  };
+
   useEffect(() => {
     setMyTurn(userId === game.users[game.turn].userId);
   }, [game.turn, game.users, userId]);
@@ -122,6 +138,7 @@ const Chat = () => {
       onChange={onInputChange}
       onMessage={onSendMessage}
       onAnswer={onSendAnswer}
+      handleEnter={handleEnter}
       inputRef={inputRef}
       chatBoxRef={chatBoxRef}
       myTurn={myTurn}
