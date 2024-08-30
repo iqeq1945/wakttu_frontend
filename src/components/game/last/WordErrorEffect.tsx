@@ -14,7 +14,7 @@ const WordErrorEffect: React.FC<Props> = ({ word }) => {
   useEffect(() => {
     setWrongWord(word);
     setTimeout(() => {
-      setWrongWord(word);
+      setWrongWord('');
     }, 2000);
   }, [word]);
 

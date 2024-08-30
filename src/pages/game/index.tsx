@@ -9,7 +9,7 @@ import { selectGame, setGame } from '@/redux/game/gameSlice';
 import { lastRound, socket } from '@/services/socket/socket';
 import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { useEffect } from 'react';
-import { clearAnswer, setPause } from '@/redux/answer/answerSlice';
+import { clearAnswer, setAnswer, setPause } from '@/redux/answer/answerSlice';
 import { clearTimer, setTimer, tick } from '@/redux/timer/timerSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';
 import { useRouter } from 'next/router';
@@ -37,6 +37,7 @@ const Game = () => {
     socket.on('last.round', (data) => {
       dispatch(setPause(false));
       dispatch(clearTimer());
+      dispatch(clearAnswer());
       dispatch(setGame(data));
 
       console.log('round loading start');
