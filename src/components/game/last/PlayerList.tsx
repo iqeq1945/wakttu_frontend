@@ -21,8 +21,10 @@ const PlayList = ({ users, game, answer }: Props) => {
   return (
     <CPlayerList>
       {users.map((user: any, index: number) => {
+        const isTurn = game.turn === index;
+        const isFail = isTurn && !answer.success && answer.pause;
         return (
-          <CPlayer key={user.id} $turn={answer.pause && game.turn === index}>
+          <CPlayer key={user.id} $turn={answer.pause && isTurn} $fail={isFail}>
             <Skin src={'/assets/ipali.png'} />
             <CName>
               {user.name === game.host && (

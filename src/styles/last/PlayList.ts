@@ -14,7 +14,7 @@ export const CPlayerList = styled.div`
   background: linear-gradient(180deg, #c0b0ff 0%, #92aaff 100%);
 `;
 
-export const CPlayer = styled.div<{ $turn?: boolean }>`
+export const CPlayer = styled.div<{ $turn?: boolean, $fail?: boolean }>`
   display: flex;
   width: 13rem;
   height: 15rem;
@@ -30,10 +30,15 @@ export const CPlayer = styled.div<{ $turn?: boolean }>`
 
   transition: transform 0.2s linear;
 
-  ${({ $turn }) => {
-    return $turn
-      ? `border: 4px solid #A377FF; background: #E6DAFF; transform : translate(0 , -0.8rem);`
-      : `background: linear-gradient(180deg, #fff 0%, #f2f2f2 100%);`;
+  ${({ $turn, $fail }) => {
+    if ($fail) {
+      return `border: 4px solid #FF7070; background: #FFE6E6; transform : translate(0 , -0.8rem);`
+    } else if ($turn) {
+      return `border: 4px solid #A377FF; background: #E6DAFF; transform : translate(0 , -0.8rem);`
+    } else {
+      return `background: linear-gradient(180deg, #fff 0%, #f2f2f2 100%);`;
+    }
+
   }}
 `;
 
