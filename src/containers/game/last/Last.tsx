@@ -32,23 +32,33 @@ const Last = () => {
   useEffect(() => {
     socket.on('last.game', (data) => {
       const { success, answer, game, message, word } = data;
-      dispatch(
-        setAnswer({
-          success,
-          answer,
-          message,
-          pause: !success,
-          word: word,
-        })
+
+      setTimeout(() =>
+        dispatch(
+          setAnswer({
+            success,
+            answer,
+            message,
+            pause: !success,
+            word: word,
+          })
+        )
       );
-      dispatch(setGame(game));
+      setTimeout(() => {
+        dispatch(setGame(game));
+      });
       if (success) {
         if (name === game.host) socket.emit('pong', roomId);
         dispatch(setHistory(word));
         setTimeout(() => {
-          dispatch(
-            setTurn({ roundTime: game.roundTime, turnTime: game.turnTime })
+          setTimeout(() =>
+            dispatch(
+              setTurn({ roundTime: game.roundTime, turnTime: game.turnTime })
+            )
           );
+          setTimeout(() => {
+            dispatch(setPause(true));
+          });
           if (name === game.host) socket.emit('ping', roomId);
         }, 5000);
       }

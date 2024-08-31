@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { COLORS } from '@/styles/theme';
 
 interface Props {
   message: string;
@@ -10,7 +11,7 @@ const Message = ({ message, error }: Props) => {
 
 const CMessage = styled.span<{ $error: boolean }>`
   color: ${({ $error }) => {
-    return $error ? '#FF6565;' : '#282828;';
+    return $error ? '#FF6565;' : `${COLORS.primary}`;
   }};
 
   font-family: 'WantedSans-Medium';

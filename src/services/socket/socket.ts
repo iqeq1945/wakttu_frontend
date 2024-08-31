@@ -13,6 +13,7 @@ export interface Chat {
   chat: string;
   roundTime: number | null;
   score: number | null;
+  success?: boolean;
 }
 
 export interface Enter {

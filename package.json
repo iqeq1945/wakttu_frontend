@@ -27,7 +27,8 @@
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
     "styled-components": "^6.1.13",
-    "validator": "^13.12.0"
+    "validator": "^13.12.0",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "@types/node": "^22.5.1",

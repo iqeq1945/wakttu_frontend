@@ -60,29 +60,18 @@ const Chat = () => {
       const { isValid, message } = wordRelay(game.target, inputs.chat);
       const isIn = isInHistory(inputs.chat);
 
-      if (!isValid || !isIn) {
-        dispatch(
-          setAnswer({
-            success: false,
-            answer: inputs.chat,
-            message: message ? message : '',
-            pause: true,
-            word: undefined,
-          })
-        );
-      } else {
-        sendChat({
-          roomId,
-          chat: inputs.chat,
-          roundTime: timer.roundTime - timer.countTime,
-          score: countScore({
-            wordLength: inputs.chat.length,
-            chainCount: game.chain,
-            timeLimit: timer.turnTime,
-            remainingTime: timer.turnTime - timer.countTime,
-          }),
-        });
-      }
+      sendChat({
+        roomId,
+        chat: inputs.chat,
+        roundTime: timer.roundTime - timer.countTime,
+        score: countScore({
+          wordLength: inputs.chat.length,
+          chainCount: game.chain,
+          timeLimit: timer.turnTime,
+          remainingTime: timer.turnTime - timer.countTime,
+        }),
+        success: !isValid || !isIn,
+      });
     }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();

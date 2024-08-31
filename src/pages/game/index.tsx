@@ -43,9 +43,12 @@ const Game = () => {
       console.log('round loading start');
       setTimeout(() => {
         console.log('round loading end');
-        dispatch(
-          setTimer({ roundTime: data.roundTime, turnTime: data.turnTime })
+        setTimeout(() =>
+          dispatch(
+            setTimer({ roundTime: data.roundTime, turnTime: data.turnTime })
+          )
         );
+        setTimeout(() => dispatch(setPause(true)));
         if (game.host === user.name) socket.emit('ping', roomInfo.id);
       }, 5000);
     });
@@ -57,8 +60,7 @@ const Game = () => {
 
   useEffect(() => {
     socket.on('ping', () => {
-      dispatch(setPause(true));
-      dispatch(tick());
+      setTimeout(() => dispatch(tick()));
     });
 
     return () => {

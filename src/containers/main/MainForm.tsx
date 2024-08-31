@@ -31,7 +31,6 @@ const MainFormContainer = () => {
   useEffect(() => {
     if (userId) {
       setIsLogined(true);
-      socket.connect();
     } else setIsLogined(false);
   }, [userId]);
 
@@ -43,11 +42,11 @@ const MainFormContainer = () => {
   const start = (e: MouseEvent<HTMLElement>) => {
     if (isLogined) {
       e.stopPropagation();
-      if (!socket.connected) router.reload();
-      router.push('/roomlist');
-      return;
+      if (!socket.connected) socket.connect();
+      setTimeout(() => {
+        router.push('/roomlist');
+      }, 200);
     }
-    return;
   };
 
   const logout = async (e: MouseEvent<HTMLElement>) => {

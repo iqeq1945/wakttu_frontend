@@ -31,7 +31,7 @@ const List = ({ setToggle }: any) => {
       filter.time === 'desc' ? a.idx! - b.idx! : b.idx! - a.idx!
     );
     setRoomList(copy);
-  }, [filter.time, roomList]);
+  }, [filter.time]);
 
   useEffect(() => {
     socket.on('roomList', (data) => {
@@ -47,7 +47,7 @@ const List = ({ setToggle }: any) => {
     return () => {
       socket.off('roomList');
     };
-  }, [filter.time, roomList]);
+  }, [filter.time]);
 
   return (
     <CList

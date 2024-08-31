@@ -7,6 +7,7 @@ import { onError } from '@/containers/auth/checkAuth';
 import { AuthForm, AuthInput, Message } from '@/components/index';
 
 import { REGEXP, ERROR_MESSAGE } from '@/constants/auth';
+import { useDispatch } from 'react-redux';
 
 interface ErrorProps {
   errorId: string;
@@ -33,6 +34,8 @@ const SignUp = ({ onToggle }: Props) => {
   const [idMessage, setIdMessage] = useState<string>('');
   const [nicknameMessage, setNicknameMessage] = useState<string>('');
 
+  const dispatch = useDispatch();
+
   const { inputs, onInputChange } = useInput<InputProps>({
     id: '',
     pw: '',
@@ -51,10 +54,13 @@ const SignUp = ({ onToggle }: Props) => {
         id: userId,
       });
       setSameId(data.success);
+      setErrors(undefined);
       if (data.success) {
         setIdMessage('사용 가능한 아이디 입니다!');
+        setErrors(undefined);
       } else {
         setIdMessage('사용 불가능한 아이디 입니다!');
+        setErrors(undefined);
       }
     } catch (error) {
       if (axios.isAxiosError(error)) setSameId(error?.response?.data.success);
@@ -73,8 +79,10 @@ const SignUp = ({ onToggle }: Props) => {
       setSameNickname(data.success);
       if (data.success) {
         setNicknameMessage('사용 가능한 닉네임 입니다!');
+        setErrors(undefined);
       } else {
         setNicknameMessage('사용 불가능한 닉네임 입니다!');
+        setErrors(undefined);
       }
     } catch (error) {
       if (axios.isAxiosError(error))
@@ -109,12 +117,13 @@ const SignUp = ({ onToggle }: Props) => {
       await axios
         .post(`${API_URL}/auth/signup`, userInfo)
         .then((response) => {
-          if (response.status === 201) alert('회원가입이 완료되었습니다.');
+          if (response.status === 201) {
+            alert('회원가입이 완료되었습니다.');
+            dispatch(clearModal());
+          }
         })
         .catch((error) =>
-          console.error(
-            `회원가입을 완료할 수 없습니다. ${error.response.data.message}`
-          )
+          console.error(`회원가입을 완료할 수 없습니다. ${error.response}`)
         );
     }
   };
@@ -140,6 +149,9 @@ const SignUp = ({ onToggle }: Props) => {
         value={id}
         onChange={onInputChange}
         onClick={isSameIdValid}
+        min="5"
+        max="12"
+        required={true}
       />
       {!errors && <Message message={idMessage} error={!sameId} />}
       {errors && <Message message={errors.errorId} error={true} />}
@@ -152,6 +164,9 @@ const SignUp = ({ onToggle }: Props) => {
         value={nickname}
         onChange={onInputChange}
         onClick={isSameNicknameValid}
+        min="2"
+        max="8"
+        required={true}
       />
       {!errors && <Message message={nicknameMessage} error={!sameNickname} />}
       {errors && <Message message={errors.errorNickname} error={true} />}
@@ -162,6 +177,7 @@ const SignUp = ({ onToggle }: Props) => {
         name="pw"
         value={pw}
         onChange={onInputChange}
+        required={true}
       />
       {errors && <Message message={errors.errorPw} error={true} />}
       <AuthInput
@@ -170,6 +186,7 @@ const SignUp = ({ onToggle }: Props) => {
         name="confirmPw"
         value={confirmPw}
         onChange={onInputChange}
+        required={true}
       />
       {errors && <Message message={errors.errorConfirmPw} error={true} />}
     </AuthForm>
@@ -177,3 +194,6 @@ const SignUp = ({ onToggle }: Props) => {
 };
 
 export default SignUp;
+function clearModal(): any {
+  throw new Error('Function not implemented.');
+}
