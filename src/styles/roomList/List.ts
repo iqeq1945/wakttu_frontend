@@ -22,6 +22,8 @@ const CItem = styled.div`
   width: 100%;
   gap: 0.75rem;
 
+  cursor: pointer;
+
   overflow-y: scroll;
 
   &::-webkit-scrollbar {

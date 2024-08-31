@@ -138,6 +138,8 @@ const JoinButton = styled.button`
   gap: 0.625rem;
   padding: 1.25rem 1rem;
 
+  cursor: pointer;
+
   border-radius: 1rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
   background: ${COLORS.primary};

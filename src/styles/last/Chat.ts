@@ -69,6 +69,7 @@ const PlayerIcon = styled.img`
 `;
 
 const ChatContent = styled.h6`
+  align-self: flex-end;
   max-width: 90%;
   margin-left: 0.625rem;
 
