@@ -12,6 +12,8 @@ const RoomDesc = () => {
   const onEnter = async () => {
     const data = (await client.get(`room/${roomInfo.id}`)).data;
     const { id, password } = data;
+    dispatch(setRoomInfo(data));
+
     if (password !== null) {
       if (id === undefined) {
         alert('존재하지 않는 방입니다!');

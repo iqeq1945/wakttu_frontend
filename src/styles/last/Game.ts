@@ -158,7 +158,7 @@ export const WordText = styled.h3`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 2rem;
+  height: 2.2rem;
   color: ${COLORS.text};
   overflow: hidden;
   text-align: center;

@@ -24,6 +24,7 @@ const List = ({ setToggle }: any) => {
 
   useEffect(() => {
     getRoomList();
+    setInterval(() => getRoomList(), 5000);
   }, []);
 
   useEffect(() => {

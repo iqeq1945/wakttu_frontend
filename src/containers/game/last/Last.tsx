@@ -1,6 +1,7 @@
 import { Last as CLast } from '@/components';
 import {
-  failAnswer,
+  clearAnswer,
+  clearSuccess,
   selectAnswer,
   setAnswer,
   setPause,
@@ -47,6 +48,7 @@ const Last = () => {
       setTimeout(() => {
         dispatch(setGame(game));
       });
+
       if (success) {
         if (name === game.host) socket.emit('pong', roomId);
         dispatch(setHistory(word));
@@ -62,6 +64,9 @@ const Last = () => {
           if (name === game.host) socket.emit('ping', roomId);
         }, 5000);
       }
+      setTimeout(() => {
+        dispatch(clearSuccess());
+      }, 2200);
     });
 
     return () => {
