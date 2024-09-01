@@ -6,6 +6,7 @@ export const socket = io(`${API_URL}/wakttu`, {
   autoConnect: true,
   reconnection: true,
   reconnectionAttempts: 5,
+  transports: ['websocket'],
 });
 
 export interface Chat {
