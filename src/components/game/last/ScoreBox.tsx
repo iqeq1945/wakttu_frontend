@@ -15,7 +15,7 @@ const Score = ({ score }: Props) => {
       if (count <= 0) clearInterval(ref.current);
       setData((prev) => prev + 1);
       count -= 1;
-    }, 50);
+    }, 30);
 
     return () => {
       clearInterval(ref.current);

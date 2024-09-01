@@ -186,6 +186,22 @@ export const lastRound = (roomId: string) => {
   socket.emit('last.round', roomId);
 };
 
+/**
+ *
+ * 턴시작 socket
+ */
+export const lastTurnStart = (roomId: string) => {
+  socket.emit('last.turnStart', roomId);
+};
+
+/**
+ *
+ * 턴끝 socket
+ */
+export const lastTurnEnd = (roomId: string) => {
+  socket.emit('last.turnEnd', roomId);
+};
+
 /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  *
         Kung(쿵쿵따) 관련 함수
  * 0@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */

@@ -1,9 +1,10 @@
 import { ChatBox } from '@/components';
 import useInput from '@/hooks/useInput';
+import useEffectSound from '@/hooks/useEffectSound';
 import { getTime } from '@/modules/Date';
 import { clean } from '@/modules/Slang';
 import { sendLobbyChat, socket } from '@/services/socket/socket';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 
 interface InputProps {
   chat: string;
@@ -16,6 +17,10 @@ export interface LogProps {
 }
 
 const Chat = () => {
+  const logSound = useEffectSound(
+    '/assets/sound-effects/lossy/ui_click.webm',
+    0.08
+  );
   const [log, setLog] = useState<LogProps[]>([]);
   const { inputs, setInputs, onInputChange } = useInput<InputProps>({
     chat: '',
@@ -23,6 +28,13 @@ const Chat = () => {
 
   const chatBoxRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const playSound = useCallback(() => {
+    if (logSound) {
+      if (logSound.playing()) logSound.stop();
+      logSound.play();
+    }
+  }, [logSound]);
 
   const onSendMessage = () => {
     if (inputs.chat) sendLobbyChat(clean(inputs.chat));
@@ -44,11 +56,12 @@ const Chat = () => {
     socket.on('lobby.chat', (data) => {
       data.date = getTime();
       setLog((prev) => [...prev, data]);
+      playSound();
     });
     return () => {
       socket.off('lobby.chat');
     };
-  }, [log]);
+  }, [log, playSound]);
 
   return (
     <ChatBox

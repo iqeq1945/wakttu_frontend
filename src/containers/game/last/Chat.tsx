@@ -30,8 +30,6 @@ export interface LogProps {
 }
 
 const Chat = () => {
-  const dispatch = useDispatch();
-
   const userId = useSelector(selectUserId);
   const roomId = useSelector(selectRoomId) as string;
   const game = useSelector(selectGame);

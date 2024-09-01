@@ -6,14 +6,28 @@ import Info from '@/containers/game/last/Info';
 import Last from '@/containers/game/last/Last';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
-import { lastRound, socket } from '@/services/socket/socket';
+import { lastRound, lastTurnStart, socket } from '@/services/socket/socket';
 import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
-import { useEffect } from 'react';
-import { clearAnswer, setAnswer, setPause } from '@/redux/answer/answerSlice';
-import { clearTimer, setTimer, tick } from '@/redux/timer/timerSlice';
-import { selectUserInfo } from '@/redux/user/userSlice';
+import { useCallback, useEffect } from 'react';
+import {
+  clearAnswer,
+  clearSuccess,
+  selectPause,
+  setAnswer,
+  setPause,
+} from '@/redux/answer/answerSlice';
+import {
+  clearTimer,
+  selectTimer,
+  setTimer,
+  setTurn,
+  tick,
+} from '@/redux/timer/timerSlice';
+import { selectUserInfo, selectUserName } from '@/redux/user/userSlice';
 import { useRouter } from 'next/router';
-import { clearHistory } from '@/redux/history/historySlice';
+import { clearHistory, setHistory } from '@/redux/history/historySlice';
+import useSound from '@/hooks/useSound';
+import useEffectSound from '@/hooks/useEffectSound';
 
 const Game = () => {
   const dispatch = useDispatch();
@@ -21,24 +35,63 @@ const Game = () => {
   const game = useSelector(selectGame);
   const roomInfo = useSelector(selectRoomInfo);
   const user = useSelector(selectUserInfo);
+  const name = useSelector(selectUserName);
+  const timer = useSelector(selectTimer);
+  const pause = useSelector(selectPause);
 
-  useEffect(() => {
-    if (!socket.connected) {
-      router.push('/');
-      return;
+  const sound = useSound('/assets/bgm/lossy/ui_in-game.webm', 0.1, 0, true);
+  const fastSound = useSound(
+    '/assets/bgm/lossy/ui_in-game_speedup.webm',
+    0.1,
+    0,
+    true
+  );
+
+  const startSound = useEffectSound(
+    '/assets/sound-effects/lossy/game_start.webm',
+    0.1
+  );
+
+  const answerSound = useEffectSound(
+    '/assets/sound-effects/lossy/game_correct_variant1.webm',
+    0.1
+  );
+  const wrongSound = useEffectSound(
+    '/assets/sound-effects/lossy/game_wrong.webm',
+    0.1
+  );
+  const turnEndSound = useEffectSound(
+    '/assets/sound-effects/lossy/game_turn_failure.webm',
+    0.1
+  );
+
+  const onBgm = useCallback(() => {
+    if (game.chain >= 10 || timer.turnTime - timer.countTime <= 10000) {
+      if (fastSound && !fastSound.playing()) {
+        if (sound && sound.playing()) sound.stop();
+        fastSound.play();
+      }
+    } else if (game.chain < 10 || timer.turnTime - timer.countTime > 10000) {
+      if (sound && !sound.playing()) sound.play();
     }
-  }, [router]);
+  }, [fastSound, game.chain, sound, timer.countTime, timer.turnTime]);
 
+  /* round 종료시 history 없애기*/
   useEffect(() => {
     dispatch(clearHistory());
   }, [dispatch, game.round]);
 
+  /* round logic */
   useEffect(() => {
     socket.on('last.round', (data) => {
       dispatch(setPause(false));
       dispatch(clearTimer());
       dispatch(clearAnswer());
       dispatch(setGame(data));
+
+      setTimeout(() => {
+        startSound?.play();
+      });
 
       console.log('round loading start');
       setTimeout(() => {
@@ -49,25 +102,117 @@ const Game = () => {
           )
         );
         setTimeout(() => dispatch(setPause(true)));
-        if (game.host === user.name) socket.emit('ping', roomInfo.id);
-      }, 5000);
+        if (game.host === user.name) lastTurnStart(roomInfo.id as string);
+      }, 4000);
     });
 
     return () => {
       socket.off('last.round');
     };
-  }, [dispatch, game.host, roomInfo.id, user.name]);
+  }, [dispatch, game.host, roomInfo.id, sound, startSound, user.name]);
 
+  /* turn Logic */
+  useEffect(() => {
+    socket.on('last.turnStart', () => {
+      if (game.host === user.name) socket.emit('ping', roomInfo.id);
+      onBgm();
+    });
+
+    socket.on('last.turnEnd', () => {
+      if (game.host === user.name)
+        setTimeout(() => lastRound(roomInfo.id as string), 4000);
+      if (sound && sound.playing()) sound.stop();
+      if (fastSound && fastSound.playing()) fastSound.stop();
+      turnEndSound?.play();
+    });
+    return () => {
+      socket.off('last.turnStart');
+      socket.off('last.turnEnd');
+    };
+  }, [
+    fastSound,
+    game.host,
+    onBgm,
+    roomInfo.id,
+    sound,
+    turnEndSound,
+    user.name,
+  ]);
+
+  /* turn game logic */
+  useEffect(() => {
+    socket.on('last.game', (data) => {
+      const { success, answer, game, message, word } = data;
+
+      setTimeout(() =>
+        dispatch(
+          setAnswer({
+            success,
+            answer,
+            message,
+            pause: !success,
+            word: word,
+          })
+        )
+      );
+      setTimeout(() => {
+        dispatch(setGame(game));
+      });
+
+      if (success) {
+        setTimeout(() => {
+          if (sound && sound.playing()) sound.pause();
+          if (fastSound && fastSound.playing()) fastSound.pause();
+          answerSound?.play();
+        });
+        if (name === game.host) socket.emit('pong', roomInfo.id);
+        dispatch(setHistory(word));
+        setTimeout(() => {
+          setTimeout(() =>
+            dispatch(
+              setTurn({ roundTime: game.roundTime, turnTime: game.turnTime })
+            )
+          );
+          setTimeout(() => {
+            dispatch(setPause(true));
+          });
+          if (name === game.host) lastTurnStart(roomInfo.id as string);
+        }, 2000);
+      } else {
+        wrongSound?.play();
+      }
+      setTimeout(() => {
+        dispatch(clearSuccess());
+      }, 2200);
+    });
+
+    return () => {
+      socket.off('last.game');
+    };
+  }, [
+    answerSound,
+    dispatch,
+    fastSound,
+    game.keyword,
+    name,
+    roomInfo.id,
+    sound,
+    wrongSound,
+  ]);
+
+  /* ping logic */
   useEffect(() => {
     socket.on('ping', () => {
-      setTimeout(() => dispatch(tick()));
+      onBgm();
+      if (pause) setTimeout(() => dispatch(tick()));
     });
 
     return () => {
       socket.off('ping');
     };
-  }, [dispatch]);
+  }, [dispatch, onBgm, pause, sound]);
 
+  /* result, end logic*/
   useEffect(() => {
     socket.on('last.result', (data) => {
       dispatch(clearAnswer());

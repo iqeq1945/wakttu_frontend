@@ -1,4 +1,5 @@
 import { GInfo } from '@/components';
+import useEffectSound from '@/hooks/useEffectSound';
 import { selectPause } from '@/redux/answer/answerSlice';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
@@ -14,6 +15,10 @@ const Info = () => {
   const roomId = useSelector(selectRoomId) as string;
   const pause = useSelector(selectPause);
   const timer = useSelector(selectTimer);
+  const trainSound = useEffectSound(
+    '/assets/sound-effects/lossy/game_start_train.webm',
+    0.1
+  );
 
   const dispatch = useDispatch();
   const [keyword, setKeyword] = useState<string[]>(['']);
@@ -25,17 +30,20 @@ const Info = () => {
 
   useEffect(() => {
     dispatch(clearTimer());
+
+    if (trainSound) setTimeout(() => trainSound.play(), 500);
+
     const opening = setTimeout(() => {
       if (game.host === name) {
         console.log('opening');
         lastRound(roomId);
       }
-    }, 5000);
+    }, 2000);
 
     return () => {
       clearTimeout(opening);
     };
-  }, [dispatch, game.host, name, roomId]);
+  }, [dispatch, game.host, name, roomId, trainSound]);
 
   return <GInfo game={game} pause={pause} keyword={keyword} timer={timer} />;
 };

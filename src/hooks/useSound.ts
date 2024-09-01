@@ -4,12 +4,16 @@ import { Howl } from 'howler';
 function useSound(
   src: string,
   volume: number = 1,
-  fadeoutTime: number = 0
+  fadeoutTime: number = 0,
+  loop: boolean = false
 ): Howl | undefined {
   const [sound, setSound] = useState<Howl>();
 
   useEffect(() => {
-    const newSound = new Howl({ src: process.env.NEXT_PUBLIC_R2_URL + src });
+    const newSound = new Howl({
+      src: process.env.NEXT_PUBLIC_R2_URL + src,
+      loop,
+    });
     newSound.volume(volume);
     newSound.load();
 
@@ -18,10 +22,12 @@ function useSound(
     newSound.on('play', () => {
       const fadeouttime = fadeoutTime;
 
-      setTimeout(
-        () => newSound.fade(volume, 0, fadeouttime),
-        (newSound.duration() - newSound.seek()) * 1000 - fadeouttime
-      );
+      if (!loop) {
+        setTimeout(
+          () => newSound.fade(volume, 0, fadeouttime),
+          (newSound.duration() - newSound.seek()) * 1000 - fadeouttime
+        );
+      }
     });
 
     return () => {
@@ -29,7 +35,7 @@ function useSound(
       newSound.unload();
       setSound(undefined);
     };
-  }, [src, volume, fadeoutTime]);
+  }, [src, volume, fadeoutTime, loop]);
 
   return sound;
 }

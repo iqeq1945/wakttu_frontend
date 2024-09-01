@@ -1,8 +1,8 @@
 import useSound from '@/hooks/useSound';
 
 const Test = () => {
-  const sound = useSound('/assets/bgm/lossy/ui_main.webm', 1, 0);
-  const sound_ingame = useSound('/assets/bgm/lossy/ui_in-game.webm', 1, 0);
+  const sound = useSound('/assets/bgm/lossy/ui_main.webm', 0.5, 0);
+  const sound_ingame = useSound('/assets/bgm/lossy/ui_in-game.webm', 0.5, 0);
 
   return (
     <>
