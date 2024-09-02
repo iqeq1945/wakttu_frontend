@@ -1,4 +1,5 @@
 import { getUserDesc } from '@/modules/UserInfo';
+import { getR2URL } from '@/services/api';
 import {
   CPlayerInfo,
   PlayerProfile,
@@ -22,7 +23,7 @@ const PlayerInfo = ({ user }: any) => {
 
   return (
     <CPlayerInfo>
-      <PlayerProfile src="/assets/player-profile.png" />
+      <PlayerProfile src={getR2URL('/assets/player-profile.png')} />
       <Info>
         <WrapPlayerName>
           <PlayerIcon src={icon} />

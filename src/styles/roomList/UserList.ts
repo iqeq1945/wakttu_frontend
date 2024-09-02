@@ -45,7 +45,7 @@ const Count = styled.div`
   color: ${COLORS['gray-2']};
 
   font-family: 'WantedSans-SemiBold';
-  font-size: ${FONT_SIZES['subtitle-2']}
+  font-size: ${FONT_SIZES['subtitle-2']};
   font-weight: 600;
 
   border-radius: 0.5rem;

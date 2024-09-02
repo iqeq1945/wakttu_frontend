@@ -1,3 +1,4 @@
+import { getR2URL } from '@/services/api';
 import {
   CDropdown,
   CSelect,
@@ -30,7 +31,7 @@ const FilterBox = ({
   return (
     <CSelect ref={modalRef}>
       <FilterWithText>
-        <Icon src="/assets/icons/filter-green.svg" />
+        <Icon src={getR2URL('/assets/icons/filter-green.svg')} />
         <FilterLabel>필터</FilterLabel>
       </FilterWithText>
       <CDropdown>
@@ -38,7 +39,10 @@ const FilterBox = ({
         <Dropdown onClick={() => onDropdown(0)}>
           <Selected>{selected[0]}</Selected>
 
-          <DropdownLine isOpen={isDown[0]} src="/assets/icons/down-line.svg" />
+          <DropdownLine
+            isOpen={isDown[0]}
+            src={getR2URL('/assets/icons/down-line.svg')}
+          />
           {isDown[0] && (
             <>
               <DropdownItem
@@ -61,7 +65,10 @@ const FilterBox = ({
         <DropdownLabel>게임</DropdownLabel>
         <Dropdown onClick={() => onDropdown(1)}>
           <Selected>{selected[1]}</Selected>
-          <DropdownLine isOpen={isDown[1]} src="/assets/icons/down-line.svg" />
+          <DropdownLine
+            isOpen={isDown[1]}
+            src={getR2URL('/assets/icons/down-line.svg')}
+          />
           {isDown[1] && (
             <>
               <DropdownItem onClick={(e: MouseEvent) => onSelect(e, 1)}>
@@ -87,7 +94,10 @@ const FilterBox = ({
         <DropdownLabel>방 상태</DropdownLabel>
         <Dropdown onClick={() => onDropdown(2)}>
           <Selected>{selected[2]}</Selected>
-          <DropdownLine isOpen={isDown[2]} src="/assets/icons/down-line.svg" />
+          <DropdownLine
+            isOpen={isDown[2]}
+            src={getR2URL('/assets/icons/down-line.svg')}
+          />
           {isDown[2] && (
             <>
               <DropdownItem onClick={(e: MouseEvent) => onSelect(e, 2)}>

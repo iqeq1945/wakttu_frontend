@@ -1,4 +1,5 @@
 import { RoomInfo } from '@/containers/roomlist/CreateRoom';
+import { getR2URL } from '@/services/api';
 import {
   CCreate,
   CCreateRoom,
@@ -88,7 +89,7 @@ const CreateRoom = ({
             <Selected>{roomInfo.type === 0 ? '끝말잇기' : '쿵쿵따'}</Selected>
             <DropdownLine
               isopen={isDown[0]}
-              src="/assets/icons/down-line.svg"
+              src={getR2URL('/assets/icons/down-line.svg')}
             />
             {isDown[0] && (
               <>
@@ -119,7 +120,7 @@ const CreateRoom = ({
             <Selected>{roomInfo.time / 1000}초</Selected>
             <DropdownLine
               isopen={isDown[1]}
-              src="/assets/icons/down-line.svg"
+              src={getR2URL('/assets/icons/down-line.svg')}
             />
             {isDown[1] && (
               <>
@@ -144,9 +145,9 @@ const CreateRoom = ({
           <CheckBox onClick={() => onSelect('option', '매너')}>
             <CCheck>
               {roomInfo.option.indexOf('매너') === -1 ? (
-                <CheckIcon src="/assets/icons/check-off.svg" />
+                <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} />
               ) : (
-                <CheckIcon src="/assets/icons/check-on.svg" />
+                <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
               )}
               <Selected>매너</Selected>
             </CCheck>
@@ -154,9 +155,9 @@ const CreateRoom = ({
           <CheckBox onClick={() => onSelect('option', '외수')}>
             <CCheck>
               {roomInfo.option.indexOf('외수') === -1 ? (
-                <CheckIcon src="/assets/icons/check-off.svg" />
+                <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} />
               ) : (
-                <CheckIcon src="/assets/icons/check-on.svg" />
+                <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
               )}
               <Selected>외수</Selected>
             </CCheck>

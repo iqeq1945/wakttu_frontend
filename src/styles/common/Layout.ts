@@ -1,3 +1,5 @@
+import { getR2URL } from '@/services/api';
+import { R2_URL } from '@/services/api';
 import styled from 'styled-components';
 
 const ContentContainer = styled.div<{ path?: string }>`
@@ -11,12 +13,12 @@ const ContentContainer = styled.div<{ path?: string }>`
   ${({ path }) => {
     if (path === '/')
       return `height: 100vh;
-  background: url('/assets/background.png') lightgray 50% / cover no-repeat;
+  background: url('${R2_URL}/assets/background.png') lightgray 50% / cover no-repeat;
 `;
     else if (path?.includes('/game'))
       return `height: 100vh;
     background-color : lightgray;
-    background-image :  url('/assets/mypage-background.png') ,linear-gradient(180deg, #E4CEFF 0%, #AAF0FF 100%);
+    background-image :  url('${R2_URL}/assets/mypage-background.png') ,linear-gradient(180deg, #E4CEFF 0%, #AAF0FF 100%);
     background-size: 50%;
     background-repeat: repeat;
     padding-bottom:0;

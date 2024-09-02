@@ -17,6 +17,7 @@ import {
 } from '@/styles/auth/AuthForm';
 import { useDispatch } from 'react-redux';
 import { closeModal } from '@/redux/modal/modalSlice';
+import { R2_URL } from '@/services/api';
 
 interface Props {
   children: React.ReactNode;
@@ -54,7 +55,7 @@ const AuthForm = ({
               <SnsContainer>
                 <SnsText>sns로 간편하게 {formTitle}</SnsText>
                 <SnsIcon
-                  src="/assets/icons/wakgames-icon.svg"
+                  src={R2_URL + '/assets/icons/wakgames-icon.svg'}
                   onClick={onAuth}
                 />
               </SnsContainer>
