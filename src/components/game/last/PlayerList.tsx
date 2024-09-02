@@ -10,6 +10,7 @@ import {
 import { Game } from '@/services/socket/socket';
 import { Answer } from '@/redux/answer/answerSlice';
 import { ScoreBox } from '@/components';
+import { getR2URL } from '@/services/api';
 
 interface Props {
   users: any;
@@ -26,7 +27,7 @@ const PlayList = ({ users, game, answer }: Props) => {
           isTurn && answer.success === false && answer.pause === true;
         return (
           <CPlayer key={user.id} $turn={answer.pause && isTurn} $fail={isFail}>
-            <Skin src={'/assets/ipali.png'} />
+            <Skin src={getR2URL('/assets/ipali.png')} />
             <CName>
               {user.name === game.host && (
                 <Host>

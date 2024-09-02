@@ -1,4 +1,5 @@
 import { getIcon } from '@/modules/UserInfo';
+import { getR2URL } from '@/services/api';
 import {
   CPlayer,
   PlayerInfo,
@@ -26,14 +27,14 @@ const Player = ({ $ready, user, myName, host, onKick }: Props) => {
       {user.name && (
         <>
           <PlayerInfo>
-            <PlayerProfile src="/assets/player-profile.png" />
+            <PlayerProfile src={getR2URL('/assets/player-profile.png')} />
             <CBadge>
               <PlayerIcon src={icon} />
               <PlayerName>{user.name}</PlayerName>
             </CBadge>
             {myName === host && user.name !== host && (
               <KickIcon
-                src="/assets/icons/kick.svg"
+                src={getR2URL('/assets/icons/kick.svg')}
                 onClick={() => onKick({ id: user.id, name: user.name })}
               />
             )}

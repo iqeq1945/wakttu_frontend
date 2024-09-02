@@ -1,3 +1,4 @@
+import { R2_URL } from '@/services/api';
 import {
   CosmeticImage,
   GetButton,
@@ -24,7 +25,7 @@ const CosmeticInfo = () => {
       <InfoSection>
         <InfoTop>
           <CosmeticBackground $itemType="skin"></CosmeticBackground>
-          <CosmeticImage src="/assets/ipali.png" />
+          <CosmeticImage src={R2_URL + '/assets/ipali.png'} />
         </InfoTop>
 
         <InfoBottom>

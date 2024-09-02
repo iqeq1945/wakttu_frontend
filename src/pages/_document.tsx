@@ -30,7 +30,50 @@ export default class MyDocument extends Document {
   render(): JSX.Element {
     return (
       <Html lang="ko-kr" dir="ltr">
-        <Head />
+        <Head>
+          <link
+            rel="preload"
+            href="/media/WantedSans-Medium.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/media/WantedSans-Regular.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/media/WantedSans-SemiBold.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/media/WantedSans-Bold.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/media/WantedSans-Black.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/media/WantedSans-ExtraBold.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin=""
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />

@@ -1,4 +1,5 @@
 import { closeModal } from '@/redux/modal/modalSlice';
+import { R2_URL } from '@/services/api';
 import {
   SelectOption,
   Wrap,
@@ -49,7 +50,7 @@ const CosmeticList = ({
                 <DropdownText>{selectedOption}</DropdownText>
                 <DropdownImage
                   isOpen={isOpen}
-                  src="/assets/icons//down-line.svg"
+                  src={R2_URL + '/assets/icons/down-line.svg'}
                 />
               </SelectOption>
               <DropdownWrapper>
@@ -68,7 +69,7 @@ const CosmeticList = ({
 
             <Leave onClick={handleLeaveClick}>
               <LeaveText>나가기</LeaveText>
-              <LeaveIcon src="/assets/icons//right-line.svg" />
+              <LeaveIcon src={R2_URL + '/assets/icons//right-line.svg'} />
             </Leave>
           </WrapFlex>
         </Wrap>
@@ -83,51 +84,51 @@ const CosmeticList = ({
         ))} */}
         <Item>
           <CosmeticBackground $itemType="skin"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
+          <ItemImage src={R2_URL + '/assets/ipali.png'} />
         </Item>
         <Item>
           <CosmeticBackground $itemType="skin"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
+          <ItemImage src={R2_URL + '/assets/ipali.png'} />
         </Item>
         <Item>
           <CosmeticBackground $itemType="skin"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
+          <ItemImage src={R2_URL + '/assets/ipali.png'} />
         </Item>
         <Item>
           <CosmeticBackground $itemType="head"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
+          <ItemImage src={R2_URL + '/assets/ipali.png'} />
         </Item>
         <Item>
           <CosmeticBackground $itemType="head"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
+          <ItemImage src={R2_URL + '/assets/ipali.png'} />
         </Item>
         <Item>
           <CosmeticBackground $itemType="hand"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
+          <ItemImage src={R2_URL + '/assets/ipali.png'} />
         </Item>
         <Item>
           <CosmeticBackground $itemType="hand"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
+          <ItemImage src={R2_URL + '/assets/ipali.png'} />
         </Item>
         <Item>
           <CosmeticBackground $itemType="eye"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
+          <ItemImage src={R2_URL + '/assets/ipali.png'} />
         </Item>
         <Item>
           <CosmeticBackground $itemType="eye"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
+          <ItemImage src={R2_URL + '/assets/ipali.png'} />
         </Item>
         <Item>
           <CosmeticBackground $itemType="eye"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
+          <ItemImage src={R2_URL + '/assets/ipali.png'} />
         </Item>
         <Item>
           <CosmeticBackground $itemType="eye"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
+          <ItemImage src={R2_URL + '/assets/ipali.png'} />
         </Item>
         <Item>
           <CosmeticBackground $itemType="eye"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
+          <ItemImage src={R2_URL + '/assets/ipali.png'} />
         </Item>
       </ListContainer>
     </RightWrapper>

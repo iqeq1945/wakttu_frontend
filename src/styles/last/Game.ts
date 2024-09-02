@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import { COLORS, FONT_SIZES } from '../theme';
+import { R2_URL } from '@/services/api';
 
 const rotate = keyframes`
  from {
@@ -88,7 +89,7 @@ export const CTrain = styled.div`
   height: 20.1875rem;
   flex-shrink: 0;
 
-  background-image: url('/assets/game/train.svg');
+  background-image: url(${R2_URL}/assets/game/train.svg);
   background-repeat: no-repeat;
   background-size: cover;
 `;
@@ -129,7 +130,7 @@ export const CCargo = styled.div`
   height: 15.4375rem;
   flex-shrink: 0;
 
-  background-image: url('/assets/game/cargo.svg');
+  background-image: url(${R2_URL}/assets/game/cargo.svg);
   background-repeat: no-repeat;
   background-size: cover;
 `;

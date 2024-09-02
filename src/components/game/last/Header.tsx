@@ -1,3 +1,4 @@
+import { R2_URL } from '@/services/api';
 import { Room } from '@/services/socket/socket';
 import {
   Button,
@@ -36,7 +37,7 @@ const Header = ({ roomInfo }: Props) => {
       <CButton>
         <ExitButton>
           <ButtonText>나가기</ButtonText>
-          <ExitIcon src="/assets/icons/game-exit.svg" />
+          <ExitIcon src={R2_URL + '/assets/icons/game-exit.svg'} />
         </ExitButton>
       </CButton>
     </CHeader>
