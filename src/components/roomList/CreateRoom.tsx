@@ -49,7 +49,7 @@ const CreateRoom = ({
     <Modal>
       <CCreateRoom ref={modalRef}>
         <LabelWithIcon>
-          <CreateIcon src="/assets/icons/plus-green.svg" />
+          <CreateIcon src={getR2URL('/assets/icons/plus-green.svg')} />
           <CreateLabel>방 만들기</CreateLabel>
         </LabelWithIcon>
         <CCreate>
