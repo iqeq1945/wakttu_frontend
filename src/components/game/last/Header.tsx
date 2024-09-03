@@ -14,9 +14,10 @@ import {
 
 interface Props {
   roomInfo: Room;
+  exit: () => void;
 }
 
-const Header = ({ roomInfo }: Props) => {
+const Header = ({ roomInfo, exit }: Props) => {
   return (
     <CHeader>
       <CButton>
@@ -35,7 +36,7 @@ const Header = ({ roomInfo }: Props) => {
         <Title>{roomInfo.title}</Title>
       </CTitle>
       <CButton>
-        <ExitButton>
+        <ExitButton onClick={exit}>
           <ButtonText>나가기</ButtonText>
           <ExitIcon src={R2_URL + '/assets/icons/game-exit.svg'} />
         </ExitButton>
