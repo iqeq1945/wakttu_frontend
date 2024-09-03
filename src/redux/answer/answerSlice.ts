@@ -16,14 +16,6 @@ const initialState: Answer = {
   word: undefined,
 };
 
-const failState: Answer = {
-  success: undefined,
-  answer: undefined,
-  message: undefined,
-  pause: true,
-  word: undefined,
-};
-
 export const answerSlice = createSlice({
   name: 'answer',
   initialState,

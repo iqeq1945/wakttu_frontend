@@ -7,24 +7,41 @@ import Chat from '@/containers/room/Chat';
 import Ready from '@/containers/room/Ready';
 import PlayerList from '@/containers/room/PlyaerList';
 import RoomDesc from '@/containers/room/RoomDesc';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectModal } from '@/redux/modal/modalSlice';
 import UpdateRoom from '@/containers/room/UpdateRoom';
 import KickModal from '@/containers/room/KickModal';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { socket } from '@/services/socket/socket';
+import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
+import { setGame } from '@/redux/game/gameSlice';
 
 const Room = () => {
   const modal = useSelector(selectModal);
   const router = useRouter();
+  const dispatch = useDispatch();
+  const roomInfo = useSelector(selectRoomInfo);
 
   useEffect(() => {
     if (!socket.connected) {
       router.push('/');
-      return;
     }
   }, [router]);
+
+  useEffect(() => {
+    if (roomInfo.start) {
+      socket.emit('start', roomInfo.id);
+    }
+
+    socket.on('start', (data) => {
+      const { roomInfo, game } = data;
+      dispatch(setRoomInfo(roomInfo));
+      dispatch(setGame(game));
+    });
+
+    return;
+  }, [dispatch, roomInfo.id, roomInfo.start]);
 
   return (
     <Container>
