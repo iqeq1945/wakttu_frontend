@@ -30,7 +30,7 @@ const App = ({ Component, pageProps, router }: AppProps) => {
         break;
       }
       case '/roomlist': {
-        if (sound) sound.play();
+        if (sound && !sound.playing()) sound.play();
         break;
       }
       case '/room': {

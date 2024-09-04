@@ -59,7 +59,7 @@ const RoomDesc = ({ roomInfo, onEnter }: Props) => {
       </WrapMod>
       {onEnter && (
         <JoinButton onClick={roomInfo.start ? undefined : onEnter}>
-          <JoinText>입장하기</JoinText>
+          <JoinText>{roomInfo.start ? '입장 불가' : '입장 하기'}</JoinText>
         </JoinButton>
       )}
     </CRoomDesc>

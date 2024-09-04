@@ -5,10 +5,20 @@ import Header from '@/containers/game/last/Header';
 import Info from '@/containers/game/last/Info';
 import Last from '@/containers/game/last/Last';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectGame, setGame } from '@/redux/game/gameSlice';
-import { lastRound, lastTurnStart, socket } from '@/services/socket/socket';
-import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
-import { useCallback, useEffect } from 'react';
+import { clearGame, selectGame, setGame } from '@/redux/game/gameSlice';
+import {
+  exit,
+  lastRound,
+  lastTurnEnd,
+  lastTurnStart,
+  socket,
+} from '@/services/socket/socket';
+import {
+  clearRoomInfo,
+  selectRoomInfo,
+  setRoomInfo,
+} from '@/redux/roomInfo/roomInfoSlice';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   clearAnswer,
   clearSuccess,
@@ -28,8 +38,10 @@ import { useRouter } from 'next/router';
 import { clearHistory, setHistory } from '@/redux/history/historySlice';
 import useSound from '@/hooks/useSound';
 import useEffectSound from '@/hooks/useEffectSound';
+import { fail } from 'assert';
 
 const Game = () => {
+  /** Redux and State Part */
   const dispatch = useDispatch();
   const router = useRouter();
   const game = useSelector(selectGame);
@@ -39,6 +51,16 @@ const Game = () => {
   const timer = useSelector(selectTimer);
   const pause = useSelector(selectPause);
 
+  const [late, setLate] = useState<boolean>(true);
+
+  const [failUser, setFailuesr] = useState<{ name: string; count: number }>({
+    name: '',
+    count: 0,
+  });
+
+  /**
+   * Sound Part
+   */
   const sound = useSound('/assets/bgm/lossy/ui_in-game.webm', 0.1, 0, true);
   const fastSound = useSound(
     '/assets/bgm/lossy/ui_in-game_speedup.webm',
@@ -65,7 +87,29 @@ const Game = () => {
     0.1
   );
 
+  /** Function Part*/
+
+  // 실패횟수 잠수 특정 함수
+  const onFailUser = useCallback(
+    (userName?: string) => {
+      if (!userName) setFailuesr({ name: '', count: 0 });
+      else {
+        if (failUser.name === userName)
+          setFailuesr({
+            ...failUser,
+            count: game.chain === 1 ? failUser.count + 1 : 1,
+          });
+        else {
+          setFailuesr({ name: userName, count: 1 });
+        }
+      }
+    },
+    [failUser, game.chain]
+  );
+
+  // Turn 시작시 BGM 켜는 함수
   const onBgm = useCallback(() => {
+    setLate(true);
     if (game.chain >= 10 || timer.turnTime - timer.countTime <= 10000) {
       if (fastSound && !fastSound.playing()) {
         if (sound && sound.playing()) sound.stop();
@@ -76,6 +120,26 @@ const Game = () => {
     }
   }, [fastSound, game.chain, sound, timer.countTime, timer.turnTime]);
 
+  // Turn End(round 종료) 시 호출하는 함수
+  const setTurnEnd = useCallback(() => {
+    if (timer.turnTime > 0 && timer.countTime === timer.turnTime) {
+      setLate(false);
+      if (game.host === name) lastTurnEnd(roomInfo.id as string);
+      dispatch(setPause(false));
+      dispatch(clearTimer());
+      dispatch(clearAnswer());
+    }
+  }, [timer.turnTime, timer.countTime, game.host, name, roomInfo.id, dispatch]);
+
+  const exitGame = useCallback(async () => {
+    await router.push('/roomlist');
+    await dispatch(clearRoomInfo());
+    await dispatch(clearGame());
+    exit(roomInfo.id as string);
+  }, [dispatch, roomInfo.id, router]);
+
+  /** Socekt Logic Part */
+
   /* round 종료시 history 없애기*/
   useEffect(() => {
     dispatch(clearHistory());
@@ -84,18 +148,20 @@ const Game = () => {
   /* round logic */
   useEffect(() => {
     socket.on('last.round', (data) => {
-      dispatch(setPause(false));
-      dispatch(clearTimer());
-      dispatch(clearAnswer());
       dispatch(setGame(data));
+
+      if (failUser.count === 3) {
+        if (name === failUser.name) {
+          setTimeout(() => exitGame());
+          setFailuesr({ name: '', count: 0 });
+        }
+      }
 
       setTimeout(() => {
         startSound?.play();
       });
 
-      console.log('round loading start');
       setTimeout(() => {
-        console.log('round loading end');
         setTimeout(() =>
           dispatch(
             setTimer({ roundTime: data.roundTime, turnTime: data.turnTime })
@@ -109,7 +175,18 @@ const Game = () => {
     return () => {
       socket.off('last.round');
     };
-  }, [dispatch, game.host, roomInfo.id, sound, startSound, user.name]);
+  }, [
+    dispatch,
+    exitGame,
+    failUser.count,
+    failUser.name,
+    game.host,
+    name,
+    roomInfo.id,
+    sound,
+    startSound,
+    user.name,
+  ]);
 
   /* turn Logic */
   useEffect(() => {
@@ -118,7 +195,10 @@ const Game = () => {
       onBgm();
     });
 
+    setTurnEnd();
+
     socket.on('last.turnEnd', () => {
+      onFailUser(game.users[game.turn].name);
       if (game.host === user.name)
         setTimeout(() => lastRound(roomInfo.id as string), 4000);
       if (sound && sound.playing()) sound.stop();
@@ -132,8 +212,12 @@ const Game = () => {
   }, [
     fastSound,
     game.host,
+    game.turn,
+    game.users,
     onBgm,
+    onFailUser,
     roomInfo.id,
+    setTurnEnd,
     sound,
     turnEndSound,
     user.name,
@@ -142,6 +226,9 @@ const Game = () => {
   /* turn game logic */
   useEffect(() => {
     socket.on('last.game', (data) => {
+      if (!late) {
+        return;
+      }
       const { success, answer, game, message, word } = data;
 
       setTimeout(() =>
@@ -160,11 +247,10 @@ const Game = () => {
       });
 
       if (success) {
-        setTimeout(() => {
-          if (sound && sound.playing()) sound.pause();
-          if (fastSound && fastSound.playing()) fastSound.pause();
-          answerSound?.play();
-        });
+        sound?.pause();
+        fastSound?.pause();
+        answerSound?.play();
+
         if (name === game.host) socket.emit('pong', roomInfo.id);
         dispatch(setHistory(word));
         setTimeout(() => {
@@ -195,6 +281,7 @@ const Game = () => {
     fastSound,
     game.keyword,
     name,
+    late,
     roomInfo.id,
     sound,
     wrongSound,
@@ -216,6 +303,8 @@ const Game = () => {
   useEffect(() => {
     socket.on('last.result', (data) => {
       dispatch(clearAnswer());
+      dispatch(clearTimer());
+      dispatch(clearHistory());
       console.log('result:', data);
     });
 
@@ -232,6 +321,19 @@ const Game = () => {
       socket.off('last.end');
     };
   });
+
+  useEffect(() => {
+    socket.on('exit', (data) => {
+      const { roomInfo, game } = data;
+      dispatch(setRoomInfo(roomInfo));
+      dispatch(setGame(game));
+      if (game.users.length === 1) router.push('/room');
+    });
+
+    return () => {
+      socket.off('exit');
+    };
+  }, [dispatch, router]);
 
   return (
     <Container>
