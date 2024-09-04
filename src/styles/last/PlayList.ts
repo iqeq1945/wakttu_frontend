@@ -14,7 +14,7 @@ export const CPlayerList = styled.div`
   background: linear-gradient(180deg, #c0b0ff 0%, #92aaff 100%);
 `;
 
-export const CPlayer = styled.div<{ $turn?: boolean, $fail?: boolean }>`
+export const CPlayer = styled.div<{ $turn?: boolean; $fail?: boolean }>`
   display: flex;
   width: 13rem;
   height: 15rem;
@@ -32,13 +32,12 @@ export const CPlayer = styled.div<{ $turn?: boolean, $fail?: boolean }>`
 
   ${({ $turn, $fail }) => {
     if ($fail) {
-      return `border: 4px solid #FF7070; background: #FFE6E6; transform : translate(0 , -0.8rem);`
+      return `border: 4px solid #FF7070; background: #FFE6E6; transform : translate(0 , -0.8rem);`;
     } else if ($turn) {
-      return `border: 4px solid #A377FF; background: #E6DAFF; transform : translate(0 , -0.8rem);`
+      return `border: 4px solid #A377FF; background: #E6DAFF; transform : translate(0 , -0.8rem);`;
     } else {
       return `background: linear-gradient(180deg, #fff 0%, #f2f2f2 100%);`;
     }
-
   }}
 `;
 
@@ -87,5 +86,25 @@ export const Host = styled.div`
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+  }
+`;
+
+export const Bubble = styled.div`
+  position: absolute;
+  background: #00aabb;
+  border-radius: 0.4rem;
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border: 1.25rem solid transparent;
+    border-top-color: #00aabb;
+    border-bottom: 0;
+    margin-left: -1.25rem;
+    margin-bottom: -1.25rem;
   }
 `;
