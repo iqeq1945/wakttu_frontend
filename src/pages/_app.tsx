@@ -17,6 +17,7 @@ import { usePathname } from 'next/navigation';
 import useSound from '@/hooks/useSound';
 
 const App = ({ Component, pageProps, router }: AppProps) => {
+  const volume = store.getState().audio;
   const sound = useSound('/assets/bgm/lossy/ui_main.webm', 0.08, 0, true);
   const path = usePathname();
 
@@ -67,6 +68,10 @@ const App = ({ Component, pageProps, router }: AppProps) => {
       };
     }
   }, [isMobile]);
+
+  useEffect(() => {
+    console.log(volume);
+  }, [volume]);
 
   return (
     <QueryClientProvider client={queryClient}>

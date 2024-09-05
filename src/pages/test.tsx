@@ -1,21 +1,26 @@
-import { useCallback, useState } from 'react';
-
+import OptionBox from '@/components/common/Option';
+import { setBgmVolume, setEffectVolume } from '@/redux/audio/audioSlice';
+import { useDispatch } from 'react-redux';
+import { MouseEvent, useCallback } from 'react';
 const Test = () => {
-  const count = 100;
-  const [score, setScore] = useState(0);
+  const dispatch = useDispatch();
 
-  const enter = useCallback(() => {
-    let num = count;
-    const timeId = setInterval(() => {
-      if (num <= 0) clearInterval(timeId);
-      setScore((prev) => prev + 1);
-      num -= 1;
-    }, 5);
-  }, []);
+  const onBgmChange = useCallback(
+    (e: MouseEvent<HTMLInputElement>) => {
+      dispatch(setBgmVolume(Number(e.currentTarget.value)));
+    },
+    [dispatch]
+  );
+
+  const onEffectChange = useCallback(
+    (e: MouseEvent<HTMLInputElement>) => {
+      dispatch(setEffectVolume(Number(e.currentTarget.value)));
+    },
+    [dispatch]
+  );
+
   return (
-    <>
-      {score} <button onClick={enter}>버튼</button>
-    </>
+    <OptionBox onBgmChange={onBgmChange} onEffectChange={onEffectChange} />
   );
 };
 
