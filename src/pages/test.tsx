@@ -1,20 +1,27 @@
-import { useCallback, useState } from 'react';
+import { LastPlayerList, ScoreBox } from '@/components';
+import BubbleBox from '@/components/game/last/Bubble';
+import useInput from '@/hooks/useInput';
+import { getR2URL } from '@/services/api';
+import { CName, CPlayer, Name, Score, Skin } from '@/styles/last/PlayList';
+import { useState } from 'react';
 
 const Test = () => {
-  const count = 100;
-  const [score, setScore] = useState(0);
+  const { inputs, setInputs, onInputChange } = useInput({ chat: '' });
 
-  const enter = useCallback(() => {
-    let num = count;
-    const timeId = setInterval(() => {
-      if (num <= 0) clearInterval(timeId);
-      setScore((prev) => prev + 1);
-      num -= 1;
-    }, 5);
-  }, []);
+  const [chat, setChat] = useState('hello');
+
   return (
     <>
-      {score} <button onClick={enter}>버튼</button>
+      <CPlayer key={123} $turn={false} $fail={false}>
+        <BubbleBox chat={chat} />
+        <Skin src={getR2URL('/assets/ipali.png')} />
+        <CName>
+          <Name>tester</Name>
+        </CName>
+        <Score>
+          <ScoreBox score={100} />
+        </Score>
+      </CPlayer>
     </>
   );
 };

@@ -22,7 +22,6 @@ interface Props {
 }
 
 const PlayList = ({ users, game, answer, bubble }: Props) => {
-  console.log(bubble);
   return (
     <CPlayerList>
       {users.map((user: any, index: number) => {

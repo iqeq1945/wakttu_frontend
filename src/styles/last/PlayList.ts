@@ -91,9 +91,13 @@ export const Host = styled.div`
 
 export const Bubble = styled.div`
   position: absolute;
-  background: #00aabb;
+  background: ${COLORS.bg};
   border-radius: 0.4rem;
+  top: -2rem;
+  width: 12rem;
+  padding: 1rem;
 
+  border: 1px solid ${COLORS['gray-5']};
   &:after {
     content: '';
     position: absolute;
@@ -102,7 +106,7 @@ export const Bubble = styled.div`
     width: 0;
     height: 0;
     border: 1.25rem solid transparent;
-    border-top-color: #00aabb;
+    border-top-color: ${COLORS.bg};
     border-bottom: 0;
     margin-left: -1.25rem;
     margin-bottom: -1.25rem;
