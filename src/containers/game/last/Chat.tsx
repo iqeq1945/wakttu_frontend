@@ -3,21 +3,17 @@ import useInput from '@/hooks/useInput';
 import { getTime } from '@/modules/Date';
 import countScore from '@/modules/Score';
 import { clean } from '@/modules/Slang';
-import {
-  selectAnswer,
-  selectPause,
-  setAnswer,
-} from '@/redux/answer/answerSlice';
+import { selectAnswer, selectPause } from '@/redux/answer/answerSlice';
 import { selectGame } from '@/redux/game/gameSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
-import { RootState } from '@/redux/store';
 import { selectTimer } from '@/redux/timer/timerSlice';
 import { sendChat, socket } from '@/services/socket/socket';
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import wordRelay from '@/modules/WordRelay';
 import { selectUserId } from '@/redux/user/userSlice';
 import { selectHistory } from '@/redux/history/historySlice';
+import useEffectSound from '@/hooks/useEffectSound';
 
 interface InputProps {
   chat: string;
@@ -40,6 +36,10 @@ const Chat = () => {
 
   const [myTurn, setMyTurn] = useState(false);
 
+  const logSound = useEffectSound(
+    '/assets/sound-effects/lossy/ui_click.webm',
+    0.08
+  );
   const [log, setLog] = useState<LogProps[]>([]);
   const { inputs, setInputs, onInputChange } = useInput<InputProps>({
     chat: '',
@@ -47,6 +47,13 @@ const Chat = () => {
 
   const chatBoxRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const playSound = useCallback(() => {
+    if (logSound) {
+      if (logSound.playing()) logSound.stop();
+      logSound.play();
+    }
+  }, [logSound]);
 
   const isInHistory = (keyword: string) => {
     const idx = history.findIndex((item) => item.id === keyword);
@@ -112,6 +119,7 @@ const Chat = () => {
     socket.on('chat', (data) => {
       data.date = getTime();
       setLog((prev) => [...prev, data]);
+      playSound();
     });
     return () => {
       socket.off('chat');
