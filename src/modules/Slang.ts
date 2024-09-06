@@ -26,3 +26,7 @@ export const clean = (sentence: string) => {
     ? '지나가던 [전투 ***] 에 의해 검열되었습니다.'
     : sentence;
 };
+
+export const cleanTitle = (sentence: string) => {
+  return isInSlang(sentence) ? '제목 검열은 젠황' : sentence;
+};

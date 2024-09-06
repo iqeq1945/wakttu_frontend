@@ -1,4 +1,5 @@
 import { UpdateRoom as CUpdateRoom } from '@/components';
+import { cleanTitle } from '@/modules/Slang';
 import { closeModal, selectModal } from '@/redux/modal/modalSlice';
 import { selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { Room, updateRoom } from '@/services/socket/socket';
@@ -72,8 +73,9 @@ const UpdateRoom = () => {
 
   const onUpdate = () => {
     dispatch(closeModal());
-    const { id, users, ...data } = room;
-    updateRoom({ roomId: id, data });
+    let { id, users, ...roomInfo } = room;
+    roomInfo.title = cleanTitle(roomInfo.title as string);
+    updateRoom({ roomId: id, data: roomInfo });
   };
 
   useEffect(() => {

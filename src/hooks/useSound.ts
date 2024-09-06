@@ -29,8 +29,9 @@ function useSound(
           (newSound.duration() - newSound.seek()) * 1000 - fadeouttime
         );
       }
+
       router.events.on('routeChangeStart', () => {
-        console.log('hhihi');
+        newSound.stop();
       });
     });
 
@@ -39,7 +40,7 @@ function useSound(
       newSound.unload();
       setSound(undefined);
     };
-  }, [src, volume, fadeoutTime, loop]);
+  }, [src, volume, fadeoutTime, loop, router.events]);
 
   return sound;
 }

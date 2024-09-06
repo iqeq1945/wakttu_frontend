@@ -16,12 +16,20 @@ import { useRouter } from 'next/router';
 import { socket } from '@/services/socket/socket';
 import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { setGame } from '@/redux/game/gameSlice';
+import { selectBgmVolume } from '@/redux/audio/audioSlice';
+import useSound from '@/hooks/useSound';
 
 const Room = () => {
   const modal = useSelector(selectModal);
   const router = useRouter();
   const dispatch = useDispatch();
   const roomInfo = useSelector(selectRoomInfo);
+  const bgmVolume = useSelector(selectBgmVolume);
+  const sound = useSound('/assets/bgm/lossy/ui_main.webm', bgmVolume, 0, true);
+
+  useEffect(() => {
+    if (sound) sound.play();
+  }, [sound]);
 
   useEffect(() => {
     if (!socket.connected) {
