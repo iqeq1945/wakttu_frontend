@@ -6,8 +6,8 @@ interface Audio {
 }
 
 const initialState: Audio = {
-  bgmVolume: 0.5,
-  effectVolume: 0.5,
+  bgmVolume: 0.1,
+  effectVolume: 0.1,
 };
 
 export const audioSlice = createSlice({
@@ -31,7 +31,8 @@ export const audioSlice = createSlice({
 
 export const { setBgmVolume, setEffectVolume, setVolume, clearVolume } =
   audioSlice.actions;
-export const selectAudio = (state: { audio: Audio }) => state.audio;
+
+export const selectVolume = (state: { audio: Audio }) => state.audio;
 export const selectBgmVolume = (state: { audio: Audio }) =>
   state.audio.bgmVolume;
 export const selectEffectVolume = (state: { audio: Audio }) =>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Howl } from 'howler';
+import { useRouter } from 'next/router';
 
 function useSound(
   src: string,
@@ -8,7 +9,7 @@ function useSound(
   loop: boolean = false
 ): Howl | undefined {
   const [sound, setSound] = useState<Howl>();
-
+  const router = useRouter();
   useEffect(() => {
     const newSound = new Howl({
       src: process.env.NEXT_PUBLIC_R2_URL + src,
@@ -28,6 +29,10 @@ function useSound(
           (newSound.duration() - newSound.seek()) * 1000 - fadeouttime
         );
       }
+
+      router.events.on('routeChangeStart', () => {
+        newSound.stop();
+      });
     });
 
     return () => {
@@ -35,7 +40,7 @@ function useSound(
       newSound.unload();
       setSound(undefined);
     };
-  }, [src, volume, fadeoutTime, loop]);
+  }, [src, volume, fadeoutTime, loop, router.events]);
 
   return sound;
 }

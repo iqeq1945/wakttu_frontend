@@ -10,6 +10,7 @@ import { Wrapper } from '@/styles/main/Layout';
 
 const Main = () => {
   const modal = useSelector(selectModal);
+
   return (
     <>
       {modal.open ? (
