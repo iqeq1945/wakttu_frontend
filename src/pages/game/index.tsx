@@ -38,7 +38,6 @@ import { useRouter } from 'next/router';
 import { clearHistory, setHistory } from '@/redux/history/historySlice';
 import useSound from '@/hooks/useSound';
 import useEffectSound from '@/hooks/useEffectSound';
-import { fail } from 'assert';
 
 const Game = () => {
   /** Redux and State Part */
@@ -109,6 +108,7 @@ const Game = () => {
 
   // Turn 시작시 BGM 켜는 함수
   const onBgm = useCallback(() => {
+    console.log('hello');
     setLate(true);
     if (game.chain >= 10 || timer.turnTime - timer.countTime <= 10000) {
       if (fastSound && !fastSound.playing()) {
@@ -116,7 +116,10 @@ const Game = () => {
         fastSound.play();
       }
     } else if (game.chain < 10 || timer.turnTime - timer.countTime > 10000) {
-      if (sound && !sound.playing()) sound.play();
+      if (sound && !sound.playing()) {
+        if (fastSound && !fastSound.playing()) fastSound.stop();
+        sound.play();
+      }
     }
   }, [fastSound, game.chain, sound, timer.countTime, timer.turnTime]);
 
@@ -201,8 +204,8 @@ const Game = () => {
       onFailUser(game.users[game.turn].name);
       if (game.host === user.name)
         setTimeout(() => lastRound(roomInfo.id as string), 4000);
-      if (sound && sound.playing()) sound.stop();
-      if (fastSound && fastSound.playing()) fastSound.stop();
+      if (sound) sound.stop();
+      if (fastSound) fastSound.stop();
       turnEndSound?.play();
     });
     return () => {
@@ -290,14 +293,13 @@ const Game = () => {
   /* ping logic */
   useEffect(() => {
     socket.on('ping', () => {
-      onBgm();
       if (pause) setTimeout(() => dispatch(tick()));
     });
 
     return () => {
       socket.off('ping');
     };
-  }, [dispatch, onBgm, pause, sound]);
+  }, [dispatch, pause, sound]);
 
   /* result, end logic*/
   useEffect(() => {

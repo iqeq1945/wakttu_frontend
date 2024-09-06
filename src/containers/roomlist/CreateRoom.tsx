@@ -1,4 +1,5 @@
 import { CreateRoom as CCreateRoom } from '@/components';
+import { cleanTitle } from '@/modules/Slang';
 import { closeModal, selectModal } from '@/redux/modal/modalSlice';
 import { createRoom } from '@/services/socket/socket';
 import { useEffect, useRef, useState } from 'react';
@@ -78,7 +79,11 @@ const CreateRoom = () => {
 
   const onCreate = () => {
     dispatch(closeModal());
-    createRoom(room);
+    let roomInfo = {
+      ...room,
+      title: cleanTitle(room.title),
+    };
+    createRoom(roomInfo);
   };
 
   useEffect(() => {
