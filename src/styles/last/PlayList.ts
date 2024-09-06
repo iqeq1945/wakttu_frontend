@@ -14,7 +14,7 @@ export const CPlayerList = styled.div`
   background: linear-gradient(180deg, #c0b0ff 0%, #92aaff 100%);
 `;
 
-export const CPlayer = styled.div<{ $turn?: boolean, $fail?: boolean }>`
+export const CPlayer = styled.div<{ $turn?: boolean; $fail?: boolean }>`
   display: flex;
   width: 13rem;
   height: 15rem;
@@ -25,6 +25,8 @@ export const CPlayer = styled.div<{ $turn?: boolean, $fail?: boolean }>`
   gap: 0.4375rem;
   flex-shrink: 0;
 
+  position: relative;
+
   border-radius: 0.75rem;
   box-shadow: ${DROM_SHADOW};
 
@@ -32,13 +34,12 @@ export const CPlayer = styled.div<{ $turn?: boolean, $fail?: boolean }>`
 
   ${({ $turn, $fail }) => {
     if ($fail) {
-      return `border: 4px solid #FF7070; background: #FFE6E6; transform : translate(0 , -0.8rem);`
+      return `border: 4px solid #FF7070; background: #FFE6E6; transform : translate(0 , -0.8rem);`;
     } else if ($turn) {
-      return `border: 4px solid #A377FF; background: #E6DAFF; transform : translate(0 , -0.8rem);`
+      return `border: 4px solid #A377FF; background: #E6DAFF; transform : translate(0 , -0.8rem);`;
     } else {
       return `background: linear-gradient(180deg, #fff 0%, #f2f2f2 100%);`;
     }
-
   }}
 `;
 
@@ -87,5 +88,38 @@ export const Host = styled.div`
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+  }
+`;
+
+export const Bubble = styled.div`
+  position: absolute;
+  background: ${COLORS.bg};
+  border-radius: 0.4rem;
+  top: -2.25rem;
+  width: 12rem;
+  padding: 1rem;
+
+  border: 2px solid ${COLORS['gray-5']};
+
+  z-index: 1000;
+
+  font-family: 'WantedSans-SemiBold';
+  font-size: ${FONT_SIZES['subtitle-1']};
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border: 1.25rem solid transparent;
+    border-top-color: ${COLORS.bg};
+    border-bottom: 0;
+    margin-left: -1.25rem;
+    margin-bottom: -1.25rem;
   }
 `;

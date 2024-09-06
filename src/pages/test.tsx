@@ -1,26 +1,28 @@
-import OptionBox from '@/components/common/Option';
-import { setBgmVolume, setEffectVolume } from '@/redux/audio/audioSlice';
-import { useDispatch } from 'react-redux';
-import { MouseEvent, useCallback } from 'react';
+import { LastPlayerList, ScoreBox } from '@/components';
+import BubbleBox from '@/components/game/last/Bubble';
+import useInput from '@/hooks/useInput';
+import { getR2URL } from '@/services/api';
+import { CName, CPlayer, Name, Score, Skin } from '@/styles/last/PlayList';
+import { useState } from 'react';
+
 const Test = () => {
-  const dispatch = useDispatch();
+  const { inputs, setInputs, onInputChange } = useInput({ chat: '' });
 
-  const onBgmChange = useCallback(
-    (e: MouseEvent<HTMLInputElement>) => {
-      dispatch(setBgmVolume(Number(e.currentTarget.value)));
-    },
-    [dispatch]
-  );
-
-  const onEffectChange = useCallback(
-    (e: MouseEvent<HTMLInputElement>) => {
-      dispatch(setEffectVolume(Number(e.currentTarget.value)));
-    },
-    [dispatch]
-  );
+  const [chat, setChat] = useState('hello');
 
   return (
-    <OptionBox onBgmChange={onBgmChange} onEffectChange={onEffectChange} />
+    <>
+      <CPlayer key={123} $turn={false} $fail={false}>
+        <BubbleBox chat={chat} />
+        <Skin src={getR2URL('/assets/ipali.png')} />
+        <CName>
+          <Name>tester</Name>
+        </CName>
+        <Score>
+          <ScoreBox score={100} />
+        </Score>
+      </CPlayer>
+    </>
   );
 };
 
