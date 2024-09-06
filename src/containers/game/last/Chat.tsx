@@ -11,7 +11,7 @@ import { sendChat, socket } from '@/services/socket/socket';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import wordRelay from '@/modules/WordRelay';
-import { selectUserId } from '@/redux/user/userSlice';
+import userSlice, { selectUserId } from '@/redux/user/userSlice';
 import { selectHistory } from '@/redux/history/historySlice';
 import useEffectSound from '@/hooks/useEffectSound';
 
@@ -102,7 +102,8 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    setMyTurn(userId === game.users[game.turn].userId);
+    if (game.users.length > game.turn)
+      setMyTurn(userId === game.users[game.turn].userId);
   }, [game.turn, game.users, userId]);
 
   useEffect(() => {
