@@ -18,7 +18,6 @@ const PlayerList = () => {
 
   useEffect(() => {
     socket.on('chat', (data) => {
-      const { user, chat } = data;
       setBubble([...bubble, data]);
     });
 

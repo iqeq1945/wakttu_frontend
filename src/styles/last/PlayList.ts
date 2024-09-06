@@ -25,6 +25,8 @@ export const CPlayer = styled.div<{ $turn?: boolean; $fail?: boolean }>`
   gap: 0.4375rem;
   flex-shrink: 0;
 
+  position: relative;
+
   border-radius: 0.75rem;
   box-shadow: ${DROM_SHADOW};
 
@@ -93,11 +95,20 @@ export const Bubble = styled.div`
   position: absolute;
   background: ${COLORS.bg};
   border-radius: 0.4rem;
-  top: -2rem;
+  top: -2.25rem;
   width: 12rem;
   padding: 1rem;
 
-  border: 1px solid ${COLORS['gray-5']};
+  border: 2px solid ${COLORS['gray-5']};
+
+  z-index: 1000;
+
+  font-family: 'WantedSans-SemiBold';
+  font-size: ${FONT_SIZES['subtitle-1']};
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+
   &:after {
     content: '';
     position: absolute;

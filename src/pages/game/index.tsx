@@ -108,7 +108,6 @@ const Game = () => {
 
   // Turn 시작시 BGM 켜는 함수
   const onBgm = useCallback(() => {
-    console.log('hello');
     setLate(true);
     if (game.chain >= 10 || timer.turnTime - timer.countTime <= 10000) {
       if (fastSound && !fastSound.playing()) {

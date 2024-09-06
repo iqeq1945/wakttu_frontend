@@ -48,7 +48,7 @@ export const selectHost = (state: { game: Game }) => state.game.host;
 export const selectWhoisTurn = (state: { game: Game }) => {
   const users = state.game.users;
   const turn = state.game.turn;
-  if (users.length > 0) {
+  if (users.length > 0 && users.length > turn) {
     return users[turn].name;
   }
   return '';
