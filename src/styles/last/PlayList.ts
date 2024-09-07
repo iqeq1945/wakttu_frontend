@@ -1,7 +1,19 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { COLORS, FONT_SIZES } from '../theme';
+import exp from 'constants';
 
 const DROM_SHADOW = '0px 1px 10px 0px rgba(0, 0, 0, 0.15)';
+
+const moveUpAndFadeOut = keyframes`
+  0% {
+    opacity: 1;
+    transform: translateY(0) translateX(-50%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-2rem) translateX(-50%);
+  }
+`;
 
 export const CPlayerList = styled.div`
   display: flex;
@@ -46,6 +58,20 @@ export const CPlayer = styled.div<{ $turn?: boolean; $fail?: boolean }>`
 export const Skin = styled.img`
   height: 7.8125rem;
   flex-shrink: 0;
+`;
+
+export const PlusScore = styled.div`
+  position: absolute;
+  top: 20%;
+  left: 80%;
+  
+  z-index: 2;
+  
+  color: ${COLORS.pupple};
+  font-size: 1.25rem;
+  font-weight: bold;
+
+  animation: ${moveUpAndFadeOut} 2s ease-out forwards;
 `;
 
 export const CName = styled.div`
