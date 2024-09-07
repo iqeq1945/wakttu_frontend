@@ -25,6 +25,9 @@ const ChatLog = styled.div`
   gap: 0.75rem;
 
   overflow-y: scroll;
+  overflow-x: hidden;
+
+  word-wrap: break-word;
 
   &::-webkit-scrollbar {
     width: 6px;
