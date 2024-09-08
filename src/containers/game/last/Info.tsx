@@ -1,9 +1,9 @@
 import { GInfo } from '@/components';
 import useEffectSound from '@/hooks/useEffectSound';
 import { selectPause } from '@/redux/answer/answerSlice';
-import { selectGame, setGame } from '@/redux/game/gameSlice';
+import { selectGame } from '@/redux/game/gameSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
-import { clearTimer, selectTimer } from '@/redux/timer/timerSlice';
+import { selectTimer } from '@/redux/timer/timerSlice';
 import { selectUserName } from '@/redux/user/userSlice';
 import { lastRound } from '@/services/socket/socket';
 import { useEffect, useState } from 'react';
@@ -29,8 +29,6 @@ const Info = () => {
   }, [game.keyword]);
 
   useEffect(() => {
-    dispatch(clearTimer());
-
     if (trainSound) setTimeout(() => trainSound.play(), 500);
 
     const opening = setTimeout(() => {

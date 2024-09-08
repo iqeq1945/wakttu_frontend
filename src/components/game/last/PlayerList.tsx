@@ -13,6 +13,7 @@ import { ScoreBox } from '@/components';
 import { getR2URL } from '@/services/api';
 import { Bubble } from '@/containers/game/last/PlayerList';
 import BubbleBox from './Bubble';
+import Difference from './DifferenceBox';
 
 interface Props {
   users: any;
@@ -28,6 +29,7 @@ const PlayList = ({ users, game, answer, bubble }: Props) => {
         const isTurn = game.turn === index;
         const isFail =
           isTurn && answer.success === false && answer.pause === true;
+
         const lastBubble = bubble.findLast(
           (item: Bubble) => item.user.name === user.name
         );
@@ -35,6 +37,7 @@ const PlayList = ({ users, game, answer, bubble }: Props) => {
           <CPlayer key={user.id} $turn={answer.pause && isTurn} $fail={isFail}>
             {lastBubble ? <BubbleBox chat={lastBubble.chat} /> : ''}
             <Skin src={getR2URL('/assets/ipali.png')} />
+
             <CName>
               {user.name === game.host && (
                 <Host>
@@ -44,6 +47,7 @@ const PlayList = ({ users, game, answer, bubble }: Props) => {
 
               <Name>{user.name}</Name>
             </CName>
+            <Difference score={user.score as number} />
             <Score>
               <ScoreBox score={user.score as number} />
             </Score>

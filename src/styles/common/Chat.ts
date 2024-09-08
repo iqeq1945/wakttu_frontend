@@ -25,6 +25,9 @@ const ChatLog = styled.div`
   gap: 0.75rem;
 
   overflow-y: scroll;
+  overflow-x: hidden;
+
+  word-wrap: break-word;
 
   &::-webkit-scrollbar {
     width: 6px;
@@ -72,7 +75,8 @@ const ChatContent = styled.h6`
   align-self: flex-end;
   max-width: 90%;
   margin-left: 0.625rem;
-
+  word-break: break-all;
+  word-wrap: break-word;
   color: ${COLORS.text};
   font-family: 'WantedSans-Medium';
 `;
