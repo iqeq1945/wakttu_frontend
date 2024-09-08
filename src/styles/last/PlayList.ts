@@ -1,6 +1,5 @@
 import styled, { keyframes } from 'styled-components';
 import { COLORS, FONT_SIZES } from '../theme';
-import exp from 'constants';
 
 const DROM_SHADOW = '0px 1px 10px 0px rgba(0, 0, 0, 0.15)';
 
@@ -62,13 +61,13 @@ export const Skin = styled.img`
 
 export const PlusScore = styled.div`
   position: absolute;
-  top: 20%;
-  left: 80%;
-  
+  top: 10%;
+  right: 0.25rem;
+
   z-index: 2;
-  
+
   color: ${COLORS.pupple};
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: bold;
 
   animation: ${moveUpAndFadeOut} 2s ease-out forwards;

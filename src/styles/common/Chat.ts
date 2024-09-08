@@ -75,7 +75,8 @@ const ChatContent = styled.h6`
   align-self: flex-end;
   max-width: 90%;
   margin-left: 0.625rem;
-
+  word-break: break-all;
+  word-wrap: break-word;
   color: ${COLORS.text};
   font-family: 'WantedSans-Medium';
 `;
