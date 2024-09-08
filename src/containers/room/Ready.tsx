@@ -1,4 +1,5 @@
 import { Ready as CReady } from '@/components';
+import { clearAnswer } from '@/redux/answer/answerSlice';
 import {
   selectHost,
   selectReadyUser,
@@ -6,6 +7,7 @@ import {
   setReady,
 } from '@/redux/game/gameSlice';
 import { selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
+import { clearTimer } from '@/redux/timer/timerSlice';
 import { selectUserName } from '@/redux/user/userSlice';
 import { kungStart, lastStart, ready, socket } from '@/services/socket/socket';
 import { useRouter } from 'next/router';
@@ -63,11 +65,15 @@ const Ready = () => {
     });
 
     socket.on('last.start', async (data) => {
+      await dispatch(clearTimer());
+      await dispatch(clearAnswer());
       await dispatch(setGame(data));
       router.push('/game');
     });
 
     socket.on('kung.start', async (data) => {
+      await dispatch(clearTimer());
+      await dispatch(clearAnswer());
       await dispatch(setGame(data));
       router.push('/game');
     });

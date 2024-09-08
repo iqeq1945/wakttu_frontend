@@ -328,7 +328,7 @@ const Game = () => {
       const { roomInfo, game } = data;
       dispatch(setRoomInfo(roomInfo));
       dispatch(setGame(game));
-      if (game.users.length === 1) router.push('/room');
+      if (roomInfo.users.length === 1) router.push('/room');
     });
 
     return () => {

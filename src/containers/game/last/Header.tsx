@@ -1,8 +1,8 @@
 import { GHeader } from '@/components';
 import { clearGame } from '@/redux/game/gameSlice';
 import { clearRoomInfo, selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
+import { exit } from '@/services/socket/socket';
 import { useRouter } from 'next/router';
-import { exit } from 'process';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
