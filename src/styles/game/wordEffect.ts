@@ -31,7 +31,12 @@ const textDecorationEffect = keyframes`
 
 const TypingContainer = styled.div`
   position: absolute;
+
+  z-index: 2;
   display: inherit;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
   font: inherit;
   justify-content: center;
 `;
@@ -52,4 +57,18 @@ const TypingWrong = styled.span`
   animation: ${textDecorationEffect} 0.7s step-end 3 forwards;
 `;
 
-export { TypingContainer, TypingSpan, TypingWrong };
+const EndText = styled.div<{ end: boolean }>`
+  position: absolute;
+
+  z-index: 1;
+  opacity: ${({ end }) => (end ? 1 : 0)};
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  white-space: nowrap;
+  font: inherit;
+  justify-content: center;
+`;
+
+export { TypingContainer, TypingSpan, TypingWrong, EndText };

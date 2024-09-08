@@ -101,7 +101,9 @@ export const SWheel = styled.img<{ $rotate?: boolean }>`
   bottom: 0.3rem;
 
   transition: ${({ $rotate }) =>
-    $rotate ? 'transform 2s ease-in-out 0.5s' : 'transform 0 ease-in-out 0.5s'};
+    $rotate
+      ? 'transform 1.5s ease-in-out 0.5s'
+      : 'transform 0 ease-in-out 0.5s'};
 
   ${({ $rotate }) => {
     return $rotate ? 'transform : rotate(-360deg)' : '';
@@ -156,15 +158,12 @@ export const CWordC = styled(CWord)`
 `;
 
 export const WordText = styled.h3`
+  position: relative;
   display: flex;
   justify-content: center;
   width: 100%;
   height: 2.2rem;
   color: ${COLORS.text};
-  overflow: hidden;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 
   font-family: 'WantedSans-SemiBold';
 `;

@@ -1,27 +1,31 @@
-import { LastPlayerList, ScoreBox } from '@/components';
-import BubbleBox from '@/components/game/last/Bubble';
+import WordEffect from '@/components/game/last/WordEffect';
 import useInput from '@/hooks/useInput';
-import { getR2URL } from '@/services/api';
-import { CName, CPlayer, Name, Score, Skin } from '@/styles/last/PlayList';
+import { CWordC, WordText } from '@/styles/last/Game';
 import { useState } from 'react';
 
 const Test = () => {
   const { inputs, setInputs, onInputChange } = useInput({ chat: '' });
 
-  const [chat, setChat] = useState('hello');
+  const { chat } = inputs;
+
+  const [word, setWord] = useState('');
+
+  const onClick = () => {
+    setWord(chat);
+  };
 
   return (
     <>
-      <CPlayer key={123} $turn={false} $fail={false}>
-        <BubbleBox chat={chat} />
-        <Skin src={getR2URL('/assets/ipali.png')} />
-        <CName>
-          <Name>tester</Name>
-        </CName>
-        <Score>
-          <ScoreBox score={100} />
-        </Score>
-      </CPlayer>
+      <p>
+        <input name="chat" onChange={onInputChange} value={chat} />
+        <button onClick={onClick}>버튼</button>
+      </p>
+
+      <CWordC>
+        <WordText>
+          <WordEffect word={word} />
+        </WordText>
+      </CWordC>
     </>
   );
 };
