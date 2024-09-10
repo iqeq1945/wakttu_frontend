@@ -109,7 +109,7 @@ export const ChainText = styled.h4`
   font-family: 'Wanted Sans';
 `;
 
-export const Kung = styled.div`
+export const Main = styled.div`
   display: flex;
   height: 8.1875rem;
   padding: 0rem 6.9375rem;
