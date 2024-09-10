@@ -1,4 +1,4 @@
-import WordEffect from '@/components/game/last/WordEffect';
+import WordEffect from '@/components/game/WordEffect';
 import useInput from '@/hooks/useInput';
 import { CWordC, WordText } from '@/styles/last/Game';
 import { useState } from 'react';

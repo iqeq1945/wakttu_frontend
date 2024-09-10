@@ -12,7 +12,7 @@ import { Answer } from '@/redux/answer/answerSlice';
 import { ScoreBox } from '@/components';
 import { getR2URL } from '@/services/api';
 import { Bubble } from '@/containers/game/last/PlayerList';
-import BubbleBox from './Bubble';
+import BubbleBox from '../Bubble';
 import Difference from './DifferenceBox';
 
 interface Props {

@@ -68,14 +68,14 @@ const Ready = () => {
       await dispatch(clearTimer());
       await dispatch(clearAnswer());
       await dispatch(setGame(data));
-      router.push('/game');
+      router.push('/game/last');
     });
 
     socket.on('kung.start', async (data) => {
       await dispatch(clearTimer());
       await dispatch(clearAnswer());
       await dispatch(setGame(data));
-      router.push('/game');
+      router.push('/game/kung');
     });
 
     return () => {

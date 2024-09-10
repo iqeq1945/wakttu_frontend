@@ -22,8 +22,8 @@ import {
   CRight,
 } from '@/styles/last/Game';
 import { RefObject } from 'react';
-import WordErrorEffect from './WordErrorEffect';
-import WordEffect from './WordEffect';
+import WordErrorEffect from '../WordErrorEffect';
+import WordEffect from '../WordEffect';
 import { getR2URL } from '@/services/api';
 
 interface Props {

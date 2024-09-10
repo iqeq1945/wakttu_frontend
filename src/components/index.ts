@@ -41,3 +41,8 @@ export { default as GChatBox } from './game/last/ChatBox';
 export { default as GChat } from './game/last/Chat';
 export { default as Answer } from './game/last/Answer';
 export { default as ScoreBox } from './game/last/ScoreBox';
+
+export { default as KHeader } from './game/kung/Header';
+export { default as KChatBox } from './game/kung/ChatBox';
+export { default as KChat } from './game/kung/Chat';
+export { default as KAnswer } from './game/kung/Answer';
