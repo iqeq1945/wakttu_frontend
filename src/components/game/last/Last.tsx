@@ -40,8 +40,8 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
     if (res !== game.target && res !== '') return `(${res})`;
     else return '';
   };
-  {
-    /** const scrollToBottom = useCallback(() => {
+
+  /** const scrollToBottom = useCallback(() => {
     if (historyBoxRef.current) {
       historyBoxRef.current.scrollTop = historyBoxRef.current.scrollHeight;
     }
@@ -50,7 +50,6 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
   useEffect(() => {
     scrollToBottom();
   }, [history, scrollToBottom]);*/
-  }
 
   return (
     <CMain>

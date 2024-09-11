@@ -117,7 +117,7 @@ export const GlobalStyle = createGlobalStyle`
   h3,
   h4,
   h5 {
-    font-weight: 600;
+    font-weight: 500;
   }
 
   h1 {
@@ -142,7 +142,7 @@ export const GlobalStyle = createGlobalStyle`
 
   h6 {
     font-size: 1.125rem;
-    font-weight: 500;
+    font-weight: 400;
   }
 
   ul,

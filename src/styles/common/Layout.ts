@@ -15,7 +15,7 @@ const ContentContainer = styled.div<{ path?: string }>`
       return `height: 100vh;
   background: url('${R2_URL}/assets/background.png') lightgray 50% / cover no-repeat;
 `;
-    else if (path?.includes('/game'))
+    else if (path?.includes('/last'))
       return `height: 100vh;
     background-color : lightgray;
     background-image :  url('${R2_URL}/assets/mypage-background.png') ,linear-gradient(180deg, #E4CEFF 0%, #AAF0FF 100%);
@@ -23,6 +23,8 @@ const ContentContainer = styled.div<{ path?: string }>`
     background-repeat: repeat;
     padding-bottom:0;
     `;
+    else if (path?.includes('/kung'))
+      return `height: 100vh; background: linear-gradient(180deg, #C3FFB4 0%, #C3FFB4 100%);`;
   }}
 `;
 

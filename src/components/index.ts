@@ -46,3 +46,5 @@ export { default as KHeader } from './game/kung/Header';
 export { default as KChatBox } from './game/kung/ChatBox';
 export { default as KChat } from './game/kung/Chat';
 export { default as KAnswer } from './game/kung/Answer';
+export { default as Kung } from './game/kung/Kung';
+export { default as KPlayerList } from './game/kung/PlayerList';
