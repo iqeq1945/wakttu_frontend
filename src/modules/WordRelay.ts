@@ -57,7 +57,8 @@ const validateHangulCombination = (input: string): boolean => {
  */
 const wordRelay = (
   original: string,
-  input: string
+  input: string,
+  kung: boolean = false
 ): { isValid: boolean; message: string } => {
   if (!validateHangul(original) || !validateHangul(input)) {
     return { isValid: false, message: '입력된 단어가 올바른 한글이 아닙니다.' };
@@ -69,6 +70,10 @@ const wordRelay = (
 
   if (!validateHangulCombination(input)) {
     return { isValid: false, message: '유효하지 않은 한글입니다.' };
+  }
+
+  if (kung && input.length !== 3) {
+    return { isValid: false, message: '세글자로만 입력해야 됩니다.' };
   }
 
   return { isValid: true, message: '입력된 단어는 유효합니다.' };

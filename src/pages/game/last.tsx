@@ -279,7 +279,6 @@ const Game = () => {
     answerSound,
     dispatch,
     fastSound,
-    game.keyword,
     name,
     late,
     roomInfo.id,

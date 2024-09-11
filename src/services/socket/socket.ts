@@ -230,3 +230,19 @@ export const kungRound = (roomId: string) => {
 export const kungBan = (data: Ban) => {
   socket.emit('kung.ban', data);
 };
+
+/**
+ *
+ * 턴시작 socket
+ */
+export const kungTurnStart = (roomId: string) => {
+  socket.emit('kung.turnStart', roomId);
+};
+
+/**
+ *
+ * 턴끝 socket
+ */
+export const kungTurnEnd = (roomId: string) => {
+  socket.emit('kung.turnEnd', roomId);
+};

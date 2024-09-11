@@ -62,7 +62,7 @@ const Chat = () => {
 
   const onSendAnswer = () => {
     if (inputs.chat) {
-      const { isValid, message } = wordRelay(game.target, inputs.chat);
+      const { isValid, message } = wordRelay(game.target, inputs.chat, true);
       const isIn = isInHistory(inputs.chat);
 
       sendChat({

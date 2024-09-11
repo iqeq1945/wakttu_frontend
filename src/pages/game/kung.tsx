@@ -3,20 +3,22 @@ import Header from '@/containers/game/kung/Header';
 import Kung from '@/containers/game/kung/Kung';
 import PlayerList from '@/containers/game/kung/PlayerList';
 import { Container } from '@/styles/kung/Layout';
-import { socket } from '@/services/socket/socket';
+import { kungRound, kungTurnStart, socket } from '@/services/socket/socket';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearHistory } from '@/redux/history/historySlice';
+import { clearHistory, setHistory } from '@/redux/history/historySlice';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
-import { setTimer } from '@/redux/timer/timerSlice';
-import { setPause } from '@/redux/answer/answerSlice';
-import { selectUserInfo } from '@/redux/user/userSlice';
+import { setTimer, setTurn } from '@/redux/timer/timerSlice';
+import { clearSuccess, setAnswer, setPause } from '@/redux/answer/answerSlice';
+import { selectUserInfo, selectUserName } from '@/redux/user/userSlice';
 import { selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
+
 const Game = () => {
   const dispatch = useDispatch();
   const game = useSelector(selectGame);
   const user = useSelector(selectUserInfo);
   const roomInfo = useSelector(selectRoomInfo);
+  const name = useSelector(selectUserName);
 
   /**
    * Round 변할때마다 History Clear
@@ -38,10 +40,77 @@ const Game = () => {
           )
         );
         setTimeout(() => dispatch(setPause(true)));
-        if (game.host === user.name) lastTurnStart(roomInfo.id as string);
+        if (game.host === user.name) kungTurnStart(roomInfo.id as string);
       }, 4000);
     });
-  });
+
+    return () => {
+      socket.off('kung.round');
+    };
+  }, [dispatch, game.host, roomInfo.id, user.name]);
+
+  /**
+   * Turn Logick
+   */
+
+  useEffect(() => {
+    socket.on('kung.turnStart', () => {
+      if (game.host === user.name) socket.emit('ping', roomInfo.id);
+    });
+
+    socket.on('kung.turnEnd', () => {
+      if (game.host === user.name)
+        setTimeout(() => kungRound(roomInfo.id as string), 4000);
+    });
+
+    return () => {
+      socket.off('kung.turnStart');
+      socket.off('kung.turnEnd');
+    };
+  }, [game.host, roomInfo.id, user.name]);
+
+  /**
+   * turn game Logic
+   */
+
+  useEffect(() => {
+    socket.on('kung.game', (data) => {
+      const { success, answer, game, message, word } = data;
+      setTimeout(() =>
+        dispatch(
+          setAnswer({
+            success,
+            answer,
+            message,
+            pause: !success,
+            word: word,
+          })
+        )
+      );
+      setTimeout(() => {
+        dispatch(setGame(game));
+      });
+
+      if (success) {
+        if (name === game.host) socket.emit('pong', roomInfo.id);
+        dispatch(setHistory(word));
+        setTimeout(() => {
+          setTimeout(() =>
+            dispatch(
+              setTurn({ roundTime: game.roundTime, turnTime: game.turnTime })
+            )
+          );
+          setTimeout(() => {
+            dispatch(setPause(true));
+          });
+          if (name === game.host) kungTurnStart(roomInfo.id as string);
+        }, 2200);
+      }
+      setTimeout(() => {
+        dispatch(clearSuccess());
+      }, 2200);
+    });
+  }, [dispatch, name, roomInfo.id]);
 
   return (
     <Container>
