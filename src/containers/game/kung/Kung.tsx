@@ -1,6 +1,6 @@
 import { Kung as CKung } from '@/components';
 import { selectPause } from '@/redux/answer/answerSlice';
-import { selectGame } from '@/redux/game/gameSlice';
+import { selectGame, selectWhoisTurn } from '@/redux/game/gameSlice';
 import { selectHistory } from '@/redux/history/historySlice';
 import { selectTimer } from '@/redux/timer/timerSlice';
 import { useEffect, useState } from 'react';
@@ -12,7 +12,7 @@ const Kung = () => {
   const pause = useSelector(selectPause);
   const history = useSelector(selectHistory);
   const [keyword, setKeyword] = useState([]);
-  const [user, setUser] = useState({});
+  const whoIsTurn = useSelector(selectWhoisTurn);
   useEffect(() => {
     if (game.keyword) {
       const arr = game.keyword._id.split('');
@@ -20,17 +20,13 @@ const Kung = () => {
     }
   }, [game.keyword]);
 
-  useEffect(() => {
-    setUser(game.users[game.turn]);
-  }, [game.turn, game.users]);
-
   return (
     <CKung
       game={game}
       keyword={keyword}
       timer={timer}
       pause={pause}
-      user={user}
+      name={whoIsTurn}
       history={history}
     />
   );

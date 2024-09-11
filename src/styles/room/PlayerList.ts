@@ -98,7 +98,6 @@ const PlayerReady = styled.div<{ $ready?: boolean }>`
 
     font-family: 'WantedSans-SemiBold';
     font-size: ${FONT_SIZES['subtitle-1']};
-    font-weight: 600;
   }
 `;
 

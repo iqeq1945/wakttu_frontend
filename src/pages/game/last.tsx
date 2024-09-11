@@ -197,8 +197,6 @@ const Game = () => {
       onBgm();
     });
 
-    setTurnEnd();
-
     socket.on('last.turnEnd', () => {
       onFailUser(game.users[game.turn].name);
       if (game.host === user.name)
@@ -219,11 +217,14 @@ const Game = () => {
     onBgm,
     onFailUser,
     roomInfo.id,
-    setTurnEnd,
     sound,
     turnEndSound,
     user.name,
   ]);
+
+  useEffect(() => {
+    setTurnEnd();
+  }, [setTurnEnd]);
 
   /* turn game logic */
   useEffect(() => {

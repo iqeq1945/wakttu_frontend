@@ -6,7 +6,7 @@ import {
   Name,
   Score,
   Skin,
-} from '@/styles/last/PlayList';
+} from '@/styles/kung/PlayerList';
 import { Game } from '@/services/socket/socket';
 import { Answer } from '@/redux/answer/answerSlice';
 import { ScoreBox } from '@/components';

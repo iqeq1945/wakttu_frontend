@@ -49,10 +49,10 @@ interface Props {
   history: His[];
   timer: any;
   pause: boolean;
-  user: { [x: string]: any };
+  name: string;
 }
 
-const Kung = ({ game, keyword, timer, pause, user, history }: Props) => {
+const Kung = ({ game, keyword, timer, pause, name, history }: Props) => {
   const target = () => {
     const res = hangulTools().dueum(game.target);
     if (res !== game.target && res !== '') return `(${res})`;
@@ -95,7 +95,7 @@ const Kung = ({ game, keyword, timer, pause, user, history }: Props) => {
               {target()}
             </Target>
             <Typing>
-              <Name>{user.name}</Name>
+              <Name>{name}</Name>
               <TypingText>님이 입력중입니다...</TypingText>
             </Typing>
           </Turn>

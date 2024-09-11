@@ -24,7 +24,7 @@ const ContentContainer = styled.div<{ path?: string }>`
     padding-bottom:0;
     `;
     else if (path?.includes('/kung'))
-      return `height: 100vh; background: linear-gradient(180deg, #C3FFB4 0%, #C3FFB4 100%);`;
+      return `height: 100vh; background: linear-gradient(180deg, #C3FFB4 0%, #C3FFB4 100%);  padding-bottom:0;`;
   }}
 `;
 
