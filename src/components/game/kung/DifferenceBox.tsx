@@ -13,7 +13,7 @@ const Difference = ({ score }: Props) => {
     const count = score - data;
     setDifference(count);
     setData(score);
-  }, [score, data]);
+  }, [score]);
 
   return (
     <>{difference > 0 ? <PlusScore key={data}>+{difference}</PlusScore> : ''}</>

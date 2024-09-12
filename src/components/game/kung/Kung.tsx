@@ -42,6 +42,8 @@ import {
   TypingText,
   BTimerBar,
 } from '@/styles/kung/Game';
+import WordErrorEffect from '../WordErrorEffect';
+import { Answer } from '@/redux/answer/answerSlice';
 
 interface Props {
   game: Game;
@@ -49,10 +51,19 @@ interface Props {
   history: His[];
   timer: any;
   pause: boolean;
+  answer: Answer;
   user: { [x: string]: any };
 }
 
-const Kung = ({ game, keyword, timer, pause, user, history }: Props) => {
+const Kung = ({
+  game,
+  keyword,
+  timer,
+  pause,
+  answer,
+  user,
+  history,
+}: Props) => {
   const target = () => {
     const res = hangulTools().dueum(game.target);
     if (res !== game.target && res !== '') return `(${res})`;
@@ -91,8 +102,14 @@ const Kung = ({ game, keyword, timer, pause, user, history }: Props) => {
           </History>
           <Turn>
             <Target>
-              {game.target}
-              {target()}
+              {answer.success === false ? (
+                <WordErrorEffect word={answer.answer as string} />
+              ) : (
+                <>
+                  {game.target}
+                  {target()}
+                </>
+              )}
             </Target>
             <Typing>
               <Name>{user.name}</Name>

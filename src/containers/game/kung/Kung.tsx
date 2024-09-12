@@ -1,5 +1,5 @@
 import { Kung as CKung } from '@/components';
-import { selectPause } from '@/redux/answer/answerSlice';
+import { selectAnswer, selectPause } from '@/redux/answer/answerSlice';
 import { selectGame } from '@/redux/game/gameSlice';
 import { selectHistory } from '@/redux/history/historySlice';
 import { selectTimer } from '@/redux/timer/timerSlice';
@@ -11,6 +11,7 @@ const Kung = () => {
   const timer = useSelector(selectTimer);
   const pause = useSelector(selectPause);
   const history = useSelector(selectHistory);
+  const answer = useSelector(selectAnswer);
   const [keyword, setKeyword] = useState([]);
   const [user, setUser] = useState({});
   useEffect(() => {
@@ -30,6 +31,7 @@ const Kung = () => {
       keyword={keyword}
       timer={timer}
       pause={pause}
+      answer={answer}
       user={user}
       history={history}
     />

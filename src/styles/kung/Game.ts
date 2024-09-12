@@ -5,10 +5,10 @@ const DROM_SHADOW = '0px 1px 10px 0px rgba(0, 0, 0, 0.15)';
 
 export const CKung = styled.div`
   display: flex;
+  height: 27.6225rem;
   padding: 0.625rem 2.5rem;
   justify-content: center;
   align-items: center;
-  gap: 3.5rem;
 `;
 
 export const Left = styled.div`
