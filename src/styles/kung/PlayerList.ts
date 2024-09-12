@@ -22,7 +22,7 @@ export const CPlayerList = styled.div`
   align-items: center;
   gap: 1.25rem;
 
-  background: linear-gradient(180deg, #c0b0ff 0%, #92aaff 100%);
+  background: linear-gradient(0deg, #b6ecc5 0%, #b6ecc5 100%);
 `;
 
 export const CPlayer = styled.div<{ $turn?: boolean; $fail?: boolean }>`
@@ -47,7 +47,7 @@ export const CPlayer = styled.div<{ $turn?: boolean; $fail?: boolean }>`
     if ($fail) {
       return `border: 4px solid #FF7070; background: #FFE6E6; transform : translate(0 , -0.8rem);`;
     } else if ($turn) {
-      return `border: 4px solid #A377FF; background: #E6DAFF; transform : translate(0 , -0.8rem);`;
+      return `border: 4px solid #29cd00; background: #cfffb8; transform : translate(0 , -0.8rem);`;
     } else {
       return `background: linear-gradient(180deg, #fff 0%, #f2f2f2 100%);`;
     }
@@ -110,8 +110,5 @@ export const Host = styled.div`
 
     font-family: 'WantedSans-SemiBold';
     font-size: ${FONT_SIZES['subtitle-1']};
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
   }
 `;

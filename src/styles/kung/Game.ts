@@ -67,9 +67,8 @@ export const Info = styled.div`
   width: 46rem;
   height: 5.125rem;
   padding: 0.4375rem 0rem;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 4.625rem;
   flex-shrink: 0;
 `;
 
@@ -78,6 +77,7 @@ export const Object = styled.div`
   width: 7.375rem;
   height: 2.8125rem;
   padding: 0.125rem 0.625rem;
+  margin-left: 3.84rem;
   justify-content: center;
   align-items: center;
   gap: 0.25rem;
@@ -98,14 +98,10 @@ export const ObjectText = styled.h5`
   text-align: right;
 
   font-family: 'WantedSans-SemiBold';
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
 `;
 
 export const Round = styled.div`
   display: flex;
-  width: 14.25rem;
   height: 3rem;
   padding: 0rem 0.0625rem;
   align-items: center;
@@ -126,7 +122,7 @@ export const ChainText = styled.h4`
   color: rgba(155, 255, 119, 0.8);
   text-align: center;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
+  margin-right: 3.84rem;
   font-family: 'WantedSans-SemiBold';
 `;
 

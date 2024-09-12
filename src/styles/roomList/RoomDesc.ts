@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { COLORS } from '@/styles/theme';
+import { COLORS, FONT_SIZES } from '@/styles/theme';
 
 export type InfoVariant = 'title' | 'desc';
 
@@ -31,6 +31,10 @@ const WrapRoomTitle = styled.section`
   border-radius: 1rem;
   border: 1px solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
+`;
+const TitleText = styled.h5`
+  color: ${COLORS.text};
+  font-family: 'WantedSans-SemiBold';
 `;
 
 const WrapGameInfo = styled.section`
@@ -70,7 +74,8 @@ const WrapInfo = styled.ul`
 `;
 
 const Info = styled.li<{ $variant?: InfoVariant }>`
-  font-weight: 600;
+  font-family: 'WantedSans-SemiBold';
+  font-size: ${FONT_SIZES['subtitle-2']};
   color: ${COLORS.text};
 
   ${({ $variant }) => {
@@ -157,6 +162,7 @@ const JoinText = styled.h4`
 export {
   CRoomDesc,
   WrapRoomTitle,
+  TitleText,
   WrapGameInfo,
   GameInfo,
   RoomInfo,

@@ -52,7 +52,7 @@ interface Props {
   timer: any;
   pause: boolean;
   answer: Answer;
-  user: { [x: string]: any };
+  name: string;
 }
 
 const Kung = ({
@@ -60,8 +60,8 @@ const Kung = ({
   keyword,
   timer,
   pause,
+  name,
   answer,
-  user,
   history,
 }: Props) => {
   const target = () => {
@@ -112,7 +112,7 @@ const Kung = ({
               )}
             </Target>
             <Typing>
-              <Name>{user.name}</Name>
+              <Name>{name}</Name>
               <TypingText>님이 입력중입니다...</TypingText>
             </Typing>
           </Turn>

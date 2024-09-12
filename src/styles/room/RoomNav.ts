@@ -36,7 +36,6 @@ const ButtonText = styled.span`
 
   font-family: 'WantedSans-SemiBold';
   font-size: ${FONT_SIZES['subtitle-2']};
-  font-weight: 600;
 `;
 
 const UpdateButton = styled.button`

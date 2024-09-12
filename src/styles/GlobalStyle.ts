@@ -103,7 +103,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Wanted Sans';
     font-style: normal;
     line-height: normal;
-    font-weight: 500;
+    font-weight: 400;
 
     margin: 0;
     padding: 0;
@@ -111,7 +111,7 @@ export const GlobalStyle = createGlobalStyle`
 
   h1,
   h2 {
-    font-weight: 700;
+    font-weight: 600;
   }
 
   h3,
