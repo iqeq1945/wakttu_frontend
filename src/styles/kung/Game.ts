@@ -5,7 +5,7 @@ const DROM_SHADOW = '0px 1px 10px 0px rgba(0, 0, 0, 0.15)';
 
 export const CKung = styled.div`
   display: flex;
-  height: 27.6225rem;
+  height: 32rem;
   padding: 0.625rem 2.5rem;
   justify-content: center;
   align-items: center;
@@ -200,6 +200,8 @@ export const RightDesc = styled.span`
 `;
 
 export const Turn = styled.div`
+  position: relative;
+
   display: flex;
   width: 14.4375rem;
   height: 8rem;
@@ -212,6 +214,9 @@ export const Turn = styled.div`
 `;
 
 export const Target = styled.h3`
+  position: relative;
+  width: 100%;
+  height: 2.2rem;
   color: ${COLORS.bg};
   text-align: center;
 

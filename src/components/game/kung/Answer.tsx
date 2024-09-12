@@ -15,8 +15,9 @@ import {
   CAnswer,
   AnswerText,
   TitleText,
+  LeftTimer,
+  RightTimer,
 } from '@/styles/kung/Answer';
-import { LeftTimer, RightTimer } from '@/styles/last/Info';
 import { Answer as TypeAnswer } from '@/redux/answer/answerSlice';
 import WordErrorEffect from '../WordErrorEffect';
 import { R2_URL } from '@/services/api';

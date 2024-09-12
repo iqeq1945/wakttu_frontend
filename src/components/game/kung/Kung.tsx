@@ -44,6 +44,7 @@ import {
 } from '@/styles/kung/Game';
 import WordErrorEffect from '../WordErrorEffect';
 import { Answer } from '@/redux/answer/answerSlice';
+import WordEffect from '../WordEffect';
 
 interface Props {
   game: Game;
@@ -73,7 +74,7 @@ const Kung = ({
     <CKung>
       <Left>
         <Speaker src="/assets/game/speaker.svg" reverse={false} />
-        <Tv />
+        <Tv>{answer.success}</Tv>
       </Left>
       <Board>
         <Info>
@@ -94,11 +95,19 @@ const Kung = ({
         </Info>
         <Main>
           <History>
-            <HistroyText>{history[history.length - 1].id}</HistroyText>
-            <Desc>
-              <LeftDesc>{history[history.length - 1].type}</LeftDesc>
-              <RightDesc>{history[history.length - 1].mean}</RightDesc>
-            </Desc>
+            {history.length > 0 ? (
+              <>
+                <HistroyText>
+                  <WordEffect word={history[history.length - 1].id} />
+                </HistroyText>
+                <Desc>
+                  <LeftDesc>{history[history.length - 1].type}</LeftDesc>
+                  <RightDesc>{history[history.length - 1].mean}</RightDesc>
+                </Desc>
+              </>
+            ) : (
+              ''
+            )}
           </History>
           <Turn>
             <Target>

@@ -17,7 +17,7 @@ export const Container = styled.div<{ pause: boolean }>`
   top: 0;
   display: flex;
   width: 100%;
-  height: 35.8rem;
+  height: 32.5rem;
   padding: 8.875rem 39.8125rem 8.8125rem 39.8125rem;
   justify-content: center;
   align-items: center;
@@ -40,7 +40,8 @@ export const Modal = styled.div`
   flex-shrink: 0;
 
   border-radius: 1.875rem;
-  border: 4px solid ${COLORS.pupple};
+  border: 4px solid #00801c;
+
   background: #e7e7e7;
 
   box-shadow: ${DROM_SHADOW};
@@ -54,7 +55,7 @@ export const ModalTitle = styled.div`
   align-items: center;
 
   border-radius: 1.875rem 1.875rem 0rem 0rem;
-  background: ${COLORS.pupple};
+  background: #00801c;
 `;
 
 export const TitleText = styled.h4`
@@ -98,7 +99,7 @@ export const TimerIcon = styled.img`
 `;
 
 export const TimerText = styled.span`
-  color: #747474;
+  color: ${COLORS.text};
   text-align: center;
 
   font-family: 'WantedSans-Medium';
@@ -106,7 +107,8 @@ export const TimerText = styled.span`
 `;
 
 export const RemainText = styled.span`
-  color: ${COLORS.pupple};
+  color: #00801c;
+
   text-align: right;
 
   font-family: 'WantedSans-Medium';
@@ -134,7 +136,7 @@ export const GaugeBar = styled.div<{ gauge: number; pause: boolean }>`
   width: 100%;
   height: 100%;
   border-radius: 6.25rem;
-  background: ${COLORS.pupple};
+  background: #00801c;
 
   transition: ${({ gauge, pause }) => {
     return pause ? `transform ${gauge}ms linear 0.2s` : '';
