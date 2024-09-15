@@ -178,21 +178,17 @@ export const CDesc = styled.div`
 
 export const Category = styled.div`
   display: flex;
+  width: 1rem;
+  height: 1rem;
   align-items: center;
+  justify-content: center;
   border-radius: 12.5rem;
   background: ${COLORS.pupple};
 
-  & > span {
-    width: 1rem;
-    height: 1rem;
-    color: ${COLORS.bg};
-    text-align: center;
-    font-family: 'Wanted Sans';
-    font-size: 0.625rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
+  color: ${COLORS.bg};
+  text-align: center;
+  font-family: 'Wanted Sans';
+  font-size: 0.625rem;
 `;
 
 export const Desc = styled.span`

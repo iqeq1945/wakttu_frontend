@@ -16,7 +16,7 @@ function useSound(
       loop,
     });
     newSound.volume(volume);
-    newSound.load();
+    // newSound.load();
 
     setSound(newSound);
 

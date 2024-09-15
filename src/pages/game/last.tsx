@@ -38,6 +38,8 @@ import { useRouter } from 'next/router';
 import { clearHistory, setHistory } from '@/redux/history/historySlice';
 import useSound from '@/hooks/useSound';
 import useEffectSound from '@/hooks/useEffectSound';
+import useWaktaSound from '@/hooks/useWaktaSound';
+import { GetKey } from '@/modules/Voice';
 
 const Game = () => {
   /** Redux and State Part */
@@ -85,6 +87,8 @@ const Game = () => {
     '/assets/sound-effects/lossy/game_turn_failure.webm',
     0.1
   );
+
+  const waktaSound = useWaktaSound(0.5);
 
   /** Function Part*/
 
@@ -139,6 +143,26 @@ const Game = () => {
     await dispatch(clearGame());
     exit(roomInfo.id as string);
   }, [dispatch, roomInfo.id, router]);
+
+  const playAnswer = useCallback(
+    ({
+      wakta,
+      type,
+      meta,
+    }: {
+      wakta: boolean;
+      type: string;
+      meta?: { [x: string]: any };
+    }) => {
+      console.log(meta);
+      if (!wakta) answerSound?.play();
+      else {
+        const key = GetKey(type, meta);
+        waktaSound![key].play();
+      }
+    },
+    [answerSound, waktaSound]
+  );
 
   /** Socekt Logic Part */
 
@@ -250,7 +274,8 @@ const Game = () => {
       });
 
       if (success) {
-        answerSound?.play();
+        console.log(word);
+        playAnswer(word);
         sound?.pause();
         fastSound?.pause();
         if (name === game.host) socket.emit('pong', roomInfo.id);
@@ -286,6 +311,7 @@ const Game = () => {
     roomInfo.id,
     sound,
     wrongSound,
+    playAnswer,
   ]);
 
   /* ping logic */

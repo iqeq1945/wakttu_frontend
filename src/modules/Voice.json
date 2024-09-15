@@ -1,0 +1,221 @@
+{
+  "woo": [
+    {
+      "id": "woo-1",
+      "src": "https://r2.wakttu.kr/assets/voice/woo/woo-1.webm"
+    },
+    {
+      "id": "woo-2",
+      "src": "https://r2.wakttu.kr/assets/voice/woo/woo-2.webm"
+    },
+    {
+      "id": "woo-3",
+      "src": "https://r2.wakttu.kr/assets/voice/woo/woo-3.webm"
+    },
+    {
+      "id": "woo-4",
+      "src": "https://r2.wakttu.kr/assets/voice/woo/woo-4.webm"
+    },
+    {
+      "id": "woo-5",
+      "src": "https://r2.wakttu.kr/assets/voice/woo/woo-5.webm"
+    },
+    {
+      "id": "woo-6",
+      "src": "https://r2.wakttu.kr/assets/voice/woo/woo-6.webm"
+    },
+    {
+      "id": "woo-7",
+      "src": "https://r2.wakttu.kr/assets/voice/woo/woo-7.webm"
+    }
+  ],
+  "ine": [
+    {
+      "id": "i-158",
+      "src": "https://r2.wakttu.kr/assets/voice/ine/i-158.webm"
+    },
+    {
+      "id": "i-1",
+      "src": "https://r2.wakttu.kr/assets/voice/ine/i-1.webm"
+    },
+    {
+      "id": "i-2",
+      "src": "https://r2.wakttu.kr/assets/voice/ine/i-2.webm"
+    },
+    {
+      "id": "i-3",
+      "src": "https://r2.wakttu.kr/assets/voice/ine/i-3.webm"
+    },
+    {
+      "id": "i-4",
+      "src": "https://r2.wakttu.kr/assets/voice/ine/i-4.webm"
+    },
+    {
+      "id": "i-5",
+      "src": "https://r2.wakttu.kr/assets/voice/ine/i-5.webm"
+    },
+    {
+      "id": "i-6",
+      "src": "https://r2.wakttu.kr/assets/voice/ine/i-6.webm"
+    },
+    {
+      "id": "i-7",
+      "src": "https://r2.wakttu.kr/assets/voice/ine/i-7.webm"
+    }
+  ],
+  "jingburger": [
+    {
+      "id": "ji-1",
+      "src": "https://r2.wakttu.kr/assets/voice/jingburger/ji-1.webm"
+    },
+    {
+      "id": "ji-2",
+      "src": "https://r2.wakttu.kr/assets/voice/jingburger/ji-2.webm"
+    },
+    {
+      "id": "ji-3",
+      "src": "https://r2.wakttu.kr/assets/voice/jingburger/ji-3.webm"
+    },
+    {
+      "id": "ji-4",
+      "src": "https://r2.wakttu.kr/assets/voice/jingburger/ji-4.webm"
+    },
+    {
+      "id": "ji-5",
+      "src": "https://r2.wakttu.kr/assets/voice/jingburger/ji-5.webm"
+    },
+    {
+      "id": "ji-6",
+      "src": "https://r2.wakttu.kr/assets/voice/jingburger/ji-6.webm"
+    },
+    {
+      "id": "ji-7",
+      "src": "https://r2.wakttu.kr/assets/voice/jingburger/ji-7.webm"
+    }
+  ],
+  "lilpa": [
+    {
+      "id": "l-1",
+      "src": "https://r2.wakttu.kr/assets/voice/lilpa/l-1.webm"
+    },
+    {
+      "id": "l-2",
+      "src": "https://r2.wakttu.kr/assets/voice/lilpa/l-2.webm"
+    },
+    {
+      "id": "l-3",
+      "src": "https://r2.wakttu.kr/assets/voice/lilpa/l-3.webm"
+    },
+    {
+      "id": "l-4",
+      "src": "https://r2.wakttu.kr/assets/voice/lilpa/l-4.webm"
+    },
+    {
+      "id": "l-5",
+      "src": "https://r2.wakttu.kr/assets/voice/lilpa/l-5.webm"
+    },
+    {
+      "id": "l-6",
+      "src": "https://r2.wakttu.kr/assets/voice/lilpa/l-6.webm"
+    },
+    {
+      "id": "l-7",
+      "src": "https://r2.wakttu.kr/assets/voice/lilpa/l-7.webm"
+    }
+  ],
+  "jururu": [
+    {
+      "id": "ju-1",
+      "src": "https://r2.wakttu.kr/assets/voice/jururu/ju-1.webm"
+    },
+    {
+      "id": "ju-2",
+      "src": "https://r2.wakttu.kr/assets/voice/jururu/ju-2.webm"
+    },
+    {
+      "id": "ju-3",
+      "src": "https://r2.wakttu.kr/assets/voice/jururu/ju-3.webm"
+    },
+    {
+      "id": "ju-4",
+      "src": "https://r2.wakttu.kr/assets/voice/jururu/ju-4.webm"
+    },
+    {
+      "id": "ju-5",
+      "src": "https://r2.wakttu.kr/assets/voice/jururu/ju-5.webm"
+    },
+    {
+      "id": "ju-6",
+      "src": "https://r2.wakttu.kr/assets/voice/jururu/ju-6.webm"
+    },
+    {
+      "id": "ju-7",
+      "src": "https://r2.wakttu.kr/assets/voice/jururu/ju-7.webm"
+    }
+  ],
+  "gosegu": [
+    {
+      "id": "g-1",
+      "src": "https://r2.wakttu.kr/assets/voice/gosegu/g-1.webm"
+    },
+    {
+      "id": "g-2",
+      "src": "https://r2.wakttu.kr/assets/voice/gosegu/g-2.webm"
+    },
+
+    {
+      "id": "g-3",
+      "src": "https://r2.wakttu.kr/assets/voice/gosegu/g-3.webm"
+    },
+    {
+      "id": "g-4",
+      "src": "https://r2.wakttu.kr/assets/voice/gosegu/g-4.webm"
+    },
+    {
+      "id": "g-5",
+      "src": "https://r2.wakttu.kr/assets/voice/gosegu/g-5.webm"
+    },
+    {
+      "id": "g-6",
+      "src": "https://r2.wakttu.kr/assets/voice/gosegu/g-6.webm"
+    }
+  ],
+  "viichan": [
+    {
+      "id": "v-1",
+      "src": "https://r2.wakttu.kr/assets/voice/viichan/v-1.webm"
+    },
+    {
+      "id": "v-2",
+      "src": "https://r2.wakttu.kr/assets/voice/viichan/v-2.webm"
+    },
+    {
+      "id": "v-3",
+      "src": "https://r2.wakttu.kr/assets/voice/viichan/v-3.webm"
+    },
+    {
+      "id": "v-4",
+      "src": "https://r2.wakttu.kr/assets/voice/viichan/v-4.webm"
+    },
+    {
+      "id": "v-5",
+      "src": "https://r2.wakttu.kr/assets/voice/viichan/v-5.webm"
+    },
+    {
+      "id": "v-6",
+      "src": "https://r2.wakttu.kr/assets/voice/viichan/v-6.webm"
+    },
+    {
+      "id": "v-7",
+      "src": "https://r2.wakttu.kr/assets/voice/viichan/v-7.webm"
+    },
+    {
+      "id": "v-8",
+      "src": "https://r2.wakttu.kr/assets/voice/viichan/v-8.webm"
+    },
+    {
+      "id": "v-9",
+      "src": "https://r2.wakttu.kr/assets/voice/viichan/v-9.webm"
+    }
+  ]
+}

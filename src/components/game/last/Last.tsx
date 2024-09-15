@@ -98,9 +98,7 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
               <WordEffect word={history[history.length - 1].id} />
             </WordText>
             <CDesc>
-              <Category>
-                <span>{history[history.length - 1].type[0]}</span>
-              </Category>
+              <Category>{history[history.length - 1].type[0]}</Category>
               <Desc>{history[history.length - 1].mean}</Desc>
             </CDesc>
           </CWordC>
