@@ -1,4 +1,4 @@
-import * as Voice from './voice.json';
+import * as Voice from '@/modules/voice.json';
 
 const { woo, ine, jingburger, lilpa, jururu, gosegu, viichan } = Voice;
 
