@@ -17,7 +17,7 @@ export const Container = styled.div<{ pause: boolean }>`
   top: 0;
   display: flex;
   width: 100%;
-  height: 32.5rem;
+  height: 32rem;
   padding: 8.875rem 39.8125rem 8.8125rem 39.8125rem;
   justify-content: center;
   align-items: center;

@@ -251,7 +251,8 @@ const Game = () => {
 
       if (success) {
         answerSound?.play();
-
+        sound?.pause();
+        fastSound?.pause();
         if (name === game.host) socket.emit('pong', roomInfo.id);
         dispatch(setHistory(word));
         setTimeout(() => {

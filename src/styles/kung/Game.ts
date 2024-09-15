@@ -149,6 +149,13 @@ export const History = styled.div`
 `;
 
 export const HistroyText = styled.h3`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 2.375rem;
+
   color: ${COLORS.bg};
   text-align: center;
 
@@ -378,7 +385,7 @@ export const GaugeBar = styled.div<{
   width: 100%;
   height: 100%;
   border-radius: 6.25rem;
-  background: ${({ color }) => (color ? '#FF4B4B' : '#FCFF62')}${COLORS.pupple};
+  background: ${({ color }) => (color ? '#FF4B4B' : '#FCFF62')};
 
   transition: ${({ gauge, pause }) => {
     return pause ? `transform ${gauge}ms linear 0.2s` : '';

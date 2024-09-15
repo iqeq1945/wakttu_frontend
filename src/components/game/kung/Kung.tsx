@@ -95,19 +95,13 @@ const Kung = ({
         </Info>
         <Main>
           <History>
-            {history.length > 0 ? (
-              <>
-                <HistroyText>
-                  <WordEffect word={history[history.length - 1].id} />
-                </HistroyText>
-                <Desc>
-                  <LeftDesc>{history[history.length - 1].type}</LeftDesc>
-                  <RightDesc>{history[history.length - 1].mean}</RightDesc>
-                </Desc>
-              </>
-            ) : (
-              ''
-            )}
+            <HistroyText>
+              <WordEffect word={history[history.length - 1].id} />
+            </HistroyText>
+            <Desc>
+              <LeftDesc>{history[history.length - 1].type[0]}</LeftDesc>
+              <RightDesc>{history[history.length - 1].mean}</RightDesc>
+            </Desc>
           </History>
           <Turn>
             <Target>
@@ -121,8 +115,14 @@ const Kung = ({
               )}
             </Target>
             <Typing>
-              <Name>{name}</Name>
-              <TypingText>님이 입력중입니다...</TypingText>
+              {pause ? (
+                <>
+                  <Name>{name}</Name>
+                  <TypingText>님이 입력중입니다...</TypingText>
+                </>
+              ) : (
+                <TypingText>쉬는 시간!</TypingText>
+              )}
             </Typing>
           </Turn>
         </Main>
@@ -137,7 +137,12 @@ const Kung = ({
                 {((timer.roundTime - timer.countTime) / 1000.0).toFixed(1)}초
               </RemainText>
               <TimerBar>
-                <GaugeBar gauge={timer.roundTime} pause={pause} color={true} />
+                <GaugeBar
+                  key={game.target}
+                  gauge={timer.roundTime}
+                  pause={pause}
+                  color={true}
+                />
               </TimerBar>
             </RightTimer>
           </TimerItem>
@@ -151,7 +156,12 @@ const Kung = ({
                 {((timer.turnTime - timer.countTime) / 1000.0).toFixed(1)}
               </RemainText>
               <BTimerBar>
-                <GaugeBar gauge={timer.turnTime} pause={pause} color={false} />
+                <GaugeBar
+                  key={game.target}
+                  gauge={timer.turnTime}
+                  pause={pause}
+                  color={false}
+                />
               </BTimerBar>
             </RightTimer>
           </TimerItem>

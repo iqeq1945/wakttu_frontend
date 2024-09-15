@@ -71,7 +71,7 @@ const EndText = styled.div<{ end: boolean }>`
   text-align: center;
   white-space: nowrap;
   font: inherit;
-  justify-content: center;
+  color: inherit;
 `;
 
 export { TypingContainer, TypingSpan, TypingWrong, EndText };

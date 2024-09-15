@@ -271,6 +271,9 @@ const Game = () => {
       });
 
       if (success) {
+        answerSound?.play();
+        sound?.pause();
+        fastSound?.pause();
         if (name === game.host) socket.emit('pong', roomInfo.id);
         dispatch(setHistory(word));
         setTimeout(() => {
@@ -284,6 +287,8 @@ const Game = () => {
           });
           if (name === game.host) kungTurnStart(roomInfo.id as string);
         }, 2200);
+      } else {
+        wrongSound?.play();
       }
       setTimeout(() => {
         dispatch(clearSuccess());
@@ -293,7 +298,7 @@ const Game = () => {
     return () => {
       socket.off('kung.game');
     };
-  }, [dispatch, name, roomInfo.id]);
+  }, [answerSound, dispatch, fastSound, name, roomInfo.id, sound, wrongSound]);
 
   /* ping logic */
   useEffect(() => {

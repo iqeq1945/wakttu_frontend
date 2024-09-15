@@ -55,7 +55,7 @@ const Answer = ({ chat, game, timer, answer, pause }: Props) => {
         )}
         <CTimer>
           <LeftTimer>
-            <TimerIcon src={R2_URL + '/assets/game/timer.svg'} />
+            <TimerIcon src={'/assets/game/timer-white.svg'} />
             <TimerText>라운드 남은 시간</TimerText>
           </LeftTimer>
           <RightTimer>
