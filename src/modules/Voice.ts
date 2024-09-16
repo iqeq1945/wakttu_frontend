@@ -1,4 +1,4 @@
-import data from '@/modules/voice.json';
+import data from '@/modules/Voice.json';
 
 const { woo, ine, jingburger, lilpa, jururu, gosegu, viichan } = data;
 
