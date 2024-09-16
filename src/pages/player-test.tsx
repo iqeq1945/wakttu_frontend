@@ -6,7 +6,7 @@ const Test = () => {
       <button
         type="button"
         onClick={() => {
-          if (sound) sound['1'].play();
+          if (sound) sound['i-1'].play();
         }}
       >
         sound 1
@@ -15,7 +15,7 @@ const Test = () => {
       <button
         type="button"
         onClick={() => {
-          if (sound) sound['2'].play();
+          if (sound) sound['woo-2'].play();
         }}
       >
         sound 2

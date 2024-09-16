@@ -1,6 +1,6 @@
-import * as Voice from '@/modules/voice.json';
+import data from '@/modules/voice.json';
 
-const { woo, ine, jingburger, lilpa, jururu, gosegu, viichan } = Voice;
+const { woo, ine, jingburger, lilpa, jururu, gosegu, viichan } = data;
 
 const Read = () =>
   console.log(woo, ine, jingburger, lilpa, jururu, gosegu, viichan);
