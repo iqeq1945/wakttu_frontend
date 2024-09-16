@@ -1,4 +1,5 @@
 import { Header as CHeader } from '@/components';
+import { getIcon } from '@/modules/UserInfo';
 import { clearGame, selectGame } from '@/redux/game/gameSlice';
 import { clearRoomInfo, selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';
@@ -14,6 +15,7 @@ const Header = () => {
   const roomInfo = useSelector(selectRoomInfo);
   const router = useRouter();
   const dispatch = useDispatch();
+  const [icon, setIcon] = useState(getIcon(0, undefined));
 
   const goHome = useCallback(async () => {
     await router.push('/');
@@ -27,6 +29,15 @@ const Header = () => {
   useEffect(() => {
     setIsConnected(true);
   }, []);
+
+  useEffect(() => {
+    setIcon(
+      getIcon(
+        user.score ? user.score : 0,
+        user.provider ? user.provider : undefined
+      )
+    );
+  }, [user]);
 
   return isConnected && <CHeader user={user} goHome={goHome} />;
 };

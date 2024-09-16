@@ -39,13 +39,12 @@ const MainFormContainer = () => {
     dispatch(openModal('MAIN_MODAL'));
   };
 
-  const start = (e: MouseEvent<HTMLElement>) => {
+  const start = async (e: MouseEvent<HTMLElement>) => {
     if (isLogined) {
       e.stopPropagation();
-      if (!socket.connected) socket.connect();
-      setTimeout(() => {
-        router.push('/roomlist');
-      }, 200);
+      if (!socket.connected) await socket.connect();
+
+      await router.push('/roomlist');
     }
   };
 

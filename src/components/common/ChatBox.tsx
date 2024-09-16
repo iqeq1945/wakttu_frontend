@@ -42,6 +42,7 @@ const ChatBox = ({
 
   const handleEnter = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.nativeEvent.isComposing) return;
       if (e.key === 'Enter') {
         onClick();
       }

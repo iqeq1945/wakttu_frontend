@@ -4,6 +4,7 @@ import { openModal, setDataModal } from '@/redux/modal/modalSlice';
 import { selectRoomUsers, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { selectUserName } from '@/redux/user/userSlice';
 import { socket } from '@/services/socket/socket';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,6 +13,7 @@ const PlayerList = () => {
   const ready = useSelector(selectReadyUser);
   const host = useSelector(selectHost);
   const myName = useSelector(selectUserName);
+  const router = useRouter();
   const [userList, setUserList] = useState<any[]>([]);
 
   const dispatch = useDispatch();
@@ -22,6 +24,10 @@ const PlayerList = () => {
   };
 
   useEffect(() => {
+    if (!users) {
+      router.push('/');
+      return;
+    }
     let copy = [...users];
     if (copy.length > 0) {
       const len = copy.length;
@@ -29,7 +35,7 @@ const PlayerList = () => {
     }
 
     setUserList(copy);
-  }, [users]);
+  }, [router, users]);
 
   useEffect(() => {
     socket.on('enter', (data: any) => {

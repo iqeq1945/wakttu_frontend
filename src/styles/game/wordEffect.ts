@@ -43,6 +43,7 @@ const TypingContainer = styled.div`
 `;
 
 const TypingSpan = styled.span<{ isTyped: boolean }>`
+  white-space: nowrap;
   font: inherit;
   color: inherit;
 
@@ -56,6 +57,9 @@ const TypingSpan = styled.span<{ isTyped: boolean }>`
 `;
 
 const TypingWrong = styled.span`
+  display: flex;
+  justify-content: center;
+
   color: #ff385c;
   animation: ${textDecorationEffect} 0.7s step-end 3 forwards;
 `;
