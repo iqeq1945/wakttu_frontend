@@ -66,7 +66,6 @@ const ConfrimText = styled.span`
 
   font-family: 'WantedSans-SemiBold';
   font-size: ${FONT_SIZES['subtitle-1']};
-  font-weight: 600;
 `;
 
 const CancleButton = styled.button`
@@ -89,7 +88,6 @@ const CancleText = styled.span`
 
   font-family: 'WantedSans-SemiBold';
   font-size: ${FONT_SIZES['subtitle-1']};
-  font-weight: 600;
 `;
 
 export {

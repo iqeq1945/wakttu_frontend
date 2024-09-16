@@ -1,4 +1,3 @@
-import { PlusScore } from '@/styles/last/PlayList';
 import { useEffect, useRef, useState } from 'react';
 
 interface Props {
@@ -8,7 +7,6 @@ interface Props {
 const Score = ({ score }: Props) => {
   const [data, setData] = useState(0);
   const ref = useRef<NodeJS.Timeout>();
-  const [difference, setDifference] = useState(0);
 
   useEffect(() => {
     let count = score - data;
@@ -25,17 +23,7 @@ const Score = ({ score }: Props) => {
     };
   }, [data, score]);
 
-  useEffect(() => {
-    const count = score - data;
-    setDifference(count);
-  }, [score]);
-
-  return (
-    <>
-      {data}
-      {difference > 0 ? <PlusScore key={data}>+{difference}</PlusScore> : ''}
-    </>
-  );
+  return <>{data}</>;
 };
 
 export default Score;

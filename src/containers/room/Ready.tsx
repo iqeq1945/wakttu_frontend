@@ -6,6 +6,7 @@ import {
   setGame,
   setReady,
 } from '@/redux/game/gameSlice';
+import { clearHistory } from '@/redux/history/historySlice';
 import { selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { clearTimer } from '@/redux/timer/timerSlice';
 import { selectUserName } from '@/redux/user/userSlice';
@@ -65,17 +66,19 @@ const Ready = () => {
     });
 
     socket.on('last.start', async (data) => {
+      await dispatch(clearHistory());
       await dispatch(clearTimer());
       await dispatch(clearAnswer());
       await dispatch(setGame(data));
-      router.push('/game');
+      router.push('/game/last');
     });
 
     socket.on('kung.start', async (data) => {
+      await dispatch(clearHistory());
       await dispatch(clearTimer());
       await dispatch(clearAnswer());
       await dispatch(setGame(data));
-      router.push('/game');
+      router.push('/game/kung');
     });
 
     return () => {

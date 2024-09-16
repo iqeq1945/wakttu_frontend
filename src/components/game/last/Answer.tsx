@@ -1,6 +1,4 @@
 import { hangulTools } from '@/modules/Hangul';
-import { selectPause } from '@/redux/answer/answerSlice';
-import { selectTimer } from '@/redux/timer/timerSlice';
 import { Game } from '@/services/socket/socket';
 import {
   BTimerBar,
@@ -20,7 +18,7 @@ import {
 } from '@/styles/last/Answer';
 import { LeftTimer, RightTimer } from '@/styles/last/Info';
 import { Answer as TypeAnswer } from '@/redux/answer/answerSlice';
-import WordErrorEffect from './WordErrorEffect';
+import WordErrorEffect from '../WordErrorEffect';
 import { R2_URL } from '@/services/api';
 
 interface Props {

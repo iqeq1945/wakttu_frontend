@@ -22,8 +22,8 @@ import {
   CRight,
 } from '@/styles/last/Game';
 import { RefObject } from 'react';
-import WordErrorEffect from './WordErrorEffect';
-import WordEffect from './WordEffect';
+import WordErrorEffect from '../WordErrorEffect';
+import WordEffect from '../WordEffect';
 import { getR2URL } from '@/services/api';
 
 interface Props {
@@ -40,8 +40,8 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
     if (res !== game.target && res !== '') return `(${res})`;
     else return '';
   };
-  {
-    /** const scrollToBottom = useCallback(() => {
+
+  /** const scrollToBottom = useCallback(() => {
     if (historyBoxRef.current) {
       historyBoxRef.current.scrollTop = historyBoxRef.current.scrollHeight;
     }
@@ -50,7 +50,6 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
   useEffect(() => {
     scrollToBottom();
   }, [history, scrollToBottom]);*/
-  }
 
   return (
     <CMain>
@@ -99,9 +98,7 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
               <WordEffect word={history[history.length - 1].id} />
             </WordText>
             <CDesc>
-              <Category>
-                <span>{history[history.length - 1].type[0]}</span>
-              </Category>
+              <Category>{history[history.length - 1].type[0]}</Category>
               <Desc>{history[history.length - 1].mean}</Desc>
             </CDesc>
           </CWordC>

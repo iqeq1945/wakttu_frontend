@@ -38,11 +38,14 @@ const TypingContainer = styled.div`
   text-align: center;
   white-space: nowrap;
   font: inherit;
+  color: inherit;
   justify-content: center;
 `;
 
 const TypingSpan = styled.span<{ isTyped: boolean }>`
   font: inherit;
+  color: inherit;
+
   ${({ isTyped }) =>
     isTyped
       ? css`
@@ -68,7 +71,7 @@ const EndText = styled.div<{ end: boolean }>`
   text-align: center;
   white-space: nowrap;
   font: inherit;
-  justify-content: center;
+  color: inherit;
 `;
 
 export { TypingContainer, TypingSpan, TypingWrong, EndText };

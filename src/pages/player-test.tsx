@@ -1,33 +1,24 @@
-import useSound from '@/hooks/useSound';
-
+import useWaktaSound from '@/hooks/useWaktaSound';
 const Test = () => {
-  const sound = useSound('/assets/bgm/lossy/ui_main.webm', 0.5, 0);
-  const sound_ingame = useSound('/assets/bgm/lossy/ui_in-game.webm', 0.5, 0);
-
+  const sound = useWaktaSound(0.5);
   return (
     <>
       <button
         type="button"
         onClick={() => {
-          if (sound && sound.playing()) sound.stop();
-          if (sound_ingame && sound_ingame.playing()) sound_ingame.stop();
-
-          sound!.play();
+          if (sound) sound['i-1'].play();
         }}
       >
-        Main UI
+        sound 1
       </button>
 
       <button
         type="button"
         onClick={() => {
-          if (sound_ingame && sound_ingame.playing()) sound_ingame.stop();
-          if (sound && sound.playing()) sound.stop();
-
-          sound_ingame!.play();
+          if (sound) sound['woo-2'].play();
         }}
       >
-        In Game UI
+        sound 2
       </button>
     </>
   );

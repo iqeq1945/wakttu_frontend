@@ -217,7 +217,6 @@ const ButtonText = styled.span<{ $color?: boolean }>`
   text-align: center;
   font-family: 'WantedSans-SemiBold';
   font-size: ${FONT_SIZES['subtitle-1']};
-  font-weight: 600;
 `;
 
 export {

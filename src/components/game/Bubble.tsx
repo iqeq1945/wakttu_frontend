@@ -1,4 +1,4 @@
-import { Bubble } from '@/styles/last/PlayList';
+import { Bubble } from '@/styles/game/Bubble';
 import { useEffect, useRef, useState } from 'react';
 
 interface Props {

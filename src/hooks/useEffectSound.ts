@@ -9,7 +9,7 @@ function useEffectSound(src: string, volume: number = 1): Howl | undefined {
       src: process.env.NEXT_PUBLIC_R2_URL + src,
     });
     newSound.volume(volume);
-    newSound.load();
+    //newSound.load();
 
     setSound(newSound);
 

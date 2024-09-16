@@ -13,6 +13,7 @@ import {
   WatingText,
   JoinButton,
   JoinText,
+  TitleText,
 } from '@/styles/roomList/RoomDesc';
 import { RoomNumber } from '@/components';
 import { Room } from '@/services/socket/socket';
@@ -28,7 +29,7 @@ const RoomDesc = ({ roomInfo, onEnter }: Props) => {
     <CRoomDesc>
       <WrapRoomTitle>
         <RoomNumber number={roomInfo.idx as number} />
-        <h5>{roomInfo.title}</h5>
+        <TitleText>{roomInfo.title}</TitleText>
       </WrapRoomTitle>
       <WrapGameInfo>
         <GameInfo src={getR2URL('/assets/game-info.png')} />
