@@ -95,6 +95,7 @@ const Chat = () => {
   };
 
   const handleEnter = (e: React.KeyboardEvent) => {
+    if (e.nativeEvent.isComposing) return;
     if (e.key === 'Enter') {
       if (myTurn && pause) onSendAnswer();
       else onSendMessage();
