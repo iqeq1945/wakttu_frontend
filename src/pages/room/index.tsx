@@ -11,17 +11,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectModal } from '@/redux/modal/modalSlice';
 import UpdateRoom from '@/containers/room/UpdateRoom';
 import KickModal from '@/containers/room/KickModal';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { socket } from '@/services/socket/socket';
 import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { setGame } from '@/redux/game/gameSlice';
 import { selectBgmVolume } from '@/redux/audio/audioSlice';
 import useSound from '@/hooks/useSound';
+import { selectUserInfo, setUserInfo } from '@/redux/user/userSlice';
+import { client } from '@/services/api';
 
 const Room = () => {
   const modal = useSelector(selectModal);
   const router = useRouter();
+  const user = useSelector(selectUserInfo);
   const dispatch = useDispatch();
   const roomInfo = useSelector(selectRoomInfo);
   const bgmVolume = useSelector(selectBgmVolume);
@@ -31,15 +34,22 @@ const Room = () => {
     if (!socket.connected) router.push('/');
   }, [router]);
 
+  const getUser = useCallback(async () => {
+    if (user.id === null) {
+      router.push('/');
+      return;
+    }
+    const { data } = await client.get(`/user/${user.id}`);
+    dispatch(setUserInfo(data));
+  }, [dispatch, router, user.id]);
+
+  useEffect(() => {
+    getUser();
+  }, [getUser]);
+
   useEffect(() => {
     if (sound) sound.play();
   }, [sound]);
-
-  useEffect(() => {
-    if (!socket.connected) {
-      router.push('/');
-    }
-  }, [router]);
 
   useEffect(() => {
     if (roomInfo.start) {

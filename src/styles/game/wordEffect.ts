@@ -57,8 +57,11 @@ const TypingSpan = styled.span<{ isTyped: boolean }>`
 `;
 
 const TypingWrong = styled.span`
-  display: flex;
-  justify-content: center;
+  width: 100%;
+  text-overflow: ellipsis;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
 
   color: #ff385c;
   animation: ${textDecorationEffect} 0.7s step-end 3 forwards;
