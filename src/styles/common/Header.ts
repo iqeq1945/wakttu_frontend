@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLORS } from '@/styles/theme';
+import { COLORS, FONT_SIZES } from '@/styles/theme';
 
 const HeaderBlock = styled.div`
   display: flex;
@@ -18,9 +18,9 @@ const HeaderBlock = styled.div`
 `;
 
 const HeaderLogo = styled.img`
+  width: 57.59px;
+  height: 24px;
   flex-shrink: 0;
-  width: 3.59938rem;
-  height: 1.5rem;
 
   cursor: pointer;
 `;
@@ -34,6 +34,10 @@ const WrapContent = styled.ul`
 `;
 
 const Content = styled.div`
+  font-family: 'WantedSans-Medium';
+  font-size: 16px;
+  font-weight: 500;
+
   color: ${COLORS.text};
   cursor: pointer;
 `;
@@ -51,8 +55,8 @@ const Player = styled.div`
 `;
 
 const Rank = styled.img`
-  width: 1.125rem;
-  height: 1.125rem;
+  width: 18px;
+  height: 18px;
 `;
 
 const Line = styled.div`
@@ -64,6 +68,9 @@ const Line = styled.div`
 `;
 
 const PlayerName = styled.span`
+  font-family: 'WantedSans-Medium';
+  font-size: 16px;
+  font-weight: 500;
   color: ${COLORS.bg};
 `;
 

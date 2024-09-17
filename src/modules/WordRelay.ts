@@ -72,8 +72,11 @@ const wordRelay = (
     return { isValid: false, message: '유효하지 않은 한글입니다.' };
   }
 
-  if (kung && input.length !== 3) {
-    return { isValid: false, message: '세글자로만 입력해야 됩니다.' };
+  if (kung && (input.length < 2 || input.length > 3)) {
+    return {
+      isValid: false,
+      message: '세글자 혹은 두글자 입력해야 합니다.',
+    };
   }
 
   return { isValid: true, message: '입력된 단어는 유효합니다.' };
