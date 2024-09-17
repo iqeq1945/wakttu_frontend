@@ -22,8 +22,10 @@ const MainFormContainer = () => {
     const checkLogin = async () => {
       const response = await client.get('/test');
       const data = response.data;
-      if (data.user) dispatch(setUserInfo(data.user));
-      else dispatch(clearUserInfo());
+      if (data.user) {
+        dispatch(setUserInfo(data.user));
+        socket.connect();
+      } else dispatch(clearUserInfo());
     };
     checkLogin();
   }, [dispatch]);

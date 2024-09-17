@@ -6,7 +6,8 @@ const REGEXP = Object.freeze({
 
 const ERROR_MESSAGE = Object.freeze({
   requiredError: (formItem: string) => `${formItem}: 필수 정보입니다.`,
-  duplicateError: (formItem: string) => `이미 존재하는 ${formItem}입니다.`,
+  duplicateError: (formItem: string) =>
+    `이미 존재하는 ${formItem}이거나 중복 확인을 해주세요.`,
   idRegexError: '아이디: 대소문자 및 숫자 5-12자리로 입력해 주세요.',
   pwRegexError: '비밀번호: 8-16자리로 입력해 주세요.',
   nicknameRegexError: '닉네임: 한글 및 대소문자 2-8자리로 입력해 주세요.',
