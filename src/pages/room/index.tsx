@@ -34,19 +34,6 @@ const Room = () => {
     if (!socket.connected) router.push('/');
   }, [router]);
 
-  const getUser = useCallback(async () => {
-    if (user.id === null) {
-      router.push('/');
-      return;
-    }
-    const { data } = await client.get(`/user/${user.id}`);
-    dispatch(setUserInfo(data));
-  }, [dispatch, router, user.id]);
-
-  useEffect(() => {
-    getUser();
-  }, [getUser]);
-
   useEffect(() => {
     if (sound) sound.play();
   }, [sound]);

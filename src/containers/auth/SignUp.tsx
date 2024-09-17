@@ -149,23 +149,23 @@ const SignUp = ({ onToggle }: Props) => {
         value={id}
         onChange={onInputChange}
         onClick={isSameIdValid}
-        min="5"
-        max="12"
+        minLength="5"
+        maxLength="12"
         required={true}
       />
       {!errors && <Message message={idMessage} error={!sameId} />}
       {errors && <Message message={errors.errorId} error={true} />}
       <AuthInput
         label="닉네임 "
-        desc="특수문자 제외 2~8자 내"
+        desc="특수문자 제외 8자 내"
         type="text"
         placeholder="닉네임 입력"
         name="nickname"
         value={nickname}
         onChange={onInputChange}
         onClick={isSameNicknameValid}
-        min="2"
-        max="8"
+        minLength="2"
+        maxLength="8"
         required={true}
       />
       {!errors && <Message message={nicknameMessage} error={!sameNickname} />}

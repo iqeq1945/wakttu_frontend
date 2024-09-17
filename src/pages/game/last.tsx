@@ -33,13 +33,18 @@ import {
   setTurn,
   tick,
 } from '@/redux/timer/timerSlice';
-import { selectUserInfo, selectUserName } from '@/redux/user/userSlice';
+import {
+  selectUserInfo,
+  selectUserName,
+  setUserInfo,
+} from '@/redux/user/userSlice';
 import { useRouter } from 'next/router';
 import { clearHistory, setHistory } from '@/redux/history/historySlice';
 import useSound from '@/hooks/useSound';
 import useEffectSound from '@/hooks/useEffectSound';
 import useWaktaSound from '@/hooks/useWaktaSound';
 import { GetKey } from '@/modules/Voice';
+import { client } from '@/services/api';
 
 const Game = () => {
   /** Redux and State Part */
@@ -337,6 +342,9 @@ const Game = () => {
     socket.on('last.end', async (data) => {
       console.log('end :', data);
       const { game, roomInfo } = data;
+      const response = await client.get(`/user/${user.id}`);
+      if (response) await dispatch(setUserInfo(response.data));
+
       await router.push('/room');
       await dispatch(setRoomInfo(roomInfo));
       await dispatch(setGame(game));

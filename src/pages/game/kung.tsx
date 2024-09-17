@@ -28,7 +28,11 @@ import {
   setAnswer,
   setPause,
 } from '@/redux/answer/answerSlice';
-import { selectUserInfo, selectUserName } from '@/redux/user/userSlice';
+import {
+  selectUserInfo,
+  selectUserName,
+  setUserInfo,
+} from '@/redux/user/userSlice';
 import {
   clearRoomInfo,
   selectRoomInfo,
@@ -37,6 +41,7 @@ import {
 import useSound from '@/hooks/useSound';
 import useEffectSound from '@/hooks/useEffectSound';
 import { useRouter } from 'next/router';
+import { client } from '@/services/api';
 
 const Game = () => {
   const dispatch = useDispatch();
@@ -323,6 +328,10 @@ const Game = () => {
     socket.on('kung.end', async (data) => {
       console.log('end :', data);
       const { game, roomInfo } = data;
+
+      const response = await client.get(`/user/${user.id}`);
+      if (response) await dispatch(setUserInfo(response.data));
+
       await router.push('/room');
       await dispatch(setRoomInfo(roomInfo));
       await dispatch(setGame(game));
