@@ -88,6 +88,9 @@ const ChatBox = ({
             maxLength={135}
             onChange={onChange}
             onKeyDown={handleEnter}
+            onPaste={(e) => {
+              e.preventDefault();
+            }}
             autoComplete="off"
           />
           {pause && myTurn ? (
