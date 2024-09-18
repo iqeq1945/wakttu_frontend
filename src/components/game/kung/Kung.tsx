@@ -46,6 +46,7 @@ import {
   CBan,
   CPaper,
   Paper,
+  Magnet,
 } from '@/styles/kung/Game';
 import WordErrorEffect from '../WordErrorEffect';
 import { Answer } from '@/redux/answer/answerSlice';
@@ -199,6 +200,7 @@ const Kung = ({
               {ban.map((paper, idx) => {
                 return (
                   <CPaper key={idx}>
+                    <Magnet idx={idx} />
                     <Paper>{paper}</Paper>
                   </CPaper>
                 );

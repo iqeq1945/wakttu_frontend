@@ -3,6 +3,17 @@ import { COLORS, FONT_SIZES } from '../theme';
 
 const DROM_SHADOW = '0px 1px 10px 0px rgba(0, 0, 0, 0.15)';
 
+const BAN = [
+  '#FF1313',
+  '#0904FF',
+  '#AC06BA',
+  '#FFEC44',
+  '#44FF57',
+  '#000000',
+  '#ffffff',
+  '#8DFFF1',
+];
+
 export const CKung = styled.div`
   display: flex;
   height: 32rem;
@@ -41,6 +52,9 @@ export const Speaker = styled.img<{ reverse: boolean }>`
 `;
 
 export const Tv = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 1.1rem;
   width: 22.35513rem;
   height: 21.875rem;
   flex-shrink: 0;
@@ -52,15 +66,11 @@ export const Tv = styled.div`
 export const Length = styled.img`
   width: 20.625rem;
   height: 12.25rem;
-  margin-top: 0.88rem;
-  margin-left: 1rem;
 `;
 
 export const PauseTv = styled.img`
   width: 20.625rem;
   height: 12.25rem;
-  margin-top: 0.88rem;
-  margin-left: 1rem;
 `;
 
 export const Board = styled.div`
@@ -348,19 +358,38 @@ export const CBan = styled.div`
 `;
 
 export const CPaper = styled.div`
+  position: relative;
+
   width: 3.51138rem;
   height: 5.12406rem;
+  flex-shrink: 0;
+`;
+
+export const Magnet = styled.div<{ idx: number }>`
+  position: absolute;
+  width: 1.05344rem;
+  height: 1.07875rem;
+
+  top: -0.4rem;
+  left: 1.65rem;
   transform: rotate(13.082deg);
   flex-shrink: 0;
+
+  border-radius: 1rem;
+
+  z-index: 12;
+  background: ${({ idx }) => BAN[idx]};
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 `;
 
 export const Paper = styled.div`
   display: flex;
   justify-content: center;
-  aligtn-items: center;
+  align-items: center;
   width: 3.51138rem;
   height: 4.58475rem;
 
+  transform: rotate(13.082deg);
   background: ${COLORS.bg};
   box-shadow: ${DROM_SHADOW};
 

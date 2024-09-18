@@ -1,43 +1,41 @@
-import { KHeader } from '@/components';
-import WordEffect from '@/components/game/WordEffect';
-import {
-  Board,
-  CKung,
-  Info,
-  Left,
-  Speaker,
-  Tv,
-  Object,
-  ObjectText,
-  Pen,
-  Round,
-  RoundText,
-  ChainText,
-  Main,
-  History,
-  HistroyText,
-  Right,
-  Frame,
-  LeftDesc,
-  Desc,
-  RightDesc,
-} from '@/styles/kung/Game';
-import { Container } from '@/styles/kung/Layout';
+import { CBan, CPaper, Magnet, Paper } from '@/styles/kung/Game';
 
 const Kung = () => {
-  const roomInfo = {
-    title: '',
-  };
   return (
-    <Container>
-      <KHeader
-        roomInfo={roomInfo}
-        exit={function (): void {
-          throw new Error('Function not implemented.');
-        }}
-      />
-      <CKung>ㅇㅇ</CKung>
-    </Container>
+    <CBan>
+      <CPaper>
+        <Magnet idx={0} />
+        <Paper>주르르</Paper>
+      </CPaper>
+      <CPaper>
+        <Magnet idx={1} />
+        <Paper>주르르</Paper>
+      </CPaper>
+      <CPaper>
+        <Magnet idx={2} />
+        <Paper>주르르</Paper>
+      </CPaper>
+      <CPaper>
+        <Magnet idx={3} />
+        <Paper>주르르</Paper>
+      </CPaper>
+      <CPaper>
+        <Magnet idx={4} />
+        <Paper>감자</Paper>
+      </CPaper>
+      <CPaper>
+        <Magnet idx={5} />
+        <Paper>주르르</Paper>
+      </CPaper>
+      <CPaper>
+        <Magnet idx={6} />
+        <Paper>주르르</Paper>
+      </CPaper>
+      <CPaper>
+        <Magnet idx={7} />
+        <Paper>주르르</Paper>
+      </CPaper>
+    </CBan>
   );
 };
 
