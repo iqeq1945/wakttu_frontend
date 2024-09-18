@@ -41,7 +41,8 @@ const Answer = ({ chat, game, timer, answer, pause }: Props) => {
       <Modal>
         <ModalTitle>
           <TitleText>
-            당신의 차례! 아래의 채팅 창에서 답을 입력하세요.
+            당신의 차례! 채팅 창에
+            {game.chain % 2 === 1 ? ' 세글자 단어' : ' 두글자 단어'} 입력하세요.
           </TitleText>
         </ModalTitle>
         <TargetText>
@@ -55,7 +56,7 @@ const Answer = ({ chat, game, timer, answer, pause }: Props) => {
         )}
         <CTimer>
           <LeftTimer>
-            <TimerIcon src={'/assets/game/timer-white.svg'} />
+            <TimerIcon src={R2_URL + '/assets/game/timer-white.svg'} />
             <TimerText>라운드 남은 시간</TimerText>
           </LeftTimer>
           <RightTimer>
@@ -73,7 +74,7 @@ const Answer = ({ chat, game, timer, answer, pause }: Props) => {
         </CTimer>
         <CTimer>
           <LeftTimer>
-            <TimerIcon src={R2_URL + '/assets/game/timer.svg'} />
+            <TimerIcon src={R2_URL + '/assets/game/timer-white.svg'} />
             <TimerText>이번턴 남은 시간</TimerText>
           </LeftTimer>
           <RightTimer>

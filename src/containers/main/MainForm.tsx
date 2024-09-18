@@ -24,7 +24,6 @@ const MainFormContainer = () => {
       const data = response.data;
       if (data.user) {
         dispatch(setUserInfo(data.user));
-        socket.connect();
       } else dispatch(clearUserInfo());
     };
     checkLogin();
@@ -44,7 +43,7 @@ const MainFormContainer = () => {
   const start = async (e: MouseEvent<HTMLElement>) => {
     if (isLogined) {
       e.stopPropagation();
-      if (!socket.connected) await socket.connect();
+      await socket.connect();
 
       await router.push('/roomlist');
     }
@@ -54,6 +53,7 @@ const MainFormContainer = () => {
     e.stopPropagation();
     await client.get('auth/logout');
     dispatch(clearUserInfo());
+    socket.disconnect();
     return;
   };
 

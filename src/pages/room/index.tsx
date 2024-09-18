@@ -24,7 +24,6 @@ import { client } from '@/services/api';
 const Room = () => {
   const modal = useSelector(selectModal);
   const router = useRouter();
-  const user = useSelector(selectUserInfo);
   const dispatch = useDispatch();
   const roomInfo = useSelector(selectRoomInfo);
   const bgmVolume = useSelector(selectBgmVolume);

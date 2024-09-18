@@ -62,7 +62,8 @@ export const MissionText = styled.h2`
 
   color: ${COLORS.text};
   text-align: center;
-  font-family: 'WantedSans-Bold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 export const Main = styled.div`
@@ -165,7 +166,8 @@ export const WordText = styled.h3`
   height: 2.2rem;
   color: ${COLORS.text};
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 export const CDesc = styled.div`
@@ -187,7 +189,8 @@ export const Category = styled.div`
 
   color: ${COLORS.bg};
   text-align: center;
-  font-family: 'Wanted Sans';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: 0.625rem;
 `;
 
@@ -211,7 +214,8 @@ export const NameText = styled.span<{ $name?: boolean }>`
   }};
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
   font-size: ${FONT_SIZES['subtitle-1']};
 `;
 

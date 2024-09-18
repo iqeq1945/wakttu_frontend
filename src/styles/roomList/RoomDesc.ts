@@ -32,9 +32,10 @@ const WrapRoomTitle = styled.section`
   border: 1px solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
 `;
+
 const TitleText = styled.h5`
   color: ${COLORS.text};
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
 `;
 
 const WrapGameInfo = styled.section`
@@ -74,7 +75,8 @@ const WrapInfo = styled.ul`
 `;
 
 const Info = styled.li<{ $variant?: InfoVariant }>`
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
   font-size: ${FONT_SIZES['subtitle-2']};
   color: ${COLORS.text};
 
@@ -134,7 +136,7 @@ const WatingText = styled.h5`
   color: rgba(0, 0, 0, 0.5);
 `;
 
-const JoinButton = styled.button`
+const JoinButton = styled.button<{ start?: boolean }>`
   display: flex;
   align-self: stretch;
   align-items: center;
@@ -147,7 +149,7 @@ const JoinButton = styled.button`
 
   border-radius: 1rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  background: ${COLORS.primary};
+  background: ${({ start }) => (start ? '#FFA2A2' : COLORS.primary)};
 
   &:hover {
     background-color: ${COLORS['primary-hov']};

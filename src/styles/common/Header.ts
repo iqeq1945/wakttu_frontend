@@ -34,7 +34,7 @@ const WrapContent = styled.ul`
 `;
 
 const Content = styled.div`
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-size: 16px;
   font-weight: 500;
 
@@ -68,7 +68,7 @@ const Line = styled.div`
 `;
 
 const PlayerName = styled.span`
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-size: 16px;
   font-weight: 500;
   color: ${COLORS.bg};

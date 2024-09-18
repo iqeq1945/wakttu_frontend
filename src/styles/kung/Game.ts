@@ -49,6 +49,20 @@ export const Tv = styled.div`
   background-size: cover;
 `;
 
+export const Length = styled.img`
+  width: 20.625rem;
+  height: 12.25rem;
+  margin-top: 0.88rem;
+  margin-left: 1rem;
+`;
+
+export const PauseTv = styled.img`
+  width: 20.625rem;
+  height: 12.25rem;
+  margin-top: 0.88rem;
+  margin-left: 1rem;
+`;
+
 export const Board = styled.div`
   display: flex;
   width: 46rem;
@@ -97,7 +111,8 @@ export const ObjectText = styled.h5`
   color: ${COLORS.text};
   text-align: right;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 export const Round = styled.div`
@@ -115,7 +130,8 @@ export const RoundText = styled.h3<{ target?: boolean }>`
   color: ${({ target }) => (target ? '#ffffff' : '#ffffff99')};
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 export const ChainText = styled.h4`
@@ -123,7 +139,8 @@ export const ChainText = styled.h4`
   text-align: center;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin-right: 3.84rem;
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 export const Main = styled.div`
@@ -159,7 +176,8 @@ export const HistroyText = styled.h3`
   color: ${COLORS.bg};
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 export const Desc = styled.div`
@@ -182,7 +200,7 @@ export const LeftDesc = styled.div`
 
   color: ${COLORS.bg};
   text-align: center;
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-size: 0.5rem;
   font-style: normal;
   font-weight: 500;
@@ -202,7 +220,8 @@ export const RightDesc = styled.span`
   color: ${COLORS.bg};
   text-overflow: ellipsis;
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES.caption};
 `;
 
@@ -227,7 +246,8 @@ export const Target = styled.h3`
   color: ${COLORS.bg};
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 export const Typing = styled.div`
@@ -244,7 +264,8 @@ export const Name = styled.span`
   color: #9bff77;
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
   font-size: ${FONT_SIZES['subtitle-1']};
 `;
 
@@ -252,7 +273,8 @@ export const TypingText = styled.span`
   color: ${COLORS.bg};
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
   font-size: ${FONT_SIZES['subtitle-1']};
 `;
 
@@ -306,10 +328,48 @@ export const PostTitle = styled.h6`
 
   color: ${COLORS.text};
 
-  font-family: 'WantedSans-Medium';
-
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   border-radius: 0.3125rem;
   background: #fb5e3c;
+`;
+
+export const CBan = styled.div`
+  display: flex;
+  width: 31.375rem;
+  height: 13.6875rem;
+  padding: 0.3125rem 2.0625rem;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 4.25rem;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+`;
+
+export const CPaper = styled.div`
+  width: 3.51138rem;
+  height: 5.12406rem;
+  transform: rotate(13.082deg);
+  flex-shrink: 0;
+`;
+
+export const Paper = styled.div`
+  display: flex;
+  justify-content: center;
+  aligtn-items: center;
+  width: 3.51138rem;
+  height: 4.58475rem;
+
+  background: ${COLORS.bg};
+  box-shadow: ${DROM_SHADOW};
+
+  color: ${COLORS.text};
+  text-align: center;
+
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 500;
 `;
 
 export const CTimer = styled.div`
@@ -348,7 +408,8 @@ export const TimerText = styled.span`
   color: ${COLORS.bg};
   text-align: center;
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-2']};
 `;
 
@@ -356,7 +417,8 @@ export const RemainText = styled.span<{ color: boolean }>`
   color: ${({ color }) => (color ? '#FF4B4B' : '#FCFF62')};
   text-align: right;
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-2']};
 `;
 

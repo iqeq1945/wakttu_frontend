@@ -62,7 +62,8 @@ export const TitleText = styled.h4`
   color: ${COLORS.bg};
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 export const TargetText = styled.h2`
@@ -70,7 +71,8 @@ export const TargetText = styled.h2`
   color: ${COLORS.text};
   text-align: center;
 
-  font-family: 'WantedSans-Bold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 700;
 `;
 
 export const CTimer = styled.div`
@@ -102,7 +104,8 @@ export const TimerText = styled.span`
   color: ${COLORS.text};
   text-align: center;
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-2']};
 `;
 
@@ -111,7 +114,8 @@ export const RemainText = styled.span`
 
   text-align: right;
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-2']};
 `;
 
@@ -163,5 +167,6 @@ export const AnswerText = styled.h3`
   color: #727272;
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;

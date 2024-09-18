@@ -50,8 +50,8 @@ export const RoundText = styled.h4<{ $type?: boolean }>`
   }};
 
   text-align: center;
-  font-family: 'WantedSans-SemiBold';
-
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
   ${({ $type }) => {
     return $type ? 'text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.75);' : '';
   }}
@@ -61,7 +61,8 @@ export const NumberText = styled.h4`
   color: ${COLORS.pupple};
 
   text-align: center;
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 export const CTarget = styled.div`
@@ -138,7 +139,8 @@ export const TimerText = styled.span`
   color: #747474;
   text-align: center;
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-2']};
 `;
 
@@ -146,7 +148,8 @@ export const RemainText = styled.span`
   color: ${COLORS.pupple};
   text-align: right;
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-2']};
 `;
 
@@ -210,12 +213,14 @@ export const ChainText = styled.h5`
   color: ${COLORS.pupple};
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 export const BChainText = styled.h2`
   color: ${COLORS.text};
   text-align: center;
 
-  font-family: 'WantedSans-Bold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;

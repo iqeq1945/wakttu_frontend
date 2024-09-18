@@ -36,7 +36,8 @@ const CreateRoomBtn = styled.button`
 const PlusTitle = styled.span`
   color: ${COLORS.bg};
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
   font-size: ${FONT_SIZES['subtitle-2']};
 `;
 
@@ -80,7 +81,8 @@ const SearchInput = styled.input`
 
   color: ${COLORS['gray-2']};
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-1']};
 `;
 

@@ -44,7 +44,8 @@ const CreateIcon = styled.img`
 const CreateLabel = styled.h5`
   color: ${COLORS.text};
 
-  font-family: 'WantedSans-Semibold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 const CCreate = styled.div`
@@ -64,7 +65,8 @@ const CLabel = styled.span`
   white-space: nowrap;
   ${COLORS.text}
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-2']};
 `;
 
@@ -81,7 +83,8 @@ const CInput = styled.input`
 
   color: ${COLORS['gray-2']};
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-1']};
 `;
 
@@ -136,7 +139,8 @@ const DropdownItem = styled.li`
   text-align: left;
   color: ${COLORS.text};
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-1']};
 
   cursor: pointer;
@@ -164,7 +168,8 @@ const DropdownLine = styled.img<{ isopen: boolean }>`
 const Selected = styled.span`
   color: ${COLORS.text};
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-1']};
 `;
 
@@ -215,7 +220,8 @@ const CancleButton = styled.button`
 const ButtonText = styled.span<{ $color?: boolean }>`
   color: ${({ $color }) => ($color ? COLORS['gray-1'] : COLORS.bg)};
   text-align: center;
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
   font-size: ${FONT_SIZES['subtitle-1']};
 `;
 

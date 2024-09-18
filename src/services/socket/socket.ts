@@ -42,6 +42,7 @@ export interface Room {
 }
 
 export interface Game {
+  ban: string[];
   host: string;
   type: number;
   round: number;
@@ -229,6 +230,10 @@ export const kungRound = (roomId: string) => {
  */
 export const kungBan = (data: Ban) => {
   socket.emit('kung.ban', data);
+};
+
+export const kungBanStart = (roomId: string) => {
+  socket.emit('kung.banStart', roomId);
 };
 
 /**

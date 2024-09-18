@@ -2,75 +2,6 @@ import { createGlobalStyle } from 'styled-components';
 import { COLORS } from './theme';
 
 export const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: WantedSans-Medium;
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src:
-      local('WantedSans-Medium'),
-      url('/media/WantedSans-Medium.woff2') format('woff2');
-  }
-
-  @font-face {
-    font-family: WantedSans-Regular;
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src:
-      local('WantedSans-Regular'),
-      url('/media/WantedSans-Regular.woff2') format('woff2');
-  }
-
-  @font-face {
-    font-family: WantedSans-SemiBold;
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src:
-      local('WantedSans-SemiBold'),
-      url('/media/WantedSans-SemiBold.woff2') format('woff2');
-  }
-
-  @font-face {
-    font-family: WantedSans-Bold;
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src:
-      local('WantedSans-Bold'),
-      url('/media/WantedSans-Bold.woff2') format('woff2');
-  }
-
-  @font-face {
-    font-family: WantedSans-Black;
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src:
-      local('WantedSans-Black'),
-      url('/media/WantedSans-Black.woff2') format('woff2');
-  }
-
-  @font-face {
-    font-family: WantedSans-ExtraBold;
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src:
-      local('WantedSans-ExtraBold'),
-      url('/media/WantedSans-ExtraBold.woff2') format('woff2');
-  }
-
-  @font-face {
-    font-family: WantedSans-ExtraBlack;
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src:
-      local('WantedSans-ExtraBlack'),
-      url('/media/WantedSans-ExtraBlack.woff2') format('woff2');
-  }
 
   *{
     box-sizing: border-box;
@@ -100,7 +31,8 @@ export const GlobalStyle = createGlobalStyle`
   li,
   span {
     color: ${COLORS.text};
-    font-family: 'Wanted Sans';
+    font-family: "Wanted Sans Variable", "Wanted Sans", sans-serif;
+
     font-style: normal;
     line-height: normal;
     font-weight: 400;
@@ -111,13 +43,13 @@ export const GlobalStyle = createGlobalStyle`
 
   h1,
   h2 {
-    font-weight: 600;
+    font-weight: 700;
   }
 
   h3,
   h4,
   h5 {
-    font-weight: 500;
+    font-weight: 600;
   }
 
   h1 {
@@ -142,7 +74,7 @@ export const GlobalStyle = createGlobalStyle`
 
   h6 {
     font-size: 1.125rem;
-    font-weight: 400;
+    font-weight: 500;
   }
 
   ul,

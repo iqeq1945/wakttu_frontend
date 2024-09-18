@@ -51,7 +51,8 @@ const ButtonText = styled.h5`
   color: ${COLORS.text};
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 const ExitButton = styled.button`
@@ -90,15 +91,16 @@ const Index = styled.h5`
   color: #9d9d9d;
   text-align: center;
 
-  /* H5 - 20px - SemiBold */
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 const Title = styled.h4`
   color: ${COLORS.text};
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 export {
