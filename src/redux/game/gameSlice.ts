@@ -22,6 +22,7 @@ const initialState: Game = {
   roundTime: 0,
   turnTime: 0,
   mission: undefined,
+  ban: [],
 };
 
 export const gameSlice = createSlice({
