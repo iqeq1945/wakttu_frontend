@@ -73,7 +73,7 @@ const PlayerIcon = styled.img`
 const PlayerName = styled.h6`
   color: ${COLORS.text};
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-size: 1.125rem;
   font-weight: 500;
 `;
@@ -96,7 +96,8 @@ const PlayerReady = styled.div<{ $ready?: boolean }>`
     text-align: center;
     white-space: nowrap;
 
-    font-family: 'WantedSans-SemiBold';
+    font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+    font-weight: 600;
     font-size: ${FONT_SIZES['subtitle-1']};
   }
 `;

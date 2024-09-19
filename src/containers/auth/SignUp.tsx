@@ -8,6 +8,9 @@ import { AuthForm, AuthInput, Message } from '@/components/index';
 
 import { REGEXP, ERROR_MESSAGE } from '@/constants/auth';
 import { useDispatch } from 'react-redux';
+import { socket } from '@/services/socket/socket';
+import { setUserInfo } from '@/redux/user/userSlice';
+import { closeModal } from '@/redux/modal/modalSlice';
 
 interface ErrorProps {
   errorId: string;
@@ -116,15 +119,29 @@ const SignUp = ({ onToggle }: Props) => {
     if (Object.values(userInfo).every((value) => value !== '')) {
       await axios
         .post(`${API_URL}/auth/signup`, userInfo)
-        .then((response) => {
+        .then(async (response) => {
           if (response.status === 201) {
-            alert('회원가입이 완료되었습니다.');
-            dispatch(clearModal());
+            await dispatch(closeModal());
+            await alert('회원가입이 완료되었습니다.');
           }
         })
-        .catch((error) =>
-          console.error(`회원가입을 완료할 수 없습니다. ${error.response}`)
-        );
+        .catch((error) => {
+          console.error(`회원가입을 완료할 수 없습니다. ${error.response}`);
+          return;
+        });
+      await client
+        .post('auth/login', { email: userInfo.id, password: userInfo.password })
+        .then(async (response) => {
+          console.log(response);
+          if (response.status === 201) {
+            await dispatch(setUserInfo(response.data));
+            socket.connect();
+          }
+        })
+        .catch((error) => {
+          console.error(`로그인을 완료할 수 없습니다. ${error}`);
+          return;
+        });
     }
   };
 
@@ -149,23 +166,23 @@ const SignUp = ({ onToggle }: Props) => {
         value={id}
         onChange={onInputChange}
         onClick={isSameIdValid}
-        min="5"
-        max="12"
+        minLength="5"
+        maxLength="12"
         required={true}
       />
       {!errors && <Message message={idMessage} error={!sameId} />}
       {errors && <Message message={errors.errorId} error={true} />}
       <AuthInput
         label="닉네임 "
-        desc="특수문자 제외 2~8자 내"
+        desc="특수문자 제외 2~8글자"
         type="text"
         placeholder="닉네임 입력"
         name="nickname"
         value={nickname}
         onChange={onInputChange}
         onClick={isSameNicknameValid}
-        min="2"
-        max="8"
+        minLength="2"
+        maxLength="8"
         required={true}
       />
       {!errors && <Message message={nicknameMessage} error={!sameNickname} />}
@@ -194,6 +211,3 @@ const SignUp = ({ onToggle }: Props) => {
 };
 
 export default SignUp;
-function clearModal(): any {
-  throw new Error('Function not implemented.');
-}

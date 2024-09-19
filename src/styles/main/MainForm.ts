@@ -23,7 +23,8 @@ const GameStart = styled.div`
   width: 100%;
   height: 100%;
   color: ${COLORS.primary};
-  font-family: WantedSans-SemiBold;
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
   font-size: 2rem;
 `;
 
@@ -41,7 +42,8 @@ const Player = styled.div`
 
 const PlayerName = styled.span`
   color: ${COLORS.text};
-  font-family: WantedSans-SemiBold;
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
   font-size: 1rem;
 `;
 

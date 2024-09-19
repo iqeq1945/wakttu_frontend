@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { setUserInfo } from '@/redux/user/userSlice';
 import { closeModal } from '@/redux/modal/modalSlice';
 import styled from 'styled-components';
+import { socket } from '@/services/socket/socket';
 
 interface InputProps {
   id: string;
@@ -82,6 +83,7 @@ const SignIn = ({ onToggle }: Props) => {
           setErrors({ message: '', type: 'success' });
           dispatch(setUserInfo(response.data));
           dispatch(closeModal());
+          socket.connect();
         }
       })
       .catch((error) => {

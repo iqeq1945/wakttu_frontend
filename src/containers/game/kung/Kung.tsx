@@ -30,6 +30,7 @@ const Kung = () => {
       answer={answer}
       name={whoIsTurn}
       history={history}
+      ban={game.ban}
     />
   );
 };

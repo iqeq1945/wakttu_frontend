@@ -22,8 +22,9 @@ const MainFormContainer = () => {
     const checkLogin = async () => {
       const response = await client.get('/test');
       const data = response.data;
-      if (data.user) dispatch(setUserInfo(data.user));
-      else dispatch(clearUserInfo());
+      if (data.user) {
+        dispatch(setUserInfo(data.user));
+      } else dispatch(clearUserInfo());
     };
     checkLogin();
   }, [dispatch]);
@@ -42,7 +43,7 @@ const MainFormContainer = () => {
   const start = async (e: MouseEvent<HTMLElement>) => {
     if (isLogined) {
       e.stopPropagation();
-      if (!socket.connected) await socket.connect();
+      await socket.connect();
 
       await router.push('/roomlist');
     }
@@ -52,6 +53,7 @@ const MainFormContainer = () => {
     e.stopPropagation();
     await client.get('auth/logout');
     dispatch(clearUserInfo());
+    socket.disconnect();
     return;
   };
 

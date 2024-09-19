@@ -14,7 +14,8 @@ export const Bubble = styled.div`
 
   z-index: 1000;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
   font-size: ${FONT_SIZES['subtitle-1']};
   font-style: normal;
   font-weight: 600;

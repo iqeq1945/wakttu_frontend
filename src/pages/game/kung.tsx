@@ -5,6 +5,7 @@ import PlayerList from '@/containers/game/kung/PlayerList';
 import { Container } from '@/styles/kung/Layout';
 import {
   exit,
+  kungBanStart,
   kungRound,
   kungTurnEnd,
   kungTurnStart,
@@ -28,7 +29,11 @@ import {
   setAnswer,
   setPause,
 } from '@/redux/answer/answerSlice';
-import { selectUserInfo, selectUserName } from '@/redux/user/userSlice';
+import {
+  selectUserInfo,
+  selectUserName,
+  setUserInfo,
+} from '@/redux/user/userSlice';
 import {
   clearRoomInfo,
   selectRoomInfo,
@@ -37,6 +42,7 @@ import {
 import useSound from '@/hooks/useSound';
 import useEffectSound from '@/hooks/useEffectSound';
 import { useRouter } from 'next/router';
+import { client } from '@/services/api';
 
 const Game = () => {
   const dispatch = useDispatch();
@@ -48,7 +54,7 @@ const Game = () => {
   const router = useRouter();
   const pause = useSelector(selectPause);
 
-  const [late, setLate] = useState<boolean>(true);
+  const [late, setLate] = useState<boolean>(false);
 
   const [failUser, setFailuesr] = useState<{ name: string; count: number }>({
     name: '',
@@ -124,6 +130,7 @@ const Game = () => {
 
   // Turn End(round 종료) 시 호출하는 함수
   const setTurnEnd = useCallback(() => {
+    if (!late) return;
     if (timer.turnTime > 0 && timer.countTime === timer.turnTime) {
       setLate(false);
       if (game.host === name) kungTurnEnd(roomInfo.id as string);
@@ -131,7 +138,15 @@ const Game = () => {
       dispatch(clearTimer());
       dispatch(clearAnswer());
     }
-  }, [timer.turnTime, timer.countTime, game.host, name, roomInfo.id, dispatch]);
+  }, [
+    late,
+    timer.turnTime,
+    timer.countTime,
+    game.host,
+    name,
+    roomInfo.id,
+    dispatch,
+  ]);
 
   const exitGame = useCallback(async () => {
     await router.push('/roomlist');
@@ -155,7 +170,7 @@ const Game = () => {
     return () => {
       clearTimeout(opening);
     };
-  }, [dispatch, game.host, name, roomInfo.id]);
+  }, [dispatch, roomInfo.id]);
 
   /**
    * Round 변할때마다 History Clear
@@ -188,8 +203,7 @@ const Game = () => {
             setTimer({ roundTime: data.roundTime, turnTime: data.turnTime })
           )
         );
-        setTimeout(() => dispatch(setPause(true)));
-        if (game.host === user.name) kungTurnStart(roomInfo.id as string);
+        if (game.host === user.name) kungBanStart(roomInfo.id as string);
       }, 4000);
     });
 
@@ -323,6 +337,10 @@ const Game = () => {
     socket.on('kung.end', async (data) => {
       console.log('end :', data);
       const { game, roomInfo } = data;
+
+      const response = await client.get(`/user/${user.id}`);
+      if (response) await dispatch(setUserInfo(response.data));
+
       await router.push('/room');
       await dispatch(setRoomInfo(roomInfo));
       await dispatch(setGame(game));

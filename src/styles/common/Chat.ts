@@ -61,7 +61,8 @@ const CPlayer = styled.div`
 const PlayerName = styled.h5<{ $color: string }>`
   margin-left: 0.375rem;
   color: ${({ $color }) => $color};
-  font-family: 'WantedSans-Semibold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
   white-space: nowrap;
 `;
 
@@ -78,7 +79,8 @@ const ChatContent = styled.h6`
   word-break: break-all;
   word-wrap: break-word;
   color: ${COLORS.text};
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
 `;
 
 const DateContent = styled.h6`
@@ -88,7 +90,8 @@ const DateContent = styled.h6`
   margin-right: 1.5rem;
 
   color: ${COLORS.text};
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
 `;
 
 const MessageBlock = styled.div`
@@ -116,11 +119,10 @@ const MessageInput = styled.input`
   color: ${COLORS.text};
   text-overflow: ellipsis;
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+
   font-size: ${FONT_SIZES['body-1']};
-  font-style: normal;
   font-weight: 500;
-  line-height: normal;
 
   &:focus {
     outline: none;

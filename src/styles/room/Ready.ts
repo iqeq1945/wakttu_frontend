@@ -29,7 +29,8 @@ const ReadyButton = styled.h4`
   color: ${COLORS.bg};
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
   font-size: 1.5rem;
 
   cursor: pointer;

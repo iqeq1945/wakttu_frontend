@@ -43,11 +43,20 @@ export const timerSlice = createSlice({
       state.turnTime = action.payload.turnTime;
       state.countTime = 0;
     },
+    clearCountTime: (state) => {
+      state.countTime = 0;
+    },
   },
 });
 
-export const { setTimer, clearTimer, tick, setTimerId, setTurn } =
-  timerSlice.actions;
+export const {
+  setTimer,
+  clearTimer,
+  tick,
+  setTimerId,
+  setTurn,
+  clearCountTime,
+} = timerSlice.actions;
 
 export const selectTimer = (state: { timer: Timer }) => state.timer;
 export const selectTimeId = (state: { timer: Timer }) => state.timer.timerId;

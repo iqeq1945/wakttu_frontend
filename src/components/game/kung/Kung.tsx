@@ -41,6 +41,12 @@ import {
   Typing,
   TypingText,
   BTimerBar,
+  PauseTv,
+  Length,
+  CBan,
+  CPaper,
+  Paper,
+  Magnet,
 } from '@/styles/kung/Game';
 import WordErrorEffect from '../WordErrorEffect';
 import { Answer } from '@/redux/answer/answerSlice';
@@ -54,6 +60,7 @@ interface Props {
   pause: boolean;
   answer: Answer;
   name: string;
+  ban: string[];
 }
 
 const Kung = ({
@@ -64,6 +71,7 @@ const Kung = ({
   name,
   answer,
   history,
+  ban,
 }: Props) => {
   const target = () => {
     const res = hangulTools().dueum(game.target);
@@ -74,7 +82,19 @@ const Kung = ({
     <CKung>
       <Left>
         <Speaker src="/assets/game/speaker.svg" reverse={false} />
-        <Tv>{answer.success}</Tv>
+        <Tv>
+          {pause ? (
+            <Length
+              src={
+                game.chain * 2 === 1
+                  ? '/assets/game/three.svg'
+                  : '/assets/game/two.svg'
+              }
+            />
+          ) : (
+            <PauseTv src="/assets/game/pauseTv.svg" />
+          )}
+        </Tv>
       </Left>
       <Board>
         <Info>
@@ -153,7 +173,7 @@ const Kung = ({
             </LeftTimer>
             <RightTimer>
               <RemainText color={false}>
-                {((timer.turnTime - timer.countTime) / 1000.0).toFixed(1)}
+                {((timer.turnTime - timer.countTime) / 1000.0).toFixed(1)}초
               </RemainText>
               <BTimerBar>
                 <GaugeBar
@@ -176,6 +196,16 @@ const Kung = ({
             <CPostTitle>
               <PostTitle>금지단어</PostTitle>
             </CPostTitle>
+            <CBan>
+              {ban.map((paper, idx) => {
+                return (
+                  <CPaper key={idx}>
+                    <Magnet idx={idx} />
+                    <Paper>{paper}</Paper>
+                  </CPaper>
+                );
+              })}
+            </CBan>
           </Post>
         </CPost>
       </Right>

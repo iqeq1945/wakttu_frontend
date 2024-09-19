@@ -84,14 +84,16 @@ export const Name = styled.h5`
   color: ${COLORS.text};
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 export const Score = styled.h3`
   color: #00801c;
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 export const Host = styled.div`
@@ -108,7 +110,8 @@ export const Host = styled.div`
     color: ${COLORS.text};
     text-align: center;
 
-    font-family: 'WantedSans-SemiBold';
+    font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+    font-weight: 600;
     font-size: ${FONT_SIZES['subtitle-1']};
   }
 `;
