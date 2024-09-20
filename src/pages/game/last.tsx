@@ -24,6 +24,7 @@ import {
   clearSuccess,
   selectPause,
   setAnswer,
+  setFail,
   setPause,
 } from '@/redux/answer/answerSlice';
 import {
@@ -226,7 +227,10 @@ const Game = () => {
       onBgm();
     });
 
-    socket.on('last.turnEnd', () => {
+    socket.on('last.turnEnd', (data) => {
+      dispatch(setFail());
+      setTimeout(() => dispatch(clearSuccess()), 2200);
+      dispatch(setGame(data));
       onFailUser(game.users[game.turn].name);
       if (game.host === user.name)
         setTimeout(() => lastRound(roomInfo.id as string), 4000);
@@ -279,7 +283,6 @@ const Game = () => {
       });
 
       if (success) {
-        console.log(word);
         playAnswer(word);
         sound?.pause();
         fastSound?.pause();

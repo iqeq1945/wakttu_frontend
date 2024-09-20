@@ -27,14 +27,18 @@ const PlayList = ({ users, game, answer, bubble }: Props) => {
     <CPlayerList>
       {users.map((user: any, index: number) => {
         const isTurn = game.turn === index;
-        const isFail =
-          isTurn && answer.success === false && answer.pause === true;
+        const isFail = isTurn && answer.success === false;
 
         const lastBubble = bubble.findLast(
           (item: Bubble) => item.user.name === user.name
         );
         return (
-          <CPlayer key={user.id} $turn={answer.pause && isTurn} $fail={isFail}>
+          <CPlayer
+            key={user.id}
+            $turn={answer.pause && isTurn}
+            $fail={isFail && answer.pause === true}
+            $end={isFail}
+          >
             {lastBubble ? <BubbleBox chat={lastBubble.chat} /> : ''}
             <Skin src={getR2URL('/assets/ipali.png')} />
 
