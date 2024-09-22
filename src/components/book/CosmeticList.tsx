@@ -18,7 +18,7 @@ import {
   WrapFlex,
 } from '@/styles/book/CosmeticList';
 import { CosmeticBackground } from '@/styles/book/CosmeticType';
-import { RightWrapper } from '@/styles/book/MypageForm';
+import { RightWrapper } from '@/styles/book/BookForm';
 import { RefObject } from 'react';
 
 interface Props {

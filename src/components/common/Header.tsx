@@ -23,7 +23,7 @@ const Header = ({ user, goHome }: Props) => {
       <HeaderLogo src={R2_URL + '/assets/icons/logo.svg'} onClick={goHome} />
       <WrapContent>
         <Tab menuName="방 목록" href="/roomlist" goHome={goHome} />
-        <Tab menuName="마이 페이지" href="/roomlist" goHome={goHome} />
+        <Tab menuName="마이 페이지" href="/mypage" goHome={goHome} />
         <Tab menuName="사전" href="/roomlist" goHome={goHome} />
         <Tab menuName="도감" href="/book" goHome={goHome} />
         <Tab menuName="옵션" href="/roomlist" goHome={goHome} />

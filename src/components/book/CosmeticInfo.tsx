@@ -12,7 +12,7 @@ import {
   Wrap,
 } from '@/styles/book/CosmeticInfo';
 import { CosmeticBackground } from '@/styles/book/CosmeticType';
-import { LeftWrapper } from '@/styles/book/MypageForm';
+import { LeftWrapper } from '@/styles/book/BookForm';
 
 const CosmeticInfo = () => {
   return (
