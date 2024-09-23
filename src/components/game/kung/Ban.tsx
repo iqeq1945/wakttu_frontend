@@ -36,14 +36,10 @@ const Ban = ({ chat, game, timer, pause }: Props) => {
           </LeftTimer>
           <RightTimer>
             <RemainText>
-              {((timer.turnTime - timer.countTime) / 1000.0).toFixed(1)}초
+              {((15000 - timer.countTime) / 1000.0).toFixed(1)}초
             </RemainText>
             <TimerBar>
-              <GaugeBar
-                key={game.target}
-                gauge={timer.turnTime}
-                pause={pause}
-              />
+              <GaugeBar key={game.target} gauge={15000} pause={pause} />
             </TimerBar>
           </RightTimer>
         </CTimer>

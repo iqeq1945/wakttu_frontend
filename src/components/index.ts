@@ -11,6 +11,7 @@ export { default as RoomNumber } from './common/RoomNumber';
 export { default as ChatBox } from './common/ChatBox';
 export { default as Chat } from './common/Chat';
 export { default as Message } from './common/Message';
+export { default as Container } from './common/ContentContainer';
 export { default as Loading } from './common/Loding';
 
 export { default as ORoomDesc } from './room/RoomDesc';

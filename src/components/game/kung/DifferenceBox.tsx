@@ -16,7 +16,16 @@ const Difference = ({ score }: Props) => {
   }, [score]);
 
   return (
-    <>{difference > 0 ? <PlusScore key={data}>+{difference}</PlusScore> : ''}</>
+    <>
+      {difference !== 0 ? (
+        <PlusScore key={data} plus={difference > 0}>
+          {difference > 0 ? '+' : ''}
+          {difference}
+        </PlusScore>
+      ) : (
+        ''
+      )}
+    </>
   );
 };
 

@@ -1,5 +1,10 @@
 import { PlayerList as CPlayerList } from '@/components';
-import { selectHost, selectReadyUser, setGame } from '@/redux/game/gameSlice';
+import {
+  selectHost,
+  selectReadyUser,
+  selectTeam,
+  setGame,
+} from '@/redux/game/gameSlice';
 import { openModal, setDataModal } from '@/redux/modal/modalSlice';
 import { selectRoomUsers, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { selectUserName } from '@/redux/user/userSlice';
@@ -13,6 +18,7 @@ const PlayerList = () => {
   const ready = useSelector(selectReadyUser);
   const host = useSelector(selectHost);
   const myName = useSelector(selectUserName);
+  const team = useSelector(selectTeam);
   const router = useRouter();
   const [userList, setUserList] = useState<any[]>([]);
 
@@ -58,6 +64,7 @@ const PlayerList = () => {
       host={host}
       name={myName as string}
       onKick={onKick}
+      team={team}
     />
   );
 };

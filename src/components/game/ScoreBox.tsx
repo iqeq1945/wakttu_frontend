@@ -11,12 +11,19 @@ const Score = ({ score }: Props) => {
   useEffect(() => {
     let count = score - data;
     if (count === 0) return;
-
-    ref.current = setInterval(() => {
-      if (count <= 0) clearInterval(ref.current);
-      setData((prev) => prev + 1);
-      count -= 1;
-    }, 30);
+    else if (count > 0) {
+      ref.current = setInterval(() => {
+        if (count <= 0) clearInterval(ref.current);
+        setData((prev) => prev + 1);
+        count -= 1;
+      }, 30);
+    } else {
+      ref.current = setInterval(() => {
+        if (count >= 0) clearInterval(ref.current);
+        setData((prev) => prev - 1);
+        count += 1;
+      }, 30);
+    }
 
     return () => {
       clearInterval(ref.current);

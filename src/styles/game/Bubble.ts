@@ -12,7 +12,7 @@ export const Bubble = styled.div`
 
   border: 2px solid ${COLORS['gray-5']};
 
-  z-index: 1000;
+  z-index: 3000;
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-weight: 600;

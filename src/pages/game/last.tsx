@@ -24,6 +24,7 @@ import {
   clearSuccess,
   selectPause,
   setAnswer,
+  setFail,
   setPause,
 } from '@/redux/answer/answerSlice';
 import {
@@ -45,6 +46,7 @@ import useEffectSound from '@/hooks/useEffectSound';
 import useWaktaSound from '@/hooks/useWaktaSound';
 import { GetKey } from '@/modules/Voice';
 import { client } from '@/services/api';
+import useAnswerSound from '@/hooks/useAnswerSound';
 
 const Game = () => {
   /** Redux and State Part */
@@ -80,10 +82,6 @@ const Game = () => {
     0.1
   );
 
-  const answerSound = useEffectSound(
-    '/assets/sound-effects/lossy/game_correct_variant1.webm',
-    0.1
-  );
   const wrongSound = useEffectSound(
     '/assets/sound-effects/lossy/game_wrong.webm',
     0.1
@@ -92,6 +90,8 @@ const Game = () => {
     '/assets/sound-effects/lossy/game_turn_failure.webm',
     0.1
   );
+
+  const answerSound = useAnswerSound(0.1);
 
   const waktaSound = useWaktaSound(0.5);
 
@@ -151,16 +151,17 @@ const Game = () => {
 
   const playAnswer = useCallback(
     ({
+      id,
       wakta,
       type,
       meta,
     }: {
+      id: string;
       wakta: boolean;
       type: string;
       meta?: { [x: string]: any };
     }) => {
-      console.log(meta);
-      if (!wakta) answerSound?.play();
+      if (!wakta) answerSound![id.length - 2].play();
       else {
         const key = GetKey(type, meta);
         waktaSound![key].play();
@@ -226,7 +227,10 @@ const Game = () => {
       onBgm();
     });
 
-    socket.on('last.turnEnd', () => {
+    socket.on('last.turnEnd', (data) => {
+      dispatch(setFail());
+      setTimeout(() => dispatch(clearSuccess()), 2200);
+      dispatch(setGame(data));
       onFailUser(game.users[game.turn].name);
       if (game.host === user.name)
         setTimeout(() => lastRound(roomInfo.id as string), 4000);
@@ -239,6 +243,7 @@ const Game = () => {
       socket.off('last.turnEnd');
     };
   }, [
+    dispatch,
     fastSound,
     game.host,
     game.turn,
@@ -279,8 +284,7 @@ const Game = () => {
       });
 
       if (success) {
-        console.log(word);
-        playAnswer(word);
+        playAnswer({ ...word, chain: game.chain });
         sound?.pause();
         fastSound?.pause();
         if (name === game.host) socket.emit('pong', roomInfo.id);

@@ -23,6 +23,9 @@ export const answerSlice = createSlice({
     setAnswer: (state, action: PayloadAction<Answer>) => {
       return action.payload;
     },
+    setFail: (state) => {
+      return { ...state, success: false };
+    },
     clearAnswer: (state) => {
       return initialState;
     },
@@ -35,7 +38,7 @@ export const answerSlice = createSlice({
   },
 });
 
-export const { setAnswer, clearAnswer, setPause, clearSuccess } =
+export const { setAnswer, clearAnswer, setPause, clearSuccess, setFail } =
   answerSlice.actions;
 
 export const selectAnswer = (state: { answer: Answer }) => state.answer;

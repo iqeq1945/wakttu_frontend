@@ -32,7 +32,11 @@ const MainFormContainer = () => {
   useEffect(() => {
     if (userId) {
       setIsLogined(true);
-    } else setIsLogined(false);
+      socket.connect();
+    } else {
+      setIsLogined(false);
+      socket.disconnect();
+    }
   }, [userId]);
 
   const onModal = (e: MouseEvent<HTMLElement>) => {
@@ -43,9 +47,7 @@ const MainFormContainer = () => {
   const start = async (e: MouseEvent<HTMLElement>) => {
     if (isLogined) {
       e.stopPropagation();
-      await socket.connect();
-
-      await router.push('/roomlist');
+      router.push('/roomlist');
     }
   };
 

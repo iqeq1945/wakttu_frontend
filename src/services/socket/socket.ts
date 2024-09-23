@@ -56,6 +56,7 @@ export interface Game {
   roundTime: number;
   turnTime: number;
   mission: string | undefined;
+  team: { woo: string[]; gomem: string[] };
 }
 
 export type UpdateRoom = Partial<Room>;
@@ -159,6 +160,20 @@ export const updateRoom = (data: UpdateRoom) => {
  */
 export const ready = (roomId: string) => {
   socket.emit('ready', roomId);
+};
+
+/**
+ * 팀선택
+ */
+
+export const selectTeam = ({
+  roomId,
+  team,
+}: {
+  roomId: string;
+  team: string;
+}) => {
+  socket.emit('team', { roomId, team });
 };
 
 /*

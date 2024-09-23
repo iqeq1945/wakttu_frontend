@@ -25,7 +25,11 @@ export const CPlayerList = styled.div`
   background: linear-gradient(180deg, #c0b0ff 0%, #92aaff 100%);
 `;
 
-export const CPlayer = styled.div<{ $turn?: boolean; $fail?: boolean }>`
+export const CPlayer = styled.div<{
+  $turn?: boolean;
+  $fail?: boolean;
+  $end?: boolean;
+}>`
   display: flex;
   width: 13rem;
   height: 15rem;
@@ -43,11 +47,13 @@ export const CPlayer = styled.div<{ $turn?: boolean; $fail?: boolean }>`
 
   transition: transform 0.2s linear;
 
-  ${({ $turn, $fail }) => {
+  ${({ $turn, $fail, $end }) => {
     if ($fail) {
       return `border: 4px solid #FF7070; background: #FFE6E6; transform : translate(0 , -0.8rem);`;
     } else if ($turn) {
       return `border: 4px solid #A377FF; background: #E6DAFF; transform : translate(0 , -0.8rem);`;
+    } else if ($end) {
+      return `border: 4px solid #FF7070; background: #FFE6E6`;
     } else {
       return `background: linear-gradient(180deg, #fff 0%, #f2f2f2 100%);`;
     }
@@ -59,14 +65,14 @@ export const Skin = styled.img`
   flex-shrink: 0;
 `;
 
-export const PlusScore = styled.div`
+export const PlusScore = styled.div<{ plus: boolean }>`
   position: absolute;
   top: 10%;
   right: 0.25rem;
 
   z-index: 2;
 
-  color: ${COLORS.pupple};
+  color: ${({ plus }) => (plus ? COLORS.pupple : '#FF7070')};
   font-size: 1.4rem;
   font-weight: bold;
 
@@ -114,4 +120,28 @@ export const Host = styled.div`
     font-weight: 600;
     font-size: ${FONT_SIZES['subtitle-1']};
   }
+`;
+
+export const TeamTag = styled.div<{ team: string }>`
+  position: absolute;
+  left: 0.5rem;
+  top: 0.7432rem;
+  display: flex;
+  width: 3.375rem;
+  padding: 0.125rem 0.25rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+
+  border-radius: 0.5rem;
+  background: var(--Button-Blue, #85e2ff);
+
+  background: ${({ team }) => (team === 'gomem' ? COLORS.red : COLORS.blue)};
+  color: rgba(0, 0, 0, 0.5);
+
+  text-align: center;
+
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-size: ${FONT_SIZES['subtitle-1']};
+  font-weight: 500;
 `;

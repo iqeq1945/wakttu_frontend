@@ -86,7 +86,7 @@ const Kung = ({
           {pause ? (
             <Length
               src={
-                game.chain * 2 === 1
+                game.chain % 2 === 1
                   ? '/assets/game/three.svg'
                   : '/assets/game/two.svg'
               }

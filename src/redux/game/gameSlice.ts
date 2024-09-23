@@ -23,6 +23,7 @@ const initialState: Game = {
   turnTime: 0,
   mission: undefined,
   ban: [],
+  team: { woo: [], gomem: [] },
 };
 
 export const gameSlice = createSlice({
@@ -54,5 +55,6 @@ export const selectWhoisTurn = (state: { game: Game }) => {
   }
   return '';
 };
+export const selectTeam = (state: { game: Game }) => state.game.team;
 
 export default gameSlice.reducer;
