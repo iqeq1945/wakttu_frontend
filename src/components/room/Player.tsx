@@ -17,7 +17,7 @@ interface Props {
   user: any;
   host: string;
   myName: string;
-  team?: string;
+  team?: { team: string; name: string };
   onKick: (data: { id: string; name: string }) => void;
 }
 
@@ -44,9 +44,7 @@ const Player = ({
             {team === undefined ? (
               ''
             ) : (
-              <TeamTag team={team}>
-                {team === 'woo' ? '우왁굳' : '고멤'}
-              </TeamTag>
+              <TeamTag team={team.team}>{team.name} </TeamTag>
             )}
             {myName === host && user.name !== host && (
               <KickIcon

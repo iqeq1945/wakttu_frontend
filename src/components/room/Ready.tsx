@@ -11,14 +11,24 @@ const Ready = ({ onReady, onStart, ready, team = false, onTeam }: Props) => {
   return (
     <CReady>
       {team ? (
-        <CTeam>
-          <TeamButton team={'woo'} onClick={() => onTeam('woo')}>
-            우왁굳 팀
-          </TeamButton>
-          <TeamButton team={'gomem'} onClick={() => onTeam('gomem')}>
-            고멤 팀
-          </TeamButton>
-        </CTeam>
+        <>
+          <CTeam>
+            <TeamButton team={'woo'} onClick={() => onTeam('woo')}>
+              우왁굳 팀
+            </TeamButton>
+            <TeamButton team={'gomem'} onClick={() => onTeam('gomem')}>
+              고멤 팀
+            </TeamButton>
+          </CTeam>
+          <CTeam>
+            <TeamButton team={'academy'} onClick={() => onTeam('academy')}>
+              아카데미 팀
+            </TeamButton>
+            <TeamButton team={'isedol'} onClick={() => onTeam('isedol')}>
+              이세돌 팀
+            </TeamButton>
+          </CTeam>
+        </>
       ) : (
         ''
       )}

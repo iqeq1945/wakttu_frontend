@@ -56,7 +56,7 @@ export interface Game {
   roundTime: number;
   turnTime: number;
   mission: string | undefined;
-  team: { woo: string[]; gomem: string[] };
+  team: { woo: string[]; gomem: string[]; isedol: string[]; academy: string[] };
 }
 
 export type UpdateRoom = Partial<Room>;
