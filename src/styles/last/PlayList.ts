@@ -136,7 +136,22 @@ export const TeamTag = styled.div<{ team: string }>`
   border-radius: 0.5rem;
   background: var(--Button-Blue, #85e2ff);
 
-  background: ${({ team }) => (team === 'gomem' ? COLORS.red : COLORS.blue)};
+  background: ${({ team }) => {
+    switch (team) {
+      case 'woo': {
+        return COLORS.blue;
+      }
+      case 'gomem': {
+        return COLORS.red;
+      }
+      case 'academy': {
+        return COLORS.yellow;
+      }
+      case 'isedol': {
+        return COLORS.green;
+      }
+    }
+  }};
   color: rgba(0, 0, 0, 0.5);
 
   text-align: center;

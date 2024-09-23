@@ -58,11 +58,27 @@ const Ready = () => {
     }
     if (roomInfo.option?.includes('팀전')) {
       const countWoo = game.team.woo.length;
-      const countGomem = game.team.woo.length;
-      if (!countWoo || !countGomem || countWoo !== countGomem) {
-        alert('팀원 수가 맞지 않습니다.');
+      const countGomem = game.team.gomem.length;
+      const countAcademy = game.team.academy.length;
+      const countIsedol = game.team.isedol.length;
+
+      const check = [];
+      if (countWoo > 0) check.push(countWoo);
+      if (countGomem > 0) check.push(countGomem);
+      if (countAcademy > 0) check.push(countAcademy);
+      if (countIsedol > 0) check.push(countIsedol);
+
+      if (check.length <= 1) {
+        alert('팀을 선택하세요!');
         return;
       }
+      for (let i = 0; i < check.length - 1; i++)
+        for (let j = 1; j < check.length; j++) {
+          if (check[i] != check[j]) {
+            alert('인원수가 맞지 않습니다.');
+            return;
+          }
+        }
     }
     switch (roomInfo.type) {
       case 0: {

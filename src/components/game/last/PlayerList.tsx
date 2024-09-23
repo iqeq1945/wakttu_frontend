@@ -21,15 +21,19 @@ interface Props {
   game: Game;
   answer: Answer;
   bubble: Bubble[];
-  team: { woo: string[]; gomem: string[] };
+  team: { woo: string[]; gomem: string[]; academy: string[]; isedol: string[] };
 }
 
 const PlayList = ({ users, game, answer, bubble, team }: Props) => {
   const checkMyTeam = (userId: string) => {
     const InWoo = team.woo.findIndex((id) => id === userId);
     const InGomem = team.gomem.findIndex((id) => id === userId);
-    if (InWoo !== -1) return 'woo';
-    else if (InGomem !== -1) return 'gomem';
+    const InAcademy = team.academy.findIndex((id) => id === userId);
+    const InIsedol = team.isedol.findIndex((id) => id === userId);
+    if (InWoo !== -1) return { team: 'woo', name: '우왁굳' };
+    else if (InGomem !== -1) return { team: 'gomem', name: '고멤' };
+    else if (InAcademy !== -1) return { team: 'academy', name: '아카데미' };
+    else if (InIsedol !== -1) return { team: 'isedol', name: '이세돌' };
     else return undefined;
   };
   return (
@@ -49,13 +53,7 @@ const PlayList = ({ users, game, answer, bubble, team }: Props) => {
             $fail={isFail && answer.pause === true}
             $end={isFail}
           >
-            {myTeam ? (
-              <TeamTag team={myTeam}>
-                {myTeam === 'woo' ? '우왁굳' : '고멤'}
-              </TeamTag>
-            ) : (
-              ''
-            )}
+            {myTeam ? <TeamTag team={myTeam.team}>{myTeam.name}</TeamTag> : ''}
             {lastBubble ? <BubbleBox chat={lastBubble.chat} /> : ''}
             <Skin src={getR2URL('/assets/ipali.png')} />
 

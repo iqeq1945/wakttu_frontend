@@ -23,7 +23,7 @@ const initialState: Game = {
   turnTime: 0,
   mission: undefined,
   ban: [],
-  team: { woo: [], gomem: [] },
+  team: { woo: [], gomem: [], academy: [], isedol: [] },
 };
 
 export const gameSlice = createSlice({
