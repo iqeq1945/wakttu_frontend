@@ -46,6 +46,7 @@ import useEffectSound from '@/hooks/useEffectSound';
 import useWaktaSound from '@/hooks/useWaktaSound';
 import { GetKey } from '@/modules/Voice';
 import { client } from '@/services/api';
+import useAnswerSound from '@/hooks/useAnswerSound';
 
 const Game = () => {
   /** Redux and State Part */
@@ -81,10 +82,6 @@ const Game = () => {
     0.1
   );
 
-  const answerSound = useEffectSound(
-    '/assets/sound-effects/lossy/game_correct_variant1.webm',
-    0.1
-  );
   const wrongSound = useEffectSound(
     '/assets/sound-effects/lossy/game_wrong.webm',
     0.1
@@ -93,6 +90,8 @@ const Game = () => {
     '/assets/sound-effects/lossy/game_turn_failure.webm',
     0.1
   );
+
+  const answerSound = useAnswerSound(0.1);
 
   const waktaSound = useWaktaSound(0.5);
 
@@ -152,16 +151,17 @@ const Game = () => {
 
   const playAnswer = useCallback(
     ({
+      id,
       wakta,
       type,
       meta,
     }: {
+      id: string;
       wakta: boolean;
       type: string;
       meta?: { [x: string]: any };
     }) => {
-      console.log(meta);
-      if (!wakta) answerSound?.play();
+      if (!wakta) answerSound![id.length - 2].play();
       else {
         const key = GetKey(type, meta);
         waktaSound![key].play();
@@ -243,6 +243,7 @@ const Game = () => {
       socket.off('last.turnEnd');
     };
   }, [
+    dispatch,
     fastSound,
     game.host,
     game.turn,
@@ -283,7 +284,7 @@ const Game = () => {
       });
 
       if (success) {
-        playAnswer(word);
+        playAnswer({ ...word, chain: game.chain });
         sound?.pause();
         fastSound?.pause();
         if (name === game.host) socket.emit('pong', roomInfo.id);

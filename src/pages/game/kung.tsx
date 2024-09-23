@@ -27,6 +27,7 @@ import {
   clearSuccess,
   selectPause,
   setAnswer,
+  setFail,
   setPause,
 } from '@/redux/answer/answerSlice';
 import {
@@ -43,6 +44,8 @@ import useSound from '@/hooks/useSound';
 import useEffectSound from '@/hooks/useEffectSound';
 import { useRouter } from 'next/router';
 import { client } from '@/services/api';
+import { GetKey } from '@/modules/Voice';
+import useWaktaSound from '@/hooks/useWaktaSound';
 
 const Game = () => {
   const dispatch = useDispatch();
@@ -90,9 +93,30 @@ const Game = () => {
     0.1
   );
 
+  const waktaSound = useWaktaSound(0.5);
+
   /**
    * Function Part
    */
+
+  const playAnswer = useCallback(
+    ({
+      wakta,
+      type,
+      meta,
+    }: {
+      wakta: boolean;
+      type: string;
+      meta?: { [x: string]: any };
+    }) => {
+      if (!wakta) answerSound?.play();
+      else {
+        const key = GetKey(type, meta);
+        waktaSound![key].play();
+      }
+    },
+    [answerSound, waktaSound]
+  );
 
   // 실패횟수 잠수 특정 함수
   const onFailUser = useCallback(
@@ -232,7 +256,10 @@ const Game = () => {
       onBgm();
     });
 
-    socket.on('kung.turnEnd', () => {
+    socket.on('kung.turnEnd', (data) => {
+      dispatch(setFail());
+      setTimeout(() => dispatch(clearSuccess()), 2200);
+      dispatch(setGame(data));
       onFailUser(game.users[game.turn].name);
       if (game.host === user.name)
         setTimeout(() => kungRound(roomInfo.id as string), 4000);
@@ -246,6 +273,7 @@ const Game = () => {
       socket.off('kung.turnEnd');
     };
   }, [
+    dispatch,
     fastSound,
     game.host,
     game.turn,
@@ -285,7 +313,7 @@ const Game = () => {
       });
 
       if (success) {
-        answerSound?.play();
+        playAnswer(word);
         sound?.pause();
         fastSound?.pause();
         if (name === game.host) socket.emit('pong', roomInfo.id);

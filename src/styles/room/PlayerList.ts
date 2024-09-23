@@ -113,6 +113,30 @@ const KickIcon = styled.img`
   cursor: pointer;
 `;
 
+const TeamTag = styled.div<{ team: string }>`
+  position: absolute;
+  left: 0.5rem;
+  top: 0.7432rem;
+  display: flex;
+  width: 3.375rem;
+  padding: 0.125rem 0.25rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+
+  border-radius: 0.5rem;
+  background: var(--Button-Blue, #85e2ff);
+
+  background: ${({ team }) => (team === 'gomem' ? COLORS.red : COLORS.blue)};
+  color: rgba(0, 0, 0, 0.5);
+
+  text-align: center;
+
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-size: ${FONT_SIZES['subtitle-1']};
+  font-weight: 500;
+`;
+
 export {
   CPlayerList,
   WrapPlayerList,
@@ -124,4 +148,5 @@ export {
   PlayerName,
   PlayerReady,
   KickIcon,
+  TeamTag,
 };

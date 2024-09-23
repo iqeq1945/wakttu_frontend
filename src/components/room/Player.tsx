@@ -9,6 +9,7 @@ import {
   PlayerName,
   PlayerReady,
   KickIcon,
+  TeamTag,
 } from '@/styles/room/PlayerList';
 
 interface Props {
@@ -16,10 +17,18 @@ interface Props {
   user: any;
   host: string;
   myName: string;
+  team?: string;
   onKick: (data: { id: string; name: string }) => void;
 }
 
-const Player = ({ $ready, user, myName, host, onKick }: Props) => {
+const Player = ({
+  $ready,
+  user,
+  myName,
+  host,
+  team = undefined,
+  onKick,
+}: Props) => {
   const icon = getIcon(user.score, user.provider);
 
   return (
@@ -32,6 +41,13 @@ const Player = ({ $ready, user, myName, host, onKick }: Props) => {
               <PlayerIcon src={icon} />
               <PlayerName>{user.name}</PlayerName>
             </CBadge>
+            {team === undefined ? (
+              ''
+            ) : (
+              <TeamTag team={team}>
+                {team === 'woo' ? '우왁굳' : '고멤'}
+              </TeamTag>
+            )}
             {myName === host && user.name !== host && (
               <KickIcon
                 src={getR2URL('/assets/icons/kick.svg')}

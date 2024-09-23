@@ -1,4 +1,5 @@
 import { RoomDesc as CRoomDesc } from '@/components';
+import { setGame } from '@/redux/game/gameSlice';
 import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { socket } from '@/services/socket/socket';
 import { useEffect } from 'react';
@@ -10,7 +11,9 @@ const RoomDesc = () => {
 
   useEffect(() => {
     socket.on('updateRoom', (data) => {
-      dispatch(setRoomInfo(data));
+      const { roomInfo, game } = data;
+      dispatch(setRoomInfo(roomInfo));
+      dispatch(setGame(game));
     });
 
     return () => {

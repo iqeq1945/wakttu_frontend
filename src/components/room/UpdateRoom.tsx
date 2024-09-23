@@ -141,6 +141,16 @@ const UpdateRoom = ({
         </CCreate>
         <CCreate>
           <CLabel>특수규칙</CLabel>
+          <CheckBox onClick={() => onSelect('option', '팀전')}>
+            <CCheck>
+              {roomInfo.option!.indexOf('팀전') === -1 ? (
+                <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} />
+              ) : (
+                <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
+              )}
+              <Selected>팀전</Selected>
+            </CCheck>
+          </CheckBox>
           <CheckBox onClick={() => onSelect('option', '매너')}>
             <CCheck>
               {roomInfo.option!.indexOf('매너') === -1 ? (

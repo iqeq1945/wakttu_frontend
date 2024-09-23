@@ -1,6 +1,7 @@
 import { Ready as CReady } from '@/components';
 import { clearAnswer } from '@/redux/answer/answerSlice';
 import {
+  selectGame,
   selectHost,
   selectReadyUser,
   setGame,
@@ -10,7 +11,13 @@ import { clearHistory } from '@/redux/history/historySlice';
 import { selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { clearTimer } from '@/redux/timer/timerSlice';
 import { selectUserName } from '@/redux/user/userSlice';
-import { kungStart, lastStart, ready, socket } from '@/services/socket/socket';
+import {
+  kungStart,
+  lastStart,
+  ready,
+  selectTeam,
+  socket,
+} from '@/services/socket/socket';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,6 +27,7 @@ const Ready = () => {
   const readyUsers = useSelector(selectReadyUser);
   const userName = useSelector(selectUserName);
   const host = useSelector(selectHost);
+  const game = useSelector(selectGame);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -48,6 +56,14 @@ const Ready = () => {
       alert('침입자가 존재합니다. 방을새로파세용!');
       return;
     }
+    if (roomInfo.option?.includes('팀전')) {
+      const countWoo = game.team.woo.length;
+      const countGomem = game.team.woo.length;
+      if (!countWoo || !countGomem || countWoo !== countGomem) {
+        alert('팀원 수가 맞지 않습니다.');
+        return;
+      }
+    }
     switch (roomInfo.type) {
       case 0: {
         lastStart(roomInfo.id as string);
@@ -60,9 +76,17 @@ const Ready = () => {
     }
   };
 
+  const onTeam = (team: string) => {
+    selectTeam({ roomId: roomInfo.id as string, team: team });
+  };
+
   useEffect(() => {
     socket.on('ready', (data) => {
       dispatch(setReady(data));
+    });
+
+    socket.on('team', (data) => {
+      dispatch(setGame(data));
     });
 
     socket.on('last.start', async (data) => {
@@ -83,6 +107,7 @@ const Ready = () => {
 
     return () => {
       socket.off('ready');
+      socket.off('team');
       socket.off('last.start');
       socket.off('kung.start');
     };
@@ -93,6 +118,8 @@ const Ready = () => {
       ready={isReady}
       onReady={onReady}
       onStart={host === userName ? onStart : undefined}
+      onTeam={onTeam}
+      team={roomInfo.option?.includes('팀전')}
     />
   );
 };
