@@ -1,7 +1,7 @@
 import { getIcon } from "@/modules/UserInfo";
 import { getR2URL } from "@/services/api";
 import { Copyright } from '@/styles/roomList/RoomList';
-import { Character, CharacterImage, Content, Emoticon, LeftWrapper, MyCharacter, User, UserIcon, UserName, WearingImage, WearingItem, WearingItems, WearingTag } from "@/styles/mypage/Mystyles";
+import { Character, CharacterImage, Content, ContentFooter, Emoticon, EmoticonBox, LeftWrapper, MyCharacter, User, UserIcon, UserName, WearingImage, WearingItem, WearingItems, WearingTag } from "@/styles/mypage/Mystyles";
 import { CosmeticStyles } from "@/styles/book/CosmeticType";
 
 
@@ -10,9 +10,8 @@ const Mystyle = ({ user }: any) => {
 
   return (
     <LeftWrapper>
-      <h3>플레이어의 마이페이지</h3>
+      <h3>마이페이지</h3>
       <Content>
-        <h4># 캐릭터</h4>
         <Character>
           <MyCharacter>
             {/* <CharacterImage src={getR2URL('/assets/player-profile.png')} /> */}
@@ -39,19 +38,22 @@ const Mystyle = ({ user }: any) => {
                 </WearingItem>
               ))
             }
-
-
           </WearingItems>
         </Character>
-        <h4># 이모티콘</h4>
+
         <Emoticon>
+          <h4>이모티콘</h4>
+          <EmoticonBox></EmoticonBox>
         </Emoticon>
+        <ContentFooter>
+          <Copyright>
+            © copyright WAKTTU.
+            <br />
+            왁뚜는 왁타버스에서 제공하는 공식 콘텐츠가 아닙니다.
+          </Copyright>
+        </ContentFooter>
+
       </Content>
-      <Copyright>
-        © copyright WAKTTU.
-        <br />
-        왁뚜는 왁타버스에서 제공하는 공식 콘텐츠가 아닙니다.
-      </Copyright>
     </LeftWrapper>
   )
 };

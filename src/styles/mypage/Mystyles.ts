@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { COLORS } from "../theme";
-import { CosmeticVariant } from "../book/CosmeticType";
 
 const Wrapper = styled.div`
   display: flex;
+  margin-top: 0.3125rem;
   gap: 1rem;
 `;
 
@@ -14,15 +14,15 @@ const LeftWrapper = styled.div`
 const Content = styled.div`
   display: flex;
   flex-direction:column;
-  padding: 1.5rem 0;
-  gap: 0.625rem;
+  padding: 1.125rem 0;
+  gap: 1.5rem;
 `;
 
 const Character = styled.div`
   display: flex;
-  gap: 0.625rem;
 
-  width: 44.75rem;
+  width: 57.3125rem;
+  gap: 0.625rem;
 `;
 
 const MyCharacter = styled.div`
@@ -32,12 +32,12 @@ const MyCharacter = styled.div`
   align-items: center;
   flex-shrink: 0;
 
-  width: 19.8125rem;
+  width: 27.8125rem;
   height: 27.125rem;
   gap: 1rem;
 
   border-radius: 1rem;
-  border: 1px solid ${COLORS['gray-4']};
+  border: 2px solid ${COLORS['gray-4']};
 `;
 
 const CharacterImage = styled.img`
@@ -67,15 +67,17 @@ const WearingItems = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
-  align-self: stretch;
-  flex-wrap: wrap;
-  flex: 1 0 0;
+
+  width: auto;
+  max-width: 270rem;
+  height: 27.125rem;
 
   padding: 1rem;
-  gap: 1rem;
-
+  gap: 0.625rem;
+  
+  box-sizing: border-box;
   border-radius: 1rem;
-  border: 1px solid ${COLORS['gray-4']};
+  border: 2px solid ${COLORS['gray-4']};
 `;
 
 const WearingItem = styled.div`
@@ -84,7 +86,7 @@ const WearingItem = styled.div`
   justify-content: flex-end;
   align-items: center;
 
-  width: 10.4375rem;
+  width: calc(50% - 0.625rem);
   height: 12.3125rem;
   gap: 1.5rem;
 
@@ -96,6 +98,7 @@ const WearingItem = styled.div`
 const WearingImage = styled.img`
   width: 8.0625rem;
   height: 7.8125rem;
+  object-fit: contain;
 `;
 
 const WearingTag = styled.div<{ $backgroundColor: string, $color: string }>`
@@ -107,13 +110,28 @@ const WearingTag = styled.div<{ $backgroundColor: string, $color: string }>`
 
   height: 1.75rem;
   background-color: ${(props) => props.$backgroundColor};
+  color: ${(props) => props.$color};
 
   font-size: 1.25rem;
   font-weight: 600;
 `;
 
 const Emoticon = styled.div`
-gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+`;
+
+const EmoticonBox = styled.div`
+  height: 16.375rem;
+
+  border-radius: 1rem;
+  border: 2px solid ${COLORS['gray-4']};
+`;
+
+const ContentFooter = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 export {
@@ -130,5 +148,7 @@ export {
   WearingItem,
   WearingImage,
   WearingTag,
-  Emoticon
+  Emoticon,
+  EmoticonBox,
+  ContentFooter
 };
