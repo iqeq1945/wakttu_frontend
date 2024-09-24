@@ -6,6 +6,7 @@ import {
   Rank,
   Line,
   PlayerName,
+  Content,
 } from '@/styles/common/Header';
 import { Tab } from '@/components';
 import { R2_URL } from '@/services/api';
@@ -14,9 +15,10 @@ import { getIcon } from '@/modules/UserInfo';
 interface Props {
   user: any;
   goHome: () => void;
+  onModal: () => void;
 }
 
-const Header = ({ user, goHome }: Props) => {
+const Header = ({ user, goHome, onModal }: Props) => {
   const icon = getIcon(user.score, user.provider);
   return (
     <HeaderBlock>
@@ -26,7 +28,9 @@ const Header = ({ user, goHome }: Props) => {
         <Tab menuName="마이 페이지" href="/roomlist" goHome={goHome} />
         <Tab menuName="사전" href="/roomlist" goHome={goHome} />
         <Tab menuName="도감" href="/book" goHome={goHome} />
-        <Tab menuName="옵션" href="/roomlist" goHome={goHome} />
+        <Content onClick={onModal}>
+          <li>옵션</li>
+        </Content>
         <Player>
           <Rank src={icon} />
           <Line />
