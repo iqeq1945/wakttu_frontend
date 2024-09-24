@@ -68,8 +68,12 @@ const Ready = () => {
       if (countAcademy > 0) check.push(countAcademy);
       if (countIsedol > 0) check.push(countIsedol);
 
-      if (check.length <= 1) {
-        alert('팀을 선택하세요!');
+      if (
+        check.length <= 1 ||
+        countWoo + countGomem + countIsedol + countAcademy !==
+          roomInfo.users.length
+      ) {
+        alert('모두 팀을 선택하지 않았습니다.!');
         return;
       }
       for (let i = 0; i < check.length - 1; i++)
