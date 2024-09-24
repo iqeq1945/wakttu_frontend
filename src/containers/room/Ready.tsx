@@ -93,6 +93,10 @@ const Ready = () => {
   };
 
   const onTeam = (team: string) => {
+    if (readyUsers.findIndex((user) => user.name === userName) !== -1) {
+      alert('준비 상태에서는 팀을 바꿀 수 없어요');
+      return;
+    }
     selectTeam({ roomId: roomInfo.id as string, team: team });
   };
 

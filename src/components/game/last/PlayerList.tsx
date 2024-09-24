@@ -67,7 +67,7 @@ const PlayList = ({ users, game, answer, bubble, team }: Props) => {
               <Name>{user.name}</Name>
             </CName>
             <Difference score={user.score as number} />
-            <Score>
+            <Score team={myTeam ? myTeam.team : undefined}>
               <ScoreBox score={user.score as number} />
             </Score>
           </CPlayer>
