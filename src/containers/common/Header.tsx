@@ -1,7 +1,6 @@
 import { Header as CHeader, Option } from '@/components';
 import { getIcon } from '@/modules/UserInfo';
 import {
-  selectBgmVolume,
   selectVolume,
   setBgmVolume,
   setEffectVolume,
@@ -88,3 +87,5 @@ const Header = () => {
     </>
   );
 };
+
+export default Header;
