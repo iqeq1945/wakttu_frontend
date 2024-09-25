@@ -1,0 +1,154 @@
+import styled from "styled-components";
+import { COLORS } from "../theme";
+
+const Wrapper = styled.div`
+  display: flex;
+  margin-top: 0.3125rem;
+  gap: 1rem;
+`;
+
+const LeftWrapper = styled.div`
+  gap: 1rem;
+`;
+
+const Content = styled.div`
+  display: flex;
+  flex-direction:column;
+  padding: 1.125rem 0;
+  gap: 1.5rem;
+`;
+
+const Character = styled.div`
+  display: flex;
+
+  width: 57.3125rem;
+  gap: 0.625rem;
+`;
+
+const MyCharacter = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  width: 27.8125rem;
+  height: 27.125rem;
+  gap: 1rem;
+
+  border-radius: 1rem;
+  border: 2px solid ${COLORS['gray-4']};
+`;
+
+const CharacterImage = styled.img`
+  width: 10.4375rem;
+  height: 10.0625rem;
+`;
+
+const User = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem ;
+`;
+
+const UserIcon = styled.img`
+  width: 1.5625rem;
+  height: 1.4375rem;
+`;
+
+const UserName = styled.span`
+  font-size: 1.5rem;
+  font-weight: 600;
+`;
+
+const WearingItems = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  width: auto;
+  max-width: 270rem;
+  height: 27.125rem;
+
+  padding: 1rem;
+  gap: 0.625rem;
+  
+  box-sizing: border-box;
+  border-radius: 1rem;
+  border: 2px solid ${COLORS['gray-4']};
+`;
+
+const WearingItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+
+  width: calc(50% - 0.625rem);
+  height: 12.3125rem;
+  gap: 1.5rem;
+
+  border: 1px solid ${COLORS['gray-4']};
+  border-radius: 0.5rem;
+  overflow: hidden;
+`;
+
+const WearingImage = styled.img`
+  width: 8.0625rem;
+  height: 7.8125rem;
+  object-fit: contain;
+`;
+
+const WearingTag = styled.div<{ $backgroundColor: string, $color: string }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  flex-shrink: 0;
+
+  height: 1.75rem;
+  background-color: ${(props) => props.$backgroundColor};
+  color: ${(props) => props.$color};
+
+  font-size: 1.25rem;
+  font-weight: 600;
+`;
+
+const Emoticon = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+`;
+
+const EmoticonBox = styled.div`
+  height: 16.375rem;
+
+  border-radius: 1rem;
+  border: 2px solid ${COLORS['gray-4']};
+`;
+
+const ContentFooter = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export {
+  Wrapper,
+  Content,
+  LeftWrapper,
+  Character,
+  MyCharacter,
+  CharacterImage,
+  User,
+  UserIcon,
+  UserName,
+  WearingItems,
+  WearingItem,
+  WearingImage,
+  WearingTag,
+  Emoticon,
+  EmoticonBox,
+  ContentFooter
+};

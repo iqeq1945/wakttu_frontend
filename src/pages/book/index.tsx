@@ -1,9 +1,9 @@
-import { Container, ContainerContent } from '@/styles/book/MypageForm';
+import { Container, ContainerContent } from '@/styles/book/BookForm';
 import { CosmeticInfo } from '@/components';
 import CosmeticList from '@/containers/book/CosmeticList';
 import Header from '@/containers/common/Header';
 
-const Mypage = () => {
+const Book = () => {
   return (
     <Container>
       <Header />
@@ -14,4 +14,4 @@ const Mypage = () => {
     </Container>
   );
 };
-export default Mypage;
+export default Book;
