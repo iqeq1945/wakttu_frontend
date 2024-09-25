@@ -23,6 +23,7 @@ import wordRelay from '@/modules/WordRelay';
 import { selectUserId, selectUserName } from '@/redux/user/userSlice';
 import { selectHistory } from '@/redux/history/historySlice';
 import useEffectSound from '@/hooks/useEffectSound';
+import { selectEffectVolume } from '@/redux/audio/audioSlice';
 
 interface InputProps {
   chat: string;
@@ -43,7 +44,7 @@ const Chat = () => {
   const timer = useSelector(selectTimer);
   const pause = useSelector(selectPause);
   const history = useSelector(selectHistory);
-
+  const effectVolume = useSelector(selectEffectVolume);
   const dispatch = useDispatch();
 
   const [myTurn, setMyTurn] = useState(false);
@@ -51,7 +52,7 @@ const Chat = () => {
 
   const logSound = useEffectSound(
     '/assets/sound-effects/lossy/ui_click.webm',
-    0.08
+    effectVolume
   );
   const [log, setLog] = useState<LogProps[]>([]);
   const { inputs, setInputs, onInputChange } = useInput<InputProps>({
