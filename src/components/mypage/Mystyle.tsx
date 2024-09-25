@@ -21,7 +21,7 @@ import {
 import { CosmeticStyles } from '@/styles/book/CosmeticType';
 
 const Mystyle = ({ user }: any) => {
-  // const icon = getIcon(user.score, user.provider);
+  const icon = getIcon(user.score, user.provider);
 
   return (
     <LeftWrapper>
@@ -31,10 +31,8 @@ const Mystyle = ({ user }: any) => {
           <MyCharacter>
             <CharacterImage src={getR2URL('/assets/player-profile.png')} />
             <User>
-              {/* <UserIcon src={icon} /> */}
-              <UserIcon src={getR2URL('/assets/icons/ameoba.svg')} />
-              {/* <UserName>{user.name}</UserName> */}
-              <UserName>플레이어</UserName>
+              <UserIcon src={icon} />
+              <UserName>{user.name}</UserName>
             </User>
           </MyCharacter>
 
