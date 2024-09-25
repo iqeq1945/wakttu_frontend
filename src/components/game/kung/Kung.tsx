@@ -51,6 +51,7 @@ import {
 import WordErrorEffect from '../WordErrorEffect';
 import { Answer } from '@/redux/answer/answerSlice';
 import WordEffect from '../WordEffect';
+import { getR2URL } from '@/services/api';
 
 interface Props {
   game: Game;
@@ -81,25 +82,25 @@ const Kung = ({
   return (
     <CKung>
       <Left>
-        <Speaker src="/assets/game/speaker.svg" reverse={false} />
+        <Speaker src={getR2URL('/assets/game/speaker.svg')} reverse={false} />
         <Tv>
           {pause ? (
             <Length
               src={
                 game.chain % 2 === 1
-                  ? '/assets/game/three.svg'
-                  : '/assets/game/two.svg'
+                  ? getR2URL('/assets/game/three.svg')
+                  : getR2URL('/assets/game/two.svg')
               }
             />
           ) : (
-            <PauseTv src="/assets/game/pauseTv.svg" />
+            <PauseTv src={getR2URL('/assets/game/pauseTv.svg')} />
           )}
         </Tv>
       </Left>
       <Board>
         <Info>
           <Object>
-            <Pen src="/assets/game/pen.svg" />
+            <Pen src={getR2URL('/assets/game/pen.svg')} />
             <ObjectText>학습목표</ObjectText>
           </Object>
           <Round>
@@ -149,7 +150,7 @@ const Kung = ({
         <CTimer>
           <TimerItem>
             <LeftTimer>
-              <TimerIcon src="/assets/game/timer-white.svg" />
+              <TimerIcon src={getR2URL('/assets/game/timer-white.svg')} />
               <TimerText>라운드 남은시간</TimerText>
             </LeftTimer>
             <RightTimer>
@@ -168,7 +169,7 @@ const Kung = ({
           </TimerItem>
           <TimerItem>
             <LeftTimer>
-              <TimerIcon src="/assets/game/timer-white.svg" />
+              <TimerIcon src={getR2URL('/assets/game/timer-white.svg')} />
               <TimerText>이번턴 남은시간</TimerText>
             </LeftTimer>
             <RightTimer>
@@ -188,9 +189,9 @@ const Kung = ({
         </CTimer>
       </Board>
       <Right>
-        <Speaker src="/assets/game/speaker.svg" reverse={true} />
-        <Frame src="/assets/game/tae.svg" />
-        <Frame src="/assets/game/ment.svg" />
+        <Speaker src={getR2URL('/assets/game/speaker.svg')} reverse={true} />
+        <Frame src={getR2URL('/assets/game/tae.svg')} />
+        <Frame src={getR2URL('/assets/game/ment.svg')} />
         <CPost>
           <Post>
             <CPostTitle>

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { COLORS, FONT_SIZES } from '../theme';
+import { R2_URL } from '@/services/api';
 
 const DROM_SHADOW = '0px 1px 10px 0px rgba(0, 0, 0, 0.15)';
 
@@ -59,7 +60,7 @@ export const Tv = styled.div`
   height: 21.875rem;
   flex-shrink: 0;
 
-  background-image: url('/assets/game/tv.svg');
+  background-image: url(${R2_URL}+'/assets/game/tv.svg');
   background-size: cover;
 `;
 
@@ -82,7 +83,7 @@ export const Board = styled.div`
   align-items: center;
   gap: 0.875rem;
 
-  background-image: url('/assets/game/board.svg');
+  background-image: url(${R2_URL}+'/assets/game/board.svg');
   background-size: cover;
 `;
 
@@ -315,7 +316,7 @@ export const Post = styled.div`
   height: 17rem;
   flex-shrink: 0;
 
-  background-image: url('/assets/game/post.svg');
+  background-image: url(${R2_URL}+'/assets/game/post.svg');
   fill: linear-gradient(180deg, #00c944 -1.1%, #006322 98.9%);
 `;
 

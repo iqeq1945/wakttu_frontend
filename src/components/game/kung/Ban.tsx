@@ -1,3 +1,4 @@
+import { R2_URL } from '@/services/api';
 import { Game } from '@/services/socket/socket';
 import {
   BanText,
@@ -31,7 +32,7 @@ const Ban = ({ chat, game, timer, pause }: Props) => {
         <BanText>{chat}</BanText>
         <CTimer>
           <LeftTimer>
-            <TimerIcon src="/assets/game/timer-black.svg" />
+            <TimerIcon src={R2_URL + '/assets/game/timer-black.svg'} />
             <TimerText>입력 남은 시간</TimerText>
           </LeftTimer>
           <RightTimer>

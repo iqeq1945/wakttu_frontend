@@ -1,6 +1,6 @@
 import { keyframes, styled } from 'styled-components';
 import { COLORS, FONT_SIZES } from '../theme';
-
+import { R2_URL } from '@/services/api';
 const DROM_SHADOW = '0px 1px 10px 0px rgba(0, 0, 0, 0.15)';
 
 const GAUGE = keyframes`
@@ -41,7 +41,7 @@ export const Modal = styled.div`
   align-items: center;
   gap: 0.875rem;
 
-  background: url('/assets/game/white-board.svg');
+  background: url(${R2_URL} + '/assets/game/white-board.svg');
   background-size: cover;
 `;
 
