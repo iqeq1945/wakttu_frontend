@@ -41,7 +41,7 @@ const Info = () => {
     return () => {
       clearTimeout(opening);
     };
-  }, [dispatch, game.host, name, roomId, trainSound]);
+  }, [dispatch, name, roomId, trainSound]);
 
   return <GInfo game={game} pause={pause} keyword={keyword} timer={timer} />;
 };
