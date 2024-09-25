@@ -46,6 +46,7 @@ import { useRouter } from 'next/router';
 import { client } from '@/services/api';
 import { GetKey } from '@/modules/Voice';
 import useWaktaSound from '@/hooks/useWaktaSound';
+import { selectVolume } from '@/redux/audio/audioSlice';
 
 const Game = () => {
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ const Game = () => {
   const timer = useSelector(selectTimer);
   const router = useRouter();
   const pause = useSelector(selectPause);
-
+  const { bgmVolume, effectVolume, voiceVolume } = useSelector(selectVolume);
   const [late, setLate] = useState<boolean>(false);
 
   const [failUser, setFailuesr] = useState<{ name: string; count: number }>({
@@ -67,33 +68,38 @@ const Game = () => {
   /**
    * Sound Part
    */
-  const sound = useSound('/assets/bgm/lossy/ui_in-game.webm', 0.1, 0, true);
+  const sound = useSound(
+    '/assets/bgm/lossy/ui_in-game.webm',
+    bgmVolume,
+    0,
+    true
+  );
   const fastSound = useSound(
     '/assets/bgm/lossy/ui_in-game_speedup.webm',
-    0.1,
+    bgmVolume,
     0,
     true
   );
 
   const startSound = useEffectSound(
     '/assets/sound-effects/lossy/game_start.webm',
-    0.1
+    effectVolume
   );
 
   const answerSound = useEffectSound(
     '/assets/sound-effects/lossy/game_correct_variant1.webm',
-    0.1
+    effectVolume
   );
   const wrongSound = useEffectSound(
     '/assets/sound-effects/lossy/game_wrong.webm',
-    0.1
+    effectVolume
   );
   const turnEndSound = useEffectSound(
     '/assets/sound-effects/lossy/game_turn_failure.webm',
-    0.1
+    effectVolume
   );
 
-  const waktaSound = useWaktaSound(0.5);
+  const waktaSound = useWaktaSound(voiceVolume);
 
   /**
    * Function Part

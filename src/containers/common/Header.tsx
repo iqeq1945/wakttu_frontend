@@ -5,6 +5,7 @@ import {
   selectVolume,
   setBgmVolume,
   setEffectVolume,
+  setVoiceVolume,
 } from '@/redux/audio/audioSlice';
 import { clearGame, selectGame } from '@/redux/game/gameSlice';
 import { closeModal, openModal, selectModal } from '@/redux/modal/modalSlice';
@@ -56,7 +57,7 @@ const Header = () => {
 
   const onVoiceChange = (e: MouseEvent<HTMLInputElement>) => {
     const { value } = e.target as HTMLInputElement;
-    dispatch(setEffectVolume(Number(value)));
+    dispatch(setVoiceVolume(Number(value)));
   };
 
   useEffect(() => {
@@ -87,5 +88,3 @@ const Header = () => {
     </>
   );
 };
-
-export default Header;

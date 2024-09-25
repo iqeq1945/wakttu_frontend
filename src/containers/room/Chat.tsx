@@ -3,6 +3,7 @@ import useEffectSound from '@/hooks/useEffectSound';
 import useInput from '@/hooks/useInput';
 import { getTime } from '@/modules/Date';
 import { clean } from '@/modules/Slang';
+import { selectEffectVolume } from '@/redux/audio/audioSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { sendChat, socket } from '@/services/socket/socket';
 import { useEffect, useState, useRef, useCallback } from 'react';
@@ -19,9 +20,10 @@ export interface LogProps {
 }
 
 const Chat = () => {
+  const effectVolume = useSelector(selectEffectVolume);
   const logSound = useEffectSound(
     '/assets/sound-effects/lossy/ui_click.webm',
-    0.08
+    effectVolume
   );
   const roomId = useSelector(selectRoomId) as string;
   const [log, setLog] = useState<LogProps[]>([]);

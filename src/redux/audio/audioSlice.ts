@@ -34,8 +34,13 @@ export const audioSlice = createSlice({
   },
 });
 
-export const { setBgmVolume, setEffectVolume, setVolume, clearVolume } =
-  audioSlice.actions;
+export const {
+  setBgmVolume,
+  setEffectVolume,
+  setVoiceVolume,
+  setVolume,
+  clearVolume,
+} = audioSlice.actions;
 
 export const selectVolume = (state: { audio: Audio }) => state.audio;
 export const selectBgmVolume = (state: { audio: Audio }) =>

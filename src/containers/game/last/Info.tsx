@@ -1,6 +1,7 @@
 import { GInfo } from '@/components';
 import useEffectSound from '@/hooks/useEffectSound';
 import { selectPause } from '@/redux/answer/answerSlice';
+import { selectEffectVolume } from '@/redux/audio/audioSlice';
 import { selectGame } from '@/redux/game/gameSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { selectTimer } from '@/redux/timer/timerSlice';
@@ -15,9 +16,10 @@ const Info = () => {
   const roomId = useSelector(selectRoomId) as string;
   const pause = useSelector(selectPause);
   const timer = useSelector(selectTimer);
+  const effectVolume = useSelector(selectEffectVolume);
   const trainSound = useEffectSound(
     '/assets/sound-effects/lossy/game_start_train.webm',
-    0.1
+    effectVolume
   );
 
   const dispatch = useDispatch();

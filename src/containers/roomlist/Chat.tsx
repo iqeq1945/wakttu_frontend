@@ -5,6 +5,8 @@ import { getTime } from '@/modules/Date';
 import { clean } from '@/modules/Slang';
 import { sendLobbyChat, socket } from '@/services/socket/socket';
 import { useEffect, useState, useRef, useCallback } from 'react';
+import { useSelector } from 'react-redux';
+import { selectEffectVolume } from '@/redux/audio/audioSlice';
 
 interface InputProps {
   chat: string;
@@ -17,9 +19,10 @@ export interface LogProps {
 }
 
 const Chat = () => {
+  const effectVolume = useSelector(selectEffectVolume);
   const logSound = useEffectSound(
     '/assets/sound-effects/lossy/ui_click.webm',
-    0.08
+    effectVolume
   );
   const [log, setLog] = useState<LogProps[]>([]);
   const { inputs, setInputs, onInputChange } = useInput<InputProps>({
