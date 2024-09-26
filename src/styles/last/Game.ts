@@ -158,6 +158,11 @@ export const CWordC = styled(CWord)`
   margin: 2.19rem 1.56rem 6.44rem 1.56rem;
 `;
 
+export const Logo = styled.img`
+  width: 8rem;
+  height: 3rem;
+`;
+
 export const WordText = styled.h3`
   position: relative;
   display: flex;

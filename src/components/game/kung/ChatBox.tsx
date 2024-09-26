@@ -12,7 +12,6 @@ import { LogProps } from '@/containers/roomlist/Chat';
 import { Game } from '@/services/socket/socket';
 import { Answer } from '@/redux/answer/answerSlice';
 import { R2_URL } from '@/services/api';
-import Ban from './Ban';
 
 interface Props {
   log: LogProps[];
@@ -20,7 +19,6 @@ interface Props {
   onChange: ChangeEventHandler;
   onMessage: () => void;
   onAnswer: () => void;
-  onBan: () => void;
   handleEnter: (e: React.KeyboardEvent) => void;
   chatBoxRef: RefObject<HTMLDivElement>;
   inputRef: RefObject<HTMLInputElement>;
@@ -29,7 +27,6 @@ interface Props {
   answer: Answer;
   pause: boolean;
   timer: any;
-  ban: boolean;
 }
 
 const ChatBox = ({
@@ -38,7 +35,6 @@ const ChatBox = ({
   onChange,
   onMessage,
   onAnswer,
-  onBan,
   handleEnter,
   chatBoxRef,
   inputRef,
@@ -47,7 +43,6 @@ const ChatBox = ({
   answer,
   pause,
   timer,
-  ban,
 }: Props) => {
   const scrollToBottom = useCallback(() => {
     if (chatBoxRef.current) {
@@ -61,7 +56,6 @@ const ChatBox = ({
 
   return (
     <>
-      <Ban chat={message} game={game} timer={timer} pause={ban} />
       {myTurn ? (
         <CAnswer
           chat={message}
@@ -99,11 +93,7 @@ const ChatBox = ({
             }}
             autoComplete="off"
           />
-          {ban ? (
-            <SendMessage onClick={onBan}>
-              <SendIcon src={R2_URL + '/assets/icons/send.svg'} />
-            </SendMessage>
-          ) : pause && myTurn ? (
+          {pause && myTurn ? (
             <SendMessage onClick={onAnswer}>
               <SendIcon src={R2_URL + '/assets/icons/send.svg'} />
             </SendMessage>
