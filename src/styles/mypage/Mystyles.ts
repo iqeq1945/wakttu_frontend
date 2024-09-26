@@ -3,7 +3,6 @@ import { COLORS } from "../theme";
 
 const Wrapper = styled.div`
   display: flex;
-  margin-top: 0.3125rem;
   gap: 1rem;
 `;
 
@@ -11,10 +10,10 @@ const LeftWrapper = styled.div`
   gap: 1rem;
 `;
 
+
 const Content = styled.div`
   display: flex;
   flex-direction:column;
-  padding: 1.125rem 0;
   gap: 1.5rem;
 `;
 
@@ -25,7 +24,7 @@ const Character = styled.div`
   gap: 0.625rem;
 `;
 
-const MyCharacter = styled.div`
+const MyCharacterBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -132,6 +131,7 @@ const EmoticonBox = styled.div`
 const ContentFooter = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 1.5rem;
 `;
 
 export {
@@ -139,7 +139,7 @@ export {
   Content,
   LeftWrapper,
   Character,
-  MyCharacter,
+  MyCharacterBox,
   CharacterImage,
   User,
   UserIcon,
