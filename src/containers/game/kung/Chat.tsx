@@ -45,10 +45,8 @@ const Chat = () => {
   const pause = useSelector(selectPause);
   const history = useSelector(selectHistory);
   const effectVolume = useSelector(selectEffectVolume);
-  const dispatch = useDispatch();
 
   const [myTurn, setMyTurn] = useState(false);
-  const [isBan, setBan] = useState(false);
 
   const logSound = useEffectSound(
     '/assets/sound-effects/lossy/ui_click.webm',
@@ -77,17 +75,6 @@ const Chat = () => {
     return idx === -1 ? true : false;
   };
 
-  const onSendBan = () => {
-    if (inputs.chat) {
-      if (inputs.chat.length >= 2 && inputs.chat.length <= 3) {
-        kungBan({ roomId: roomId, keyword: inputs.chat });
-        setBan(false);
-      }
-    }
-    setInputs({ chat: '' });
-    if (inputRef.current) inputRef.current.focus();
-  };
-
   const onSendAnswer = () => {
     if (inputs.chat) {
       const { isValid, message } = wordRelay(
@@ -97,7 +84,6 @@ const Chat = () => {
         game.chain
       );
       const isIn = isInHistory(inputs.chat);
-      const isBan = game.ban.includes(inputs.chat);
 
       sendChat({
         roomId,
@@ -109,7 +95,7 @@ const Chat = () => {
           timeLimit: timer.turnTime,
           remainingTime: timer.turnTime - timer.countTime,
         }),
-        success: !isValid || !isIn || !isBan,
+        success: !isValid || !isIn,
       });
     }
     setInputs({ chat: '' });
@@ -131,11 +117,6 @@ const Chat = () => {
   const handleEnter = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.isComposing) return;
     if (e.key === 'Enter') {
-      if (isBan) {
-        onSendBan();
-        return;
-      }
-
       if (myTurn && pause) onSendAnswer();
       else onSendMessage();
     }
@@ -144,43 +125,6 @@ const Chat = () => {
   /**
    * UseEffect Part
    */
-
-  useEffect(() => {
-    socket.on('kung.round', () => {
-      setTimeout(() => setBan(true), 4000);
-    });
-
-    return () => {
-      socket.off('kung.round');
-    };
-  });
-
-  useEffect(() => {
-    socket.on('ping.ban', () => {
-      setTimeout(() => dispatch(tick()));
-    });
-
-    return () => {
-      socket.off('ping.ban');
-    };
-  }, [dispatch]);
-
-  useEffect(() => {
-    socket.on('kung.banEnd', (data) => {
-      setBan(false);
-      dispatch(
-        setTimer({ roundTime: data.roundTime, turnTime: data.turnTime })
-      );
-      dispatch(setGame(data));
-      dispatch(setPause(true));
-
-      if (game.host === name) setTimeout(() => kungTurnStart(roomId), 1000);
-    });
-
-    return () => {
-      socket.off('kung.banEnd');
-    };
-  }, [dispatch, game.host, isBan, name, roomId]);
 
   useEffect(() => {
     if (game.users.length > game.turn)
@@ -215,7 +159,6 @@ const Chat = () => {
       onChange={onInputChange}
       onMessage={onSendMessage}
       onAnswer={onSendAnswer}
-      onBan={onSendBan}
       handleEnter={handleEnter}
       inputRef={inputRef}
       chatBoxRef={chatBoxRef}
@@ -224,7 +167,6 @@ const Chat = () => {
       answer={answer}
       timer={timer}
       pause={pause}
-      ban={isBan}
     />
   );
 };
