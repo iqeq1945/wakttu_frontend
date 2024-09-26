@@ -97,6 +97,7 @@ const Chat = () => {
         game.chain
       );
       const isIn = isInHistory(inputs.chat);
+      const isBan = game.ban.includes(inputs.chat);
 
       sendChat({
         roomId,
@@ -108,7 +109,7 @@ const Chat = () => {
           timeLimit: timer.turnTime,
           remainingTime: timer.turnTime - timer.countTime,
         }),
-        success: !isValid || !isIn,
+        success: !isValid || !isIn || !isBan,
       });
     }
     setInputs({ chat: '' });
