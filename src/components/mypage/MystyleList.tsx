@@ -2,9 +2,6 @@ import { getR2URL } from '@/services/api';
 import { CosmeticStyles, CosmeticVariant } from '@/styles/book/CosmeticType';
 import {
   RightWrapper,
-  Buttons,
-  SaveButton,
-  ResetButton,
   ItemImage,
   ItemInfo,
   ItemName,
@@ -14,10 +11,9 @@ import {
   ListItems,
   TagBox,
   Tag,
-  ButtonIcon,
   ImageBox,
 } from '@/styles/mypage/MystyleList';
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, useEffect } from 'react';
 
 interface Props {
   items?: {
@@ -33,40 +29,42 @@ interface Props {
 const MystyleList = ({ items }: Props) => {
   const [clickTag, setClickTag] = useState<string>('all');
   const [clickItem, setClickItem] = useState<string>('');
+  const [itemList, setItemList] = useState(items)
 
   const handleClickTag = (e: MouseEvent<HTMLElement>) => {
-    const clicked = e.currentTarget.dataset.tag;
+    const clicked = e.currentTarget.dataset.category;
     if (clicked) {
       setClickTag(clicked);
     }
   };
 
   const handleClickItem = (e: MouseEvent<HTMLElement>) => {
-    const clickedId = e.currentTarget.dataset.id;
+    const clickedId = e.currentTarget.id;
     if (clickedId) {
       if (clickItem === clickedId) setClickItem('');
       setClickItem(clickedId);
     }
   };
 
+  useEffect(() => {
+    if (items) {
+      if (clickTag === 'all') {
+        setItemList(items);
+      } else {
+        setItemList(items.filter(item => item.category === clickTag));
+      }
+    }
+  }, [clickTag, items])
+
+
   return (
     <RightWrapper>
-      <Buttons>
-        <SaveButton>
-          <ButtonIcon src={getR2URL('/assets/game/save.svg')} />
-          저장하기
-        </SaveButton>
-        <ResetButton>
-          <ButtonIcon src={getR2URL('/assets/game/refresh.svg')} />
-          되돌리기
-        </ResetButton>
-      </Buttons>
       <ListBox>
         <TagBox>
           {Object.entries(CosmeticStyles).map(([key, value]) => (
             <Tag
               key={key}
-              data-tag={key}
+              data-category={key}
               onClick={handleClickTag}
               isClicked={clickTag === key}
             >
@@ -75,11 +73,11 @@ const MystyleList = ({ items }: Props) => {
           ))}
         </TagBox>
         <ListItems>
-          {items &&
-            items.map((data) => (
+          {itemList &&
+            itemList.map((data) => (
               <ListItem
                 key={data.id}
-                data-id={data.id}
+                id={data.id}
                 onClick={handleClickItem}
                 isClickedItem={clickItem === data.id}
               >
