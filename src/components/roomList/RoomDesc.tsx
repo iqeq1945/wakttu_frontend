@@ -32,7 +32,16 @@ const RoomDesc = ({ roomInfo, onEnter }: Props) => {
         <TitleText>{roomInfo.title}</TitleText>
       </WrapRoomTitle>
       <WrapGameInfo>
-        <GameInfo src={getR2URL('/assets/game-info.png')} />
+        {roomInfo.type === 0 ? (
+          <GameInfo src={getR2URL('/assets/game-info.png')} />
+        ) : (
+          ''
+        )}
+        {roomInfo.type === 1 ? (
+          <GameInfo src={getR2URL('/assets/game-info-2.png')} />
+        ) : (
+          ''
+        )}
         <RoomInfo>
           <WrapInfo>
             <Info $variant="title">플레이어</Info>

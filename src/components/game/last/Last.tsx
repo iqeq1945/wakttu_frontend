@@ -20,6 +20,7 @@ import {
   CLeft,
   MissionText,
   CRight,
+  Logo,
 } from '@/styles/last/Game';
 import { RefObject } from 'react';
 import WordErrorEffect from '../WordErrorEffect';
@@ -75,7 +76,7 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
       <Main>
         <CTrain>
           <CWord>
-            <WordText>끝말잇기!</WordText>
+            <Logo src="/assets/game/last-logo.svg" />
           </CWord>
           <SWheel
             src={getR2URL('/assets/game/wheel.svg')}

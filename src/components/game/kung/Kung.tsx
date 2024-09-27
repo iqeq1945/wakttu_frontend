@@ -42,11 +42,9 @@ import {
   TypingText,
   BTimerBar,
   PauseTv,
-  Length,
-  CBan,
-  CPaper,
-  Paper,
-  Magnet,
+  Logo,
+  CList,
+  Emergency,
 } from '@/styles/kung/Game';
 import WordErrorEffect from '../WordErrorEffect';
 import { Answer } from '@/redux/answer/answerSlice';
@@ -72,7 +70,6 @@ const Kung = ({
   name,
   answer,
   history,
-  ban,
 }: Props) => {
   const target = () => {
     const res = hangulTools().dueum(game.target);
@@ -85,13 +82,7 @@ const Kung = ({
         <Speaker src={getR2URL('/assets/game/speaker.svg')} reverse={false} />
         <Tv>
           {pause ? (
-            <Length
-              src={
-                game.chain % 2 === 1
-                  ? getR2URL('/assets/game/three.svg')
-                  : getR2URL('/assets/game/two.svg')
-              }
-            />
+            <Logo src={'/assets/game/kung-logo.svg'} />
           ) : (
             <PauseTv src={getR2URL('/assets/game/pauseTv.svg')} />
           )}
@@ -195,18 +186,11 @@ const Kung = ({
         <CPost>
           <Post>
             <CPostTitle>
-              <PostTitle>금지단어</PostTitle>
+              <PostTitle>게 시 판</PostTitle>
             </CPostTitle>
-            <CBan>
-              {ban.map((paper, idx) => {
-                return (
-                  <CPaper key={idx}>
-                    <Magnet idx={idx} />
-                    <Paper>{paper}</Paper>
-                  </CPaper>
-                );
-              })}
-            </CBan>
+            <CList>
+              <Emergency src="/assets/game/emergency.png" />
+            </CList>
           </Post>
         </CPost>
       </Right>

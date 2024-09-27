@@ -47,6 +47,7 @@ import { client } from '@/services/api';
 import { GetKey } from '@/modules/Voice';
 import useWaktaSound from '@/hooks/useWaktaSound';
 import { selectVolume } from '@/redux/audio/audioSlice';
+import useAnswerSound from '@/hooks/useAnswerSound';
 
 const Game = () => {
   const dispatch = useDispatch();
@@ -86,10 +87,6 @@ const Game = () => {
     effectVolume
   );
 
-  const answerSound = useEffectSound(
-    '/assets/sound-effects/lossy/game_correct_variant1.webm',
-    effectVolume
-  );
   const wrongSound = useEffectSound(
     '/assets/sound-effects/lossy/game_wrong.webm',
     effectVolume
@@ -99,6 +96,8 @@ const Game = () => {
     effectVolume
   );
 
+  const answerSound = useAnswerSound(effectVolume);
+
   const waktaSound = useWaktaSound(voiceVolume);
 
   /**
@@ -107,15 +106,17 @@ const Game = () => {
 
   const playAnswer = useCallback(
     ({
+      id,
       wakta,
       type,
       meta,
     }: {
+      id: string;
       wakta: boolean;
       type: string;
       meta?: { [x: string]: any };
     }) => {
-      if (!wakta) answerSound?.play();
+      if (!wakta) answerSound![id.length - 2].play();
       else {
         const key = GetKey(type, meta);
         waktaSound![key].play();
@@ -233,7 +234,8 @@ const Game = () => {
             setTimer({ roundTime: data.roundTime, turnTime: data.turnTime })
           )
         );
-        if (game.host === user.name) kungBanStart(roomInfo.id as string);
+        setTimeout(() => dispatch(setPause(true)));
+        if (game.host === user.name) kungTurnStart(roomInfo.id as string);
       }, 4000);
     });
 
@@ -302,6 +304,9 @@ const Game = () => {
 
   useEffect(() => {
     socket.on('kung.game', (data) => {
+      if (!late) {
+        return;
+      }
       const { success, answer, game, message, word } = data;
       setTimeout(() =>
         dispatch(
@@ -319,7 +324,7 @@ const Game = () => {
       });
 
       if (success) {
-        playAnswer(word);
+        playAnswer({ ...word, chain: game.chain });
         sound?.pause();
         fastSound?.pause();
         if (name === game.host) socket.emit('pong', roomInfo.id);
@@ -346,7 +351,17 @@ const Game = () => {
     return () => {
       socket.off('kung.game');
     };
-  }, [answerSound, dispatch, fastSound, name, roomInfo.id, sound, wrongSound]);
+  }, [
+    answerSound,
+    dispatch,
+    fastSound,
+    late,
+    name,
+    playAnswer,
+    roomInfo.id,
+    sound,
+    wrongSound,
+  ]);
 
   /* ping logic */
   useEffect(() => {
