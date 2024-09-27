@@ -1,4 +1,4 @@
-import { getIcon } from '@/modules/UserInfo';
+import { getCharacter, getIcon } from '@/modules/UserInfo';
 import { getR2URL } from '@/services/api';
 import {
   CPlayer,
@@ -30,13 +30,13 @@ const Player = ({
   onKick,
 }: Props) => {
   const icon = getIcon(user.score, user.provider);
-
+  const character = getCharacter(user.character);
   return (
     <CPlayer>
       {user.name && (
         <>
           <PlayerInfo>
-            <PlayerProfile src={getR2URL('/assets/player-profile.png')} />
+            <PlayerProfile src={character.skin} />
             <CBadge>
               <PlayerIcon src={icon} />
               <PlayerName>{user.name}</PlayerName>

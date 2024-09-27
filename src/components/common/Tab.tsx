@@ -1,14 +1,13 @@
 import { Content } from '@/styles/common/Header';
-import Router from 'next/router';
+
 interface Props {
   menuName: string;
-  href: string;
-  goHome?: () => void;
+  goRouter: () => void;
 }
 
-const Tab = ({ menuName, href, goHome }: Props) => {
+const Tab = ({ menuName, goRouter }: Props) => {
   return (
-    <Content onClick={goHome ? goHome : () => Router.push(href)}>
+    <Content onClick={goRouter}>
       <li>{menuName}</li>
     </Content>
   );

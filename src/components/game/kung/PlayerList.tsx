@@ -15,6 +15,7 @@ import { Bubble } from '@/containers/game/last/PlayerList';
 import BubbleBox from '../Bubble';
 import Difference from './DifferenceBox';
 import { TeamTag } from '@/styles/last/PlayList';
+import { getCharacter } from '@/modules/UserInfo';
 
 interface Props {
   users: any;
@@ -39,6 +40,8 @@ const PlayList = ({ users, game, answer, bubble, team }: Props) => {
   return (
     <CPlayerList>
       {users.map((user: any, index: number) => {
+        const character = getCharacter(user.character);
+
         const myTeam = checkMyTeam(user.userId);
         const isTurn = game.turn === index;
         const isFail = isTurn && answer.success === false;
@@ -55,7 +58,7 @@ const PlayList = ({ users, game, answer, bubble, team }: Props) => {
           >
             {myTeam ? <TeamTag team={myTeam.team}>{myTeam.name}</TeamTag> : ''}
             {lastBubble ? <BubbleBox chat={lastBubble.chat} /> : ''}
-            <Skin src={getR2URL('/assets/ipali.png')} />
+            <Skin src={character.skin} />
 
             <CName>
               {user.name === game.host && (

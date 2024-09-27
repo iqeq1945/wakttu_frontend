@@ -14,20 +14,23 @@ import { getIcon } from '@/modules/UserInfo';
 
 interface Props {
   user: any;
-  goHome: () => void;
+  goRouter: (src?: string) => void;
   onModal: () => void;
 }
 
-const Header = ({ user, goHome, onModal }: Props) => {
+const Header = ({ user, goRouter, onModal }: Props) => {
   const icon = getIcon(user.score, user.provider);
   return (
     <HeaderBlock>
-      <HeaderLogo src={R2_URL + '/assets/icons/logo.svg'} onClick={goHome} />
+      <HeaderLogo
+        src={R2_URL + '/assets/icons/logo.svg'}
+        onClick={() => goRouter()}
+      />
       <WrapContent>
-        <Tab menuName="방 목록" href="/roomlist" goHome={goHome} />
-        <Tab menuName="마이 페이지" href="/mypage" goHome={goHome} />
-        <Tab menuName="사전" href="/roomlist" goHome={goHome} />
-        <Tab menuName="도감" href="/book" goHome={goHome} />
+        <Tab menuName="방 목록" goRouter={() => goRouter('/roomlist')} />
+        <Tab menuName="마이 페이지" goRouter={() => goRouter('/mypage')} />
+        <Tab menuName="사전" goRouter={() => goRouter('/roomlist')} />
+        <Tab menuName="도감" goRouter={() => goRouter('/book')} />
         <Content onClick={onModal}>
           <li>옵션</li>
         </Content>

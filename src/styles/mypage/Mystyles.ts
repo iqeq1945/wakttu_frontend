@@ -1,9 +1,8 @@
-import styled from "styled-components";
-import { COLORS } from "../theme";
+import styled from 'styled-components';
+import { COLORS } from '../theme';
 
 const Wrapper = styled.div`
   display: flex;
-  margin-top: 0.3125rem;
   gap: 1rem;
 `;
 
@@ -13,8 +12,7 @@ const LeftWrapper = styled.div`
 
 const Content = styled.div`
   display: flex;
-  flex-direction:column;
-  padding: 1.125rem 0;
+  flex-direction: column;
   gap: 1.5rem;
 `;
 
@@ -25,7 +23,7 @@ const Character = styled.div`
   gap: 0.625rem;
 `;
 
-const MyCharacter = styled.div`
+const MyCharacterBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -49,7 +47,7 @@ const User = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.625rem ;
+  gap: 0.625rem;
 `;
 
 const UserIcon = styled.img`
@@ -74,7 +72,7 @@ const WearingItems = styled.div`
 
   padding: 1rem;
   gap: 0.625rem;
-  
+
   box-sizing: border-box;
   border-radius: 1rem;
   border: 2px solid ${COLORS['gray-4']};
@@ -99,9 +97,11 @@ const WearingImage = styled.img`
   width: 8.0625rem;
   height: 7.8125rem;
   object-fit: contain;
+
+  ${({ src }) => (src ? 'opacity : 1' : 'opacity : 0')};
 `;
 
-const WearingTag = styled.div<{ $backgroundColor: string, $color: string }>`
+const WearingTag = styled.div<{ $backgroundColor: string; $color: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -132,6 +132,7 @@ const EmoticonBox = styled.div`
 const ContentFooter = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 1.5rem;
 `;
 
 export {
@@ -139,7 +140,7 @@ export {
   Content,
   LeftWrapper,
   Character,
-  MyCharacter,
+  MyCharacterBox,
   CharacterImage,
   User,
   UserIcon,
@@ -150,5 +151,5 @@ export {
   WearingTag,
   Emoticon,
   EmoticonBox,
-  ContentFooter
+  ContentFooter,
 };

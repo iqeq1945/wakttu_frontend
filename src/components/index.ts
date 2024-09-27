@@ -50,3 +50,6 @@ export { default as KChat } from './game/kung/Chat';
 export { default as KAnswer } from './game/kung/Answer';
 export { default as Kung } from './game/kung/Kung';
 export { default as KPlayerList } from './game/kung/PlayerList';
+
+export { default as MyStyleList } from './mypage/MystyleList';
+export { default as MypageHeader } from './mypage/MypageHeader';
