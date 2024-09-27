@@ -1,8 +1,7 @@
-import styled, { css } from "styled-components";
-import { COLORS } from "../theme";
-import { scrollbarStyles } from "../book/Scrollbar";
-import { CosmeticStyles, CosmeticVariant } from "../book/CosmeticType";
-
+import styled, { css } from 'styled-components';
+import { COLORS } from '../theme';
+import { scrollbarStyles } from '../book/Scrollbar';
+import { CosmeticStyles, CosmeticVariant } from '../book/CosmeticType';
 
 const RightWrapper = styled.div`
   display: flex;
@@ -11,12 +10,10 @@ const RightWrapper = styled.div`
   gap: 1rem;
 `;
 
-
-
 const ListBox = styled.div`
   display: flex;
   flex-direction: column;
-  
+
   height: 54.6875rem;
   padding: 1rem 1rem 0 1rem;
   gap: 1.5625rem;
@@ -35,8 +32,7 @@ const TagBox = styled.div`
   border: 1px solid ${COLORS['gray-4']};
 `;
 
-
-const Tag = styled.div<{ isClicked: boolean }>`
+const Tag = styled.div<{ $isClicked: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,10 +43,10 @@ const Tag = styled.div<{ isClicked: boolean }>`
   cursor: pointer;
 
   border-radius: 0.5rem;
-  background-color: ${({ isClicked }) => (isClicked ? COLORS['primary'] : 'transparent')};
-  color: ${({ isClicked }) => (isClicked ? 'white' : COLORS['text'])};
+  background-color: ${({ $isClicked }) =>
+    $isClicked ? COLORS['primary'] : 'transparent'};
+  color: ${({ $isClicked }) => ($isClicked ? 'white' : COLORS['text'])};
 `;
-
 
 const ListItems = styled.div`
   display: flex;
@@ -65,7 +61,7 @@ const ListItems = styled.div`
   ${scrollbarStyles};
 `;
 
-const ListItem = styled.div<{ isClickedItem: boolean }>`
+const ListItem = styled.div<{ $isClickedItem: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -74,15 +70,18 @@ const ListItem = styled.div<{ isClickedItem: boolean }>`
   width: 12.625rem;
   height: 13.25rem;
   padding: 1.3125rem 0;
-  
+
   gap: 0.3125rem;
 
   border-radius: 1rem;
-  border: 2px solid ${(props) => (props.isClickedItem ? COLORS['primary'] : COLORS['gray-4'])};
+  border: 2px solid
+    ${(props) => (props.$isClickedItem ? COLORS['primary'] : COLORS['gray-4'])};
   cursor: pointer;
 
   &:hover {
-    border: 2px solid ${(props) => (props.isClickedItem ? COLORS['primary'] : COLORS['primary-hov'])};
+    border: 2px solid
+      ${(props) =>
+        props.$isClickedItem ? COLORS['primary'] : COLORS['primary-hov']};
   }
 `;
 
@@ -122,9 +121,9 @@ const ItemTag = styled.span<{ $itemType?: CosmeticVariant }>`
     return css`
       background-color: ${style.backgroundColor};
       color: ${style.color};
-    `
+    `;
   }}
-  
+
   font-size: 0.875rem;
   font-weight: 600;
 `;
@@ -135,10 +134,8 @@ const ItemName = styled.span`
   font-size: 1.125rem;
 `;
 
-
 export {
   RightWrapper,
-
   ListBox,
   TagBox,
   Tag,
@@ -148,5 +145,5 @@ export {
   ItemImage,
   ItemInfo,
   ItemTag,
-  ItemName
-}
+  ItemName,
+};

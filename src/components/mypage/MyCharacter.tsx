@@ -1,4 +1,4 @@
-import { getIcon } from '@/modules/UserInfo';
+import { getCharacter, getIcon } from '@/modules/UserInfo';
 import { getR2URL } from '@/services/api';
 import {
   CharacterImage,
@@ -8,17 +8,24 @@ import {
   UserName,
 } from '@/styles/mypage/Mystyles';
 
-const MyCharacter = ({ user }: any) => {
+interface Props {
+  user: any;
+  character: { skin?: string; head?: string; hand?: string; eye?: string };
+}
+
+const MyCharacter = ({ user, character }: Props) => {
   const icon = getIcon(user.score, user.provider);
+  const characterInfo = getCharacter(character);
+
   return (
     <MyCharacterBox>
-      <CharacterImage src={getR2URL('/assets/player-profile.png')} />
+      <CharacterImage src={characterInfo.skin} />
       <User>
         <UserIcon src={icon} />
         <UserName>{user.name}</UserName>
       </User>
     </MyCharacterBox>
-  )
+  );
 };
 
 export default MyCharacter;

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { COLORS } from "../theme";
+import styled from 'styled-components';
+import { COLORS } from '../theme';
 
 const Wrapper = styled.div`
   display: flex;
@@ -10,10 +10,9 @@ const LeftWrapper = styled.div`
   gap: 1rem;
 `;
 
-
 const Content = styled.div`
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   gap: 1.5rem;
 `;
 
@@ -48,7 +47,7 @@ const User = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.625rem ;
+  gap: 0.625rem;
 `;
 
 const UserIcon = styled.img`
@@ -73,7 +72,7 @@ const WearingItems = styled.div`
 
   padding: 1rem;
   gap: 0.625rem;
-  
+
   box-sizing: border-box;
   border-radius: 1rem;
   border: 2px solid ${COLORS['gray-4']};
@@ -98,9 +97,11 @@ const WearingImage = styled.img`
   width: 8.0625rem;
   height: 7.8125rem;
   object-fit: contain;
+
+  ${({ src }) => (src ? 'opacity : 1' : 'opacity : 0')};
 `;
 
-const WearingTag = styled.div<{ $backgroundColor: string, $color: string }>`
+const WearingTag = styled.div<{ $backgroundColor: string; $color: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -150,5 +151,5 @@ export {
   WearingTag,
   Emoticon,
   EmoticonBox,
-  ContentFooter
+  ContentFooter,
 };

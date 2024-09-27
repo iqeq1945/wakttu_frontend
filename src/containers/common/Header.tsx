@@ -27,14 +27,17 @@ const Header = () => {
   const modal = useSelector(selectModal);
   const audio = useSelector(selectVolume);
 
-  const goHome = useCallback(async () => {
-    await router.push('/');
-    if (game.host !== '' || roomInfo.id) {
-      await exit(roomInfo.id as string);
-      await dispatch(clearGame());
-      await dispatch(clearRoomInfo());
-    }
-  }, [dispatch, game.host, roomInfo.id, router]);
+  const goRouter = useCallback(
+    async (src: string = '/') => {
+      await router.push(src);
+      if (game.host !== '' || roomInfo.id) {
+        await exit(roomInfo.id as string);
+        await dispatch(clearGame());
+        await dispatch(clearRoomInfo());
+      }
+    },
+    [dispatch, game.host, roomInfo.id, router]
+  );
 
   const onModal = () => {
     dispatch(openModal('OPTION'));
@@ -74,7 +77,9 @@ const Header = () => {
 
   return (
     <>
-      {isConnected && <CHeader user={user} goHome={goHome} onModal={onModal} />}
+      {isConnected && (
+        <CHeader user={user} goRouter={goRouter} onModal={onModal} />
+      )}
       {modal.modalType === 'OPTION' && modal.open && (
         <Option
           audio={audio}

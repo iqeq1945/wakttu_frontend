@@ -21,9 +21,29 @@ export const getExp = (score: number) => {
   return score % 1000;
 };
 
+export const getCharacter = (
+  character: {
+    skin?: string;
+    head?: string;
+    hand?: string;
+    eye?: string;
+  } = { skin: 'S-1', head: '', hand: '', eye: '' }
+) => {
+  const { skin, head, hand, eye } = character;
+  return {
+    skin: getCharacterUrl(skin),
+    head: getCharacterUrl(head),
+    hand: getCharacterUrl(hand),
+    eye: getCharacterUrl(eye),
+  };
+};
+
 export const getUserDesc = (score: number, provider?: string) => {
   const icon = getIcon(score, provider);
   const level = getLevel(score);
   const exp = getExp(score);
   return { icon, level, exp };
 };
+
+const getCharacterUrl = (id?: string) =>
+  id ? R2_URL + '/assets/items/' + id + '.svg' : undefined;

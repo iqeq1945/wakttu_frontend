@@ -1,13 +1,18 @@
 import MyCharacter from '@/components/mypage/MyCharacter';
 import MyWearingItem from '@/components/mypage/MyWearingItem';
-import { selectUserInfo } from '@/redux/user/userSlice';
+import { selectCharacter, selectUserInfo } from '@/redux/user/userSlice';
 import { Character } from '@/styles/mypage/Mystyles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const CharacterInfo = () => {
   const user = useSelector(selectUserInfo);
-  const [isLoading, setLoading] = useState(false);
+  const character = useSelector(selectCharacter);
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   return (
     <>
@@ -15,12 +20,12 @@ const CharacterInfo = () => {
         ''
       ) : (
         <Character>
-          <MyCharacter user={user} />
-          <MyWearingItem />
+          <MyCharacter user={user} character={character} />
+          <MyWearingItem character={character} />
         </Character>
       )}
     </>
-  )
-}
+  );
+};
 
 export default CharacterInfo;

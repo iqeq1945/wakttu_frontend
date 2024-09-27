@@ -1,5 +1,5 @@
 import { getR2URL } from '@/services/api';
-import { CosmeticStyles, CosmeticVariant } from '@/styles/book/CosmeticType';
+import { CosmeticStyles } from '@/styles/book/CosmeticType';
 import {
   RightWrapper,
   ItemImage,
@@ -13,50 +13,36 @@ import {
   Tag,
   ImageBox,
 } from '@/styles/mypage/MystyleList';
-import { useState, MouseEvent, useEffect } from 'react';
+import { MouseEvent } from 'react';
 
+type Variant = 'skin' | 'head' | 'hand' | 'eye';
 interface Props {
-  items?: {
+  itemList?: {
     id: string;
-    category: CosmeticVariant;
+    category: Variant;
     name: string;
     description: string;
     url: string;
     author: string;
   }[];
+  clickTag: string;
+  clickItem: {
+    skin: string;
+    hand: string;
+    head: string;
+    eye: string;
+  };
+  handleClickTag: (e: MouseEvent<HTMLElement>) => void;
+  handleClickItem: (e: MouseEvent<HTMLElement>) => void;
 }
 
-const MystyleList = ({ items }: Props) => {
-  const [clickTag, setClickTag] = useState<string>('all');
-  const [clickItem, setClickItem] = useState<string>('');
-  const [itemList, setItemList] = useState(items)
-
-  const handleClickTag = (e: MouseEvent<HTMLElement>) => {
-    const clicked = e.currentTarget.dataset.category;
-    if (clicked) {
-      setClickTag(clicked);
-    }
-  };
-
-  const handleClickItem = (e: MouseEvent<HTMLElement>) => {
-    const clickedId = e.currentTarget.id;
-    if (clickedId) {
-      if (clickItem === clickedId) setClickItem('');
-      setClickItem(clickedId);
-    }
-  };
-
-  useEffect(() => {
-    if (items) {
-      if (clickTag === 'all') {
-        setItemList(items);
-      } else {
-        setItemList(items.filter(item => item.category === clickTag));
-      }
-    }
-  }, [clickTag, items])
-
-
+const MystyleList = ({
+  itemList,
+  clickItem,
+  clickTag,
+  handleClickItem,
+  handleClickTag,
+}: Props) => {
   return (
     <RightWrapper>
       <ListBox>
@@ -66,7 +52,7 @@ const MystyleList = ({ items }: Props) => {
               key={key}
               data-category={key}
               onClick={handleClickTag}
-              isClicked={clickTag === key}
+              $isClicked={clickTag === key}
             >
               {value.name}
             </Tag>
@@ -78,8 +64,9 @@ const MystyleList = ({ items }: Props) => {
               <ListItem
                 key={data.id}
                 id={data.id}
+                data-category={data.category}
                 onClick={handleClickItem}
-                isClickedItem={clickItem === data.id}
+                $isClickedItem={clickItem[data.category] === data.id}
               >
                 <ImageBox>
                   <ItemImage src={getR2URL(data.url)} />
