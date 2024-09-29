@@ -110,7 +110,7 @@ const CreateRoom = ({
             type="number"
             value={roomInfo.round}
             onChange={onRoomInfo}
-            min="3"
+            min="1"
             max="8"
           />
         </CCreate>
