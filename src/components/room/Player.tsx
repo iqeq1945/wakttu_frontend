@@ -11,6 +11,7 @@ import {
   KickIcon,
   TeamTag,
 } from '@/styles/room/PlayerList';
+import { useEffect, useState } from 'react';
 
 interface Props {
   $ready: boolean;
@@ -29,8 +30,14 @@ const Player = ({
   team = undefined,
   onKick,
 }: Props) => {
-  const icon = getIcon(user.score, user.provider);
-  const character = getCharacter(user.character);
+  const [icon, setIcon] = useState('');
+  const [character, setCharacter] = useState<any>({ skin: '' });
+
+  useEffect(() => {
+    setIcon(getIcon(user.score, user.provider));
+    setCharacter(getCharacter(user.character));
+  }, [user.character, user.provider, user.score]);
+
   return (
     <CPlayer>
       {user.name && (

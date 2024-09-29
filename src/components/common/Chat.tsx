@@ -7,6 +7,7 @@ import {
   ChatContent,
   DateContent,
 } from '@/styles/common/Chat';
+import { useEffect, useState } from 'react';
 
 interface Props {
   user: any;
@@ -15,7 +16,12 @@ interface Props {
 }
 
 const Chat = ({ user, chat, date }: Props) => {
-  const icon = getIcon(user.score, user.provider);
+  const [icon, setIcon] = useState('');
+
+  useEffect(() => {
+    setIcon(getIcon(user.score, user.provider));
+  }, [user.provider, user.score]);
+
   return (
     <PlayerChat>
       <CPlayer>

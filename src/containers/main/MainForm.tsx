@@ -7,6 +7,7 @@ import { client } from '@/services/api';
 import {
   clearUserInfo,
   selectUserId,
+  selectUserInfo,
   setUserInfo,
 } from '@/redux/user/userSlice';
 import { socket } from '@/services/socket/socket';
@@ -15,6 +16,7 @@ const MainFormContainer = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const user = useSelector(selectUserInfo);
   const userId = useSelector(selectUserId);
   const [isLogined, setIsLogined] = useState(false);
 
@@ -61,6 +63,7 @@ const MainFormContainer = () => {
 
   return (
     <MainForm
+      user={user}
       isLogined={isLogined}
       onModal={onModal}
       start={start}

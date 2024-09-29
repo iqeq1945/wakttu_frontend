@@ -45,9 +45,14 @@ import useSound from '@/hooks/useSound';
 import useEffectSound from '@/hooks/useEffectSound';
 import useWaktaSound from '@/hooks/useWaktaSound';
 import { GetKey } from '@/modules/Voice';
-import { client } from '@/services/api';
+import { client, updatePlayCount, updateResult } from '@/services/api';
 import useAnswerSound from '@/hooks/useAnswerSound';
 import { selectVolume } from '@/redux/audio/audioSlice';
+import {
+  clearResult,
+  selectResult,
+  setResult,
+} from '@/redux/result/resultSlice';
 
 const Game = () => {
   /** Redux and State Part */
@@ -59,6 +64,8 @@ const Game = () => {
   const name = useSelector(selectUserName);
   const timer = useSelector(selectTimer);
   const pause = useSelector(selectPause);
+  const result = useSelector(selectResult);
+
   const { bgmVolume, effectVolume, voiceVolume } = useSelector(selectVolume);
 
   const [late, setLate] = useState<boolean>(true);
@@ -296,6 +303,10 @@ const Game = () => {
         fastSound?.pause();
         if (name === game.host) socket.emit('pong', roomInfo.id);
         dispatch(setHistory(word));
+
+        // Result 용 데이터
+        if (word.wakta) dispatch(setResult({ type: 'WORD', word }));
+
         setTimeout(() => {
           setTimeout(() =>
             dispatch(
@@ -343,10 +354,16 @@ const Game = () => {
 
   /* result, end logic*/
   useEffect(() => {
-    socket.on('last.result', (data) => {
+    socket.on('last.result', async (data) => {
+      if (user.provider === 'waktaverse.games') {
+        await updatePlayCount(game.type);
+        await updateResult(result);
+      }
+      dispatch(clearResult());
       dispatch(clearAnswer());
       dispatch(clearTimer());
       dispatch(clearHistory());
+
       console.log('result:', data);
     });
 
@@ -365,7 +382,7 @@ const Game = () => {
       socket.off('last.result');
       socket.off('last.end');
     };
-  });
+  }, [dispatch, game.type, result, router, user.id, user.provider]);
 
   useEffect(() => {
     socket.on('exit', (data) => {
