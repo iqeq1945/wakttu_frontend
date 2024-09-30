@@ -47,7 +47,11 @@ import { GetKey } from '@/modules/Voice';
 import useWaktaSound from '@/hooks/useWaktaSound';
 import { selectVolume } from '@/redux/audio/audioSlice';
 import useAnswerSound from '@/hooks/useAnswerSound';
-import { selectResult, setResult } from '@/redux/result/resultSlice';
+import {
+  clearResult,
+  selectResult,
+  setResult,
+} from '@/redux/result/resultSlice';
 
 const Game = () => {
   const dispatch = useDispatch();
@@ -386,6 +390,7 @@ const Game = () => {
         await updatePlayCount(game.type);
         await updateResult(result);
       }
+      dispatch(clearResult());
       dispatch(clearAnswer());
       dispatch(clearTimer());
       dispatch(clearHistory());
