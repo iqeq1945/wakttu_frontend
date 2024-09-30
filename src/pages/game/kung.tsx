@@ -5,7 +5,6 @@ import PlayerList from '@/containers/game/kung/PlayerList';
 import { Container } from '@/styles/kung/Layout';
 import {
   exit,
-  kungBanStart,
   kungRound,
   kungTurnEnd,
   kungTurnStart,
@@ -43,16 +42,18 @@ import {
 import useSound from '@/hooks/useSound';
 import useEffectSound from '@/hooks/useEffectSound';
 import { useRouter } from 'next/router';
-import { client } from '@/services/api';
+import { client, updatePlayCount, updateResult } from '@/services/api';
 import { GetKey } from '@/modules/Voice';
 import useWaktaSound from '@/hooks/useWaktaSound';
 import { selectVolume } from '@/redux/audio/audioSlice';
 import useAnswerSound from '@/hooks/useAnswerSound';
+import { selectResult, setResult } from '@/redux/result/resultSlice';
 
 const Game = () => {
   const dispatch = useDispatch();
   const game = useSelector(selectGame);
   const user = useSelector(selectUserInfo);
+  const result = useSelector(selectResult);
   const roomInfo = useSelector(selectRoomInfo);
   const name = useSelector(selectUserName);
   const timer = useSelector(selectTimer);
@@ -329,6 +330,10 @@ const Game = () => {
         fastSound?.pause();
         if (name === game.host) socket.emit('pong', roomInfo.id);
         dispatch(setHistory(word));
+
+        // Result 용 데이터
+        if (word.wakta) dispatch(setResult({ type: 'WORD', word }));
+
         setTimeout(() => {
           setTimeout(() =>
             dispatch(
@@ -376,7 +381,11 @@ const Game = () => {
 
   /* result, end logic*/
   useEffect(() => {
-    socket.on('kung.result', (data) => {
+    socket.on('kung.result', async (data) => {
+      if (user.provider === 'waktaverse.games') {
+        await updatePlayCount(game.type);
+        await updateResult(result);
+      }
       dispatch(clearAnswer());
       dispatch(clearTimer());
       dispatch(clearHistory());
