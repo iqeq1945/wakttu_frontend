@@ -35,7 +35,7 @@ const RoomDesc = ({ roomInfo }: Props) => {
           ''
         )}
         {roomInfo.type === 1 ? (
-          <GameInfo src={getR2URL('/assets/game-info.png')} />
+          <GameInfo src={getR2URL('/assets/game-info-2.png')} />
         ) : (
           ''
         )}
