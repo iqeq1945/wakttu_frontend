@@ -17,29 +17,146 @@ const Modal = styled.div`
 `;
 
 const COption = styled.div`
-  display: flex;
-  width: 50rem;
-
+  display: inline-flex;
   padding: 1.75rem;
   flex-direction: column;
   align-items: flex-start;
   gap: 1.5rem;
 
-  border-radius: 2rem;
+  background: ${COLORS.bg};
+
+  border-radius: 1rem;
   border: 2px solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
 `;
 
-const CVolume = styled.div`
+const Setting = styled.img`
+  width: 1.75rem;
+  height: 1.75rem;
+`;
+
+const TitleText = styled.h4`
+  color: ${COLORS.text};
+
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+`;
+
+const Title = styled.div`
   display: flex;
   align-items: center;
-  width: 48rem;
+  gap: 0.375rem;
 `;
 
-const VoulmeText = styled.h3``;
-
-const Range = styled.input`
-  width: 38rem;
+const CVolume = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
 `;
 
-export { VoulmeText, Range, CVolume, COption, Modal };
+const VoulmeText = styled.h6`
+  color: ${COLORS.text};
+
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`;
+
+const CButton = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  align-self: stretch;
+`;
+
+const SetButton = styled.button`
+  display: flex;
+  padding: 1rem 2.625rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  flex: 1 0 0;
+
+  border: none;
+  border-radius: 0.5rem;
+  background: ${COLORS.primary};
+
+  color: ${COLORS.bg};
+  text-align: center;
+
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-size: ${FONT_SIZES['subtitle-1']};
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+
+  cursor: pointer;
+  &:hover {
+    background-color: ${COLORS['primary-hov']};
+  }
+`;
+
+const Cancle = styled.button`
+  display: flex;
+
+  padding: 1rem 2.625rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+
+  border-radius: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: ${COLORS['gray-4']};
+  cursor: pointer;
+
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-size: ${FONT_SIZES['subtitle-1']};
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+`;
+
+const VInput = styled.input`
+  -webkit-appearance: none;
+  width: 17.6875rem;
+  height: 0.45rem;
+
+  background: ${COLORS['gray-4']};
+
+  &:focus {
+    outline: none;
+  }
+
+  &::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    height: 0.45rem;
+    background: ${COLORS['primary-hov']};
+  }
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 0.96438rem;
+    height: 0.96438rem;
+    background: ${COLORS.primary};
+  }
+`;
+export {
+  VoulmeText,
+  CVolume,
+  COption,
+  CButton,
+  SetButton,
+  Setting,
+  Title,
+  TitleText,
+  Cancle,
+  Modal,
+  VInput,
+};

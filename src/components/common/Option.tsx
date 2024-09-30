@@ -1,9 +1,16 @@
+import { getR2URL } from '@/services/api';
 import {
   Modal,
   COption,
   CVolume,
   VoulmeText,
-  Range,
+  Title,
+  Setting,
+  TitleText,
+  VInput,
+  CButton,
+  Cancle,
+  SetButton,
 } from '@/styles/common/Option';
 import { MouseEvent } from 'react';
 
@@ -25,9 +32,13 @@ const OptionBox = ({
   return (
     <Modal onClick={offModal}>
       <COption onClick={(e) => e.stopPropagation()}>
+        <Title>
+          <Setting src={getR2URL('/assets/icons/setting')} />
+          <TitleText>환경설정</TitleText>
+        </Title>
         <CVolume>
-          <VoulmeText>배경음</VoulmeText>
-          <Range
+          <VoulmeText>배경음 볼륨</VoulmeText>
+          <VInput
             type="range"
             min={0}
             max={1}
@@ -37,8 +48,8 @@ const OptionBox = ({
           />
         </CVolume>
         <CVolume>
-          <VoulmeText>효과음</VoulmeText>
-          <Range
+          <VoulmeText>효과음 볼륨</VoulmeText>
+          <VInput
             type="range"
             min={0}
             max={1}
@@ -48,8 +59,8 @@ const OptionBox = ({
           />
         </CVolume>
         <CVolume>
-          <VoulmeText>음 성</VoulmeText>
-          <Range
+          <VoulmeText>음 성 볼륨</VoulmeText>
+          <VInput
             type="range"
             min={0}
             max={1}
@@ -58,6 +69,10 @@ const OptionBox = ({
             onClick={onVoiceChange}
           />
         </CVolume>
+        <CButton>
+          <SetButton>적용하기</SetButton>
+          <Cancle>취소</Cancle>
+        </CButton>
       </COption>
     </Modal>
   );
