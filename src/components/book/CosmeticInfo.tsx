@@ -24,6 +24,7 @@ interface Props {
 }
 
 const CosmeticInfo = ({ info }: Props) => {
+  console.log(info);
   return (
     <LeftWrapper>
       <TitleSection>

@@ -124,30 +124,46 @@ const Cancle = styled.button`
   line-height: normal;
 `;
 
+const VolumeContainer = styled.div<{ range: number }>`
+  position: relative;
+  width: 17.6875rem;
+  height: 0.375rem;
+  background: ${({ range }) =>
+    `linear-gradient(to right, ${COLORS['primary-hov']} 0%, ${
+      COLORS['primary-hov']
+    } ${range * 100}%, ${COLORS['gray-4']} ${range * 100}%, ${
+      COLORS['gray-4']
+    } 100%)`};
+  border-radius: 0.25rem;
+`;
+
 const VInput = styled.input`
+  position: absolute;
+  top: 0;
+  left: 0;
   -webkit-appearance: none;
   width: 17.6875rem;
-  height: 0.45rem;
 
-  background: ${COLORS['gray-4']};
+  margin: 0;
+  height: 0.375rem;
+
+  border-radius: 0.25rem;
+  background: transparent;
 
   &:focus {
     outline: none;
   }
 
-  &::-webkit-slider-runnable-track {
-    -webkit-appearance: none;
-    height: 0.45rem;
-    background: ${COLORS['primary-hov']};
-  }
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 0.96438rem;
     height: 0.96438rem;
     background: ${COLORS.primary};
+    border-radius: 1rem;
   }
 `;
 export {
+  VolumeContainer,
   VoulmeText,
   CVolume,
   COption,
