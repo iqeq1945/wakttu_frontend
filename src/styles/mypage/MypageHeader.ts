@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { COLORS } from "../theme";
+import styled from 'styled-components';
+import { COLORS } from '../theme';
 
 const Header = styled.div`
   display: flex;
@@ -30,7 +30,6 @@ const SaveButton = styled.div`
   cursor: pointer;
 `;
 
-
 const ResetButton = styled.div`
   display: flex;
   align-items: center;
@@ -39,22 +38,16 @@ const ResetButton = styled.div`
   gap: 0.5rem;
 
   border-radius: 0.5rem;
-  background-color:#FF7070;
+  background-color: #ff7070;
   font-size: 1.125rem;
   color: white;
   cursor: pointer;
 `;
 
-
 const ButtonIcon = styled.img`
   width: 1.5rem;
   height: 1.5rem;
+  fill: white;
 `;
 
-export {
-  Header,
-  Buttons,
-  SaveButton,
-  ButtonIcon,
-  ResetButton,
-}
+export { Header, Buttons, SaveButton, ButtonIcon, ResetButton };
