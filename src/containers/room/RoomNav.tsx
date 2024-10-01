@@ -1,5 +1,5 @@
 import { RoomNav as CRoomNav } from '@/components';
-import { selectHost, setGame } from '@/redux/game/gameSlice';
+import { clearGame, selectHost, setGame } from '@/redux/game/gameSlice';
 import { openModal } from '@/redux/modal/modalSlice';
 import {
   clearRoomInfo,
@@ -23,6 +23,7 @@ const RoomNav = () => {
     exit(roomId);
     await router.push('/roomlist');
     dispatch(clearRoomInfo());
+    dispatch(clearGame());
   }, [dispatch, roomId, router]);
 
   const onModal = () => {
