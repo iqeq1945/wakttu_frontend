@@ -21,10 +21,10 @@ import { ITEM } from '@/containers/book/Cosmetic';
 
 interface Props {
   info: ITEM;
+  data?: { achieves: any; size: number };
 }
 
-const CosmeticInfo = ({ info }: Props) => {
-  console.log(info);
+const CosmeticInfo = ({ info, data }: Props) => {
   return (
     <LeftWrapper>
       <TitleSection>
@@ -58,7 +58,7 @@ const CosmeticInfo = ({ info }: Props) => {
         </InfoBottom>
       </InfoSection>
       <GetButton $itemType={info.category as CosmeticVariant}>
-        획득하기
+        {data ? '획득하기' : '획득불가'}
       </GetButton>
     </LeftWrapper>
   );

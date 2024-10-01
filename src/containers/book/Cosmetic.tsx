@@ -1,9 +1,10 @@
 import { CosmeticList as List } from '@/components';
 import { CosmeticInfo as Info } from '@/components';
 import { closeModal } from '@/redux/modal/modalSlice';
-import { getItemList } from '@/services/api';
+import { selectUserInfo } from '@/redux/user/userSlice';
+import { getAchieveList, getItemList } from '@/services/api';
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export interface ITEM {
   id: string;
@@ -16,6 +17,8 @@ export interface ITEM {
 
 const Cosmetic = () => {
   const dispatch = useDispatch();
+  const user = useSelector(selectUserInfo);
+  const [achieves, setAchieves] = useState();
   const [info, setInfo] = useState<ITEM>();
   const [isOpen, setIsOpen] = useState(false);
   const [items, setItems] = useState<ITEM[]>([]);
@@ -71,9 +74,21 @@ const Cosmetic = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    const getAchieves = async () => {
+      const data = await getAchieveList();
+      if (data) {
+        setAchieves(data);
+      }
+    };
+    if (user.provider === 'waktaverse.games') {
+      getAchieves();
+    }
+  }, [user.provider]);
+
   return (
     <>
-      {info && <Info info={info!} />}
+      {info && <Info info={info!} data={achieves} />}
       <List
         dataset={items}
         isOpen={isOpen}

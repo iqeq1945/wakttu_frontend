@@ -58,3 +58,23 @@ export const getItemList = async () => {
     .catch(console.error);
   return data;
 };
+
+export const getMyItemList = async (userId: string) => {
+  const data = await client
+    .get('/user/items/' + userId)
+    .then((response) => response.data)
+    .catch(console.error);
+  return data;
+};
+
+/**
+ *
+ * @returns {achieves : [], size : number}
+ */
+export const getAchieveList = async () => {
+  const data = await client
+    .get('/wakta/achieve')
+    .then((response) => response.data)
+    .catch(() => undefined);
+  return data;
+};

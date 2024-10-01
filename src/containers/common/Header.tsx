@@ -19,7 +19,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const [icon, setIcon] = useState(getIcon(0, undefined));
   const modal = useSelector(selectModal);
-  const audio = useSelector(selectVolume);
   const [volume, setVolume] = useState({
     bgmVolume: 0.5,
     effectVolume: 0.5,
@@ -28,11 +27,17 @@ const Header = () => {
 
   const goRouter = useCallback(
     async (src: string = '/') => {
-      await router.push(src);
       if (game.host !== '' || roomInfo.id) {
+        const check = confirm(
+          '현재 방에서 나가집니다. 동의하면 확인 아니면 취소 해주세요!'
+        );
+        if (!check) return;
+        await router.push(src);
         await exit(roomInfo.id as string);
         await dispatch(clearGame());
         await dispatch(clearRoomInfo());
+      } else {
+        await router.push(src);
       }
     },
     [dispatch, game.host, roomInfo.id, router]
