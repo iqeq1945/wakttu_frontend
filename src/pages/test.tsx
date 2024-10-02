@@ -1,13 +1,7 @@
 import { client, updatePlayCount, updateResult } from '@/services/api';
-
+import Result from '@/components/room/Result';
 const Test = () => {
-  const onClick = async () => {
-    await updateResult([
-      { type: 'WORD', word: { type: 'WOO' } },
-      { type: 'WORD', word: { type: 'VIICHAN' } },
-    ]);
-  };
-  return <button onClick={onClick}>버튼</button>;
+  return <Result />;
 };
 
 export default Test;

@@ -1,7 +1,7 @@
 import data from '@/modules/Voice.json';
 import { R2_URL } from '@/services/api';
 
-const { woo, ine, jingburger, lilpa, jururu, gosegu, viichan } = data;
+const { woo, gomem, ine, jingburger, lilpa, jururu, gosegu, viichan } = data;
 
 const Read = () =>
   console.log(woo, ine, jingburger, lilpa, jururu, gosegu, viichan);
@@ -12,6 +12,14 @@ const List = () => {
     const obj = {
       id: item.id,
       src: item.src ? item.src : R2_URL + `/assets/voice/woo/${item.id}.webm`,
+    };
+    arr.push(obj);
+  });
+
+  gomem.map((item: { id: string; src?: string }) => {
+    const obj = {
+      id: item.id,
+      src: item.src ? item.src : R2_URL + `/assets/voice/gomem/${item.id}.webm`,
     };
     arr.push(obj);
   });
