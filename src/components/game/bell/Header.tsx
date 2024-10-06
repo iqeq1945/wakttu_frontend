@@ -10,7 +10,7 @@ import {
   ExitIcon,
   Index,
   Title,
-} from '@/styles/last/Header';
+} from '@/styles/bell/Header';
 
 interface Props {
   roomInfo: Room;

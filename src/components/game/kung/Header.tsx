@@ -27,9 +27,6 @@ const Header = ({ roomInfo, exit }: Props) => {
         <Button>
           <ButtonText>방설정</ButtonText>
         </Button>
-        <Button>
-          <ButtonText>도움말</ButtonText>
-        </Button>
       </CButton>
       <CTitle>
         <Index>[ {roomInfo.idx} ]</Index>

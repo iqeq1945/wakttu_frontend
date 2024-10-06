@@ -16,6 +16,8 @@ const MyPageHeader = () => {
     const { data } = await client.patch(`/user/${userId}`, {
       character: character,
     });
+    if (data) alert('저장 완료!');
+    else alert('알수없는 이유로 실패!');
     dispatch(setUserInfo(data));
   }, [character, dispatch, userId]);
 

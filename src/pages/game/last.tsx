@@ -53,15 +53,16 @@ import {
   selectResult,
   setResult,
 } from '@/redux/result/resultSlice';
+import { openModal, setDataModal } from '@/redux/modal/modalSlice';
 
 const Game = () => {
   /** Redux and State Part */
   const dispatch = useDispatch();
   const router = useRouter();
   const game = useSelector(selectGame);
+  const name = useSelector(selectUserName);
   const roomInfo = useSelector(selectRoomInfo);
   const user = useSelector(selectUserInfo);
-  const name = useSelector(selectUserName);
   const timer = useSelector(selectTimer);
   const pause = useSelector(selectPause);
   const result = useSelector(selectResult);
@@ -149,12 +150,19 @@ const Game = () => {
   const setTurnEnd = useCallback(() => {
     if (timer.turnTime > 0 && timer.countTime === timer.turnTime) {
       setLate(false);
-      if (game.host === name) lastTurnEnd(roomInfo.id as string);
+      if (game.host === user.id) lastTurnEnd(roomInfo.id as string);
       dispatch(setPause(false));
       dispatch(clearTimer());
       dispatch(clearAnswer());
     }
-  }, [timer.turnTime, timer.countTime, game.host, name, roomInfo.id, dispatch]);
+  }, [
+    timer.turnTime,
+    timer.countTime,
+    game.host,
+    user.id,
+    roomInfo.id,
+    dispatch,
+  ]);
 
   const exitGame = useCallback(async () => {
     await router.push('/roomlist');
@@ -175,10 +183,10 @@ const Game = () => {
       type: string;
       meta?: { [x: string]: any };
     }) => {
-      if (!wakta) answerSound![id.length - 2].play();
-      else {
+      answerSound![id.length - 2].play();
+      if (wakta) {
         const key = GetKey(type, meta);
-        waktaSound![key].play();
+        setTimeout(() => waktaSound![key].play(), 500);
       }
     },
     [answerSound, waktaSound]
@@ -214,7 +222,7 @@ const Game = () => {
           )
         );
         setTimeout(() => dispatch(setPause(true)));
-        if (game.host === user.name) lastTurnStart(roomInfo.id as string);
+        if (game.host === user.id) lastTurnStart(roomInfo.id as string);
       }, 4000);
     });
 
@@ -227,17 +235,17 @@ const Game = () => {
     failUser.count,
     failUser.name,
     game.host,
-    name,
+    user.id,
     roomInfo.id,
     sound,
     startSound,
-    user.name,
+    name,
   ]);
 
   /* turn Logic */
   useEffect(() => {
     socket.on('last.turnStart', () => {
-      if (game.host === user.name) socket.emit('ping', roomInfo.id);
+      if (game.host === user.id) socket.emit('ping', roomInfo.id);
       onBgm();
     });
 
@@ -246,7 +254,7 @@ const Game = () => {
       setTimeout(() => dispatch(clearSuccess()), 2200);
       dispatch(setGame(data));
       onFailUser(game.users[game.turn].name);
-      if (game.host === user.name)
+      if (game.host === user.id)
         setTimeout(() => lastRound(roomInfo.id as string), 4000);
       if (sound) sound.stop();
       if (fastSound) fastSound.stop();
@@ -267,7 +275,7 @@ const Game = () => {
     roomInfo.id,
     sound,
     turnEndSound,
-    user.name,
+    user.id,
   ]);
 
   useEffect(() => {
@@ -301,7 +309,7 @@ const Game = () => {
         playAnswer({ ...word, chain: game.chain });
         sound?.pause();
         fastSound?.pause();
-        if (name === game.host) socket.emit('pong', roomInfo.id);
+        if (user.id === game.host) socket.emit('pong', roomInfo.id);
         dispatch(setHistory(word));
 
         // Result 용 데이터
@@ -316,7 +324,7 @@ const Game = () => {
           setTimeout(() => {
             dispatch(setPause(true));
           });
-          if (name === game.host) lastTurnStart(roomInfo.id as string);
+          if (user.id === game.host) lastTurnStart(roomInfo.id as string);
         }, 2200);
       } else {
         wrongSound?.play();
@@ -333,12 +341,12 @@ const Game = () => {
     answerSound,
     dispatch,
     fastSound,
-    name,
     late,
     roomInfo.id,
     sound,
     wrongSound,
     playAnswer,
+    user.id,
   ]);
 
   /* ping logic */
@@ -364,7 +372,8 @@ const Game = () => {
       dispatch(clearTimer());
       dispatch(clearHistory());
 
-      console.log('result:', data);
+      dispatch(setDataModal(data));
+      dispatch(openModal('RESULT'));
     });
 
     socket.on('last.end', async (data) => {

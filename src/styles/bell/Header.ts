@@ -13,7 +13,6 @@ const CHeader = styled.div`
   align-items: center;
 
   padding: 0.62rem;
-  margin-bottom: 2.5rem;
 
   border-radius: 6.25rem;
   background: rgba(255, 255, 255, 0.5);
@@ -41,7 +40,7 @@ const Button = styled.button`
 
   border: none;
   border-radius: 6.25rem;
-  background: ${COLORS.pupple};
+  background: ${COLORS.primary};
 
   box-shadow: ${DROM_SHADOW};
 

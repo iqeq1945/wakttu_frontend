@@ -21,6 +21,7 @@ export const modalSlice = createSlice({
     },
     closeModal: (state) => {
       state.open = false;
+      state.data = undefined;
     },
     setDataModal: (state, action: PayloadAction<any>) => {
       state.data = action.payload;
@@ -30,5 +31,6 @@ export const modalSlice = createSlice({
 
 export const { openModal, closeModal, setDataModal } = modalSlice.actions;
 export const selectModal = (state: { modal: ModalState }) => state.modal;
+export const selectData = (state: { modal: ModalState }) => state.modal.data;
 
 export default modalSlice.reducer;

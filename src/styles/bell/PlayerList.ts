@@ -22,13 +22,13 @@ export const CPlayerList = styled.div`
   align-items: center;
   gap: 1.25rem;
 
-  background: linear-gradient(180deg, #c0b0ff 0%, #92aaff 100%);
+  background: ${COLORS.green};
 `;
 
 export const CPlayer = styled.div<{
-  $turn?: boolean;
+  $pause?: boolean;
   $fail?: boolean;
-  $end?: boolean;
+  $success?: boolean;
 }>`
   display: flex;
   width: 13rem;
@@ -47,15 +47,18 @@ export const CPlayer = styled.div<{
 
   transition: transform 0.2s linear;
 
-  ${({ $turn, $fail, $end }) => {
-    if ($fail) {
-      return `border: 4px solid #FF7070; background: #FFE6E6; transform : translate(0 , -0.8rem);`;
-    } else if ($turn) {
-      return `border: 4px solid #A377FF; background: #E6DAFF; transform : translate(0 , -0.8rem);`;
-    } else if ($end) {
-      return `border: 4px solid #FF7070; background: #FFE6E6`;
+  ${({ $pause, $fail }) => {
+    if (!$pause) {
+      if ($fail) {
+        return `border: 4px solid #FF7070; background: #FFE6E6; transform : translate(0 , -0.8rem);`;
+      } else
+        return `background: linear-gradient(180deg, #fff 0%, #f2f2f2 100%);`;
     } else {
-      return `background: linear-gradient(180deg, #fff 0%, #f2f2f2 100%);`;
+      if ($fail === undefined) {
+        return `background: linear-gradient(180deg, #fff 0%, #f2f2f2 100%);`;
+      } else {
+        return `border: 4px solid #028C27; background: linear-gradient(180deg, #D9FFD3 0%, #87FF77 100%); transform : translate(0 , -0.8rem);`;
+      }
     }
   }}
 `;
@@ -106,7 +109,7 @@ export const Score = styled.h3<{ team?: string }>`
       case 'isedol':
         return COLORS.green;
       default:
-        return COLORS.pupple;
+        return '#24D4B5';
     }
   }};
   text-align: center;
@@ -123,7 +126,7 @@ export const Host = styled.div`
   gap: 0.625rem;
 
   border-radius: 1.875rem;
-  background: ${COLORS.pupple};
+  background: '#24D4B5';
 
   & > span {
     color: ${COLORS.bg};

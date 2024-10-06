@@ -27,6 +27,7 @@ const Header = () => {
 
   const goRouter = useCallback(
     async (src: string = '/') => {
+      console.log(game.host, roomInfo.id);
       if (game.host !== '' || roomInfo.id) {
         const check = confirm(
           '현재 방에서 나가집니다. 동의하면 확인 아니면 취소 해주세요!'

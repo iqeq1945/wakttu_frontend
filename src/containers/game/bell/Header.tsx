@@ -1,4 +1,4 @@
-import { GHeader } from '@/components';
+import { BHeader } from '@/components';
 import { clearGame } from '@/redux/game/gameSlice';
 import { clearRoomInfo, selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';
@@ -22,7 +22,7 @@ const Header = () => {
     if (user.provider === 'waktaverse.games') await runGame();
   }, [dispatch, roomInfo.id, router, user.provider]);
 
-  return <GHeader roomInfo={roomInfo} exit={exitGame} />;
+  return <BHeader roomInfo={roomInfo} exit={exitGame} />;
 };
 
 export default Header;

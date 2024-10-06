@@ -17,7 +17,7 @@ interface Props {
   $ready: boolean;
   user: any;
   host: string;
-  myName: string;
+  myId: string;
   team?: { team: string; name: string };
   onKick: (data: { id: string; name: string }) => void;
 }
@@ -25,7 +25,7 @@ interface Props {
 const Player = ({
   $ready,
   user,
-  myName,
+  myId,
   host,
   team = undefined,
   onKick,
@@ -53,14 +53,14 @@ const Player = ({
             ) : (
               <TeamTag team={team.team}>{team.name} </TeamTag>
             )}
-            {myName === host && user.name !== host && (
+            {myId === host && user.id !== host && (
               <KickIcon
                 src={getR2URL('/assets/icons/kick.svg')}
                 onClick={() => onKick({ id: user.id, name: user.name })}
               />
             )}
           </PlayerInfo>
-          {host === user.name ? (
+          {host === user.id ? (
             <PlayerReady $ready={true}>
               <span>방 장</span>
             </PlayerReady>

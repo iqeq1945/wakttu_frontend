@@ -6,7 +6,7 @@ import {
   selectRoomId,
   setRoomInfo,
 } from '@/redux/roomInfo/roomInfoSlice';
-import { selectUserName } from '@/redux/user/userSlice';
+import { selectUserInfo } from '@/redux/user/userSlice';
 import { exit, socket } from '@/services/socket/socket';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect } from 'react';
@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const RoomNav = () => {
   const roomId = useSelector(selectRoomId) as string;
-  const userName = useSelector(selectUserName);
+  const user = useSelector(selectUserInfo);
   const host = useSelector(selectHost);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -27,7 +27,7 @@ const RoomNav = () => {
   }, [dispatch, roomId, router]);
 
   const onModal = () => {
-    if (host !== userName) return;
+    if (host !== user.id) return;
     dispatch(openModal('UPDATE_ROOM'));
   };
 
@@ -48,9 +48,7 @@ const RoomNav = () => {
     };
   }, [dispatch, onExit]);
 
-  return (
-    <CRoomNav onExit={onExit} onModal={onModal} host={userName === host} />
-  );
+  return <CRoomNav onExit={onExit} onModal={onModal} host={user.id === host} />;
 };
 
 export default RoomNav;

@@ -7,7 +7,7 @@ import {
 } from '@/redux/game/gameSlice';
 import { openModal, setDataModal } from '@/redux/modal/modalSlice';
 import { selectRoomUsers, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
-import { selectUserName } from '@/redux/user/userSlice';
+import { selectUserInfo } from '@/redux/user/userSlice';
 import { socket } from '@/services/socket/socket';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -15,9 +15,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const PlayerList = () => {
   const users = useSelector(selectRoomUsers);
+  const me = useSelector(selectUserInfo);
   const ready = useSelector(selectReadyUser);
   const host = useSelector(selectHost);
-  const myName = useSelector(selectUserName);
   const team = useSelector(selectTeam);
   const router = useRouter();
   const [userList, setUserList] = useState<any[]>([]);
@@ -62,7 +62,7 @@ const PlayerList = () => {
       users={userList}
       ready={ready}
       host={host}
-      name={myName as string}
+      me={me.id!}
       onKick={onKick}
       team={team}
     />
