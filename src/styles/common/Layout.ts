@@ -25,6 +25,12 @@ const ContentContainer = styled.div<{ path?: string }>`
     `;
     else if (path?.includes('/kung'))
       return `height: 100vh; background: linear-gradient(180deg, #C3FFB4 0%, #C3FFB4 100%);  padding-bottom:0;`;
+    else if (path?.includes('/bell'))
+      return `height: 100vh;
+    background: url('${R2_URL}/assets/checker.png');
+    background-repeat: no-repeat;
+    background-size:cover;
+    padding-bottom:0;`;
   }}
 `;
 

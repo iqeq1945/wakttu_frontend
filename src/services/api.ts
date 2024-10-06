@@ -36,6 +36,41 @@ export const updatePlayCount = async (type: number = 0) => {
 };
 
 /**
+ * @description 1위한 횟수 통계
+ * @param team : boolean
+ */
+export const winTheGame = async (team: boolean = false) => {
+  const id = team ? 'WINTEAM' : 'WINSOL';
+  const { stats } = await client
+    .get(`/wakta/stat?id=${id}`)
+    .then((response) => response.data)
+    .catch(console.error);
+  const data = await client
+    .put('/wakta/stat', {
+      stats: [{ id, val: stats.length > 0 ? stats[0].val + 1 : 1 }],
+    })
+    .then((response) => response.data)
+    .catch(console.error);
+};
+
+/**
+ * @description : 게임 중 나간횟수
+ */
+export const runGame = async () => {
+  const id = 'EXIT';
+  const { stats } = await client
+    .get(`/wakta/stat?id=${id}`)
+    .then((response) => response.data)
+    .catch(console.error);
+  const data = await client
+    .put('/wakta/stat', {
+      stats: [{ id, val: stats.length > 0 ? stats[0].val + 1 : 1 }],
+    })
+    .then((response) => response.data)
+    .catch(console.error);
+};
+
+/**
  * @param result : {type: 어떤 타입의 데이터 , word : 단어에 대한 정보가 들어가있음}[]
  * @returns void : 게임내에서 작성한 데이터 통계가 올라감!
  */

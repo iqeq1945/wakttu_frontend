@@ -94,14 +94,26 @@ export const Name = styled.h5`
   font-weight: 600;
 `;
 
-export const Score = styled.h3`
-  color: #00801c;
+export const Score = styled.h3<{ team?: string }>`
+  color: ${({ team }) => {
+    switch (team) {
+      case 'woo':
+        return COLORS.blue;
+      case 'gomem':
+        return COLORS.red;
+      case 'academy':
+        return '#FFCC00';
+      case 'isedol':
+        return COLORS.green;
+      default:
+        return '#00801c';
+    }
+  }};
   text-align: center;
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-weight: 600;
 `;
-
 export const Host = styled.div`
   display: flex;
   padding: 0.25rem 0.625rem;

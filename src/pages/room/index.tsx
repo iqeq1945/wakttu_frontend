@@ -18,6 +18,7 @@ import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { setGame } from '@/redux/game/gameSlice';
 import { selectBgmVolume } from '@/redux/audio/audioSlice';
 import useSound from '@/hooks/useSound';
+import Result from '@/containers/room/Result';
 
 const Room = () => {
   const modal = useSelector(selectModal);
@@ -72,6 +73,7 @@ const Room = () => {
       </WrapRoom>
       {modal.modalType === 'UPDATE_ROOM' && modal.open && <UpdateRoom />}
       {modal.modalType === 'KICK' && modal.open && <KickModal />}
+      {modal.modalType === 'RESULT' && modal.open && <Result />}
     </Container>
   );
 };
