@@ -41,16 +41,17 @@ const PlayList = ({ users, game, answer, bubble, team }: Props) => {
       {users.map((user: any, index: number) => {
         const character = getCharacter(user.character);
         const myTeam = checkMyTeam(user.userId);
-
+        const isFail =
+          user.success === false
+            ? true
+            : user.success === true
+            ? false
+            : undefined;
         const lastBubble = bubble.findLast(
           (item: Bubble) => item.user.name === user.name
         );
         return (
-          <CPlayer
-            key={user.id}
-            $pause={answer.pause}
-            $fail={user.success === false}
-          >
+          <CPlayer key={user.id} $pause={answer.pause} $fail={isFail}>
             {myTeam ? <TeamTag team={myTeam.team}>{myTeam.name}</TeamTag> : ''}
             {lastBubble ? <BubbleBox chat={lastBubble.chat} /> : ''}
             <Skin src={character.skin} />

@@ -44,21 +44,9 @@ const Bell = () => {
     }
   }, [dispatch, game.host, roomInfo.id, timer.countTime, user.id]);
 
-  const userCheck = useCallback(() => {
-    const idx = game.users.findIndex((user) => user.success === false);
-    if (idx === -1) {
-      if (game.host === user.id) bellRoundEnd(roomInfo.id as string);
-      dispatch(clearCountTime());
-    }
-  }, [dispatch, game.host, game.users, roomInfo.id, user.id]);
-
   useEffect(() => {
     setRoundEnd();
   }, [setRoundEnd]);
-
-  useEffect(() => {
-    userCheck();
-  }, [userCheck]);
 
   useEffect(() => {
     const opening = setTimeout(() => {
@@ -92,8 +80,10 @@ const Bell = () => {
       dispatch(setPause(true));
     });
 
-    socket.on('bell.roundEnd', () => {
-      if (game.host === user.id) bellRound(roomInfo.id as string);
+    socket.on('bell.roundEnd', (data) => {
+      if (game.host === user.id)
+        setTimeout(() => bellRound(roomInfo.id as string), 3000);
+      dispatch(setGame(data));
       dispatch(setPause(false));
     });
 
