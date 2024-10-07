@@ -8,10 +8,30 @@ type WordProps = {
   relevantPersonArray: RelevantPersonArray;
   tagArray: string[];
   word: string;
-  description: string
+  description: string;
+  urls: string[];
 }
 
-const Word = ({ relevantPersonArray, tagArray, word, description }: WordProps) => {
+type Word_ = {
+  _id?: string;
+  type: string;
+  meta: {
+    tag: string[];
+    url: string[] | null;
+    bgm: string;
+  } | null;
+  id?: string;
+  mean: string;
+  hit: number;
+  wakta: boolean;
+};
+type Words_ = Word_[];
+
+const Word = ({ relevantPersonArray, tagArray, word, description, urls }: WordProps) => {
+  const handleButtonClick = () => {
+    window.open(urls[0], '_blank');
+  };
+
   return (
     <Wrapper>
       <TopWrapper>
@@ -28,18 +48,24 @@ const Word = ({ relevantPersonArray, tagArray, word, description }: WordProps) =
           </RelevantWrapper>
         </TopLeftWrapper>
 
-        <LinkButton>
-          <LinkIcon src="/assets/game/link.svg" />
-        </LinkButton>
+        {urls.map((url, index) => (
+          url && (
+            <LinkButton key={index} onClick={() => handleButtonClick()}>
+              <LinkIcon src="/assets/game/link.svg" />
+            </LinkButton>
+          )
+        ))}
       </TopWrapper>
 
       <Description>{description}</Description>
 
-      <TagWrapper>
-        {tagArray.map((tag: string, index) => {
-          return <TagContent key={index}>{`#${tag}`}</TagContent>
-        })}
-      </TagWrapper>
+      {tagArray && tagArray.length > 0 &&
+        <TagWrapper>
+          {tagArray.map((tag: string, index) => {
+            return <TagContent key={index}>{`#${tag}`}</TagContent>
+          })}
+        </TagWrapper>
+      }
     </Wrapper>
   );
 };
@@ -48,5 +74,7 @@ export {
   type RelevantPerson,
   type RelevantPersonArray,
   type WordProps,
+  type Word_,
+  type Words_,
   Word
 };
