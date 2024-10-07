@@ -38,10 +38,6 @@ const MyCharacterBox = styled.div`
   border: 2px solid ${COLORS['gray-4']};
 `;
 
-const CharacterImage = styled.img`
-  width: 10.4375rem;
-  height: 10.0625rem;
-`;
 
 const User = styled.div`
   display: flex;
@@ -141,7 +137,6 @@ export {
   LeftWrapper,
   Character,
   MyCharacterBox,
-  CharacterImage,
   User,
   UserIcon,
   UserName,

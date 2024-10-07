@@ -1,12 +1,12 @@
 import { getCharacter, getIcon } from '@/modules/UserInfo';
 import { getR2URL } from '@/services/api';
 import {
-  CharacterImage,
   MyCharacterBox,
   User,
   UserIcon,
   UserName,
 } from '@/styles/mypage/Mystyles';
+import Character from '../common/Character';
 
 interface Props {
   user: any;
@@ -19,12 +19,12 @@ const MyCharacter = ({ user, character }: Props) => {
 
   return (
     <MyCharacterBox>
-      <CharacterImage src={characterInfo.skin} />
+      <Character character={characterInfo} />
       <User>
         <UserIcon src={icon} />
         <UserName>{user.name}</UserName>
       </User>
-    </MyCharacterBox>
+    </MyCharacterBox >
   );
 };
 
