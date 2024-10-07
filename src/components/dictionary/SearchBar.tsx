@@ -10,7 +10,7 @@ const SearchBar = ({ value }: { value?: string }) => {
     setInputValue(event.target.value);
   };
   const handleClick = () => {
-    router.push("/dictionary/search"); 
+    router.push(`/dictionary/search?keyword=${inputValue}`); 
   };
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
