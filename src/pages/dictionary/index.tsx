@@ -1,17 +1,20 @@
 import Header from "@/containers/common/Header";
 import MainSection from "@/components/dictionary/MainSection";
 import WordSection from "@/components/dictionary/WordSection";
-import { WordProps } from "@/components/dictionary/Word";
+import { Word_, WordProps } from "@/components/dictionary/Word";
 import { Container } from "@/components/dictionary/Container";
+import { client } from "@/services/api";
+import { processWordData } from "@/utils/processWordData";
 
-const Dictionary = () => {
-  const todayWord: WordProps = {
-    relevantPersonArray: ["woowakgood"],
-    tagArray: ["아이네", "어록"],
-    word: "이세계",
-    description: "현재의 우리 차원이 아닌 또 다른 세계를 통틀어 일컫는 말 현재의 우리 차원이 아닌 또 다른 세계를 통틀어 일컫는 말 현재의 우리 차원이 아닌 또 다른 세계를 통틀어 일컫는 말 현재의 우리 차원이 아닌 또 다른 세계를 통틀어 일컫는 말"
-  }
+interface ApiResponse<T> {
+  data: T;
+}
 
+interface DictionaryProps {
+  todayWord: WordProps;
+}
+
+const Dictionary: React.FC<DictionaryProps> = ({ todayWord }) => {
   return (
     <Container>
       <Header />
@@ -20,5 +23,15 @@ const Dictionary = () => {
     </Container>
   );
 };
+
+export async function getStaticProps() {
+  const todayWord_: ApiResponse<Word_> = await client.get(`/dictionary/today`);
+  const todayWord = processWordData(todayWord_.data);
+  return {
+    props: {
+      todayWord,
+    },
+  };
+}
 
 export default Dictionary;
