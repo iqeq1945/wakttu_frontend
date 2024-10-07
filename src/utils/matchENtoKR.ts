@@ -1,4 +1,4 @@
-import { RelevantPerson } from "@/styles/dictionary/Word";
+import { RelevantPerson } from "@/components/dictionary/Word";
 
 export const matchENtoKR = (relevantPerson: RelevantPerson) => {
   const koreanNames = {

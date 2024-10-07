@@ -1,9 +1,6 @@
 import styled, { css } from "styled-components";
 import { COLORS } from "@/styles/theme";
-
-type RelevantPerson = "woowakgood" | "ine" | "jingburger" | "lilpa" | "jururu" | "gosegu" | "viichan";
-type RelevantPersonArray = RelevantPerson[];
-
+import { RelevantPersonArray, RelevantPerson } from "@/components/dictionary/Word";
 
 const characterColors = {
   "woowakgood": {
@@ -159,8 +156,6 @@ const TagContent = styled.span`
 
 
 export {
-  type RelevantPerson,
-  type RelevantPersonArray,
   ListWrapper,
   Wrapper,
   TopWrapper,
