@@ -33,7 +33,7 @@ const Chat = () => {
   const timer = useSelector(selectTimer);
   const pause = useSelector(selectPause);
   const effectVolume = useSelector(selectEffectVolume);
-  const [myTurn, setMyTurn] = useState(false);
+  const [myTurn, setMyTurn] = useState(true);
 
   const logSound = useEffectSound(
     '/assets/sound-effects/lossy/ui_click.webm',
@@ -99,7 +99,7 @@ const Chat = () => {
   const handleEnter = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.isComposing) return;
     if (e.key === 'Enter') {
-      if (myTurn && pause) onSendAnswer();
+      if (pause && myTurn) onSendAnswer();
       else onSendMessage();
     }
   };
