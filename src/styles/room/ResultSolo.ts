@@ -129,7 +129,7 @@ export const Score = styled.h4<{ rank: number }>`
   color: ${({ rank }) => {
     if (rank === 1) {
       return '#FFCA42';
-    } else if (rank === 2) {
+    } else if (rank === 3) {
       return '#FFBCA2';
     } else {
       return COLORS['gray-3'];
@@ -157,7 +157,7 @@ export const Rank = styled.div<{ rank: number }>`
   background: ${({ rank }) => {
     if (rank === 1) {
       return COLORS.yellow;
-    } else if (rank === 2) {
+    } else if (rank === 3) {
       return '#FFBCA2';
     } else {
       return COLORS['gray-4'];
