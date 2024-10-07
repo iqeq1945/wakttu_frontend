@@ -84,12 +84,11 @@ export const Card = styled.div<{ rank: number }>`
     } else if (rank === 2) {
       return '17.5rem';
     } else {
-      return '15.825rem';
+      return '16.4rem';
     }
   }};
-  padding: 1rem;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   gap: 0.8125rem;
 
@@ -129,7 +128,7 @@ export const Score = styled.h4<{ rank: number }>`
   width: 100%;
   color: ${({ rank }) => {
     if (rank === 1) {
-      return COLORS.yellow;
+      return '#FFCA42';
     } else if (rank === 2) {
       return '#FFBCA2';
     } else {
