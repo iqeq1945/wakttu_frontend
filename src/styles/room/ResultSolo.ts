@@ -58,71 +58,14 @@ export const CBody = styled.div`
 export const CResult = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
   gap: 1.5rem;
   align-self: stretch;
 `;
 
-export const WinTeam = styled.div<{ team: string }>`
+export const RankList = styled.div`
   display: flex;
-  width: 43.75rem;
-  padding: 2rem 3rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-  flex: 1 0 0;
-
-  border-radius: 1rem;
-  border: 1px solid
-    ${({ team }) => {
-      switch (team) {
-        case 'woo':
-          return COLORS.blue;
-        case 'isedol':
-          return COLORS.green;
-        case 'gomem':
-          return COLORS.red;
-        case 'academy':
-          return COLORS.yellow;
-      }
-    }};
-  border-bottom: none;
-  background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.6) 0%,
-      rgba(255, 255, 255, 0.6) 100%
-    ),
-    ${({ team }) => {
-      switch (team) {
-        case 'woo':
-          return COLORS.blue;
-        case 'isedol':
-          return COLORS.green;
-        case 'gomem':
-          return COLORS.red;
-        case 'academy':
-          return COLORS.yellow;
-      }
-    }};
-`;
-
-export const WinTeamName = styled.h3`
-  align-self: stretch;
-
-  color: rgba(0, 0, 0, 0.5);
-  text-align: center;
-
-  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-`;
-
-export const WinTeamList = styled.div`
-  display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 1.5rem;
 `;
 
@@ -130,7 +73,30 @@ export const CPlayer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-end;
+`;
+
+export const Card = styled.div<{ rank: number }>`
+  display: flex;
+  height: ${({ rank }) => {
+    if (rank === 1) {
+      return '18.75rem';
+    } else if (rank === 2) {
+      return '17.5rem';
+    } else {
+      return '15.825rem';
+    }
+  }};
+  padding: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 0.8125rem;
+
+  border-radius: 1rem;
+  border: 1px solid ${COLORS['gray-4']};
+  border-bottom: none;
+  background: ${COLORS['gray-5']};
 `;
 
 export const Character = styled.img`
@@ -151,67 +117,91 @@ export const Grade = styled.img`
 
 export const Name = styled.h6`
   color: ${COLORS.text};
+  text-align: center;
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-  font-size: 1.125rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
 `;
 
-export const TeamList = styled.div`
-  display: flex;
-  width: 43.75rem;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
+export const Score = styled.h4<{ rank: number }>`
+  width: 100%;
+  color: ${({ rank }) => {
+    if (rank === 1) {
+      return COLORS.yellow;
+    } else if (rank === 2) {
+      return '#FFBCA2';
+    } else {
+      return COLORS['gray-3'];
+    }
+  }};
+
+  text-align: center;
+
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 `;
 
-export const TeamTag = styled.div<{ team: string }>`
+export const Rank = styled.div<{ rank: number }>`
   display: flex;
+  height: 2.125rem;
+  padding: 0.4375rem 6.0625rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  align-self: stretch;
+
+  border-radius: 0rem 0rem 1rem 1rem;
+  background: ${({ rank }) => {
+    if (rank === 1) {
+      return COLORS.yellow;
+    } else if (rank === 2) {
+      return '#FFBCA2';
+    } else {
+      return COLORS['gray-4'];
+    }
+  }};
+
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+`;
+
+export const RestList = styled.div`
+  display: flex;
+  width: 43.75rem;
   padding: 1rem 2rem;
   justify-content: center;
   align-items: center;
-  gap: 3rem;
-  flex: 1 0 0;
+  align-content: center;
+  gap: 1rem 3rem;
+  flex-wrap: wrap;
 
   border-radius: 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background: ${({ team }) => {
-    switch (team) {
-      case 'woo':
-        return COLORS.blue;
-      case 'isedol':
-        return COLORS.green;
-      case 'academy':
-        return COLORS.yellow;
-      case 'gomem':
-        return COLORS.red;
-    }
-  }};
+  border: 1px solid ${COLORS['gray-4']};
+  background: ${COLORS['gray-5']};
 `;
 
-export const TeamResult = styled.div`
+export const RestItem = styled.div`
   display: flex;
   align-items: center;
   gap: 0.8125rem;
 `;
 
-export const Rank = styled.h6`
-  color: rgba(0, 0, 0, 0.6);
+export const RestText = styled.h6`
+  color: ${COLORS['gray-2']};
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-style: normal;
   font-weight: 500;
-  line-height: normal;
-`;
-
-export const TeamName = styled.h5`
-  color: rgba(0, 0, 0, 0.5);
-
-  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-  font-style: normal;
-  font-weight: 600;
   line-height: normal;
 `;
 

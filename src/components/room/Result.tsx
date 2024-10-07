@@ -3,7 +3,6 @@ import {
   Confirm,
   Container,
   CResult,
-  Item,
   ResultTitle,
 } from '@/styles/room/Result';
 
@@ -26,14 +25,14 @@ const Result = ({ list, offModal }: Props) => {
       <CModal>
         <ResultTitle>결 과</ResultTitle>
         <CResult>
-          {list.map((item, idx) => {
+          {/*list.map((item, idx) => {
             return (
               <Item key={item.userId}>
                 <span>{idx + 1}</span> <span>{item.name}</span>
                 <span>{item.score}</span>
               </Item>
             );
-          })}
+          })*/}
         </CResult>
         <Confirm onClick={offModal}>확인 끝!</Confirm>
       </CModal>
