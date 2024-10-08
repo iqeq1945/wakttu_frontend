@@ -1,10 +1,14 @@
 import { Input, SearchButton, SearchIcon, Wrapper } from "@/styles/dictionary/SearchBar";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import React, { useState } from "react";
 
-const SearchBar = ({ value }: { value?: string }) => {
+interface SearchBarProps {
+  inputValue: string;
+  setInputValue: React.Dispatch<React.SetStateAction<string>>; // 상태 업데이트 함수 타입
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ inputValue, setInputValue }) => {
   const router = useRouter();
-  const [inputValue, setInputValue] = useState<string>(value ? value : "");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
