@@ -29,7 +29,7 @@ const Search: React.FC<SearchProps> = ({ words }) => {
 export const getStaticProps: GetStaticProps<SearchProps> = async (context: GetStaticPropsContext) => {
   const { keyword } = context.params || {}; // URL의 쿼리 파라미터 가져오기
 
-  const words__: Words_ = await client.get(`/dictionary/serach?keyword=${keyword}&take=4&skip=0`);
+  // const words__: Words_ = await client.get(`/dictionary/serach?keyword=${keyword}&take=4&skip=0`);
   const words_: Words_ = [
     {
       "id": "라니",
