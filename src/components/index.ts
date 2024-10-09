@@ -23,6 +23,8 @@ export { default as RoomNav } from './room/RoomNav';
 export { default as UpdateRoom } from './room/UpdateRoom';
 export { default as KickModal } from './room/KickModal';
 export { default as Result } from './room/Result';
+export { default as ResultSolo } from './room/ResultSolo';
+export { default as ResultTeam } from './room/ResultTeam';
 
 export { default as RoomDesc } from './roomList/RoomDesc';
 export { default as PlayerInfo } from './roomList/PlayerInfo';

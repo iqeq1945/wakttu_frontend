@@ -138,9 +138,9 @@ const Bell = () => {
       dispatch(clearAnswer());
       dispatch(clearTimer());
       dispatch(clearHistory());
-      console.log(data);
-      //dispatch(setDataModal(data));
-      // dispatch(openModal('RESULT'));
+
+      dispatch(setDataModal(data));
+      dispatch(openModal('RESULT'));
     });
 
     socket.on('bell.end', async (data) => {

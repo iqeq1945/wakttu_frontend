@@ -1,3 +1,4 @@
+import { getIcon } from '@/modules/UserInfo';
 import { getR2URL } from '@/services/api';
 import {
   CBody,
@@ -34,6 +35,7 @@ import {
 } from '@/styles/room/ResultTeam';
 
 interface Props {
+  user: any;
   list: Result[];
   offModal: () => void;
 }
@@ -43,11 +45,12 @@ interface Result {
   name: string;
   userId: string;
   score: number;
+  provider?: string;
+  exp: number;
   team?: string;
-  teamGame?: boolean;
 }
 
-const ResultTeam = ({ list, offModal }: Props) => {
+const ResultTeam = ({ list, offModal, user }: Props) => {
   return (
     <Container>
       <CModal>
@@ -111,26 +114,30 @@ const ResultTeam = ({ list, offModal }: Props) => {
             <CLevel>
               <CLevelIcon>
                 <NowLevel>
-                  <Grade src={getR2URL('/assets/icons/wakmoosae.svg')} />
-                  <Exp>+5000xp</Exp>
+                  <Grade src={getIcon(user.score, user.provider)} />
+                  <Exp>
+                    +{list.find((item) => item.userId === user.id)!.score}xp
+                  </Exp>
                 </NowLevel>
-                <Grade src={getR2URL('/assets/icons/chimpange.svg')} />
+                <Grade src={getIcon(user.score + 1000, user.provider)} />
               </CLevelIcon>
               <ExpBar>
-                <Gauge exp={72} />
+                <Gauge exp={(user.score % 1000) / 10} />
               </ExpBar>
               <Stat>
                 <Item>
                   <StatText $color={true}>레벨</StatText>
-                  <StatText $color={false}>99</StatText>
+                  <StatText $color={false}>
+                    {Math.floor(user.score / 1000)}
+                  </StatText>
                 </Item>
                 <Item>
                   <StatText $color={true}>경험치</StatText>
-                  <StatText $color={false}>750/1000</StatText>
+                  <StatText $color={false}>{user.score % 1000}/1000</StatText>
                 </Item>
               </Stat>
             </CLevel>
-            <Confirm onClick={offModal}>확인 끝!</Confirm>
+            <Confirm onClick={offModal}>확인</Confirm>
           </CFooter>
         </CBody>
       </CModal>
