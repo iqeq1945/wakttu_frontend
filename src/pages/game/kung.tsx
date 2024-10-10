@@ -52,6 +52,7 @@ import {
   selectResult,
   setResult,
 } from '@/redux/result/resultSlice';
+import { openModal, setDataModal } from '@/redux/modal/modalSlice';
 
 const Game = () => {
   const dispatch = useDispatch();
@@ -397,7 +398,9 @@ const Game = () => {
       dispatch(clearAnswer());
       dispatch(clearTimer());
       dispatch(clearHistory());
-      console.log('result:', data);
+
+      dispatch(setDataModal(data));
+      dispatch(openModal('RESULT'));
     });
 
     socket.on('kung.end', async (data) => {

@@ -56,7 +56,7 @@ const ResultSolo = ({ list, offModal, user }: Props) => {
         <Container>
           <CModal>
             <CTitle>
-              <Trophy src="/assets/icons/trophy.svg" />
+              <Trophy src={getR2URL('/assets/icons/trophy.svg')} />
               <ResultTitle>게임 결과</ResultTitle>
             </CTitle>
             <CBody>
