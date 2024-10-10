@@ -97,7 +97,7 @@ export const Score = styled.h3<{ team?: string }>`
       case 'gomem':
         return COLORS.red;
       case 'academy':
-        return COLORS.yellow;
+        return '#FFCC00';
       case 'isedol':
         return COLORS.green;
       default:

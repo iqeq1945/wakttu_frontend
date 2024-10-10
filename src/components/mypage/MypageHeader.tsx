@@ -18,11 +18,11 @@ const MypageHeader = ({ onSave, onReload }: Props) => {
       <h3>마이페이지</h3>
       <Buttons>
         <SaveButton onClick={onSave}>
-          <ButtonIcon src={getR2URL('/assets/game/save.svg')} />
+          <ButtonIcon src={getR2URL('/assets/icons/save.svg')} />
           저장하기
         </SaveButton>
         <ResetButton onClick={onReload}>
-          <ButtonIcon src={getR2URL('/assets/game/refresh.svg')} />
+          <ButtonIcon src={getR2URL('/assets/icons/refresh-white.svg')} />
           되돌리기
         </ResetButton>
       </Buttons>

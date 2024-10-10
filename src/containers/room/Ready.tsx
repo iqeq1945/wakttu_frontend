@@ -10,8 +10,9 @@ import {
 import { clearHistory } from '@/redux/history/historySlice';
 import { selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { clearTimer } from '@/redux/timer/timerSlice';
-import { selectUserName } from '@/redux/user/userSlice';
+import { selectUserInfo, selectUserName } from '@/redux/user/userSlice';
 import {
+  bellStart,
   kungStart,
   lastStart,
   ready,
@@ -25,6 +26,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const Ready = () => {
   const roomInfo = useSelector(selectRoomInfo);
   const readyUsers = useSelector(selectReadyUser);
+  const user = useSelector(selectUserInfo);
   const userName = useSelector(selectUserName);
   const host = useSelector(selectHost);
   const game = useSelector(selectGame);
@@ -93,6 +95,9 @@ const Ready = () => {
         kungStart(roomInfo.id as string);
         break;
       }
+      case 2: {
+        bellStart(roomInfo.id as string);
+      }
     }
   };
 
@@ -129,11 +134,20 @@ const Ready = () => {
       router.push('/game/kung');
     });
 
+    socket.on('bell.start', async (data) => {
+      await dispatch(clearHistory());
+      await dispatch(clearTimer());
+      await dispatch(clearAnswer());
+      await dispatch(setGame(data));
+      router.push('/game/bell');
+    });
+
     return () => {
       socket.off('ready');
       socket.off('team');
       socket.off('last.start');
       socket.off('kung.start');
+      socket.off('bell.start');
     };
   }, [dispatch, roomInfo.id, router]);
 
@@ -141,7 +155,7 @@ const Ready = () => {
     <CReady
       ready={isReady}
       onReady={onReady}
-      onStart={host === userName ? onStart : undefined}
+      onStart={host === user.id ? onStart : undefined}
       onTeam={onTeam}
       team={roomInfo.option?.includes('팀전')}
     />

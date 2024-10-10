@@ -2,7 +2,7 @@ import { MyStyleList as StyleList } from '@/components';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUserInfo, setCharacter } from '@/redux/user/userSlice';
-import { client } from '@/services/api';
+import { client, getMyItemList } from '@/services/api';
 import { MouseEvent } from 'react';
 
 type Variant = 'skin' | 'head' | 'hand' | 'eye';
@@ -53,7 +53,7 @@ const MyStyleList = () => {
   };
 
   const getItem = useCallback(async () => {
-    const { data } = await client.get('/user/items/' + user.id);
+    const data = await getMyItemList(user.id!);
     setItems(data);
   }, [user.id]);
 

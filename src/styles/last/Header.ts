@@ -21,7 +21,7 @@ const CHeader = styled.div`
 
 const CButton = styled.div`
   display: inline-flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
   height: 2.5rem;
   gap: 0.625rem;
@@ -64,6 +64,8 @@ const ExitButton = styled.button`
   align-items: center;
   gap: 0.625rem;
   flex-shrink: 0;
+
+  margin-left: auto;
 
   border: none;
   border-radius: 6.25rem;

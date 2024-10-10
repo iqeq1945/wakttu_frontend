@@ -18,14 +18,14 @@ import { client, getR2URL } from '@/services/api';
 import { getIcon } from '@/modules/UserInfo';
 
 interface Props {
+  user: any;
   isLogined: boolean;
   onModal: (e: MouseEvent<HTMLElement>) => void;
   start: (e: MouseEvent<HTMLElement>) => void;
   logout: (e: MouseEvent<HTMLElement>) => void;
 }
 
-const MainForm = ({ isLogined, onModal, logout, start }: Props) => {
-  const user = useSelector(selectUserInfo);
+const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
   const icon = getIcon(user.score as number, user.provider as any);
 
   const waktaLogin = async (e: MouseEvent<HTMLElement>) => {

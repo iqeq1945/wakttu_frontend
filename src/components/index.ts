@@ -22,6 +22,9 @@ export { default as PlayerList } from './room/PlayerList';
 export { default as RoomNav } from './room/RoomNav';
 export { default as UpdateRoom } from './room/UpdateRoom';
 export { default as KickModal } from './room/KickModal';
+export { default as Result } from './room/Result';
+export { default as ResultSolo } from './room/ResultSolo';
+export { default as ResultTeam } from './room/ResultTeam';
 
 export { default as RoomDesc } from './roomList/RoomDesc';
 export { default as PlayerInfo } from './roomList/PlayerInfo';
@@ -50,6 +53,12 @@ export { default as KChat } from './game/kung/Chat';
 export { default as KAnswer } from './game/kung/Answer';
 export { default as Kung } from './game/kung/Kung';
 export { default as KPlayerList } from './game/kung/PlayerList';
+
+export { default as BHeader } from './game/bell/Header';
+export { default as BChat } from './game/bell/Chat';
+export { default as BChatBox } from './game/bell/ChatBox';
+export { default as BPlayerList } from './game/bell/PlayerList';
+export { default as Bell } from './game/bell/Bell';
 
 export { default as MyStyleList } from './mypage/MystyleList';
 export { default as MypageHeader } from './mypage/MypageHeader';

@@ -24,6 +24,7 @@ const initialState: Game = {
   mission: undefined,
   ban: [],
   team: { woo: [], gomem: [], academy: [], isedol: [] },
+  quiz: undefined,
 };
 
 export const gameSlice = createSlice({

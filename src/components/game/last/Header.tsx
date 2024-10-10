@@ -27,9 +27,6 @@ const Header = ({ roomInfo, exit }: Props) => {
         <Button>
           <ButtonText>방설정</ButtonText>
         </Button>
-        <Button>
-          <ButtonText>도움말</ButtonText>
-        </Button>
       </CButton>
       <CTitle>
         <Index>[ {roomInfo.idx} ]</Index>
@@ -38,7 +35,7 @@ const Header = ({ roomInfo, exit }: Props) => {
       <CButton>
         <ExitButton onClick={exit}>
           <ButtonText>나가기</ButtonText>
-          <ExitIcon src={R2_URL + '/assets/icons/game-exit.svg'} />
+          <ExitIcon src={R2_URL + '/assets/game/game-exit.svg'} />
         </ExitButton>
       </CButton>
     </CHeader>

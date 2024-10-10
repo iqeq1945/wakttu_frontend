@@ -76,7 +76,7 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
       <Main>
         <CTrain>
           <CWord>
-            <Logo src="/assets/game/last-logo.svg" />
+            <Logo src={getR2URL('/assets/game/last-logo.svg')} />
           </CWord>
           <SWheel
             src={getR2URL('/assets/game/wheel.svg')}
