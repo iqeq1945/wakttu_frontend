@@ -73,7 +73,7 @@ const Result = () => {
 
   return (
     <>
-      {roomInfo.option.includes('팀원') ? (
+      {roomInfo.option.includes('팀전') ? (
         <ResultTeam list={list} offModal={offModal} user={user} />
       ) : (
         <ResultSolo list={list} offModal={offModal} user={user} />
