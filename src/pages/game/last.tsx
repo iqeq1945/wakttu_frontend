@@ -379,6 +379,7 @@ const Game = () => {
     socket.on('last.end', async (data) => {
       console.log('end :', data);
       const { game, roomInfo } = data;
+
       const response = await client.get(`/user/${user.id}`);
       if (response) await dispatch(setUserInfo(response.data));
 

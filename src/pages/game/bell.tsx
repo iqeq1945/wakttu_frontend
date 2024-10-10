@@ -44,6 +44,21 @@ const Bell = () => {
     }
   }, [dispatch, game.host, roomInfo.id, timer.countTime, user.id]);
 
+  const countCheck = useCallback(() => {
+    let count = 0;
+    game.users.forEach((user) => {
+      if (user.success) count++;
+    });
+    if (count === game.users.length) {
+      if (game.host === user.id) bellRoundEnd(roomInfo.id as string);
+      dispatch(clearCountTime());
+    }
+  }, [dispatch, game.host, game.users, roomInfo.id, user.id]);
+
+  useEffect(() => {
+    countCheck();
+  }, [countCheck]);
+
   useEffect(() => {
     setRoundEnd();
   }, [setRoundEnd]);
@@ -101,7 +116,7 @@ const Bell = () => {
     return () => {
       socket.off('bell.game');
     };
-  }, [dispatch]);
+  }, [dispatch, game]);
 
   useEffect(() => {
     socket.on('bell.ping', () => {
@@ -123,9 +138,9 @@ const Bell = () => {
       dispatch(clearAnswer());
       dispatch(clearTimer());
       dispatch(clearHistory());
-      console.log(data);
-      //dispatch(setDataModal(data));
-      // dispatch(openModal('RESULT'));
+
+      dispatch(setDataModal(data));
+      dispatch(openModal('RESULT'));
     });
 
     socket.on('bell.end', async (data) => {
@@ -140,8 +155,8 @@ const Bell = () => {
     });
 
     return () => {
-      socket.off('last.result');
-      socket.off('last.end');
+      socket.off('bell.result');
+      socket.off('bell.end');
     };
   }, [dispatch, game.type, router, user.id, user.provider]);
 

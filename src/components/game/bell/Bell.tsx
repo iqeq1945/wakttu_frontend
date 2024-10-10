@@ -107,13 +107,13 @@ const Game = ({ game, quiz, answer, timer }: Props) => {
       <CRight>
         {quiz &&
           quiz.hint?.map((item, idx) => {
-            if (idx === 0)
+            if (idx === 0 && timer.countTime >= 10000)
               return (
                 <Hint key={idx} $pause={answer.pause}>
                   <HintText>{item}</HintText>
                 </Hint>
               );
-            else if (idx === 1 && timer.countTime >= 10000) {
+            else if (idx === 1 && timer.countTime >= 15000) {
               return (
                 <Hint key={idx} $pause={answer.pause}>
                   <HintText>{item}</HintText>
