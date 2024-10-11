@@ -1,7 +1,28 @@
-import { matchENtoKR } from "@/utils/matchENtoKR";
-import { Description, LinkButton, LinkIcon, RelevantBdage, RelevantText, RelevantWrapper, TagContent, TagWrapper, Title, TopLeftWrapper, TopWrapper, Wrapper } from "@/styles/dictionary/Word";
+import { matchENtoKR } from '@/utils/matchENtoKR';
+import {
+  Description,
+  LinkButton,
+  LinkIcon,
+  RelevantBdage,
+  RelevantText,
+  RelevantWrapper,
+  TagContent,
+  TagWrapper,
+  Title,
+  TopLeftWrapper,
+  TopWrapper,
+  Wrapper,
+} from '@/styles/dictionary/Word';
+import { getR2URL } from '@/services/api';
 
-type RelevantPerson = "woowakgood" | "ine" | "jingburger" | "lilpa" | "jururu" | "gosegu" | "viichan";
+type RelevantPerson =
+  | 'woowakgood'
+  | 'ine'
+  | 'jingburger'
+  | 'lilpa'
+  | 'jururu'
+  | 'gosegu'
+  | 'viichan';
 type RelevantPersonArray = RelevantPerson[];
 
 type WordProps = {
@@ -10,7 +31,7 @@ type WordProps = {
   word: string;
   description: string;
   urls: string[];
-}
+};
 
 type Word_ = {
   _id?: string;
@@ -27,7 +48,13 @@ type Word_ = {
 };
 type Words_ = Word_[];
 
-const Word = ({ relevantPersonArray, tagArray, word, description, urls }: WordProps) => {
+const Word = ({
+  relevantPersonArray,
+  tagArray,
+  word,
+  description,
+  urls,
+}: WordProps) => {
   const handleButtonClick = () => {
     window.open(urls[0], '_blank');
   };
@@ -43,29 +70,30 @@ const Word = ({ relevantPersonArray, tagArray, word, description, urls }: WordPr
                 <RelevantBdage key={index} $RelevantPerson={relevantPerson}>
                   <RelevantText>{matchENtoKR(relevantPerson)}</RelevantText>
                 </RelevantBdage>
-              )
+              );
             })}
           </RelevantWrapper>
         </TopLeftWrapper>
 
-        {urls.map((url, index) => (
-          url && (
-            <LinkButton key={index} onClick={() => handleButtonClick()}>
-              <LinkIcon src="/assets/game/link.svg" />
-            </LinkButton>
-          )
-        ))}
+        {urls.map(
+          (url, index) =>
+            url && (
+              <LinkButton key={index} onClick={() => handleButtonClick()}>
+                <LinkIcon src={getR2URL('/assets/icons/link.svg')} />
+              </LinkButton>
+            )
+        )}
       </TopWrapper>
 
       <Description>{description}</Description>
 
-      {tagArray && tagArray.length > 0 &&
+      {tagArray && tagArray.length > 0 && (
         <TagWrapper>
           {tagArray.map((tag: string, index) => {
-            return <TagContent key={index}>{`#${tag}`}</TagContent>
+            return <TagContent key={index}>{`#${tag}`}</TagContent>;
           })}
         </TagWrapper>
-      }
+      )}
     </Wrapper>
   );
 };
@@ -76,5 +104,5 @@ export {
   type WordProps,
   type Word_,
   type Words_,
-  Word
+  Word,
 };
