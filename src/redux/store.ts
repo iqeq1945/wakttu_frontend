@@ -10,6 +10,7 @@ import answerReducer from './answer/answerSlice';
 import timerReducer from './timer/timerSlice';
 import historyReducer from './history/historySlice';
 import audioReducer from './audio/audioSlice';
+import resultReducer from './result/resultSlice';
 
 export interface RootState {
   user: ReturnType<typeof userReducer>;
@@ -21,6 +22,7 @@ export interface RootState {
   timer: ReturnType<typeof timerReducer>;
   history: ReturnType<typeof historyReducer>;
   audio: ReturnType<typeof audioReducer>;
+  result: ReturnType<typeof resultReducer>;
 }
 
 const reducers = combineReducers({
@@ -33,6 +35,7 @@ const reducers = combineReducers({
   timer: timerReducer,
   history: historyReducer,
   audio: audioReducer,
+  result: resultReducer,
 });
 
 const persistConfig = {
@@ -47,6 +50,7 @@ const persistConfig = {
     'answer',
     'timer',
     'history',
+    'result',
   ],
 };
 

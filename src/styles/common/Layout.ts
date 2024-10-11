@@ -29,6 +29,12 @@ const ContentContainer = styled.div<{ path?: string }>`
       return `height: 100vh; padding-bottom: 0;`;
     else if (path === '/dictionary/search')
       return `height: 100vh; background: var(--Gray-5, #F7F7F7); padding-bottom: 0;`;
+    else if (path?.includes('/bell'))
+      return `height: 100vh;
+    background: url('${R2_URL}/assets/checker.png');
+    background-repeat: no-repeat;
+    background-size:cover;
+    padding-bottom:0;`;
   }}
 `;
 

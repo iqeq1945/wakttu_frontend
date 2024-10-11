@@ -29,7 +29,21 @@ const RoomDesc = ({ roomInfo }: Props) => {
         <TitleText>방제에요</TitleText>
       </WrapRoomTitle>
       <WrapGameInfo>
-        <GameInfo src={getR2URL('/assets/game-info.png')} />
+        {roomInfo.type === 0 ? (
+          <GameInfo src={getR2URL('/assets/game-info.png')} />
+        ) : (
+          ''
+        )}
+        {roomInfo.type === 1 ? (
+          <GameInfo src={getR2URL('/assets/game-info-2.png')} />
+        ) : (
+          ''
+        )}
+        {roomInfo.type === 2 ? (
+          <GameInfo src={getR2URL('/assets/game-info-3.png')} />
+        ) : (
+          ''
+        )}
         <RoomInfo>
           <WrapInfo>
             <Info $variant="title">플레이어</Info>
@@ -41,7 +55,7 @@ const RoomDesc = ({ roomInfo }: Props) => {
               {roomInfo.users.length}/{roomInfo.total}명
             </Info>
             <Info>{roomInfo.round}</Info>
-            <Info>{roomInfo.time! / 1000}초</Info>
+            <Info>{roomInfo.type === 2 ? '30' : roomInfo.time! / 1000}초</Info>
           </WrapInfo>
         </RoomInfo>
       </WrapGameInfo>

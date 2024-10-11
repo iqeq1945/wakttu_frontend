@@ -57,6 +57,7 @@ export interface Game {
   turnTime: number;
   mission: string | undefined;
   team: { woo: string[]; gomem: string[]; isedol: string[]; academy: string[] };
+  quiz?: { _id: string; choseong: string; hint: string[]; [x: string]: any }[];
 }
 
 export type UpdateRoom = Partial<Room>;
@@ -265,4 +266,20 @@ export const kungTurnStart = (roomId: string) => {
  */
 export const kungTurnEnd = (roomId: string) => {
   socket.emit('kung.turnEnd', roomId);
+};
+
+export const bellStart = (roomId: string) => {
+  socket.emit('bell.start', roomId);
+};
+
+export const bellRound = (roomId: string) => {
+  socket.emit('bell.round', roomId);
+};
+
+export const bellRoundStart = (roomId: string) => {
+  socket.emit('bell.roundStart', roomId);
+};
+
+export const bellRoundEnd = (roomId: string) => {
+  socket.emit('bell.roundEnd', roomId);
 };

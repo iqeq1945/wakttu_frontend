@@ -1,39 +1,82 @@
 import data from '@/modules/Voice.json';
+import { R2_URL } from '@/services/api';
 
-const { woo, ine, jingburger, lilpa, jururu, gosegu, viichan } = data;
+const { woo, gomem, ine, jingburger, lilpa, jururu, gosegu, viichan } = data;
 
 const Read = () =>
   console.log(woo, ine, jingburger, lilpa, jururu, gosegu, viichan);
 
 const List = () => {
   const arr: { id: string; src: string }[] = [];
-  woo.map((item) => {
-    const obj = { ...item };
+  woo.map((item: { id: string; src?: string }) => {
+    const obj = {
+      id: item.id,
+      src: item.src ? item.src : R2_URL + `/assets/voice/woo/${item.id}.webm`,
+    };
     arr.push(obj);
   });
 
-  ine.map((item) => {
-    const obj = { ...item };
+  gomem.map((item: { id: string; src?: string }) => {
+    const obj = {
+      id: item.id,
+      src: item.src ? item.src : R2_URL + `/assets/voice/gomem/${item.id}.webm`,
+    };
     arr.push(obj);
   });
-  jingburger.map((item) => {
-    const obj = { ...item };
+
+  ine.map((item: { id: string; src?: string }) => {
+    const obj = {
+      id: item.id,
+      src: item.src ? item.src : R2_URL + `/assets/voice/ine/${item.id}.webm`,
+    };
     arr.push(obj);
   });
-  lilpa.map((item) => {
-    const obj = { ...item };
+
+  jingburger.map((item: { id: string; src?: string }) => {
+    const obj = {
+      id: item.id,
+      src: item.src
+        ? item.src
+        : R2_URL + `/assets/voice/jingburger/${item.id}.webm`,
+    };
     arr.push(obj);
   });
-  jururu.map((item) => {
-    const obj = { ...item };
+
+  lilpa.map((item: { id: string; src?: string }) => {
+    const obj = {
+      id: item.id,
+      src: item.src ? item.src : R2_URL + `/assets/voice/lilpa/${item.id}.webm`,
+    };
     arr.push(obj);
   });
-  gosegu.map((item) => {
-    const obj = { ...item };
+
+  jururu.map((item: { id: string; src?: string }) => {
+    const obj = {
+      id: item.id,
+      src: item.src
+        ? item.src
+        : R2_URL + `/assets/voice/jururu/${item.id}.webm`,
+    };
     arr.push(obj);
   });
-  viichan.map((item) => {
-    const obj = { ...item };
+
+  gosegu.map((item: { id: string; src?: string }) => {
+    const obj = {
+      id: item.id,
+      src: item.src
+        ? item.src
+        : R2_URL + `/assets/voice/gosegu/${item.id}.webm`,
+    };
+    arr.push(obj);
+  });
+
+  viichan.map((item: { id: string; src?: string }) => {
+    const obj = {
+      id: item.id,
+      src: item.src
+        ? item.src
+        : R2_URL + `/assets/voice/viichan/${item.id}.webm`,
+    };
     arr.push(obj);
   });
 

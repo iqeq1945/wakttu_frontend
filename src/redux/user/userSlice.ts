@@ -11,6 +11,13 @@ export interface UserState {
   [x: string]: any;
 }
 
+export interface Character {
+  skin: string;
+  head: string;
+  hand: string;
+  eye: string;
+}
+
 const initialState: UserState = {
   id: null,
   name: null,
@@ -34,16 +41,25 @@ export const userSlice = createSlice({
     setUserInfo: (state, action: PayloadAction<UserState>) => {
       return action.payload;
     },
+    setCharacter: (state, action: PayloadAction<Character>) => {
+      state.character = action.payload;
+    },
     clearUserInfo: (state) => {
       return initialState;
     },
   },
 });
 
-export const { setUserId, clearUserId, setUserInfo, clearUserInfo } =
-  userSlice.actions;
+export const {
+  setUserId,
+  clearUserId,
+  setUserInfo,
+  setCharacter,
+  clearUserInfo,
+} = userSlice.actions;
 export const selectUserId = (state: { user: UserState }) => state.user.id;
 export const selectUserName = (state: { user: UserState }) => state.user.name;
 export const selectUserInfo = (state: { user: UserState }) => state.user;
-
+export const selectCharacter = (state: { user: UserState }) =>
+  state.user.character;
 export default userSlice.reducer;

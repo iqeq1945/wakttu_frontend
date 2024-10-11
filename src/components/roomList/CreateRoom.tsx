@@ -86,7 +86,13 @@ const CreateRoom = ({
         <CCreate>
           <CLabel>게임 유형</CLabel>
           <Dropdown onClick={() => onDropdown(0)}>
-            <Selected>{roomInfo.type === 0 ? '끝말잇기' : '쿵쿵따'}</Selected>
+            <Selected>
+              {roomInfo.type === 0
+                ? '끝말잇기'
+                : roomInfo.type === 1
+                ? '쿵쿵따'
+                : '왁타 골든벨'}
+            </Selected>
             <DropdownLine
               isopen={isDown[0]}
               src={getR2URL('/assets/icons/down-line.svg')}
@@ -98,6 +104,9 @@ const CreateRoom = ({
                 </DropdownItem>
                 <DropdownItem onClick={() => onSelect('type', 1)}>
                   쿵쿵따
+                </DropdownItem>
+                <DropdownItem onClick={() => onSelect('type', 2)}>
+                  왁타 골든벨
                 </DropdownItem>
               </>
             )}
@@ -111,68 +120,72 @@ const CreateRoom = ({
             value={roomInfo.round}
             onChange={onRoomInfo}
             min="3"
-            max="8"
+            max={roomInfo.type === 2 ? '10' : '8'}
           />
         </CCreate>
-        <CCreate>
-          <CLabel>라운드시간</CLabel>
-          <Dropdown onClick={() => onDropdown(1)}>
-            <Selected>{roomInfo.time / 1000}초</Selected>
-            <DropdownLine
-              isopen={isDown[1]}
-              src={getR2URL('/assets/icons/down-line.svg')}
-            />
-            {isDown[1] && (
-              <>
-                <DropdownItem onClick={() => onSelect('time', 30000)}>
-                  30초
-                </DropdownItem>
-                <DropdownItem onClick={() => onSelect('time', 60000)}>
-                  60초
-                </DropdownItem>
-                <DropdownItem onClick={() => onSelect('time', 90000)}>
-                  90초
-                </DropdownItem>
-                <DropdownItem onClick={() => onSelect('time', 120000)}>
-                  120초
-                </DropdownItem>
-              </>
-            )}
-          </Dropdown>
-        </CCreate>
-        <CCreate>
-          <CLabel>특수규칙</CLabel>
-          <CheckBox onClick={() => onSelect('option', '팀전')}>
-            <CCheck>
-              {roomInfo.option.indexOf('팀전') === -1 ? (
-                <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} />
-              ) : (
-                <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
-              )}
-              <Selected>팀전</Selected>
-            </CCheck>
-          </CheckBox>
-          <CheckBox onClick={() => onSelect('option', '매너')}>
-            <CCheck>
-              {roomInfo.option.indexOf('매너') === -1 ? (
-                <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} />
-              ) : (
-                <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
-              )}
-              <Selected>매너</Selected>
-            </CCheck>
-          </CheckBox>
-          <CheckBox onClick={() => onSelect('option', '외수')}>
-            <CCheck>
-              {roomInfo.option.indexOf('외수') === -1 ? (
-                <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} />
-              ) : (
-                <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
-              )}
-              <Selected>외수</Selected>
-            </CCheck>
-          </CheckBox>
-        </CCreate>
+        {roomInfo.type !== 2 && (
+          <>
+            <CCreate>
+              <CLabel>라운드시간</CLabel>
+              <Dropdown onClick={() => onDropdown(1)}>
+                <Selected>{roomInfo.time / 1000}초</Selected>
+                <DropdownLine
+                  isopen={isDown[1]}
+                  src={getR2URL('/assets/icons/down-line.svg')}
+                />
+                {isDown[1] && (
+                  <>
+                    <DropdownItem onClick={() => onSelect('time', 30000)}>
+                      30초
+                    </DropdownItem>
+                    <DropdownItem onClick={() => onSelect('time', 60000)}>
+                      60초
+                    </DropdownItem>
+                    <DropdownItem onClick={() => onSelect('time', 90000)}>
+                      90초
+                    </DropdownItem>
+                    <DropdownItem onClick={() => onSelect('time', 120000)}>
+                      120초
+                    </DropdownItem>
+                  </>
+                )}
+              </Dropdown>
+            </CCreate>
+            <CCreate>
+              <CLabel>특수규칙</CLabel>
+              <CheckBox onClick={() => onSelect('option', '팀전')}>
+                <CCheck>
+                  {roomInfo.option.indexOf('팀전') === -1 ? (
+                    <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} />
+                  ) : (
+                    <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
+                  )}
+                  <Selected>팀전</Selected>
+                </CCheck>
+              </CheckBox>
+              <CheckBox onClick={() => onSelect('option', '매너')}>
+                <CCheck>
+                  {roomInfo.option.indexOf('매너') === -1 ? (
+                    <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} />
+                  ) : (
+                    <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
+                  )}
+                  <Selected>매너</Selected>
+                </CCheck>
+              </CheckBox>
+              <CheckBox onClick={() => onSelect('option', '외수')}>
+                <CCheck>
+                  {roomInfo.option.indexOf('외수') === -1 ? (
+                    <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} />
+                  ) : (
+                    <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
+                  )}
+                  <Selected>외수</Selected>
+                </CCheck>
+              </CheckBox>
+            </CCreate>
+          </>
+        )}
         <CButton>
           <ConfirmButton type="button" onClick={onCreate}>
             <ButtonText>방 만들기</ButtonText>

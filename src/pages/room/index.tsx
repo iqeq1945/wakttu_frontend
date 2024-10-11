@@ -11,15 +11,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectModal } from '@/redux/modal/modalSlice';
 import UpdateRoom from '@/containers/room/UpdateRoom';
 import KickModal from '@/containers/room/KickModal';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { socket } from '@/services/socket/socket';
 import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { setGame } from '@/redux/game/gameSlice';
 import { selectBgmVolume } from '@/redux/audio/audioSlice';
 import useSound from '@/hooks/useSound';
-import { selectUserInfo, setUserInfo } from '@/redux/user/userSlice';
-import { client } from '@/services/api';
+import Result from '@/containers/room/Result';
 
 const Room = () => {
   const modal = useSelector(selectModal);
@@ -74,6 +73,7 @@ const Room = () => {
       </WrapRoom>
       {modal.modalType === 'UPDATE_ROOM' && modal.open && <UpdateRoom />}
       {modal.modalType === 'KICK' && modal.open && <KickModal />}
+      {modal.modalType === 'RESULT' && modal.open && <Result />}
     </Container>
   );
 };

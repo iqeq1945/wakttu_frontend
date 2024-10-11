@@ -1,12 +1,13 @@
 import { MainForm } from '@/components';
 import { useRouter } from 'next/router';
-import { MouseEvent, useEffect, useState } from 'react';
+import { MouseEvent, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '@/redux/modal/modalSlice';
 import { client } from '@/services/api';
 import {
   clearUserInfo,
   selectUserId,
+  selectUserInfo,
   setUserInfo,
 } from '@/redux/user/userSlice';
 import { socket } from '@/services/socket/socket';
@@ -15,6 +16,7 @@ const MainFormContainer = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const user = useSelector(selectUserInfo);
   const userId = useSelector(selectUserId);
   const [isLogined, setIsLogined] = useState(false);
 
@@ -39,28 +41,38 @@ const MainFormContainer = () => {
     }
   }, [userId]);
 
-  const onModal = (e: MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    dispatch(openModal('MAIN_MODAL'));
-  };
+  const onModal = useCallback(
+    (e: MouseEvent<HTMLElement>) => {
+      e.preventDefault();
+      dispatch(openModal('MAIN_MODAL'));
+    },
+    [dispatch]
+  );
 
-  const start = async (e: MouseEvent<HTMLElement>) => {
-    if (isLogined) {
+  const start = useCallback(
+    (e: MouseEvent<HTMLElement>) => {
+      if (isLogined) {
+        e.stopPropagation();
+        router.push('/roomlist');
+      }
+    },
+    [isLogined, router]
+  );
+
+  const logout = useCallback(
+    async (e: MouseEvent<HTMLElement>) => {
       e.stopPropagation();
-      router.push('/roomlist');
-    }
-  };
-
-  const logout = async (e: MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
-    await client.get('auth/logout');
-    dispatch(clearUserInfo());
-    socket.disconnect();
-    return;
-  };
+      await client.get('auth/logout');
+      dispatch(clearUserInfo());
+      socket.disconnect();
+      return;
+    },
+    [dispatch]
+  );
 
   return (
     <MainForm
+      user={user}
       isLogined={isLogined}
       onModal={onModal}
       start={start}

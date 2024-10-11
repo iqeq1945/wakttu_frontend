@@ -42,15 +42,14 @@ import {
   TypingText,
   BTimerBar,
   PauseTv,
-  Length,
-  CBan,
-  CPaper,
-  Paper,
-  Magnet,
+  Logo,
+  CList,
+  Emergency,
 } from '@/styles/kung/Game';
 import WordErrorEffect from '../WordErrorEffect';
 import { Answer } from '@/redux/answer/answerSlice';
 import WordEffect from '../WordEffect';
+import { getR2URL } from '@/services/api';
 
 interface Props {
   game: Game;
@@ -71,7 +70,6 @@ const Kung = ({
   name,
   answer,
   history,
-  ban,
 }: Props) => {
   const target = () => {
     const res = hangulTools().dueum(game.target);
@@ -81,25 +79,19 @@ const Kung = ({
   return (
     <CKung>
       <Left>
-        <Speaker src="/assets/game/speaker.svg" reverse={false} />
+        <Speaker src={getR2URL('/assets/game/speaker.svg')} reverse={false} />
         <Tv>
           {pause ? (
-            <Length
-              src={
-                game.chain % 2 === 1
-                  ? '/assets/game/three.svg'
-                  : '/assets/game/two.svg'
-              }
-            />
+            <Logo src={getR2URL('/assets/game/kung-logo.svg')} />
           ) : (
-            <PauseTv src="/assets/game/pauseTv.svg" />
+            <PauseTv src={getR2URL('/assets/game/pauseTv.svg')} />
           )}
         </Tv>
       </Left>
       <Board>
         <Info>
           <Object>
-            <Pen src="/assets/game/pen.svg" />
+            <Pen src={getR2URL('/assets/game/pen.svg')} />
             <ObjectText>학습목표</ObjectText>
           </Object>
           <Round>
@@ -149,7 +141,7 @@ const Kung = ({
         <CTimer>
           <TimerItem>
             <LeftTimer>
-              <TimerIcon src="/assets/game/timer-white.svg" />
+              <TimerIcon src={getR2URL('/assets/game/timer-white.svg')} />
               <TimerText>라운드 남은시간</TimerText>
             </LeftTimer>
             <RightTimer>
@@ -168,7 +160,7 @@ const Kung = ({
           </TimerItem>
           <TimerItem>
             <LeftTimer>
-              <TimerIcon src="/assets/game/timer-white.svg" />
+              <TimerIcon src={getR2URL('/assets/game/timer-white.svg')} />
               <TimerText>이번턴 남은시간</TimerText>
             </LeftTimer>
             <RightTimer>
@@ -188,24 +180,17 @@ const Kung = ({
         </CTimer>
       </Board>
       <Right>
-        <Speaker src="/assets/game/speaker.svg" reverse={true} />
-        <Frame src="/assets/game/tae.svg" />
-        <Frame src="/assets/game/ment.svg" />
+        <Speaker src={getR2URL('/assets/game/speaker.svg')} reverse={true} />
+        <Frame src={getR2URL('/assets/game/tae.svg')} />
+        <Frame src={getR2URL('/assets/game/ment.svg')} />
         <CPost>
           <Post>
             <CPostTitle>
-              <PostTitle>금지단어</PostTitle>
+              <PostTitle>게 시 판</PostTitle>
             </CPostTitle>
-            <CBan>
-              {ban.map((paper, idx) => {
-                return (
-                  <CPaper key={idx}>
-                    <Magnet idx={idx} />
-                    <Paper>{paper}</Paper>
-                  </CPaper>
-                );
-              })}
-            </CBan>
+            <CList>
+              <Emergency src={getR2URL('/assets/game/emergency.png')} />
+            </CList>
           </Post>
         </CPost>
       </Right>

@@ -1,17 +1,15 @@
-import { Container, ContainerContent } from '@/styles/book/MypageForm';
-import { CosmeticInfo } from '@/components';
-import CosmeticList from '@/containers/book/CosmeticList';
+import { Container, ContainerContent } from '@/styles/book/BookForm';
+import Cosmetic from '@/containers/book/Cosmetic';
 import Header from '@/containers/common/Header';
 
-const Mypage = () => {
+const Book = () => {
   return (
     <Container>
       <Header />
       <ContainerContent>
-        <CosmeticInfo />
-        <CosmeticList />
+        <Cosmetic />
       </ContainerContent>
     </Container>
   );
 };
-export default Mypage;
+export default Book;

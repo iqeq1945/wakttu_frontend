@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { COLORS, FONT_SIZES } from '../theme';
+import { getR2URL, R2_URL } from '@/services/api';
 
 const DROM_SHADOW = '0px 1px 10px 0px rgba(0, 0, 0, 0.15)';
 
@@ -59,12 +60,12 @@ export const Tv = styled.div`
   height: 21.875rem;
   flex-shrink: 0;
 
-  background-image: url('/assets/game/tv.svg');
+  background-image: url(${getR2URL('/assets/game/tv.svg')});
   background-size: cover;
 `;
 
-export const Length = styled.img`
-  width: 20.625rem;
+export const Logo = styled.img`
+  width: 20.6875rem;
   height: 12.25rem;
 `;
 
@@ -82,7 +83,7 @@ export const Board = styled.div`
   align-items: center;
   gap: 0.875rem;
 
-  background-image: url('/assets/game/board.svg');
+  background-image: url(${getR2URL('/assets/game/board.svg')});
   background-size: cover;
 `;
 
@@ -315,7 +316,7 @@ export const Post = styled.div`
   height: 17rem;
   flex-shrink: 0;
 
-  background-image: url('/assets/game/post.svg');
+  background-image: url(${getR2URL('/assets/game/post.svg')});
   fill: linear-gradient(180deg, #00c944 -1.1%, #006322 98.9%);
 `;
 
@@ -344,7 +345,7 @@ export const PostTitle = styled.h6`
   background: #fb5e3c;
 `;
 
-export const CBan = styled.div`
+export const CList = styled.div`
   display: flex;
   width: 31.375rem;
   height: 13.6875rem;
@@ -357,48 +358,9 @@ export const CBan = styled.div`
   flex-wrap: wrap;
 `;
 
-export const CPaper = styled.div`
-  position: relative;
-
-  width: 3.51138rem;
-  height: 5.12406rem;
-  flex-shrink: 0;
-`;
-
-export const Magnet = styled.div<{ idx: number }>`
-  position: absolute;
-  width: 1.05344rem;
-  height: 1.07875rem;
-
-  top: -0.4rem;
-  left: 1.65rem;
-  transform: rotate(13.082deg);
-  flex-shrink: 0;
-
-  border-radius: 1rem;
-
-  z-index: 12;
-  background: ${({ idx }) => BAN[idx]};
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-`;
-
-export const Paper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 3.51138rem;
-  height: 4.58475rem;
-
-  transform: rotate(13.082deg);
-  background: ${COLORS.bg};
-  box-shadow: ${DROM_SHADOW};
-
-  color: ${COLORS.text};
-  text-align: center;
-
-  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-  font-size: 1.125rem;
-  font-weight: 500;
+export const Emergency = styled.img`
+  width: 13.8125rem;
+  height: 9.6875rem;
 `;
 
 export const CTimer = styled.div`
