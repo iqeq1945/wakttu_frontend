@@ -32,8 +32,7 @@ const ListTitle = styled.div`
 
 const Title = styled.h5`
   color: ${COLORS.text};
-
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
 `;
 
 const Count = styled.div`
@@ -44,8 +43,8 @@ const Count = styled.div`
 
   color: ${COLORS['gray-2']};
 
-  font-family: 'WantedSans-SemiBold';
-  font-size: ${FONT_SIZES['subtitle-2']}
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-size: ${FONT_SIZES['subtitle-2']};
   font-weight: 600;
 
   border-radius: 0.5rem;
@@ -98,7 +97,7 @@ const Name = styled.h5<{ $color: string }>`
     return $color;
   }};
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
 `;
 
 export { CUserList, ListTitle, Title, Count, List, CPlayer, Icon, Name };

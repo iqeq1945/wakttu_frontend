@@ -44,7 +44,8 @@ const CreateIcon = styled.img`
 const CreateLabel = styled.h5`
   color: ${COLORS.text};
 
-  font-family: 'WantedSans-Semibold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 const CCreate = styled.div`
@@ -64,7 +65,8 @@ const CLabel = styled.span`
   white-space: nowrap;
   ${COLORS.text}
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-2']};
 `;
 
@@ -81,7 +83,8 @@ const CInput = styled.input`
 
   color: ${COLORS['gray-2']};
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-1']};
 `;
 
@@ -136,7 +139,8 @@ const DropdownItem = styled.li`
   text-align: left;
   color: ${COLORS.text};
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-1']};
 
   cursor: pointer;
@@ -150,21 +154,22 @@ const DropdownItem = styled.li`
   }
 `;
 
-const DropdownLine = styled.img<{ isOpen: boolean }>`
+const DropdownLine = styled.img<{ isopen: boolean }>`
   width: 1.5rem;
   height: 1.5rem;
   margin-right: 1rem;
 
   cursor: pointer;
 
-  transform: ${({ isOpen }) => (isOpen ? 'rotateX(180deg)' : 'rotateX(0deg)')};
+  transform: ${({ isopen }) => (isopen ? 'rotateX(180deg)' : 'rotateX(0deg)')};
   transition: transform 0.3s ease;
 `;
 
 const Selected = styled.span`
   color: ${COLORS.text};
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-1']};
 `;
 
@@ -215,9 +220,9 @@ const CancleButton = styled.button`
 const ButtonText = styled.span<{ $color?: boolean }>`
   color: ${({ $color }) => ($color ? COLORS['gray-1'] : COLORS.bg)};
   text-align: center;
-  font-family: 'WantedSans-SemiBold';
-  font-size: ${FONT_SIZES['subtitle-1']};
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-weight: 600;
+  font-size: ${FONT_SIZES['subtitle-1']};
 `;
 
 export {

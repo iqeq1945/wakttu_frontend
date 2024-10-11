@@ -1,10 +1,8 @@
 import { RoomDesc as CRoomDesc } from '@/components';
-import { setGame } from '@/redux/game/gameSlice';
 import { openModal } from '@/redux/modal/modalSlice';
 import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { client } from '@/services/api';
 import { enter } from '@/services/socket/socket';
-import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
 const RoomDesc = () => {
@@ -13,7 +11,13 @@ const RoomDesc = () => {
 
   const onEnter = async () => {
     const data = (await client.get(`room/${roomInfo.id}`)).data;
-    const { id, password } = data;
+    const { id, password, start } = data;
+    dispatch(setRoomInfo(data));
+
+    if (start) {
+      alert('게임이 진행중인 방입니다!');
+      return;
+    }
     if (password !== null) {
       if (id === undefined) {
         alert('존재하지 않는 방입니다!');

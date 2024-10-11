@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { COLORS } from "../theme";
+import styled from 'styled-components';
+import { COLORS } from '../theme';
 
 const WrapForm = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ const WrapForm = styled.div`
   cursor: pointer;
 
   border-radius: 1rem;
-  border: 0.125rem solid ${COLORS["gray-4"]};
+  border: 0.125rem solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
   opacity: 80%;
 `;
@@ -23,9 +23,9 @@ const GameStart = styled.div`
   width: 100%;
   height: 100%;
   color: ${COLORS.primary};
-  font-family: WantedSans-SemiBold;
-  font-size: 2rem;
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-weight: 600;
+  font-size: 2rem;
 `;
 
 const Player = styled.div`
@@ -36,24 +36,22 @@ const Player = styled.div`
   align-items: center;
   gap: 1rem;
   border-radius: 0 0 1rem 1rem;
-  border: 0.125rem solid ${COLORS["gray-4"]};
-  background: ${COLORS["gray-4"]};
+  border: 0.125rem solid ${COLORS['gray-4']};
+  background: ${COLORS['gray-4']};
 `;
 
 const PlayerName = styled.span`
   color: ${COLORS.text};
-  font-family: WantedSans-SemiBold;
-  font-size: 1rem;
-  font-style: normal;
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-weight: 600;
-  line-height: normal;
+  font-size: 1rem;
 `;
 
 const Line = styled.div`
   width: 0.0625rem;
   height: 0.875rem;
   border-radius: 0.0625rem;
-  background: ${COLORS["gray-2"]};
+  background: ${COLORS['gray-2']};
 `;
 
 const Rank = styled.img`

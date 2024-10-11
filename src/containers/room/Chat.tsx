@@ -1,9 +1,11 @@
 import { ChatBox } from '@/components';
+import useEffectSound from '@/hooks/useEffectSound';
 import useInput from '@/hooks/useInput';
 import { getTime } from '@/modules/Date';
+import { clean } from '@/modules/Slang';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { sendChat, socket } from '@/services/socket/socket';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
 interface InputProps {
@@ -17,6 +19,10 @@ export interface LogProps {
 }
 
 const Chat = () => {
+  const logSound = useEffectSound(
+    '/assets/sound-effects/lossy/ui_click.webm',
+    0.08
+  );
   const roomId = useSelector(selectRoomId) as string;
   const [log, setLog] = useState<LogProps[]>([]);
   const { inputs, setInputs, onInputChange } = useInput<InputProps>({
@@ -26,13 +32,19 @@ const Chat = () => {
   const chatBoxRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const playSound = useCallback(() => {
+    if (logSound) {
+      if (logSound.playing()) logSound.stop();
+      logSound.play();
+    }
+  }, [logSound]);
+
   const onSendMessage = () => {
     if (inputs.chat) {
       sendChat({
         roomId,
-        chat: inputs.chat,
+        chat: clean(inputs.chat),
         roundTime: null,
-        turnTime: null,
         score: null,
       });
     }
@@ -54,11 +66,12 @@ const Chat = () => {
     socket.on('chat', (data) => {
       data.date = getTime();
       setLog((prev) => [...prev, data]);
+      playSound();
     });
     return () => {
       socket.off('chat');
     };
-  }, [log]);
+  }, [log, playSound]);
 
   return (
     <ChatBox

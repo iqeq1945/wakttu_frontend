@@ -33,9 +33,8 @@ const FormContainer = styled.div`
 
 const FormName = styled.h3`
   color: ${COLORS.text};
-  font-family: WantedSans-SemiBold;
-  font-style: normal;
-  line-height: normal;
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 const FormSection = styled.form`
@@ -55,7 +54,8 @@ const InputContainer = styled.div`
   & > p {
     color: #ff6565;
 
-    font-family: WantedSans-Medium;
+    font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+    font-weight: 500;
   }
 `;
 
@@ -70,7 +70,8 @@ const InputSection = styled.div`
 
 const FormLabel = styled.span`
   color: ${COLORS.text};
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-2']};
   font-style: normal;
   font-weight: 500;
@@ -99,7 +100,8 @@ const FormItem = styled.div`
     text-overflow: ellipsis;
     outline: none;
     border: none;
-    font-family: 'WantedSans-Medium';
+    font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+    font-weight: 500;
     font-size: ${FONT_SIZES['body-1']};
     font-style: normal;
     font-weight: 500;
@@ -124,7 +126,8 @@ const FormItem = styled.div`
     cursor: pointer;
 
     color: ${COLORS.bg};
-    font-family: 'WantedSans-Medium';
+    font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+    font-weight: 500;
     font-size: ${FONT_SIZES['body-2']};
   }
 `;
@@ -160,11 +163,9 @@ const SubmitButton = styled.button`
   color: ${COLORS.bg};
   text-overflow: ellipsis;
 
-  font-family: 'WantedSans-SemiBold';
-  font-size: ${FONT_SIZES['subtitle-1']};
-  font-style: normal;
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-weight: 600;
-  line-height: normal;
+  font-size: ${FONT_SIZES['subtitle-1']};
 
   &:hover {
     background: ${COLORS['primary-hov']};

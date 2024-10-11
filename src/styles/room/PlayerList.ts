@@ -73,7 +73,7 @@ const PlayerIcon = styled.img`
 const PlayerName = styled.h6`
   color: ${COLORS.text};
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-size: 1.125rem;
   font-weight: 500;
 `;
@@ -96,9 +96,9 @@ const PlayerReady = styled.div<{ $ready?: boolean }>`
     text-align: center;
     white-space: nowrap;
 
-    font-family: 'WantedSans-SemiBold';
-    font-size: ${FONT_SIZES['subtitle-1']};
+    font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
     font-weight: 600;
+    font-size: ${FONT_SIZES['subtitle-1']};
   }
 `;
 
@@ -113,6 +113,45 @@ const KickIcon = styled.img`
   cursor: pointer;
 `;
 
+const TeamTag = styled.div<{ team: string }>`
+  position: absolute;
+  left: 0.5rem;
+  top: 0.7432rem;
+  display: flex;
+  width: 4rem;
+  padding: 0.125rem 0.25rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+
+  border-radius: 0.5rem;
+  background: var(--Button-Blue, #85e2ff);
+
+  background: ${({ team }) => {
+    switch (team) {
+      case 'woo': {
+        return COLORS.blue;
+      }
+      case 'gomem': {
+        return COLORS.red;
+      }
+      case 'academy': {
+        return COLORS.yellow;
+      }
+      case 'isedol': {
+        return COLORS.green;
+      }
+    }
+  }};
+  color: rgba(0, 0, 0, 0.5);
+
+  text-align: center;
+
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-size: ${FONT_SIZES['subtitle-1']};
+  font-weight: 500;
+`;
+
 export {
   CPlayerList,
   WrapPlayerList,
@@ -124,4 +163,5 @@ export {
   PlayerName,
   PlayerReady,
   KickIcon,
+  TeamTag,
 };

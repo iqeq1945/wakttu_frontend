@@ -34,9 +34,9 @@ const ExitIcon = styled.img`
 const ButtonText = styled.span`
   color: ${COLORS.bg};
 
-  font-family: 'WantedSans-SemiBold';
-  font-size: ${FONT_SIZES['subtitle-2']};
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-weight: 600;
+  font-size: ${FONT_SIZES['subtitle-2']};
 `;
 
 const UpdateButton = styled.button`

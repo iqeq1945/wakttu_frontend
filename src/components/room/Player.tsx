@@ -1,4 +1,5 @@
 import { getIcon } from '@/modules/UserInfo';
+import { getR2URL } from '@/services/api';
 import {
   CPlayer,
   PlayerInfo,
@@ -8,6 +9,7 @@ import {
   PlayerName,
   PlayerReady,
   KickIcon,
+  TeamTag,
 } from '@/styles/room/PlayerList';
 
 interface Props {
@@ -15,10 +17,18 @@ interface Props {
   user: any;
   host: string;
   myName: string;
+  team?: { team: string; name: string };
   onKick: (data: { id: string; name: string }) => void;
 }
 
-const Player = ({ $ready, user, myName, host, onKick }: Props) => {
+const Player = ({
+  $ready,
+  user,
+  myName,
+  host,
+  team = undefined,
+  onKick,
+}: Props) => {
   const icon = getIcon(user.score, user.provider);
 
   return (
@@ -26,14 +36,19 @@ const Player = ({ $ready, user, myName, host, onKick }: Props) => {
       {user.name && (
         <>
           <PlayerInfo>
-            <PlayerProfile src="/assets/player-profile.png" />
+            <PlayerProfile src={getR2URL('/assets/player-profile.png')} />
             <CBadge>
               <PlayerIcon src={icon} />
               <PlayerName>{user.name}</PlayerName>
             </CBadge>
+            {team === undefined ? (
+              ''
+            ) : (
+              <TeamTag team={team.team}>{team.name} </TeamTag>
+            )}
             {myName === host && user.name !== host && (
               <KickIcon
-                src="/assets/icons/kick.svg"
+                src={getR2URL('/assets/icons/kick.svg')}
                 onClick={() => onKick({ id: user.id, name: user.name })}
               />
             )}

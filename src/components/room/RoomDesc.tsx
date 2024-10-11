@@ -11,9 +11,11 @@ import {
   ModText,
   WatingLarge,
   WatingText,
+  TitleText,
 } from '@/styles/roomList/RoomDesc';
 import { RoomNumber } from '@/components';
 import { Room } from '@/services/socket/socket';
+import { getR2URL } from '@/services/api';
 
 interface Props {
   roomInfo: Room;
@@ -24,10 +26,10 @@ const RoomDesc = ({ roomInfo }: Props) => {
     <CRoomDesc>
       <WrapRoomTitle>
         <RoomNumber number={roomInfo.idx as number} />
-        <h5>방제에요</h5>
+        <TitleText>방제에요</TitleText>
       </WrapRoomTitle>
       <WrapGameInfo>
-        <GameInfo src="/assets/game-info.png" />
+        <GameInfo src={getR2URL('/assets/game-info.png')} />
         <RoomInfo>
           <WrapInfo>
             <Info $variant="title">플레이어</Info>

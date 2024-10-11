@@ -6,6 +6,10 @@ import modalReducer from './modal/modalSlice';
 import roomInfoReducer from './roomInfo/roomInfoSlice';
 import filterReducer from './filter/filterSlice';
 import gameReducer from './game/gameSlice';
+import answerReducer from './answer/answerSlice';
+import timerReducer from './timer/timerSlice';
+import historyReducer from './history/historySlice';
+import audioReducer from './audio/audioSlice';
 
 export interface RootState {
   user: ReturnType<typeof userReducer>;
@@ -13,6 +17,10 @@ export interface RootState {
   roomInfo: ReturnType<typeof roomInfoReducer>;
   game: ReturnType<typeof gameReducer>;
   filter: ReturnType<typeof filterReducer>;
+  answer: ReturnType<typeof answerReducer>;
+  timer: ReturnType<typeof timerReducer>;
+  history: ReturnType<typeof historyReducer>;
+  audio: ReturnType<typeof audioReducer>;
 }
 
 const reducers = combineReducers({
@@ -21,13 +29,25 @@ const reducers = combineReducers({
   roomInfo: roomInfoReducer,
   game: gameReducer,
   filter: filterReducer,
+  answer: answerReducer,
+  timer: timerReducer,
+  history: historyReducer,
+  audio: audioReducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user'],
-  blacklist: ['modal', 'roomInfo', 'game', 'filter'],
+  whitelist: ['user', 'audio'],
+  blacklist: [
+    'modal',
+    'roomInfo',
+    'game',
+    'filter',
+    'answer',
+    'timer',
+    'history',
+  ],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -3,6 +3,8 @@ import { Game } from '@/services/socket/socket';
 
 interface Users {
   id: string;
+  userId: string;
+  charactor: JSON;
   score: number;
 }
 
@@ -20,6 +22,8 @@ const initialState: Game = {
   roundTime: 0,
   turnTime: 0,
   mission: undefined,
+  ban: [],
+  team: { woo: [], gomem: [], academy: [], isedol: [] },
 };
 
 export const gameSlice = createSlice({
@@ -43,5 +47,14 @@ export const { setGame, clearGame, setReady } = gameSlice.actions;
 export const selectGame = (state: { game: Game }) => state.game;
 export const selectReadyUser = (state: { game: Game }) => state.game.users;
 export const selectHost = (state: { game: Game }) => state.game.host;
+export const selectWhoisTurn = (state: { game: Game }) => {
+  const users = state.game.users;
+  const turn = state.game.turn;
+  if (users.length > 0 && users.length > turn) {
+    return users[turn].name;
+  }
+  return '';
+};
+export const selectTeam = (state: { game: Game }) => state.game.team;
 
 export default gameSlice.reducer;

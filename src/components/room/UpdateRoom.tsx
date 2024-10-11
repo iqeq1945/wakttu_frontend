@@ -1,3 +1,4 @@
+import { getR2URL } from '@/services/api';
 import { Room } from '@/services/socket/socket';
 import {
   CCreate,
@@ -20,6 +21,7 @@ import {
   CancleButton,
   ButtonText,
 } from '@/styles/roomList/CreateRoom';
+import { handleKeyDown } from '@/utils/keyboard';
 import { RefObject } from 'react';
 
 interface Props {
@@ -47,7 +49,7 @@ const UpdateRoom = ({
     <Modal>
       <CCreateRoom ref={modalRef}>
         <LabelWithIcon>
-          <CreateIcon src="/assets/icons/plus-green.svg" />
+          <CreateIcon src={getR2URL('/assets/icons/plus-green.svg')} />
           <CreateLabel>방 만들기</CreateLabel>
         </LabelWithIcon>
         <CCreate>
@@ -56,6 +58,7 @@ const UpdateRoom = ({
             name="title"
             defaultValue={roomInfo.title}
             onChange={onRoomInfo}
+            onKeyDown={handleKeyDown}
           />
         </CCreate>
         <CCreate>
@@ -83,10 +86,12 @@ const UpdateRoom = ({
           <CLabel>게임 유형</CLabel>
           <Dropdown onClick={() => onDropdown(0)}>
             <Selected>{roomInfo.type === 0 ? '끝말잇기' : '쿵쿵따'}</Selected>
-            {!isDown[0] && <DropdownLine src="/assets/icons/down-line.svg" />}
+            <DropdownLine
+              isopen={isDown[0]}
+              src={getR2URL('/assets/icons/down-line.svg')}
+            />
             {isDown[0] && (
               <>
-                <DropdownLine src="/assets/icons/up-line.svg" />
                 <DropdownItem onClick={() => onSelect('type', 0)}>
                   끝말잇기
                 </DropdownItem>
@@ -112,10 +117,12 @@ const UpdateRoom = ({
           <CLabel>라운드시간</CLabel>
           <Dropdown onClick={() => onDropdown(1)}>
             <Selected>{roomInfo.time! / 1000}초</Selected>
-            {!isDown[1] && <DropdownLine src="/assets/icons/down-line.svg" />}
+            <DropdownLine
+              isopen={isDown[1]}
+              src={getR2URL('/assets/icons/down-line.svg')}
+            />
             {isDown[1] && (
               <>
-                <DropdownLine src="/assets/icons/up-line.svg" />
                 <DropdownItem onClick={() => onSelect('time', 30000)}>
                   30초
                 </DropdownItem>
@@ -134,12 +141,22 @@ const UpdateRoom = ({
         </CCreate>
         <CCreate>
           <CLabel>특수규칙</CLabel>
+          <CheckBox onClick={() => onSelect('option', '팀전')}>
+            <CCheck>
+              {roomInfo.option!.indexOf('팀전') === -1 ? (
+                <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} />
+              ) : (
+                <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
+              )}
+              <Selected>팀전</Selected>
+            </CCheck>
+          </CheckBox>
           <CheckBox onClick={() => onSelect('option', '매너')}>
             <CCheck>
               {roomInfo.option!.indexOf('매너') === -1 ? (
-                <CheckIcon src="/assets/icons/check-off.svg" />
+                <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} />
               ) : (
-                <CheckIcon src="/assets/icons/check-on.svg" />
+                <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
               )}
               <Selected>매너</Selected>
             </CCheck>
@@ -147,9 +164,9 @@ const UpdateRoom = ({
           <CheckBox onClick={() => onSelect('option', '외수')}>
             <CCheck>
               {roomInfo.option!.indexOf('외수') === -1 ? (
-                <CheckIcon src="/assets/icons/check-off.svg" />
+                <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} />
               ) : (
-                <CheckIcon src="/assets/icons/check-on.svg" />
+                <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
               )}
               <Selected>외수</Selected>
             </CCheck>

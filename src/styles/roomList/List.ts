@@ -22,6 +22,8 @@ const CItem = styled.div`
   width: 100%;
   gap: 0.75rem;
 
+  cursor: pointer;
+
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
@@ -84,7 +86,7 @@ const RoomName = styled.h5`
 
   color: ${COLORS.text};
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
 
   text-overflow: ellipsis;
   overflow: hidden;
@@ -106,14 +108,16 @@ const RoomGame = styled.div`
 const SemiText = styled.span<{ $color?: boolean }>`
   color: ${({ $color }) => ($color ? COLORS['gray-3'] : COLORS.text)};
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
   font-size: ${FONT_SIZES['subtitle-1']};
 `;
 
 const MediumText = styled.span<{ $color?: boolean }>`
   color: ${({ $color }) => ($color ? COLORS['gray-3'] : COLORS.text)};
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-2']};
 `;
 
@@ -125,7 +129,8 @@ const Status = styled.div<{ $status?: string }>`
   padding: 0.375rem 0.625rem;
 
   color: rgba(0, 0, 0, 0.5);
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
   font-size: ${FONT_SIZES['subtitle-1']};
 
   border-radius: 0.5rem;

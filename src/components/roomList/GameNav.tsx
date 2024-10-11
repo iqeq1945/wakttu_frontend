@@ -1,3 +1,4 @@
+import { getR2URL } from '@/services/api';
 import {
   CGameNav,
   LeftIcons,
@@ -37,12 +38,15 @@ const GameNav = ({
     <CGameNav>
       <LeftIcons>
         <CreateRoomBtn onClick={() => onModal('CREATE_ROOM')}>
-          <Plus src="/assets/icons/plus.svg" />
+          <Plus src={getR2URL('/assets/icons/plus.svg')} />
           <PlusTitle>방 만들기</PlusTitle>
         </CreateRoomBtn>
 
         <CSearch $open={open}>
-          <SearchBtn src="/assets/icons/search.svg" onClick={onClick} />
+          <SearchBtn
+            src={getR2URL('/assets/icons/search.svg')}
+            onClick={onClick}
+          />
           {open ? (
             <>
               <SearchInput
@@ -52,15 +56,21 @@ const GameNav = ({
                 maxLength={10}
                 autoComplete="off"
               />
-              <CloseBtn src="/assets/icons/close.svg" onClick={onClick} />
+              <CloseBtn
+                src={getR2URL('/assets/icons/close.svg')}
+                onClick={onClick}
+              />
             </>
           ) : null}
         </CSearch>
 
-        <RefreshBtn src="/assets/icons/refresh.svg" onClick={onRoomList} />
+        <RefreshBtn
+          src={getR2URL('/assets/icons/refresh.svg')}
+          onClick={onRoomList}
+        />
       </LeftIcons>
       <FilterToggled onClick={() => onModal('FILTER')}>
-        <FilterIcon src="/assets/icons/filter.svg" />
+        <FilterIcon src={getR2URL('/assets/icons/filter.svg')} />
         {children}
       </FilterToggled>
     </CGameNav>

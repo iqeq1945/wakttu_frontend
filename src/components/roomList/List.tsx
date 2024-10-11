@@ -1,4 +1,5 @@
 import { RoomNumber } from '@/components';
+import { getR2URL } from '@/services/api';
 import { Room } from '@/services/socket/socket';
 import {
   CItem,
@@ -57,7 +58,9 @@ const List = ({ roomList, onClick, filter, onToggle }: Props) => {
                         <SemiText $color={true}>/</SemiText>
                         <SemiText>{room.total}</SemiText>
                       </RoomCount>
-                      {room.password && <Lock src="/assets/icons/lock.svg" />}
+                      {room.password && (
+                        <Lock src={getR2URL('/assets/icons/lock.svg')} />
+                      )}
                     </RoomNameCount>
                     <RoomGame>
                       <SemiText>

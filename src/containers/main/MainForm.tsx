@@ -9,6 +9,7 @@ import {
   selectUserId,
   setUserInfo,
 } from '@/redux/user/userSlice';
+import { socket } from '@/services/socket/socket';
 
 const MainFormContainer = () => {
   const dispatch = useDispatch();
@@ -21,15 +22,21 @@ const MainFormContainer = () => {
     const checkLogin = async () => {
       const response = await client.get('/test');
       const data = response.data;
-      if (data.user) dispatch(setUserInfo(data.user));
-      else dispatch(clearUserInfo());
+      if (data.user) {
+        dispatch(setUserInfo(data.user));
+      } else dispatch(clearUserInfo());
     };
     checkLogin();
   }, [dispatch]);
 
   useEffect(() => {
-    if (userId) setIsLogined(true);
-    else setIsLogined(false);
+    if (userId) {
+      setIsLogined(true);
+      socket.connect();
+    } else {
+      setIsLogined(false);
+      socket.disconnect();
+    }
   }, [userId]);
 
   const onModal = (e: MouseEvent<HTMLElement>) => {
@@ -37,19 +44,18 @@ const MainFormContainer = () => {
     dispatch(openModal('MAIN_MODAL'));
   };
 
-  const start = (e: MouseEvent<HTMLElement>) => {
+  const start = async (e: MouseEvent<HTMLElement>) => {
     if (isLogined) {
       e.stopPropagation();
       router.push('/roomlist');
-      return;
     }
-    return;
   };
 
   const logout = async (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     await client.get('auth/logout');
     dispatch(clearUserInfo());
+    socket.disconnect();
     return;
   };
 

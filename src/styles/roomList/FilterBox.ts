@@ -61,7 +61,8 @@ const DropdownItem = styled.li`
   text-align: left;
   color: ${COLORS.text};
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-1']};
 
   cursor: pointer;
@@ -89,7 +90,8 @@ const DropdownLine = styled.img<{ isOpen: boolean }>`
 const Selected = styled.span`
   color: ${COLORS.text};
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-1']};
 `;
 
@@ -102,7 +104,8 @@ const FilterWithText = styled.div`
 const FilterLabel = styled.h5`
   color: ${COLORS.text};
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 const Icon = styled(FilterIcon)`

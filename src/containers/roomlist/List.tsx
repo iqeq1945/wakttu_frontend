@@ -24,6 +24,7 @@ const List = ({ setToggle }: any) => {
 
   useEffect(() => {
     getRoomList();
+    setInterval(() => getRoomList(), 5000);
   }, []);
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const List = ({ setToggle }: any) => {
     return () => {
       socket.off('roomList');
     };
-  }, [filter.time, roomList]);
+  }, [filter.time]);
 
   return (
     <CList

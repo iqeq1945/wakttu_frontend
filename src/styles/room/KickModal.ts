@@ -34,7 +34,8 @@ const Text = styled.h6`
   color: ${COLORS['gray-2']};
   text-align: center;
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
 `;
 
 const CButton = styled.div`
@@ -64,9 +65,9 @@ const ConfrimText = styled.span`
   color: ${COLORS.bg};
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
-  font-size: ${FONT_SIZES['subtitle-1']};
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-weight: 600;
+  font-size: ${FONT_SIZES['subtitle-1']};
 `;
 
 const CancleButton = styled.button`
@@ -87,9 +88,9 @@ const CancleText = styled.span`
   color: ${COLORS['gray-2']};
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
-  font-size: ${FONT_SIZES['subtitle-1']};
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-weight: 600;
+  font-size: ${FONT_SIZES['subtitle-1']};
 `;
 
 export {
