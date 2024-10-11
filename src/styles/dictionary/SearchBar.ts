@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: flex;
   width: 52.625rem;
-  margin: 3rem 0; 
+  margin: 3rem 0;
 
   padding: 0.625rem;
   justify-content: flex-end;
@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   gap: 0.5rem;
 
   border-radius: 1.875rem;
-  border: 2px solid var(--Primary, #00BFA3);
+  border: 2px solid var(--Primary, #00bfa3);
 `;
 
 const Input = styled.input`
@@ -25,7 +25,7 @@ const Input = styled.input`
   background: none;
 
   /* H5 - 20px - SemiBold */
-  font-family: "Wanted Sans";
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-size: 1.25rem;
   font-style: normal;
   font-weight: 600;
@@ -45,7 +45,7 @@ const SearchButton = styled.button`
   gap: 0.625rem;
   flex-shrink: 0;
   background: none;
-  border: none; 
+  border: none;
   cursor: pointer;
 `;
 
@@ -54,7 +54,7 @@ const SearchIcon = styled.img`
   height: 1.19431rem;
   flex-shrink: 0;
 
-  fill: var(--Primary, #00BFA3);
+  fill: var(--Primary, #00bfa3);
 `;
 
 export { Wrapper, Input, SearchButton, SearchIcon };

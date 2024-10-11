@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const ContainerMain = styled.div`
-  height: 100%;
+  height: 100vh;
   width: 100%;
   align-items: center;
   display: flex;
@@ -37,7 +37,7 @@ const ContainerBottom = styled.div`
   gap: 2rem;
   flex: 1 0 0;
   flex-grow: 1;
-  background: var(--Gray-5, #F7F7F7);
+  background: var(--Gray-5, #f7f7f7);
 `;
 
 const ContainerContent = styled.div`
@@ -51,4 +51,10 @@ const ContainerContent = styled.div`
   flex-shrink: 0;
 `;
 
-export { ContainerMain, ContainerSub, ContainerTop, ContainerBottom, ContainerContent };
+export {
+  ContainerMain,
+  ContainerSub,
+  ContainerTop,
+  ContainerBottom,
+  ContainerContent,
+};
