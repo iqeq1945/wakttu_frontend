@@ -11,12 +11,13 @@ import {
   KickIcon,
   TeamTag,
 } from '@/styles/room/PlayerList';
+import { useEffect, useState } from 'react';
 
 interface Props {
   $ready: boolean;
   user: any;
   host: string;
-  myName: string;
+  myId: string;
   team?: { team: string; name: string };
   onKick: (data: { id: string; name: string }) => void;
 }
@@ -24,13 +25,19 @@ interface Props {
 const Player = ({
   $ready,
   user,
-  myName,
+  myId,
   host,
   team = undefined,
   onKick,
 }: Props) => {
-  const icon = getIcon(user.score, user.provider);
-  const character = getCharacter(user.character);
+  const [icon, setIcon] = useState('');
+  const [character, setCharacter] = useState<any>({ skin: '' });
+
+  useEffect(() => {
+    setIcon(getIcon(user.score, user.provider));
+    setCharacter(getCharacter(user.character));
+  }, [user.character, user.provider, user.score]);
+
   return (
     <CPlayer>
       {user.name && (
@@ -46,14 +53,14 @@ const Player = ({
             ) : (
               <TeamTag team={team.team}>{team.name} </TeamTag>
             )}
-            {myName === host && user.name !== host && (
+            {myId === host && user.id !== host && (
               <KickIcon
                 src={getR2URL('/assets/icons/kick.svg')}
                 onClick={() => onKick({ id: user.id, name: user.name })}
               />
             )}
           </PlayerInfo>
-          {host === user.name ? (
+          {host === user.id ? (
             <PlayerReady $ready={true}>
               <span>방 장</span>
             </PlayerReady>

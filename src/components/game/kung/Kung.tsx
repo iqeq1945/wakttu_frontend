@@ -82,7 +82,7 @@ const Kung = ({
         <Speaker src={getR2URL('/assets/game/speaker.svg')} reverse={false} />
         <Tv>
           {pause ? (
-            <Logo src={'/assets/game/kung-logo.svg'} />
+            <Logo src={getR2URL('/assets/game/kung-logo.svg')} />
           ) : (
             <PauseTv src={getR2URL('/assets/game/pauseTv.svg')} />
           )}
@@ -189,7 +189,7 @@ const Kung = ({
               <PostTitle>게 시 판</PostTitle>
             </CPostTitle>
             <CList>
-              <Emergency src="/assets/game/emergency.png" />
+              <Emergency src={getR2URL('/assets/game/emergency.png')} />
             </CList>
           </Post>
         </CPost>

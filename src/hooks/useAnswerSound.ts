@@ -29,9 +29,7 @@ function useAnswerSound(volume: number = 1): Howl[] | undefined {
     });
     setSound(copy);
   }, [volume]);
-  useEffect(() => {
-    console.log(sound);
-  }, [sound]);
+  useEffect(() => {}, [sound]);
   return sound;
 }
 

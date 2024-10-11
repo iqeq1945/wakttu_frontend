@@ -5,7 +5,6 @@ import PlayerList from '@/containers/game/kung/PlayerList';
 import { Container } from '@/styles/kung/Layout';
 import {
   exit,
-  kungBanStart,
   kungRound,
   kungTurnEnd,
   kungTurnStart,
@@ -43,16 +42,23 @@ import {
 import useSound from '@/hooks/useSound';
 import useEffectSound from '@/hooks/useEffectSound';
 import { useRouter } from 'next/router';
-import { client } from '@/services/api';
+import { client, updatePlayCount, updateResult } from '@/services/api';
 import { GetKey } from '@/modules/Voice';
 import useWaktaSound from '@/hooks/useWaktaSound';
 import { selectVolume } from '@/redux/audio/audioSlice';
 import useAnswerSound from '@/hooks/useAnswerSound';
+import {
+  clearResult,
+  selectResult,
+  setResult,
+} from '@/redux/result/resultSlice';
+import { openModal, setDataModal } from '@/redux/modal/modalSlice';
 
 const Game = () => {
   const dispatch = useDispatch();
   const game = useSelector(selectGame);
   const user = useSelector(selectUserInfo);
+  const result = useSelector(selectResult);
   const roomInfo = useSelector(selectRoomInfo);
   const name = useSelector(selectUserName);
   const timer = useSelector(selectTimer);
@@ -83,7 +89,7 @@ const Game = () => {
   );
 
   const startSound = useEffectSound(
-    '/assets/sound-effects/lossy/game_start.webm',
+    '/assets/sound-effects/lossy/kung_start.webm',
     effectVolume
   );
 
@@ -96,8 +102,10 @@ const Game = () => {
     effectVolume
   );
 
-  const answerSound = useAnswerSound(effectVolume);
-
+  const answerSound = useEffectSound(
+    '/assets/sound-effects/lossy/kung_correct.webm',
+    effectVolume
+  );
   const waktaSound = useWaktaSound(voiceVolume);
 
   /**
@@ -116,10 +124,10 @@ const Game = () => {
       type: string;
       meta?: { [x: string]: any };
     }) => {
-      if (!wakta) answerSound![id.length - 2].play();
-      else {
+      answerSound!.play();
+      if (wakta) {
         const key = GetKey(type, meta);
-        waktaSound![key].play();
+        setTimeout(() => waktaSound![key].play(), 500);
       }
     },
     [answerSound, waktaSound]
@@ -164,7 +172,7 @@ const Game = () => {
     if (!late) return;
     if (timer.turnTime > 0 && timer.countTime === timer.turnTime) {
       setLate(false);
-      if (game.host === name) kungTurnEnd(roomInfo.id as string);
+      if (game.host === user.id) kungTurnEnd(roomInfo.id as string);
       dispatch(setPause(false));
       dispatch(clearTimer());
       dispatch(clearAnswer());
@@ -174,7 +182,7 @@ const Game = () => {
     timer.turnTime,
     timer.countTime,
     game.host,
-    name,
+    user.id,
     roomInfo.id,
     dispatch,
   ]);
@@ -192,7 +200,7 @@ const Game = () => {
 
   useEffect(() => {
     const opening = setTimeout(() => {
-      if (game.host === name) {
+      if (game.host === user.id) {
         console.log('opening');
         kungRound(roomInfo.id as string);
       }
@@ -235,7 +243,7 @@ const Game = () => {
           )
         );
         setTimeout(() => dispatch(setPause(true)));
-        if (game.host === user.name) kungTurnStart(roomInfo.id as string);
+        if (game.host === user.id) kungTurnStart(roomInfo.id as string);
       }, 4000);
     });
 
@@ -248,10 +256,11 @@ const Game = () => {
     failUser.count,
     failUser.name,
     game.host,
-    name,
+    user.id,
     roomInfo.id,
     startSound,
     user.name,
+    name,
   ]);
 
   /**
@@ -260,7 +269,7 @@ const Game = () => {
 
   useEffect(() => {
     socket.on('kung.turnStart', () => {
-      if (game.host === user.name) socket.emit('ping', roomInfo.id);
+      if (game.host === user.id) socket.emit('ping', roomInfo.id);
       onBgm();
     });
 
@@ -269,7 +278,7 @@ const Game = () => {
       setTimeout(() => dispatch(clearSuccess()), 2200);
       dispatch(setGame(data));
       onFailUser(game.users[game.turn].name);
-      if (game.host === user.name)
+      if (game.host === user.id)
         setTimeout(() => kungRound(roomInfo.id as string), 4000);
       if (sound) sound.stop();
       if (fastSound) fastSound.stop();
@@ -291,7 +300,7 @@ const Game = () => {
     roomInfo.id,
     sound,
     turnEndSound,
-    user.name,
+    user.id,
   ]);
 
   useEffect(() => {
@@ -327,8 +336,12 @@ const Game = () => {
         playAnswer({ ...word, chain: game.chain });
         sound?.pause();
         fastSound?.pause();
-        if (name === game.host) socket.emit('pong', roomInfo.id);
+        if (user.id === game.host) socket.emit('pong', roomInfo.id);
         dispatch(setHistory(word));
+
+        // Result 용 데이터
+        if (word.wakta) dispatch(setResult({ type: 'WORD', word }));
+
         setTimeout(() => {
           setTimeout(() =>
             dispatch(
@@ -338,7 +351,7 @@ const Game = () => {
           setTimeout(() => {
             dispatch(setPause(true));
           });
-          if (name === game.host) kungTurnStart(roomInfo.id as string);
+          if (user.id === game.host) kungTurnStart(roomInfo.id as string);
         }, 2200);
       } else {
         wrongSound?.play();
@@ -356,7 +369,7 @@ const Game = () => {
     dispatch,
     fastSound,
     late,
-    name,
+    user.id,
     playAnswer,
     roomInfo.id,
     sound,
@@ -376,11 +389,18 @@ const Game = () => {
 
   /* result, end logic*/
   useEffect(() => {
-    socket.on('kung.result', (data) => {
+    socket.on('kung.result', async (data) => {
+      if (user.provider === 'waktaverse.games') {
+        await updatePlayCount(game.type);
+        await updateResult(result);
+      }
+      dispatch(clearResult());
       dispatch(clearAnswer());
       dispatch(clearTimer());
       dispatch(clearHistory());
-      console.log('result:', data);
+
+      dispatch(setDataModal(data));
+      dispatch(openModal('RESULT'));
     });
 
     socket.on('kung.end', async (data) => {

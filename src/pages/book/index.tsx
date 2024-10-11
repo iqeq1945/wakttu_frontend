@@ -1,6 +1,5 @@
 import { Container, ContainerContent } from '@/styles/book/BookForm';
-import { CosmeticInfo } from '@/components';
-import CosmeticList from '@/containers/book/CosmeticList';
+import Cosmetic from '@/containers/book/Cosmetic';
 import Header from '@/containers/common/Header';
 
 const Book = () => {
@@ -8,8 +7,7 @@ const Book = () => {
     <Container>
       <Header />
       <ContainerContent>
-        <CosmeticInfo />
-        <CosmeticList />
+        <Cosmetic />
       </ContainerContent>
     </Container>
   );
