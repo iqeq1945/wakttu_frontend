@@ -1,43 +1,58 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const CharacterImage = styled.div`
   position: relative;
-  width: 160px;
-  height: 125px;
+  width: 11.25rem;
+  height: 9.125rem;
 `;
 
-const SkinItem = styled.img`
+const SkinItem = styled.img<{ skin: string }>`
   position: absolute;
-  width: 160px;
-  height: 125px;
+  bottom: 0;
+  width: 11.25rem;
+  height: ${({ skin }) => {
+    switch (skin) {
+      case 'S-6': {
+        return '9.125rem';
+      }
+      default: {
+        return '7.8125rem';
+      }
+    }
+  }};
 `;
 
 const HeadItem = styled.img`
   position: absolute;
   z-index: 3;
-  width: 160px;
-  height: 115 px;
+  width: 11.25rem;
+  height: 7.1875rem;
+  bottom: 0;
 `;
 const HandItem = styled.img`
   position: absolute;
+  bottom: 0;
   z-index: 4;
-  width: 160px;
-  height: 125px;
+  width: 11.25rem;
+  height: 7.1875rem;
 `;
 
-const EyeItem = styled.img`
+const EyeItem = styled.img<{ skin: string }>`
   position: absolute;
+  bottom: 0;
   z-index: 5;
-  margin-top: 50px;
-  width: 160px;
-  height: 40px;
+  margin-bottom: ${({ skin }) => {
+    switch (skin) {
+      case 'S-8': {
+        return '3.13rem';
+      }
+      default: {
+        return '2.19rem';
+      }
+    }
+  }};
+  width: 11.25rem;
+  height: 2.5rem;
 `;
 
-
-export {
-  CharacterImage,
-  SkinItem,
-  HeadItem,
-  HandItem,
-  EyeItem,
-}
+export { CharacterImage, SkinItem, HeadItem, HandItem, EyeItem };
