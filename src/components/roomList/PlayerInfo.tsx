@@ -14,13 +14,13 @@ import {
   LevelText,
   GaugeBar,
 } from '@/styles/roomList/PlayerInfo';
+import Character from '../common/Character';
 
 const PlayerInfo = ({ user }: any) => {
   const { icon, level, exp } = getUserDesc(user.score, user.provider);
-  const character = getCharacter(user.character);
   return (
     <CPlayerInfo>
-      <PlayerProfile src={character.skin} />
+      <Character character={user.character} />
       <Info>
         <WrapPlayerName>
           <PlayerIcon src={icon} />

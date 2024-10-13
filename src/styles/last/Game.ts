@@ -159,10 +159,9 @@ export const CWordC = styled(CWord)`
 `;
 
 export const Logo = styled.img`
-  width: 17.4375rem;
+  width: 12rem;
   height: 7.25rem;
   border-radius: 0.625rem;
-  background: rgba(255, 255, 255, 0.75);
 `;
 
 export const WordText = styled.h3`

@@ -39,7 +39,7 @@ const CosmeticInfo = ({ info, data }: Props) => {
           <CosmeticBackground
             $itemType={info.category as CosmeticVariant}
           ></CosmeticBackground>
-          <CosmeticImage src={getR2URL(info.url)} />
+          <CosmeticImage item={info.category} src={getR2URL(info.url)} />
         </InfoTop>
 
         <InfoBottom>
