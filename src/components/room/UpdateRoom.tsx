@@ -89,8 +89,8 @@ const UpdateRoom = ({
               {roomInfo.type === 0
                 ? '끝말잇기'
                 : roomInfo.type === 1
-                ? '쿵쿵따'
-                : '왁타 골든벨'}
+                  ? '쿵쿵따'
+                  : '왁타 골든벨'}
             </Selected>
             <DropdownLine
               isopen={isDown[0]}
@@ -159,7 +159,7 @@ const UpdateRoom = ({
                   ) : (
                     <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
                   )}
-                  <Selected>팀전</Selected>
+                  <Selected tooltip='팀전이 가능해 집니다. 총 4팀까지 나눌 수 있습니다.'>팀전</Selected>
                 </CCheck>
               </CheckBox>
               <CheckBox onClick={() => onSelect('option', '매너')}>
@@ -169,7 +169,7 @@ const UpdateRoom = ({
                   ) : (
                     <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
                   )}
-                  <Selected>매너</Selected>
+                  <Selected tooltip='한방 단어를 사용 할 수 없게 됩니다.'>매너</Selected>
                 </CCheck>
               </CheckBox>
               <CheckBox onClick={() => onSelect('option', '외수')}>
@@ -179,7 +179,7 @@ const UpdateRoom = ({
                   ) : (
                     <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
                   )}
-                  <Selected>외수</Selected>
+                  <Selected tooltip='끄투의 어인정 단어를 사용할 수 있게 됩니다.'>외수</Selected>
                 </CCheck>
               </CheckBox>
             </CCreate>
