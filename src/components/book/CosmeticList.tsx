@@ -24,6 +24,7 @@ import {
 } from '@/styles/book/CosmeticType';
 import { RightWrapper } from '@/styles/book/BookForm';
 import { RefObject } from 'react';
+import Router from 'next/router';
 
 interface Props {
   dataset: any;
@@ -80,7 +81,9 @@ const CosmeticList = ({
             </DropdownSelect>
 
             <Leave onClick={handleLeaveClick}>
-              <LeaveText>나가기</LeaveText>
+              <LeaveText onClick={() => Router.push('/roomlist')}>
+                나가기
+              </LeaveText>
               <LeaveIcon src={R2_URL + '/assets/icons/right-line.svg'} />
             </Leave>
           </WrapFlex>
@@ -100,7 +103,7 @@ const CosmeticList = ({
                 <CosmeticBackground
                   $itemType={data.category}
                 ></CosmeticBackground>
-                <ItemImage src={getR2URL(data.url)} />
+                <ItemImage item={data.category} src={getR2URL(data.url)} />
               </Item>
             )
           )}

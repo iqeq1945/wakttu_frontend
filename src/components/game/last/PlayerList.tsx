@@ -40,7 +40,6 @@ const PlayList = ({ users, game, answer, bubble, team }: Props) => {
   return (
     <CPlayerList>
       {users.map((user: any, index: number) => {
-        const character = getCharacter(user.character);
         const myTeam = checkMyTeam(user.userId);
         const isTurn = game.turn === index;
         const isFail = isTurn && answer.success === false;
@@ -57,7 +56,7 @@ const PlayList = ({ users, game, answer, bubble, team }: Props) => {
           >
             {myTeam ? <TeamTag team={myTeam.team}>{myTeam.name}</TeamTag> : ''}
             {lastBubble ? <BubbleBox chat={lastBubble.chat} /> : ''}
-            <Character character={character} />
+            <Character character={user.character} />
 
             <CName>
               {user.name === game.host && (

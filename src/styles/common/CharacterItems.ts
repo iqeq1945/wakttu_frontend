@@ -6,63 +6,78 @@ const CharacterImage = styled.div`
   height: 9.125rem;
 `;
 
-const SkinItem = styled.img<{ item: string }>`
+const SkinItem = styled.img<{ skin?: string }>`
   position: absolute;
   bottom: 0;
   width: 11.25rem;
-  height: ${({ item }) => {
-    switch (item) {
+  height: ${({ skin }) => {
+    switch (skin) {
       case 'S-6': {
         return '9.125rem';
       }
       case 'S-4': {
-        return '7.4125rem';
+        return '7.2rem';
       }
       default: {
         return '7.8125rem';
       }
     }
   }};
-  opacity: ${({ item }) => (item ? 1 : 0)};
+  opacity: ${({ skin }) => (skin ? 1 : 0)};
 `;
 
-const HeadItem = styled.img<{ item: string }>`
+const HeadItem = styled.img<{ skin?: string }>`
   position: absolute;
   z-index: 3;
   width: 11.25rem;
-  height: 7.1875rem;
+  height: 7.8125rem;
   bottom: 0;
 
-  opacity: ${({ item }) => (item ? 1 : 0)};
+  margin-bottom: ${({ skin }) => {
+    switch (skin) {
+      case 'S-8':
+        return '1rem';
+      default:
+        return 0;
+    }
+  }};
+
+  opacity: ${({ src }) => (src ? 1 : 0)};
 `;
-const HandItem = styled.img<{ item: string }>`
+const HandItem = styled.img<{ skin?: string; item?: string }>`
   position: absolute;
   bottom: 0;
   z-index: 4;
   width: 11.25rem;
   height: 7.8125rem;
 
-  opacity: ${({ item }) => (item ? 1 : 0)};
+  margin-bottom: ${({ skin, item }) => {
+    switch (skin) {
+      case 'S-8':
+        if (item === 'H-2' || item === 'H-3') return '1rem';
+      default:
+        return 0;
+    }
+  }};
+
+  opacity: ${({ src }) => (src ? 1 : 0)};
 `;
 
-const EyeItem = styled.img<{ item: string }>`
+const EyeItem = styled.img<{ skin: string }>`
   position: absolute;
   bottom: 0;
   z-index: 5;
-  margin-bottom: ${({ item }) => {
-    switch (item) {
+  margin-bottom: ${({ skin }) => {
+    switch (skin) {
       case 'S-8': {
-        return '3.13rem';
-      }
-      default: {
-        return '2.19rem';
+        return '1rem';
       }
     }
   }};
   width: 11.25rem;
-  height: 2.5rem;
+  height: 7.8125rem;
 
-  opacity: ${({ item }) => (item ? 1 : 0)};
+  opacity: ${({ src }) => (src ? 1 : 0)};
 `;
 
 export { CharacterImage, SkinItem, HeadItem, HandItem, EyeItem };

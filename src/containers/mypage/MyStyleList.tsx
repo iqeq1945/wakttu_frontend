@@ -42,13 +42,24 @@ const MyStyleList = () => {
   const handleClickItem = (e: MouseEvent<HTMLElement>) => {
     const clickedId = e.currentTarget.id;
     const clickedCategory = e.currentTarget.dataset['category'] as Variant;
+    if (
+      clickedCategory !== 'skin' &&
+      (clickItem.skin === 'S-1' || clickItem.skin === 'S-2')
+    ) {
+      alert('오리지널 스킨은 아이템 착용이 불가합니다!');
+      return;
+    }
     if (clickedId) {
-      if (clickItem[clickedCategory] === clickedId) {
-        setClickItem({
-          ...clickItem,
-          [clickedCategory]: clickedCategory === 'skin' ? 'S-1' : '',
-        });
-      } else setClickItem({ ...clickItem, [clickedCategory]: clickedId });
+      if (clickedId === 'S-1' || clickedId === 'S-2') {
+        setClickItem({ skin: clickedId, hand: '', head: '', eye: '' });
+      } else {
+        if (clickItem[clickedCategory] === clickedId) {
+          setClickItem({
+            ...clickItem,
+            [clickedCategory]: clickedCategory === 'skin' ? 'S-1' : '',
+          });
+        } else setClickItem({ ...clickItem, [clickedCategory]: clickedId });
+      }
     }
   };
 

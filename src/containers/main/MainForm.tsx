@@ -50,10 +50,11 @@ const MainFormContainer = () => {
   );
 
   const start = useCallback(
-    (e: MouseEvent<HTMLElement>) => {
+    async (e: MouseEvent<HTMLElement>) => {
       if (isLogined) {
         e.stopPropagation();
-        router.push('/roomlist');
+        await socket.connect();
+        await router.push('/roomlist');
       }
     },
     [isLogined, router]

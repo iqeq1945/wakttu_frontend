@@ -10,21 +10,20 @@ import Character from '../common/Character';
 
 interface Props {
   user: any;
-  character: { skin?: string; head?: string; hand?: string; eye?: string };
+  character: any;
 }
 
 const MyCharacter = ({ user, character }: Props) => {
   const icon = getIcon(user.score, user.provider);
-  const characterInfo = getCharacter(character);
 
   return (
     <MyCharacterBox>
-      <Character character={characterInfo} />
+      <Character character={character} />
       <User>
         <UserIcon src={icon} />
         <UserName>{user.name}</UserName>
       </User>
-    </MyCharacterBox >
+    </MyCharacterBox>
   );
 };
 

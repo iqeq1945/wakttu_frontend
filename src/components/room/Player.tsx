@@ -12,6 +12,7 @@ import {
   TeamTag,
 } from '@/styles/room/PlayerList';
 import { useEffect, useState } from 'react';
+import Character from '../common/Character';
 
 interface Props {
   $ready: boolean;
@@ -35,7 +36,7 @@ const Player = ({
 
   useEffect(() => {
     setIcon(getIcon(user.score, user.provider));
-    setCharacter(getCharacter(user.character));
+    setCharacter(user.character);
   }, [user.character, user.provider, user.score]);
 
   return (
@@ -43,7 +44,7 @@ const Player = ({
       {user.name && (
         <>
           <PlayerInfo>
-            <PlayerProfile src={character.skin} />
+            <Character character={character} />
             <CBadge>
               <PlayerIcon src={icon} />
               <PlayerName>{user.name}</PlayerName>
