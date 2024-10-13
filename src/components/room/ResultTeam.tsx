@@ -3,7 +3,6 @@ import { getR2URL } from '@/services/api';
 import {
   CBody,
   CFooter,
-  Character,
   CLevel,
   CLevelIcon,
   CModal,
@@ -34,6 +33,7 @@ import {
   WinTeamName,
 } from '@/styles/room/ResultTeam';
 import { Key, useEffect, useState } from 'react';
+import Character from '../common/Character';
 
 interface Props {
   user: any;
@@ -49,6 +49,7 @@ interface Result {
   provider?: string;
   exp: number;
   team?: string;
+  character: any;
 }
 
 const ResultTeam = ({ list, offModal, user }: Props) => {
@@ -110,7 +111,7 @@ const ResultTeam = ({ list, offModal, user }: Props) => {
                     {team.users.map((user: Result) => {
                       return (
                         <CPlayer key={user.userId}>
-                          <Character src={getR2URL('/assets/items/S-3.svg')} />
+                          <Character character={user.character} />
                           <NameTag>
                             <Grade src={getIcon(user.exp, user.provider)} />
                             <Name>{user.name}</Name>

@@ -66,6 +66,7 @@ export const CResult = styled.div`
 export const RankList = styled.div`
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   gap: 1.5rem;
 `;
 
@@ -78,6 +79,7 @@ export const CPlayer = styled.div`
 
 export const Card = styled.div<{ rank: number }>`
   display: flex;
+  width: 13.625rem;
   height: ${({ rank }) => {
     if (rank === 1) {
       return '18.75rem';
@@ -147,7 +149,6 @@ export const Score = styled.h4<{ rank: number }>`
 export const Rank = styled.div<{ rank: number }>`
   display: flex;
   height: 2.125rem;
-  padding: 0.4375rem 6.0625rem;
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
