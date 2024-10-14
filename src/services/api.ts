@@ -1,5 +1,6 @@
 import { Result } from '@/redux/result/resultSlice';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 /**
  * Wakttu API 관련 설정함수
@@ -17,7 +18,7 @@ export const getR2URL = (src: string) => R2_URL + src;
  *
  * @param type : number 값 게임의 타입 0 is Last 1 is Kung . maybe 2 is Bell
  * @default 0
- * @returns void : But 플레이수 통계가 올라감!
+ * @returns achieves : []
  */
 export const updatePlayCount = async (type: number = 0) => {
   let id = 'LAST_COUNT';
@@ -33,6 +34,9 @@ export const updatePlayCount = async (type: number = 0) => {
     })
     .then((response) => response.data)
     .catch(console.error);
+  const { achieves } = data.achieves;
+  if (achieves) return achieves;
+  else undefined;
 };
 
 /**
@@ -51,6 +55,9 @@ export const winTheGame = async (team: boolean = false) => {
     })
     .then((response) => response.data)
     .catch(console.error);
+  const { achieves } = data.achieves;
+  if (achieves) return achieves;
+  else undefined;
 };
 
 /**
@@ -68,6 +75,9 @@ export const runGame = async () => {
     })
     .then((response) => response.data)
     .catch(console.error);
+  const { achieves } = data.achieves;
+  if (achieves) return achieves;
+  else undefined;
 };
 
 /**
@@ -80,6 +90,9 @@ export const updateResult = async (result: Result[]) => {
     .put(`/wakta/result`, arr)
     .then((response) => response.data)
     .catch(console.error);
+  const { achieves } = data.achieves;
+  if (achieves) return achieves;
+  else undefined;
 };
 
 /**

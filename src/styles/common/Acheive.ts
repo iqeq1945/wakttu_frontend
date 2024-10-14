@@ -32,7 +32,8 @@ export const CAcheive = styled.div`
     ),
     #000;
 
-  animation: ${keyframe} 1s linear infinite;
+  animation: ${keyframe} 1s linear;
+  opacity: 0;
 `;
 
 export const CTitle = styled.div`

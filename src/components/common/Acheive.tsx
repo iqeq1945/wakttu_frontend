@@ -1,3 +1,4 @@
+import { AchieveState } from '@/redux/achieve/achieveSlice';
 import { getR2URL } from '@/services/api';
 import {
   Badge,
@@ -11,21 +12,31 @@ import {
   Trophy,
 } from '@/styles/common/Acheive';
 
-const Acheive = () => {
+interface Props {
+  achieves: AchieveState[];
+}
+
+const Acheive = ({ achieves }: Props) => {
   return (
-    <CAcheive>
-      <CTitle>
-        <Trophy src={getR2URL('/assets/icons/trophy.svg')} />
-        <Title>도전과제</Title>
-      </CTitle>
-      <Content>
-        <Badge src={'/badge.jpg'} />
-        <Info>
-          <Name>릴파니?</Name>
-          <Desc>내가 특별히 친구 해줄게! ㅊ...친구.. 할 거지...?</Desc>
-        </Info>
-      </Content>
-    </CAcheive>
+    <>
+      {achieves.map((achieve: AchieveState) => {
+        return (
+          <CAcheive key={achieve.id}>
+            <CTitle>
+              <Trophy src={getR2URL('/assets/icons/trophy.svg')} />
+              <Title>도전과제</Title>
+            </CTitle>
+            <Content>
+              <Badge src={achieve.img} />
+              <Info>
+                <Name>{achieve.name}</Name>
+                <Desc>{achieve.desc}</Desc>
+              </Info>
+            </Content>
+          </CAcheive>
+        );
+      })}
+    </>
   );
 };
 

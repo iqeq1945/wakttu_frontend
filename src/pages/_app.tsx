@@ -14,6 +14,7 @@ import { handleResize } from '@/modules/BaseFontSize';
 import { isMobileDevice } from '@/modules/Mobile';
 
 import { usePathname } from 'next/navigation';
+import { socket } from '@/services/socket/socket';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const path = usePathname();

@@ -20,7 +20,7 @@ import {
   socket,
 } from '@/services/socket/socket';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Ready = () => {
@@ -46,7 +46,7 @@ const Ready = () => {
     ready(roomInfo.id as string);
   };
 
-  const onStart = () => {
+  const onStart = useCallback(() => {
     if (roomInfo.users.length === 1) {
       alert('혼자서는 시작할 수 없습니다!');
       return;
@@ -99,7 +99,17 @@ const Ready = () => {
         bellStart(roomInfo.id as string);
       }
     }
-  };
+  }, [
+    game.team.academy.length,
+    game.team.gomem.length,
+    game.team.isedol.length,
+    game.team.woo.length,
+    readyUsers.length,
+    roomInfo.id,
+    roomInfo.option,
+    roomInfo.type,
+    roomInfo.users.length,
+  ]);
 
   const onTeam = (team: string) => {
     if (readyUsers.findIndex((user) => user.name === userName) !== -1) {

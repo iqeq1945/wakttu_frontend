@@ -38,6 +38,9 @@ export { default as UserList } from './roomList/UserList';
 export { default as CosmeticInfo } from './book/CosmeticInfo';
 export { default as CosmeticList } from './book/CosmeticList';
 
+export { default as AchieveInfo } from './achieve/AchieveInfo';
+export { default as AchieveList } from './achieve/AchieveList';
+
 export { default as GHeader } from './game/last/Header';
 export { default as GInfo } from './game/last/Info';
 export { default as Last } from './game/last/Last';
