@@ -19,9 +19,9 @@ interface Props {
 const Acheive = ({ achieves }: Props) => {
   return (
     <>
-      {achieves.map((achieve: AchieveState) => {
+      {achieves.map((achieve: AchieveState, idx: number) => {
         return (
-          <CAcheive key={achieve.id}>
+          <CAcheive idx={idx} key={new Date().getTime()}>
             <CTitle>
               <Trophy src={getR2URL('/assets/icons/trophy.svg')} />
               <Title>도전과제</Title>

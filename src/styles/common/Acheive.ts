@@ -12,7 +12,7 @@ const keyframe = keyframes`
 }
 `;
 
-export const CAcheive = styled.div`
+export const CAcheive = styled.div<{ idx?: number }>`
   position: fixed;
   bottom: 0;
   right: 0;
@@ -32,7 +32,7 @@ export const CAcheive = styled.div`
     ),
     #000;
 
-  animation: ${keyframe} 1s linear;
+  animation: ${keyframe} 2s linear ${({ idx }) => (idx ? idx + 's' : '0s')};
   opacity: 0;
 `;
 

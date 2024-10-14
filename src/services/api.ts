@@ -1,6 +1,5 @@
 import { Result } from '@/redux/result/resultSlice';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
 
 /**
  * Wakttu API 관련 설정함수
@@ -34,7 +33,7 @@ export const updatePlayCount = async (type: number = 0) => {
     })
     .then((response) => response.data)
     .catch(console.error);
-  const { achieves } = data.achieves;
+  const { achieves } = data;
   if (achieves) return achieves;
   else undefined;
 };
@@ -55,7 +54,7 @@ export const winTheGame = async (team: boolean = false) => {
     })
     .then((response) => response.data)
     .catch(console.error);
-  const { achieves } = data.achieves;
+  const { achieves } = data;
   if (achieves) return achieves;
   else undefined;
 };
@@ -75,7 +74,7 @@ export const runGame = async () => {
     })
     .then((response) => response.data)
     .catch(console.error);
-  const { achieves } = data.achieves;
+  const { achieves } = data;
   if (achieves) return achieves;
   else undefined;
 };
@@ -90,7 +89,7 @@ export const updateResult = async (result: Result[]) => {
     .put(`/wakta/result`, arr)
     .then((response) => response.data)
     .catch(console.error);
-  const { achieves } = data.achieves;
+  const { achieves } = data;
   if (achieves) return achieves;
   else undefined;
 };
@@ -123,6 +122,6 @@ export const getAchieveList = async () => {
   const data = await client
     .get('/wakta/achieve')
     .then((response) => response.data)
-    .catch(() => undefined);
+    .catch(console.error);
   return data;
 };
