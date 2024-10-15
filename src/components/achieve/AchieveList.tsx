@@ -1,70 +1,24 @@
+import { AchieveState } from '@/redux/achieve/achieveSlice';
+import { getWAKURL } from '@/services/api';
 import { Badge, BadgeBox, List } from '@/styles/achieve/AchieveList';
 import { RightWrapper } from '@/styles/achieve/Layout';
 
-const AchieveList = () => {
+interface Props {
+  achieves: AchieveState[];
+  onClick: (e: any) => void;
+}
+
+const AchieveList = ({ achieves, onClick }: Props) => {
   return (
     <RightWrapper>
       <List>
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>{' '}
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>{' '}
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>{' '}
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>{' '}
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>
-        <BadgeBox>
-          <Badge src="/badge.jpg" />
-        </BadgeBox>
+        {achieves.map((achieve: AchieveState) => {
+          return (
+            <BadgeBox key={achieve.id} data-id={achieve.id} onClick={onClick}>
+              <Badge src={achieve.img ? getWAKURL(achieve.img) : ''} />
+            </BadgeBox>
+          );
+        })}
       </List>
     </RightWrapper>
   );

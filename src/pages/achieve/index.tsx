@@ -1,18 +1,16 @@
 import { Container, ContainerContent } from '@/styles/achieve/Layout';
 import Header from '@/containers/common/Header';
-import { AchieveInfo } from '@/components';
-import { AchieveList } from '@/components';
+import Achieve from '@/containers/achieve/Achieve';
 
-const Achieve = () => {
+const Achieves = () => {
   return (
     <Container>
       <Header />
       <ContainerContent>
-        <AchieveInfo />
-        <AchieveList />
+        <Achieve />
       </ContainerContent>
     </Container>
   );
 };
 
-export default Achieve;
+export default Achieves;

@@ -1,6 +1,6 @@
+import { AchieveState } from '@/redux/achieve/achieveSlice';
 import { Result } from '@/redux/result/resultSlice';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
 
 /**
  * Wakttu API 관련 설정함수
@@ -13,6 +13,12 @@ export const client = axios.create({ baseURL: API_URL, withCredentials: true });
  */
 export const R2_URL = process.env.NEXT_PUBLIC_R2_URL;
 export const getR2URL = (src: string) => R2_URL + src;
+
+/**
+ * Waktaverse Games API
+ */
+export const WAKGAME_URL = process.env.NEXT_PUBLIC_WAKGAME_URL;
+export const getWAKURL = (src: string) => WAKGAME_URL + src;
 
 /**
  *
@@ -117,12 +123,27 @@ export const getMyItemList = async (userId: string) => {
 
 /**
  *
- * @returns {achieves : [], size : number}
+ * @returns []
  */
 export const getAchieveList = async () => {
   const data = await client
+    .get('/achieve')
+    .then((response) => response.data)
+    .catch(console.error);
+  return data;
+};
+
+/**
+ *
+ * @returns {achieves : AchieveState, size : number}
+ */
+export const getMyAchieve = async (): Promise<{
+  achieves: AchieveState[];
+  size: number;
+}> => {
+  const data = await client
     .get('/wakta/achieve')
     .then((response) => response.data)
-    .catch(() => undefined);
+    .catch(console.error);
   return data;
 };

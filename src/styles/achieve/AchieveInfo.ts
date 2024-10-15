@@ -44,11 +44,15 @@ const characterColors = {
     color: '#FFFFFF',
   },
   gomem: {
-    backgroudColor: '#C75D00',
+    backgroundColor: '#C75D00',
     color: '#FFFFFF',
   },
   academy: {
-    backgroudColor: '#FF2323',
+    backgroundColor: '#FF2323',
+    color: '#FFFFFF',
+  },
+  wakta: {
+    backgroundColor: '#000000',
     color: '#FFFFFF',
   },
 };
