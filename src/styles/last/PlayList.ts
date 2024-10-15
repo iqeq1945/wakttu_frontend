@@ -60,11 +60,6 @@ export const CPlayer = styled.div<{
   }}
 `;
 
-export const Skin = styled.img`
-  height: 7.8125rem;
-  flex-shrink: 0;
-`;
-
 export const PlusScore = styled.div<{ plus: boolean }>`
   position: absolute;
   top: 10%;

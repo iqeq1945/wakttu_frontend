@@ -69,7 +69,7 @@ const MystyleList = ({
                 $isClickedItem={clickItem[data.category] === data.id}
               >
                 <ImageBox>
-                  <ItemImage src={getR2URL(data.url)} />
+                  <ItemImage item={data.category} src={getR2URL(data.url)} />
                 </ImageBox>
                 <ItemInfo>
                   <ItemTag $itemType={data.category}>

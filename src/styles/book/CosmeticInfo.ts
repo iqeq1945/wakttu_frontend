@@ -60,13 +60,39 @@ const InfoTop = styled.div<{ $itemType?: CosmeticVariant }>`
   ${BackgroundImage};
 `;
 
-const CosmeticImage = styled.img`
+const CosmeticImage = styled.img<{ item: string }>`
   position: absolute;
   z-index: 2;
 
-  width: 13.5rem;
-  height: 13.5rem;
+  width: ${({ item }) => {
+    switch (item) {
+      case 'hand': {
+        return '25rem';
+      }
+      default:
+        return '13.5rem';
+    }
+  }};
+  height: ${({ item }) => {
+    switch (item) {
+      case 'hand': {
+        return '25rem';
+      }
+      default:
+        return '13.5rem';
+    }
+  }};
   object-fit: fill;
+
+  ${({ item }) => {
+    switch (item) {
+      case 'hand': {
+        return 'left: 3rem';
+      }
+      default:
+        return '';
+    }
+  }}
 `;
 
 const InfoBottom = styled.div`
@@ -107,7 +133,7 @@ const Info = styled.li<{ $variant?: InfoVariant }>`
       case 'content':
         return css`
           display: -webkit-box;
-          -webkit-line-clamp: 2;
+          -webkit-line-clamp: 5;
           -webkit-box-orient: vertical;
           overflow: hidden;
           text-overflow: ellipsis;

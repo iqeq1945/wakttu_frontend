@@ -11,8 +11,26 @@ import {
 } from '@/styles/mypage/Mystyles';
 import { Copyright } from '@/styles/room/Room';
 import Header from '@/containers/common/Header';
+import useSound from '@/hooks/useSound';
+import { useSelector } from 'react-redux';
+import { selectBgmVolume } from '@/redux/audio/audioSlice';
+import { useRouter } from 'next/router';
+import { socket } from '@/services/socket/socket';
+import { useEffect } from 'react';
 
 const Mypage = () => {
+  const router = useRouter();
+  const bgmVolume = useSelector(selectBgmVolume);
+  const sound = useSound('/assets/bgm/lossy/ui_main.webm', bgmVolume, 0, true);
+
+  useEffect(() => {
+    if (!socket.connected) router.push('/');
+  }, [router]);
+
+  useEffect(() => {
+    if (sound) sound.play();
+  }, [sound]);
+
   return (
     <Container>
       <Header />

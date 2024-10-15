@@ -5,7 +5,6 @@ import {
   Host,
   Name,
   Score,
-  Skin,
 } from '@/styles/kung/PlayerList';
 import { Game } from '@/services/socket/socket';
 import { Answer } from '@/redux/answer/answerSlice';
@@ -15,6 +14,7 @@ import BubbleBox from '../Bubble';
 import Difference from './DifferenceBox';
 import { TeamTag } from '@/styles/last/PlayList';
 import { getCharacter } from '@/modules/UserInfo';
+import Character from '@/components/common/Character';
 
 interface Props {
   users: any;
@@ -39,8 +39,6 @@ const PlayList = ({ users, game, answer, bubble, team }: Props) => {
   return (
     <CPlayerList>
       {users.map((user: any, index: number) => {
-        const character = getCharacter(user.character);
-
         const myTeam = checkMyTeam(user.userId);
         const isTurn = game.turn === index;
         const isFail = isTurn && answer.success === false;
@@ -57,7 +55,7 @@ const PlayList = ({ users, game, answer, bubble, team }: Props) => {
           >
             {myTeam ? <TeamTag team={myTeam.team}>{myTeam.name}</TeamTag> : ''}
             {lastBubble ? <BubbleBox chat={lastBubble.chat} /> : ''}
-            <Skin src={character.skin} />
+            <Character character={user.character} />
 
             <CName>
               {user.name === game.host && (

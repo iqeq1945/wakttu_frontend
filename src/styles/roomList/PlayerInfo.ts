@@ -10,14 +10,15 @@ const CPlayerInfo = styled.article`
   width: 25rem;
 
   gap: 1.5rem;
-  padding: 2.3rem 2rem;
+  padding: 2.3rem 1rem;
 
   border-radius: 1rem;
   border: 2px solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
 `;
 
-const PlayerProfile = styled.img`
+const PlayerProfile = styled.div`
+  position: relative;
   flex-shrink: 0;
 
   width: 6.875rem;
@@ -66,7 +67,7 @@ const Level = styled.section`
 `;
 
 const LevelBar = styled.div`
-  width: 12.875rem;
+  width: 11.875rem;
   height: 0.5rem;
 
   border-radius: 1rem;
@@ -87,14 +88,14 @@ const LevelInfo = styled.ul`
   align-self: stretch;
   align-items: center;
 
-  gap: 0.75rem;
+  gap: 0.2rem;
 `;
 
 const WrapText = styled.div`
   display: flex;
   align-items: center;
 
-  gap: 0.5rem;
+  gap: 0.2rem;
 `;
 
 const LevelText = styled.li<{ $variant?: InfoVariant }>`
