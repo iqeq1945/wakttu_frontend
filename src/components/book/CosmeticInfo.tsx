@@ -18,10 +18,11 @@ import {
 } from '@/styles/book/CosmeticType';
 import { LeftWrapper } from '@/styles/book/BookForm';
 import { ITEM } from '@/containers/book/Cosmetic';
+import { AchieveState } from '@/redux/achieve/achieveSlice';
 
 interface Props {
   info: ITEM;
-  data?: { achieves: any; size: number };
+  data?: { achieves: AchieveState[]; size: number };
 }
 
 const CosmeticInfo = ({ info, data }: Props) => {
@@ -58,7 +59,9 @@ const CosmeticInfo = ({ info, data }: Props) => {
         </InfoBottom>
       </InfoSection>
       <GetButton $itemType={info.category as CosmeticVariant}>
-        {data ? '획득하기' : '획득불가'}
+        {data?.achieves.some((achieve) => info.achieveId.includes(achieve.id))
+          ? '획득하기'
+          : '획득불가'}
       </GetButton>
     </LeftWrapper>
   );

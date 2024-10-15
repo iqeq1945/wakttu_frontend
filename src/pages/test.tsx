@@ -1,22 +1,21 @@
 import { setAchieve } from '@/redux/achieve/achieveSlice';
+import { client } from '@/services/api';
 import { useDispatch } from 'react-redux';
 
 const Test = () => {
   const dispatch = useDispatch();
-  const click = () => {
-    dispatch(
-      setAchieve([
-        {
-          id: 'RANI',
-          desc: '설명',
-          name: 'hihi',
-          img: '/badge.jpg',
-          regDate: 0,
-          statId: 'RANI-1',
-          targetStatVal: 1,
-        },
-      ])
-    );
+  const click = async () => {
+    const data = await client
+      .put('/wakta/stat', {
+        stats: [{ id: 'LAST_COUNT', val: 1 }],
+      })
+      .then((response) => response.data)
+      .catch(console.error);
+    console.log(data);
+    const { achieves } = data;
+    if (achieves) {
+      await dispatch(achieves);
+    } else undefined;
   };
 
   return <div onClick={click}>hihi</div>;

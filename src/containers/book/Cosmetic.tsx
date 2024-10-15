@@ -12,6 +12,7 @@ export interface ITEM {
   url: string;
   category: string;
   author: string;
+  achieveId: string[];
   [x: string]: any;
 }
 
