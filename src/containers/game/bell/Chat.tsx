@@ -33,7 +33,6 @@ const Chat = () => {
   const timer = useSelector(selectTimer);
   const pause = useSelector(selectPause);
   const effectVolume = useSelector(selectEffectVolume);
-  const [myTurn, setMyTurn] = useState(true);
 
   const logSound = useEffectSound(
     '/assets/sound-effects/lossy/ui_click.webm',
@@ -77,7 +76,6 @@ const Chat = () => {
           }),
           success: true,
         });
-        setMyTurn(false);
       }
     }
     setInputs({ chat: '' });
@@ -99,14 +97,10 @@ const Chat = () => {
   const handleEnter = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.isComposing) return;
     if (e.key === 'Enter') {
-      if (pause && myTurn) onSendAnswer();
+      if (pause) onSendAnswer();
       else onSendMessage();
     }
   };
-
-  useEffect(() => {
-    setMyTurn(true);
-  }, [game.round]);
 
   useEffect(() => {
     socket.on('alarm', (data) => {
@@ -139,7 +133,6 @@ const Chat = () => {
       handleEnter={handleEnter}
       inputRef={inputRef}
       chatBoxRef={chatBoxRef}
-      myTurn={myTurn}
       game={game}
       answer={answer}
       timer={timer}

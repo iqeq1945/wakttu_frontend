@@ -42,8 +42,8 @@ const CreateRoom = () => {
     const { name, value, type } = e.target;
     if (type === 'number') {
       let onlyNumber = parseInt(value, 10);
-      if (Number.isNaN(onlyNumber) || onlyNumber < 2 || onlyNumber > 8)
-        onlyNumber = 8;
+      if (Number.isNaN(onlyNumber) || onlyNumber < 2 || onlyNumber > 30)
+        onlyNumber = 10;
       setRoom((prev) => {
         return { ...prev, [name]: onlyNumber };
       });

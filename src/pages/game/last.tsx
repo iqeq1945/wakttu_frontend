@@ -364,6 +364,14 @@ const Game = () => {
   /* result, end logic*/
   useEffect(() => {
     socket.on('last.result', async (data) => {
+      dispatch(clearResult());
+      dispatch(clearAnswer());
+      dispatch(clearTimer());
+      dispatch(clearHistory());
+
+      dispatch(setDataModal(data));
+      dispatch(openModal('RESULT'));
+
       if (user.provider === 'waktaverse.games') {
         const achieve = [];
         const ach_1 = await updatePlayCount(game.type);
@@ -372,13 +380,6 @@ const Game = () => {
         if (ach_2) await achieve.push(ach_2);
         await dispatch(setAchieve(achieve));
       }
-      dispatch(clearResult());
-      dispatch(clearAnswer());
-      dispatch(clearTimer());
-      dispatch(clearHistory());
-
-      dispatch(setDataModal(data));
-      dispatch(openModal('RESULT'));
     });
 
     socket.on('last.end', async (data) => {
