@@ -1,3 +1,4 @@
+import { AchieveState } from '@/redux/achieve/achieveSlice';
 import { Result } from '@/redux/result/resultSlice';
 import axios from 'axios';
 
@@ -14,10 +15,16 @@ export const R2_URL = process.env.NEXT_PUBLIC_R2_URL;
 export const getR2URL = (src: string) => R2_URL + src;
 
 /**
+ * Waktaverse Games API
+ */
+export const WAKGAME_URL = process.env.NEXT_PUBLIC_WAKGAME_URL;
+export const getWAKURL = (src: string) => WAKGAME_URL + src;
+
+/**
  *
  * @param type : number 값 게임의 타입 0 is Last 1 is Kung . maybe 2 is Bell
  * @default 0
- * @returns void : But 플레이수 통계가 올라감!
+ * @returns achieves : []
  */
 export const updatePlayCount = async (type: number = 0) => {
   let id = 'LAST_COUNT';
@@ -33,6 +40,9 @@ export const updatePlayCount = async (type: number = 0) => {
     })
     .then((response) => response.data)
     .catch(console.error);
+  const { achieves } = data;
+  if (achieves) return achieves;
+  else undefined;
 };
 
 /**
@@ -51,13 +61,15 @@ export const winTheGame = async (team: boolean = false) => {
     })
     .then((response) => response.data)
     .catch(console.error);
+  const { achieves } = data;
+  if (achieves) return achieves;
+  else undefined;
 };
 
 /**
- * @description : 게임 중 나간횟수
+ * @description : 통계증가 함수
  */
-export const runGame = async () => {
-  const id = 'EXIT';
+export const updateStat = async (id: string) => {
   const { stats } = await client
     .get(`/wakta/stat?id=${id}`)
     .then((response) => response.data)
@@ -68,6 +80,9 @@ export const runGame = async () => {
     })
     .then((response) => response.data)
     .catch(console.error);
+  const { achieves } = data;
+  if (achieves) return achieves;
+  else undefined;
 };
 
 /**
@@ -80,6 +95,9 @@ export const updateResult = async (result: Result[]) => {
     .put(`/wakta/result`, arr)
     .then((response) => response.data)
     .catch(console.error);
+  const { achieves } = data;
+  if (achieves) return achieves;
+  else undefined;
 };
 
 /**
@@ -104,12 +122,42 @@ export const getMyItemList = async (userId: string) => {
 
 /**
  *
- * @returns {achieves : [], size : number}
+ * @returns []
  */
 export const getAchieveList = async () => {
   const data = await client
+    .get('/achieve')
+    .then((response) => response.data)
+    .catch(console.error);
+  return data;
+};
+
+/**
+ *
+ * @returns {achieves : AchieveState, size : number}
+ */
+export const getMyAchieve = async (): Promise<{
+  achieves: AchieveState[];
+  size: number;
+}> => {
+  const data = await client
     .get('/wakta/achieve')
     .then((response) => response.data)
-    .catch(() => undefined);
+    .catch(console.error);
   return data;
+};
+
+/**
+ *
+ * @param itemId
+ * @description 아이템을 얻는 함수
+ */
+export const achieveItem = async (itemId: string) => {
+  const { success, message } = await client
+    .post('/user/achieve/item', {
+      itemId,
+    })
+    .then((res) => res.data)
+    .catch(console.error);
+  alert(message);
 };

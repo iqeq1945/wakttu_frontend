@@ -1,10 +1,63 @@
 import styled, { css } from 'styled-components';
-import { COLORS } from '@/styles/theme';
-import { BackgroundImage, CosmeticType, CosmeticVariant } from './CosmeticType';
+import { COLORS } from '../theme';
 
-export type InfoVariant = 'title' | 'content';
+type InfoVariant = 'title' | 'content';
 
-const TitleSection = styled.div`
+export type CharacterVariant =
+  | 'woowakgood'
+  | 'ine'
+  | 'jingburger'
+  | 'lilpa'
+  | 'jururu'
+  | 'gosegu'
+  | 'viichan'
+  | 'gomem'
+  | 'academy';
+
+const characterColors = {
+  woowakgood: {
+    backgroundColor: '#164532',
+    color: '#FFFFFF',
+  },
+  ine: {
+    backgroundColor: '#8A2BE2',
+    color: '#FFFFFF',
+  },
+  jingburger: {
+    backgroundColor: '#F0A957',
+    color: '#FFFFFF',
+  },
+  lilpa: {
+    backgroundColor: '#2A265A',
+    color: '#FFFFFF',
+  },
+  jururu: {
+    backgroundColor: '#FF008C',
+    color: '#FFFFFF',
+  },
+  gosegu: {
+    backgroundColor: '#00A6FF',
+    color: '#FFFFFF',
+  },
+  viichan: {
+    backgroundColor: '#95C100',
+    color: '#FFFFFF',
+  },
+  gomem: {
+    backgroundColor: '#C75D00',
+    color: '#FFFFFF',
+  },
+  academy: {
+    backgroundColor: '#FF2323',
+    color: '#FFFFFF',
+  },
+  wakta: {
+    backgroundColor: '#000000',
+    color: '#FFFFFF',
+  },
+};
+
+export const TitleSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,7 +72,7 @@ const TitleSection = styled.div`
   box-sizing: border-box;
 `;
 
-const Tag = styled.div<{ $itemType?: CosmeticVariant }>`
+export const Tag = styled.div<{ $character?: CharacterVariant }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,75 +82,50 @@ const Tag = styled.div<{ $itemType?: CosmeticVariant }>`
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
 
-  ${CosmeticType}
+  ${({ $character }) =>
+    $character ? characterColors[$character] : characterColors.woowakgood};
 `;
 
-const Title = styled.div`
-  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 600;
+export const Title = styled.h5`
   color: ${COLORS.text};
+
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 `;
 
-const InfoSection = styled.div`
+export const InfoSection = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  justify-content: space-around;
 
   border: 1px solid ${COLORS['gray-4']};
   border-radius: 1rem;
   overflow: hidden;
 `;
 
-const InfoTop = styled.div<{ $itemType?: CosmeticVariant }>`
-  position: relative;
+export const InfoTop = styled.div`
   display: flex;
+  height: 21rem;
+  padding: 2.5rem;
   justify-content: center;
   align-items: center;
   align-self: stretch;
 
-  height: 21rem;
-  ${BackgroundImage};
+  border-radius: 1rem;
 `;
 
-const CosmeticImage = styled.img<{ item: string }>`
-  position: absolute;
-  z-index: 2;
-
-  width: ${({ item }) => {
-    switch (item) {
-      case 'hand': {
-        return '25rem';
-      }
-      default:
-        return '13.5rem';
-    }
-  }};
-  height: ${({ item }) => {
-    switch (item) {
-      case 'hand': {
-        return '25rem';
-      }
-      default:
-        return '13.5rem';
-    }
-  }};
-  object-fit: fill;
-
-  ${({ item }) => {
-    switch (item) {
-      case 'hand': {
-        return 'left: 3rem';
-      }
-      default:
-        return '';
-    }
-  }}
+export const Badge = styled.img`
+  width: 16rem;
+  height: 16rem;
+  border-radius: 22.5rem;
 `;
 
-const InfoBottom = styled.div`
+export const InfoBottom = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -107,7 +135,7 @@ const InfoBottom = styled.div`
   gap: 0.5rem;
 `;
 
-const Wrap = styled.ul`
+export const Wrap = styled.ul`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -115,7 +143,7 @@ const Wrap = styled.ul`
   gap: 1rem;
 `;
 
-const Info = styled.li<{ $variant?: InfoVariant }>`
+export const Info = styled.li<{ $variant?: InfoVariant }>`
   display: flex;
   justify-content: start;
   align-items: flex-start;
@@ -147,36 +175,3 @@ const Info = styled.li<{ $variant?: InfoVariant }>`
     }
   }}
 `;
-
-const GetButton = styled.div<{ $itemType?: CosmeticVariant }>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-self: stretch;
-
-  width: 100%;
-  height: 4.3125rem;
-
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 1rem;
-  cursor: pointer;
-
-  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-
-  ${CosmeticType}
-`;
-
-export {
-  TitleSection,
-  Tag,
-  Title,
-  InfoSection,
-  InfoTop,
-  CosmeticImage,
-  InfoBottom,
-  Wrap,
-  Info,
-  GetButton,
-};

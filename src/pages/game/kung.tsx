@@ -53,6 +53,7 @@ import {
   setResult,
 } from '@/redux/result/resultSlice';
 import { openModal, setDataModal } from '@/redux/modal/modalSlice';
+import { setAchieve } from '@/redux/achieve/achieveSlice';
 
 const Game = () => {
   const dispatch = useDispatch();
@@ -391,8 +392,12 @@ const Game = () => {
   useEffect(() => {
     socket.on('kung.result', async (data) => {
       if (user.provider === 'waktaverse.games') {
-        await updatePlayCount(game.type);
-        await updateResult(result);
+        const achieve = [];
+        const ach_1 = await updatePlayCount(game.type);
+        const ach_2 = await updateResult(result);
+        if (ach_1) await achieve.push(ach_1);
+        if (ach_2) await achieve.push(ach_2);
+        await dispatch(setAchieve(achieve));
       }
       dispatch(clearResult());
       dispatch(clearAnswer());
@@ -404,7 +409,6 @@ const Game = () => {
     });
 
     socket.on('kung.end', async (data) => {
-      console.log('end :', data);
       const { game, roomInfo } = data;
 
       const response = await client.get(`/user/${user.id}`);

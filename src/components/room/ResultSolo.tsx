@@ -8,7 +8,6 @@ import {
   CTitle,
   ResultTitle,
   Card,
-  Character,
   CPlayer,
   Name,
   NameTag,
@@ -32,6 +31,7 @@ import {
   Item,
   Confirm,
 } from '@/styles/room/ResultSolo';
+import Character from '../common/Character';
 
 interface Props {
   user: any;
@@ -46,6 +46,7 @@ interface Result {
   score: number;
   provider?: string;
   exp: number;
+  character: any;
   team?: string;
 }
 
@@ -62,55 +63,54 @@ const ResultSolo = ({ list, offModal, user }: Props) => {
             <CBody>
               <CResult>
                 <RankList>
-                  <>
-                    <CPlayer>
-                      <Card rank={list.length > 1 ? list[1].rank : 2}>
-                        <Character src={getR2URL('/assets/items/S-4.svg')} />
-                        <NameTag>
-                          <Grade src={getIcon(list[1].exp, list[1].provider)} />
-                          <Name>{list.length > 1 ? list[1].name : ''}</Name>
-                        </NameTag>
-                        <Score rank={list.length > 1 ? list[1].rank : 2}>
-                          {list.length > 1 ? list[1].score : 0}
-                        </Score>
-                        <Rank rank={list.length > 1 ? list[1].rank : 2}>
-                          {list.length > 1 ? list[1].rank : 2}등
-                        </Rank>
-                      </Card>
-                    </CPlayer>
+                  <CPlayer>
+                    <Card rank={list.length > 1 ? list[1].rank : 2}>
+                      <Character character={list[1].character} />
+                      <NameTag>
+                        <Grade src={getIcon(list[1].exp, list[1].provider)} />
+                        <Name>{list.length > 1 ? list[1].name : ''}</Name>
+                      </NameTag>
+                      <Score rank={list.length > 1 ? list[1].rank : 2}>
+                        {list.length > 1 ? list[1].score : 0}
+                      </Score>
+                      <Rank rank={list.length > 1 ? list[1].rank : 2}>
+                        {list.length > 1 ? list[1].rank : 2}등
+                      </Rank>
+                    </Card>
+                  </CPlayer>
 
-                    <CPlayer>
-                      <Card rank={1}>
-                        <Character src={getR2URL('/assets/items/S-5.svg')} />
-                        <NameTag>
-                          <Grade
-                            src={getR2URL('/assets/icons/chimpange.svg')}
-                          />
-                          <Name>{list[0].name}</Name>
-                        </NameTag>
-                        <Score rank={1}>{list[0].score}</Score>
-                        <Rank rank={1}>1등</Rank>
-                      </Card>
-                    </CPlayer>
-                    <CPlayer>
-                      <Card rank={list.length > 2 ? list[2].rank : 3}>
-                        <Character src={getR2URL('/assets/items/S-5.svg')} />
-
-                        <NameTag>
-                          <Grade
-                            src={getR2URL('/assets/icons/chimpange.svg')}
-                          />
-                          <Name>{list.length > 2 ? list[2].name : ''}</Name>
-                        </NameTag>
-                        <Score rank={list.length > 2 ? list[2].rank : 3}>
-                          {list.length > 2 ? list[2].score : 0}
-                        </Score>
-                        <Rank rank={list.length > 2 ? list[2].rank : 3}>
-                          {list.length > 2 ? list[2].rank : 3}등
-                        </Rank>
-                      </Card>
-                    </CPlayer>
-                  </>
+                  <CPlayer>
+                    <Card rank={1}>
+                      <Character character={list[0].character} />{' '}
+                      <NameTag>
+                        <Grade src={getIcon(list[0].exp, list[0].character)} />
+                        <Name>{list[0].name}</Name>
+                      </NameTag>
+                      <Score rank={1}>{list[0].score}</Score>
+                      <Rank rank={1}>1등</Rank>
+                    </Card>
+                  </CPlayer>
+                  <CPlayer>
+                    <Card rank={list.length > 2 ? list[2].rank : 3}>
+                      {list.length > 2 && (
+                        <>
+                          <Character character={list[2].character} />
+                          <NameTag>
+                            <Grade
+                              src={getIcon(list[2].exp, list[2].character)}
+                            />
+                            <Name>{list.length > 2 ? list[2].name : ''}</Name>
+                          </NameTag>
+                          <Score rank={list.length > 2 ? list[2].rank : 3}>
+                            {list.length > 2 ? list[2].score : 0}
+                          </Score>
+                          <Rank rank={list.length > 2 ? list[2].rank : 3}>
+                            {list.length > 2 ? list[2].rank : 3}등
+                          </Rank>
+                        </>
+                      )}
+                    </Card>
+                  </CPlayer>
                 </RankList>
                 <RestList>
                   {list.map((user, idx) => {

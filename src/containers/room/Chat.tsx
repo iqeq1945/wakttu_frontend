@@ -3,11 +3,14 @@ import useEffectSound from '@/hooks/useEffectSound';
 import useInput from '@/hooks/useInput';
 import { getTime } from '@/modules/Date';
 import { clean } from '@/modules/Slang';
+import { setAchieve } from '@/redux/achieve/achieveSlice';
 import { selectEffectVolume } from '@/redux/audio/audioSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
+import { selectUserInfo } from '@/redux/user/userSlice';
+import { updateStat } from '@/services/api';
 import { sendChat, socket } from '@/services/socket/socket';
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface InputProps {
   chat: string;
@@ -20,6 +23,8 @@ export interface LogProps {
 }
 
 const Chat = () => {
+  const user = useSelector(selectUserInfo);
+  const dispatch = useDispatch();
   const effectVolume = useSelector(selectEffectVolume);
   const logSound = useEffectSound(
     '/assets/sound-effects/lossy/ui_click.webm',
@@ -41,18 +46,23 @@ const Chat = () => {
     }
   }, [logSound]);
 
-  const onSendMessage = () => {
+  const onSendMessage = useCallback(async () => {
     if (inputs.chat) {
+      const chat = clean(inputs.chat);
       sendChat({
         roomId,
-        chat: clean(inputs.chat),
+        chat: chat,
         roundTime: null,
         score: null,
       });
+      setInputs({ chat: '' });
+      if (chat !== inputs.chat && user.provider === 'waktaverse.games') {
+        const achieves = await updateStat('FILTER');
+        if (achieves) dispatch(setAchieve(achieves));
+      }
     }
-    setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
-  };
+  }, [dispatch, inputs.chat, roomId, setInputs, user.provider]);
 
   useEffect(() => {
     socket.on('alarm', (data) => {
