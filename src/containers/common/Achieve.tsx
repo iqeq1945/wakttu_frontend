@@ -1,4 +1,4 @@
-import Acheive from '@/components/common/Acheive';
+import Achieve from '@/components/common/Achieve';
 import useEffectSound from '@/hooks/useEffectSound';
 import {
   AchieveState,
@@ -21,7 +21,7 @@ const Achieves = () => {
     }
   }, [achieves, dispatch]);
 
-  return <Acheive achieves={data} />;
+  return <Achieve achieves={data} />;
 };
 
 export default Achieves;

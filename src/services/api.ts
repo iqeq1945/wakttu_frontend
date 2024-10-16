@@ -67,10 +67,9 @@ export const winTheGame = async (team: boolean = false) => {
 };
 
 /**
- * @description : 게임 중 나간횟수
+ * @description : 통계증가 함수
  */
-export const runGame = async () => {
-  const id = 'EXIT';
+export const updateStat = async (id: string) => {
   const { stats } = await client
     .get(`/wakta/stat?id=${id}`)
     .then((response) => response.data)
@@ -146,4 +145,19 @@ export const getMyAchieve = async (): Promise<{
     .then((response) => response.data)
     .catch(console.error);
   return data;
+};
+
+/**
+ *
+ * @param itemId
+ * @description 아이템을 얻는 함수
+ */
+export const achieveItem = async (itemId: string) => {
+  const { success, message } = await client
+    .post('/user/achieve/item', {
+      itemId,
+    })
+    .then((res) => res.data)
+    .catch(console.error);
+  alert(message);
 };

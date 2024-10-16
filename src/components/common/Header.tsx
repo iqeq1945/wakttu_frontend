@@ -29,8 +29,11 @@ const Header = ({ user, goRouter, onModal }: Props) => {
       <WrapContent>
         <Tab menuName="방 목록" goRouter={() => goRouter('/roomlist')} />
         <Tab menuName="마이 페이지" goRouter={() => goRouter('/mypage')} />
-        <Tab menuName="사전" goRouter={() => goRouter('/roomlist')} />
+        <Tab menuName="사전" goRouter={() => goRouter('/dictionary')} />
         <Tab menuName="도감" goRouter={() => goRouter('/book')} />
+        {user.provider === 'waktaverse.games' && (
+          <Tab menuName="도전과제" goRouter={() => goRouter('/achieve')} />
+        )}
         <Content onClick={onModal}>
           <li>옵션</li>
         </Content>

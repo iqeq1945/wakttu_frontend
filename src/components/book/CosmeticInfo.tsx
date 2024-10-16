@@ -23,9 +23,10 @@ import { AchieveState } from '@/redux/achieve/achieveSlice';
 interface Props {
   info: ITEM;
   isMine: boolean;
+  onClick: () => void;
 }
 
-const CosmeticInfo = ({ info, isMine }: Props) => {
+const CosmeticInfo = ({ info, isMine, onClick }: Props) => {
   return (
     <LeftWrapper>
       <TitleSection>
@@ -58,7 +59,10 @@ const CosmeticInfo = ({ info, isMine }: Props) => {
           </Wrap>
         </InfoBottom>
       </InfoSection>
-      <GetButton $itemType={info.category as CosmeticVariant}>
+      <GetButton
+        $itemType={info.category as CosmeticVariant}
+        onClick={isMine ? onClick : undefined}
+      >
         {isMine ? '획득하기' : '획득불가'}
       </GetButton>
     </LeftWrapper>

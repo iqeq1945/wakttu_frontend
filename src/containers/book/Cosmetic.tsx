@@ -3,8 +3,13 @@ import { CosmeticInfo as Info } from '@/components';
 import { AchieveState } from '@/redux/achieve/achieveSlice';
 import { closeModal } from '@/redux/modal/modalSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';
-import { getItemList, getMyAchieve, getMyItemList } from '@/services/api';
-import { useEffect, useRef, useState } from 'react';
+import {
+  getItemList,
+  getMyAchieve,
+  getMyItemList,
+  achieveItem,
+} from '@/services/api';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export interface ITEM {
@@ -27,6 +32,7 @@ const Cosmetic = () => {
   const [info, setInfo] = useState<ITEM>();
   const [isOpen, setIsOpen] = useState(false);
   const [items, setItems] = useState<ITEM[]>([]);
+  const [myItem, setMyItem] = useState([]);
   const [selectedOption, setSelectedOption] = useState({
     category: 'all',
     name: '전체',
@@ -67,14 +73,25 @@ const Cosmetic = () => {
     if (item) setInfo(item);
   };
 
+  const handleAchieveItem = useCallback(async () => {
+    if (info) await achieveItem(info.id);
+  }, [info]);
+
   useEffect(() => {
     const getItems = async () => {
       const data = await getItemList();
       setItems(data);
       setInfo(data[0]);
     };
+
+    const getMyItems = async () => {
+      const data = await getMyItemList(user.id!);
+      setMyItem(data);
+    };
+
     getItems();
-  }, []);
+    getMyItems();
+  }, [user.id]);
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -95,21 +112,24 @@ const Cosmetic = () => {
 
   useEffect(() => {
     const check = async () => {
-      if (info) {
+      if (info && myItem) {
         const check_1 = info.achieveId.every((id) =>
           data?.achieves.some((achieve) => achieve.id === id)
         );
-        const res = await getMyItemList(user.id!);
-        const check_2 = res.some((item: { id: string }) => item.id === info.id);
+        const check_2 = myItem.some(
+          (item: { id: string }) => item.id === info.id
+        );
         setMine(check_1 && !check_2);
       }
     };
     check();
-  }, [data?.achieves, info, user.id]);
+  }, [data?.achieves, info, myItem, user.id]);
 
   return (
     <>
-      {info && <Info info={info!} isMine={isMine} />}
+      {info && (
+        <Info info={info!} isMine={isMine} onClick={handleAchieveItem} />
+      )}
       <List
         dataset={items}
         isOpen={isOpen}

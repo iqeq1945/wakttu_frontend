@@ -12,7 +12,7 @@ const keyframe = keyframes`
 }
 `;
 
-export const CAcheive = styled.div<{ idx?: number }>`
+export const CAchieve = styled.div<{ idx?: number }>`
   position: fixed;
   bottom: 0;
   right: 0;
