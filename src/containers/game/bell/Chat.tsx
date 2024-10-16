@@ -26,13 +26,14 @@ export interface LogProps {
 }
 
 const Chat = () => {
-  const userId = useSelector(selectUserId);
   const roomId = useSelector(selectRoomId) as string;
   const game = useSelector(selectGame);
   const answer = useSelector(selectAnswer);
   const timer = useSelector(selectTimer);
   const pause = useSelector(selectPause);
   const effectVolume = useSelector(selectEffectVolume);
+
+  const [myTurn, setMyTurn] = useState(false);
 
   const logSound = useEffectSound(
     '/assets/sound-effects/lossy/ui_click.webm',
@@ -54,7 +55,7 @@ const Chat = () => {
     }
   }, [logSound]);
 
-  const onSendAnswer = () => {
+  const onSendAnswer = useCallback(() => {
     if (inputs.chat) {
       if (inputs.chat !== game.target) {
         sendChat({
@@ -70,18 +71,27 @@ const Chat = () => {
           roundTime: timer.roundTime - timer.countTime,
           score: countScore({
             wordLength: inputs.chat.length,
-            chainCount: game.chain,
+            chainCount: 1,
             timeLimit: timer.roundTime,
             remainingTime: timer.roundTime - timer.countTime,
           }),
           success: true,
         });
+        setMyTurn(false);
       }
     }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
-  };
-  const onSendMessage = () => {
+  }, [
+    game.target,
+    inputs.chat,
+    roomId,
+    setInputs,
+    timer.countTime,
+    timer.roundTime,
+  ]);
+
+  const onSendMessage = useCallback(() => {
     if (inputs.chat) {
       sendChat({
         roomId,
@@ -92,7 +102,7 @@ const Chat = () => {
     }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
-  };
+  }, [inputs.chat, roomId, setInputs]);
 
   const handleEnter = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.isComposing) return;
@@ -122,6 +132,14 @@ const Chat = () => {
       socket.off('chat');
     };
   }, [log]);
+
+  useEffect(() => {
+    if (pause) {
+      setMyTurn(true);
+    } else {
+      setMyTurn(false);
+    }
+  }, [pause]);
 
   return (
     <BChatBox

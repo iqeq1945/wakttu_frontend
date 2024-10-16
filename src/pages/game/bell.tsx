@@ -2,7 +2,12 @@ import Game from '@/containers/game/bell/Bell';
 import Chat from '@/containers/game/bell/Chat';
 import Header from '@/containers/game/bell/Header';
 import PlayerList from '@/containers/game/bell/PlayerList';
-import { clearAnswer, setFail, setPause } from '@/redux/answer/answerSlice';
+import {
+  clearAnswer,
+  selectPause,
+  setFail,
+  setPause,
+} from '@/redux/answer/answerSlice';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
 import { clearHistory } from '@/redux/history/historySlice';
 import { openModal, setDataModal } from '@/redux/modal/modalSlice';
@@ -36,6 +41,7 @@ const Bell = () => {
   const dispatch = useDispatch();
   const timer = useSelector(selectTimer);
   const router = useRouter();
+  const pause = useSelector(selectPause);
 
   const setRoundEnd = useCallback(() => {
     if (timer.countTime === 30000) {
@@ -50,6 +56,7 @@ const Bell = () => {
       if (user.success) count++;
     });
     if (count === game.users.length) {
+      console.log('countCheck');
       if (game.host === user.id) bellRoundEnd(roomInfo.id as string);
       dispatch(clearCountTime());
     }
@@ -78,6 +85,7 @@ const Bell = () => {
 
   useEffect(() => {
     socket.on('bell.round', (data) => {
+      console.log('round');
       dispatch(setGame(data));
       setTimeout(() => {
         dispatch(setTimer({ roundTime: 30000, turnTime: 30000 }));
@@ -120,7 +128,7 @@ const Bell = () => {
 
   useEffect(() => {
     socket.on('bell.ping', () => {
-      dispatch(tick());
+      if (pause) dispatch(tick());
     });
 
     return () => {
