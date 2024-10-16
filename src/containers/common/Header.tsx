@@ -19,6 +19,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const [icon, setIcon] = useState(getIcon(0, undefined));
   const modal = useSelector(selectModal);
+  const audio = useSelector(selectVolume);
   const [volume, setVolume] = useState({
     bgmVolume: 0.5,
     effectVolume: 0.5,
@@ -75,6 +76,10 @@ const Header = () => {
   useEffect(() => {
     setIsConnected(true);
   }, []);
+
+  useEffect(() => {
+    setVolume(audio);
+  }, [audio]);
 
   useEffect(() => {
     setIcon(
