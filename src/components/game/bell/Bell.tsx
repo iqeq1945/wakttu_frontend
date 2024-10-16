@@ -89,7 +89,7 @@ const Game = ({ game, quiz, answer, timer }: Props) => {
       <Middle>
         <Board>
           <Answer>
-            <AnswerText></AnswerText>
+            <AnswerText>{answer.pause === false ? quiz?.id : ''}</AnswerText>
           </Answer>
         </Board>
         <Info>

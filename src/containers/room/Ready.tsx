@@ -99,17 +99,7 @@ const Ready = () => {
         bellStart(roomInfo.id as string);
       }
     }
-  }, [
-    game.team.academy.length,
-    game.team.gomem.length,
-    game.team.isedol.length,
-    game.team.woo.length,
-    readyUsers.length,
-    roomInfo.id,
-    roomInfo.option,
-    roomInfo.type,
-    roomInfo.users.length,
-  ]);
+  }, [game.team, readyUsers.length, roomInfo]);
 
   const onTeam = (team: string) => {
     if (readyUsers.findIndex((user) => user.name === userName) !== -1) {

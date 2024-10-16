@@ -27,7 +27,6 @@ export const CPlayerList = styled.div`
 
 export const CPlayer = styled.div<{
   $pause?: boolean;
-  $fail?: boolean;
   $success?: boolean;
 }>`
   display: flex;
@@ -47,19 +46,10 @@ export const CPlayer = styled.div<{
 
   transition: transform 0.2s linear;
 
-  ${({ $pause, $fail }) => {
-    if (!$pause) {
-      if ($fail) {
-        return `border: 4px solid #FF7070; background: #FFE6E6; transform : translate(0 , -0.8rem);`;
-      } else
-        return `background: linear-gradient(180deg, #fff 0%, #f2f2f2 100%);`;
-    } else {
-      if ($fail === undefined) {
-        return `background: linear-gradient(180deg, #fff 0%, #f2f2f2 100%);`;
-      } else {
-        return `border: 4px solid #028C27; background: linear-gradient(180deg, #D9FFD3 0%, #87FF77 100%); transform : translate(0 , -0.8rem);`;
-      }
-    }
+  ${({ $pause, $success }) => {
+    if ($pause && $success)
+      return `border: 4px solid #028C27; background: linear-gradient(180deg, #D9FFD3 0%, #87FF77 100%); transform : translate(0 , -0.8rem);`;
+    else return `background: linear-gradient(180deg, #fff 0%, #f2f2f2 100%);`;
   }}
 `;
 
@@ -75,7 +65,7 @@ export const PlusScore = styled.div<{ plus: boolean }>`
 
   z-index: 2;
 
-  color: ${({ plus }) => (plus ? COLORS.pupple : '#FF7070')};
+  color: ${({ plus }) => (plus ? '#028C27' : '#FF7070')};
   font-size: 1.4rem;
   font-weight: bold;
 
