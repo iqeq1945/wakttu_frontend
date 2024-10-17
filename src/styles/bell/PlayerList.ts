@@ -26,7 +26,6 @@ export const CPlayerList = styled.div`
 `;
 
 export const CPlayer = styled.div<{
-  $pause?: boolean;
   $success?: boolean;
 }>`
   display: flex;
@@ -46,8 +45,8 @@ export const CPlayer = styled.div<{
 
   transition: transform 0.2s linear;
 
-  ${({ $pause, $success }) => {
-    if ($pause && $success)
+  ${({ $success }) => {
+    if ($success)
       return `border: 4px solid #028C27; background: linear-gradient(180deg, #D9FFD3 0%, #87FF77 100%); transform : translate(0 , -0.8rem);`;
     else return `background: linear-gradient(180deg, #fff 0%, #f2f2f2 100%);`;
   }}

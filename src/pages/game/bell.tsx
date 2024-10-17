@@ -31,7 +31,7 @@ import {
 } from '@/services/socket/socket';
 import { Container } from '@/styles/bell/Layout';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Bell = () => {
@@ -41,26 +41,27 @@ const Bell = () => {
   const dispatch = useDispatch();
   const timer = useSelector(selectTimer);
   const router = useRouter();
+
   const pause = useSelector(selectPause);
+  const [late, setLate] = useState(true);
 
   const setRoundEnd = useCallback(() => {
     if (timer.countTime === 30000) {
       if (game.host === user.id) bellRoundEnd(roomInfo.id as string);
+      setLate(false);
       dispatch(clearCountTime());
     }
   }, [dispatch, game.host, roomInfo.id, timer.countTime, user.id]);
 
   const countCheck = useCallback(() => {
-    let count = 0;
-    game.users.forEach((user) => {
-      if (user.success) count++;
-    });
+    if (!late) return;
+    let count = game.users.filter((user) => user.success).length;
     if (count === game.users.length) {
-      console.log('countCheck');
+      setLate(false);
       if (game.host === user.id) bellRoundEnd(roomInfo.id as string);
       dispatch(clearCountTime());
     }
-  }, [dispatch, game.host, game.users, roomInfo.id, user.id]);
+  }, [dispatch, game.host, game.users, late, roomInfo.id, user.id]);
 
   useEffect(() => {
     countCheck();
@@ -100,14 +101,16 @@ const Bell = () => {
   useEffect(() => {
     socket.on('bell.roundStart', () => {
       if (game.host === user.id) socket.emit('bell.ping', roomInfo.id);
+      setLate(true);
       dispatch(setPause(true));
     });
 
     socket.on('bell.roundEnd', (data) => {
-      if (game.host === user.id)
-        setTimeout(() => bellRound(roomInfo.id as string), 3000);
       dispatch(setGame(data));
       dispatch(setPause(false));
+
+      if (game.host === user.id)
+        setTimeout(() => bellRound(roomInfo.id as string), 3000);
     });
 
     return () => {

@@ -149,6 +149,7 @@ const Game = () => {
 
   // Turn End(round 종료) 시 호출하는 함수
   const setTurnEnd = useCallback(() => {
+    if (!late) return;
     if (timer.turnTime > 0 && timer.countTime === timer.turnTime) {
       setLate(false);
       if (game.host === user.id) lastTurnEnd(roomInfo.id as string);
@@ -159,6 +160,7 @@ const Game = () => {
   }, [
     timer.turnTime,
     timer.countTime,
+    late,
     game.host,
     user.id,
     roomInfo.id,
@@ -310,7 +312,6 @@ const Game = () => {
         playAnswer({ ...word, chain: game.chain });
         sound?.pause();
         fastSound?.pause();
-        if (user.id === game.host) socket.emit('pong', roomInfo.id);
         dispatch(setHistory(word));
 
         // Result 용 데이터
