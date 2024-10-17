@@ -70,7 +70,7 @@ const Game = () => {
 
   const { bgmVolume, effectVolume, voiceVolume } = useSelector(selectVolume);
 
-  const [late, setLate] = useState<boolean>(true);
+  const [late, setLate] = useState<boolean>(false);
 
   const [failUser, setFailuesr] = useState<{ name: string; count: number }>({
     name: '',
@@ -133,7 +133,7 @@ const Game = () => {
 
   // Turn 시작시 BGM 켜는 함수
   const onBgm = useCallback(() => {
-    setLate(true);
+    setLate(false);
     if (game.chain >= 10 || timer.turnTime - timer.countTime <= 10000) {
       if (fastSound && !fastSound.playing()) {
         if (sound && sound.playing()) sound.stop();
@@ -149,23 +149,14 @@ const Game = () => {
 
   // Turn End(round 종료) 시 호출하는 함수
   const setTurnEnd = useCallback(() => {
-    if (!late) return;
-    if (timer.turnTime > 0 && timer.countTime === timer.turnTime) {
-      setLate(false);
+    if (late) {
       if (game.host === user.id) lastTurnEnd(roomInfo.id as string);
       dispatch(setPause(false));
       dispatch(clearTimer());
       dispatch(clearAnswer());
+      setLate(false);
     }
-  }, [
-    timer.turnTime,
-    timer.countTime,
-    late,
-    game.host,
-    user.id,
-    roomInfo.id,
-    dispatch,
-  ]);
+  }, [late, game.host, user.id, roomInfo.id, dispatch]);
 
   const exitGame = useCallback(async () => {
     await router.push('/roomlist');
@@ -281,16 +272,9 @@ const Game = () => {
     user.id,
   ]);
 
-  useEffect(() => {
-    setTurnEnd();
-  }, [setTurnEnd]);
-
   /* turn game logic */
   useEffect(() => {
     socket.on('last.game', (data) => {
-      if (!late) {
-        return;
-      }
       const { success, answer, game, message, word } = data;
 
       setTimeout(() =>
@@ -309,6 +293,7 @@ const Game = () => {
       });
 
       if (success) {
+        setLate(false);
         playAnswer({ ...word, chain: game.chain });
         sound?.pause();
         fastSound?.pause();
@@ -361,6 +346,20 @@ const Game = () => {
       socket.off('ping');
     };
   }, [dispatch, pause, sound]);
+
+  useEffect(() => {
+    socket.on('pong', () => {
+      setLate(true);
+    });
+
+    return () => {
+      socket.off('pong');
+    };
+  }, [dispatch, game.host, roomInfo.id, setTurnEnd, timer, user.id]);
+
+  useEffect(() => {
+    setTurnEnd();
+  }, [setTurnEnd]);
 
   /* result, end logic*/
   useEffect(() => {

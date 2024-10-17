@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { GlobalStyle } from '@/styles/GlobalStyle';
-import { Container } from '@/components';
+import { Container, Loading } from '@/components';
 
 import { CookiesProvider } from 'react-cookie';
 import { Provider } from 'react-redux';
@@ -14,11 +14,9 @@ import { handleResize } from '@/modules/BaseFontSize';
 import { isMobileDevice } from '@/modules/Mobile';
 
 import { usePathname } from 'next/navigation';
-import { socket } from '@/services/socket/socket';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const path = usePathname();
-
   const queryClient = new QueryClient();
   const [isMobile, setIsMobile] = useState(false);
 
