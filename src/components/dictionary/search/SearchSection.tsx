@@ -23,7 +23,7 @@ const SearchSection = () => {
       setLoading(true);
       try {
         const words_: Words_ = await client
-          .get(`/dictionary/search?keyword=${keyword}&take=4&skip=0`)
+          .get(`/dictionary/search?keyword=${keyword}&take=2&skip=0`)
           .then((res) => res.data);
         const words: WordProps[] = processWordsData(words_);
         setWords(words);
@@ -34,7 +34,7 @@ const SearchSection = () => {
             type: 'VIICHAN',
             mean: '비챤님의 개인팬덤 이름',
             meta: {
-              tag: ['비챤'],
+              tag: ['비챤', '아카데미', '고멤'],
               url: ['https://youtu.be/dWrwEUqHJXU?si=DrHwYEC5wlMDzVj8'],
               bgm: 'v-21',
             },
@@ -95,9 +95,13 @@ const SearchSection = () => {
     <Container>
       <SearchBar inputValue={inputValue} setInputValue={setInputValue} />
       <ListWrapper>
-        {words.map((wordProps, index) => (
-          <Word key={index} {...wordProps} />
-        ))}
+        {words.length === 0 ? (
+          <p>검색결과가 없습니다</p>
+        ) : (
+          words.map((wordProps, index) => (
+            <Word key={index} {...wordProps} />
+          ))
+        )}
       </ListWrapper>
     </Container>
   );

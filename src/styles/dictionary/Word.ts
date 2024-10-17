@@ -1,40 +1,9 @@
 import styled, { css } from 'styled-components';
 import { COLORS } from '@/styles/theme';
 import {
-  RelevantPersonArray,
+  relevantInfo,
   RelevantPerson,
 } from '@/components/dictionary/Word';
-
-const characterColors = {
-  woowakgood: {
-    backgroundColor: '#164532',
-    color: '#FFFFFF',
-  },
-  ine: {
-    backgroundColor: '#8A2BE2',
-    color: '#FFFFFF',
-  },
-  jingburger: {
-    backgroundColor: '#F0A957',
-    color: '#FFFFFF',
-  },
-  lilpa: {
-    backgroundColor: '#2A265A',
-    color: '#FFFFFF',
-  },
-  jururu: {
-    backgroundColor: '#FF008C',
-    color: '#FFFFFF',
-  },
-  gosegu: {
-    backgroundColor: '#00A6FF',
-    color: '#FFFFFF',
-  },
-  viichan: {
-    backgroundColor: '#95C100',
-    color: '#FFFFFF',
-  },
-};
 
 const ListWrapper = styled.div`
   display: flex;
@@ -109,8 +78,8 @@ const RelevantWrapper = styled.div`
 const RelevantBackgroundColor = css<{ $RelevantPerson: RelevantPerson }>`
   ${({ $RelevantPerson }) => {
     return css`
-      background-color: ${characterColors[$RelevantPerson].backgroundColor};
-      color: #fff;
+      background-color: ${relevantInfo[$RelevantPerson].backgroundColor};
+      color: ${relevantInfo[$RelevantPerson].color};
     `;
   }}
 `;

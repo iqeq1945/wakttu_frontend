@@ -1,20 +1,13 @@
-import { RelevantPersonArray, Word_, WordProps, Words_ } from "@/components/dictionary/Word";
+import { relevantInfo, RelevantPerson, RelevantPersonArray, Word_, WordProps, Words_ } from "@/components/dictionary/Word";
 
 const processTag = (tagArray: string[]): RelevantPersonArray => {
-  const tagMapping: { [key: string]: RelevantPersonArray[number] } = {
-    '우왁굳': 'woowakgood',
-    '아이네': 'ine',
-    '징버거': 'jingburger',
-    '릴파': 'lilpa',
-    '주르르': 'jururu',
-    '고세구': 'gosegu',
-    '비챤': 'viichan',
-  };
+  const tagMapping = Object.fromEntries(
+    Object.entries(relevantInfo).map(([key, value]) => [value.koreanName, key])
+  );
 
-  // 태그 배열을 매핑된 값으로 변환
   return tagArray
-    .map(item => tagMapping[item])  // 매핑된 값을 가져옴
-    .filter((item): item is RelevantPersonArray[number] => item !== undefined); // undefined 필터링
+    .map(item => tagMapping[item])
+    .filter((item): item is RelevantPerson => item !== undefined); 
 };
 
 const processWordData = (word_: Word_) => {
