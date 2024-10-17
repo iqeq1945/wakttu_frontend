@@ -337,7 +337,6 @@ const Game = () => {
         playAnswer({ ...word, chain: game.chain });
         sound?.pause();
         fastSound?.pause();
-        if (user.id === game.host) socket.emit('pong', roomInfo.id);
         dispatch(setHistory(word));
 
         // Result 용 데이터

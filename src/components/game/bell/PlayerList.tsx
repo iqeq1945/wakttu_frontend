@@ -43,7 +43,7 @@ const PlayList = ({ users, game, answer, bubble, team }: Props) => {
           (item: Bubble) => item.user.name === user.name
         );
         return (
-          <CPlayer key={user.id} $pause={answer.pause} $success={user.success}>
+          <CPlayer key={user.id} $success={user.success}>
             {myTeam ? <TeamTag team={myTeam.team}>{myTeam.name}</TeamTag> : ''}
             {lastBubble ? <BubbleBox chat={lastBubble.chat} /> : ''}
             <Character character={user.character} />
