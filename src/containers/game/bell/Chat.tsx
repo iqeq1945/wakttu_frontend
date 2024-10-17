@@ -26,14 +26,14 @@ export interface LogProps {
 }
 
 const Chat = () => {
-  const userId = useSelector(selectUserId);
   const roomId = useSelector(selectRoomId) as string;
   const game = useSelector(selectGame);
   const answer = useSelector(selectAnswer);
   const timer = useSelector(selectTimer);
   const pause = useSelector(selectPause);
   const effectVolume = useSelector(selectEffectVolume);
-  const [myTurn, setMyTurn] = useState(true);
+
+  const [myTurn, setMyTurn] = useState(false);
 
   const logSound = useEffectSound(
     '/assets/sound-effects/lossy/ui_click.webm',
@@ -55,7 +55,7 @@ const Chat = () => {
     }
   }, [logSound]);
 
-  const onSendAnswer = () => {
+  const onSendAnswer = useCallback(() => {
     if (inputs.chat) {
       if (inputs.chat !== game.target) {
         sendChat({
@@ -71,7 +71,7 @@ const Chat = () => {
           roundTime: timer.roundTime - timer.countTime,
           score: countScore({
             wordLength: inputs.chat.length,
-            chainCount: game.chain,
+            chainCount: 1,
             timeLimit: timer.roundTime,
             remainingTime: timer.roundTime - timer.countTime,
           }),
@@ -82,8 +82,16 @@ const Chat = () => {
     }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
-  };
-  const onSendMessage = () => {
+  }, [
+    game.target,
+    inputs.chat,
+    roomId,
+    setInputs,
+    timer.countTime,
+    timer.roundTime,
+  ]);
+
+  const onSendMessage = useCallback(() => {
     if (inputs.chat) {
       sendChat({
         roomId,
@@ -94,19 +102,15 @@ const Chat = () => {
     }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
-  };
+  }, [inputs.chat, roomId, setInputs]);
 
   const handleEnter = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.isComposing) return;
     if (e.key === 'Enter') {
-      if (pause && myTurn) onSendAnswer();
+      if (pause) onSendAnswer();
       else onSendMessage();
     }
   };
-
-  useEffect(() => {
-    setMyTurn(true);
-  }, [game.round]);
 
   useEffect(() => {
     socket.on('alarm', (data) => {
@@ -129,6 +133,14 @@ const Chat = () => {
     };
   }, [log]);
 
+  useEffect(() => {
+    if (pause) {
+      setMyTurn(true);
+    } else {
+      setMyTurn(false);
+    }
+  }, [pause]);
+
   return (
     <BChatBox
       log={log}
@@ -139,7 +151,6 @@ const Chat = () => {
       handleEnter={handleEnter}
       inputRef={inputRef}
       chatBoxRef={chatBoxRef}
-      myTurn={myTurn}
       game={game}
       answer={answer}
       timer={timer}

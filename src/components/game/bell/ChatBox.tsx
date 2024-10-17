@@ -22,7 +22,6 @@ interface Props {
   handleEnter: (e: React.KeyboardEvent) => void;
   chatBoxRef: RefObject<HTMLDivElement>;
   inputRef: RefObject<HTMLInputElement>;
-  myTurn: boolean;
   game: Game;
   answer: Answer;
   pause: boolean;
@@ -38,7 +37,6 @@ const ChatBox = ({
   handleEnter,
   chatBoxRef,
   inputRef,
-  myTurn,
   pause,
 }: Props) => {
   const scrollToBottom = useCallback(() => {
@@ -79,7 +77,7 @@ const ChatBox = ({
             }}
             autoComplete="off"
           />
-          {pause && myTurn ? (
+          {pause ? (
             <SendMessage onClick={onAnswer}>
               <SendIcon src={R2_URL + '/assets/icons/send.svg'} />
             </SendMessage>

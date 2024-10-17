@@ -86,7 +86,13 @@ const CreateRoom = ({
         <CCreate>
           <CLabel>게임 유형</CLabel>
           <Dropdown onClick={() => onDropdown(0)}>
-            <Selected>{roomInfo.type === 0 ? '끝말잇기' : '쿵쿵따'}</Selected>
+            <Selected>
+              {roomInfo.type === 0
+                ? '끝말잇기'
+                : roomInfo.type === 1
+                ? '쿵쿵따'
+                : '왁타골든벨'}
+            </Selected>
             <DropdownLine
               isopen={isDown[0]}
               src={getR2URL('/assets/icons/down-line.svg')}
