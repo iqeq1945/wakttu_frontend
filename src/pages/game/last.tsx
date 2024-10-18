@@ -163,7 +163,7 @@ const Game = () => {
       type: string;
       meta?: { [x: string]: any };
     }) => {
-      answerSound![id.length > 10 ? id.length - 2 : 9].play();
+      answerSound![id.length < 10 ? id.length - 2 : 9].play();
       if (wakta) {
         const key = GetKey(type, meta);
         setTimeout(() => waktaSound![key].play(), 500);
