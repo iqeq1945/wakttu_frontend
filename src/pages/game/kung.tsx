@@ -46,7 +46,6 @@ import { client, updatePlayCount, updateResult } from '@/services/api';
 import { GetKey } from '@/modules/Voice';
 import useWaktaSound from '@/hooks/useWaktaSound';
 import { selectVolume } from '@/redux/audio/audioSlice';
-import useAnswerSound from '@/hooks/useAnswerSound';
 import {
   clearResult,
   selectResult,
@@ -66,7 +65,6 @@ const Game = () => {
   const router = useRouter();
   const pause = useSelector(selectPause);
   const { bgmVolume, effectVolume, voiceVolume } = useSelector(selectVolume);
-  const [late, setLate] = useState<boolean>(false);
 
   const [failUser, setFailuesr] = useState<{ name: string; count: number }>({
     name: '',
@@ -77,13 +75,7 @@ const Game = () => {
    * Sound Part
    */
   const sound = useSound(
-    '/assets/bgm/lossy/ui_in-game.webm',
-    bgmVolume,
-    0,
-    true
-  );
-  const fastSound = useSound(
-    '/assets/bgm/lossy/ui_in-game_speedup.webm',
+    '/assets/bgm/lossy/ui_in-game-k.webm',
     bgmVolume,
     0,
     true
@@ -154,39 +146,8 @@ const Game = () => {
 
   // Turn 시작시 BGM 켜는 함수
   const onBgm = useCallback(() => {
-    setLate(true);
-    if (game.chain >= 10 || timer.turnTime - timer.countTime <= 10000) {
-      if (fastSound && !fastSound.playing()) {
-        if (sound && sound.playing()) sound.stop();
-        fastSound.play();
-      }
-    } else if (game.chain < 10 || timer.turnTime - timer.countTime > 10000) {
-      if (sound && !sound.playing()) {
-        if (fastSound && !fastSound.playing()) fastSound.stop();
-        sound.play();
-      }
-    }
-  }, [fastSound, game.chain, sound, timer.countTime, timer.turnTime]);
-
-  // Turn End(round 종료) 시 호출하는 함수
-  const setTurnEnd = useCallback(() => {
-    if (!late) return;
-    if (timer.turnTime > 0 && timer.countTime === timer.turnTime) {
-      setLate(false);
-      if (game.host === user.id) kungTurnEnd(roomInfo.id as string);
-      dispatch(setPause(false));
-      dispatch(clearTimer());
-      dispatch(clearAnswer());
-    }
-  }, [
-    late,
-    timer.turnTime,
-    timer.countTime,
-    game.host,
-    user.id,
-    roomInfo.id,
-    dispatch,
-  ]);
+    if (sound) sound.play();
+  }, [sound]);
 
   const exitGame = useCallback(async () => {
     await router.push('/roomlist');
@@ -282,7 +243,7 @@ const Game = () => {
       if (game.host === user.id)
         setTimeout(() => kungRound(roomInfo.id as string), 4000);
       if (sound) sound.stop();
-      if (fastSound) fastSound.stop();
+
       turnEndSound?.play();
     });
 
@@ -292,7 +253,6 @@ const Game = () => {
     };
   }, [
     dispatch,
-    fastSound,
     game.host,
     game.turn,
     game.users,
@@ -304,19 +264,12 @@ const Game = () => {
     user.id,
   ]);
 
-  useEffect(() => {
-    setTurnEnd();
-  }, [setTurnEnd]);
-
   /**
    * turn game Logic
    */
 
   useEffect(() => {
     socket.on('kung.game', (data) => {
-      if (!late) {
-        return;
-      }
       const { success, answer, game, message, word } = data;
       setTimeout(() =>
         dispatch(
@@ -336,7 +289,6 @@ const Game = () => {
       if (success) {
         playAnswer({ ...word, chain: game.chain });
         sound?.pause();
-        fastSound?.pause();
         dispatch(setHistory(word));
 
         // Result 용 데이터
@@ -367,8 +319,6 @@ const Game = () => {
   }, [
     answerSound,
     dispatch,
-    fastSound,
-    late,
     user.id,
     playAnswer,
     roomInfo.id,
@@ -386,6 +336,19 @@ const Game = () => {
       socket.off('ping');
     };
   }, [dispatch, pause, sound]);
+
+  useEffect(() => {
+    socket.on('pong', () => {
+      if (game.host === user.id) kungTurnEnd(roomInfo.id as string);
+      dispatch(setPause(false));
+      dispatch(clearTimer());
+      dispatch(clearAnswer());
+    });
+
+    return () => {
+      socket.off('pong');
+    };
+  }, [dispatch, game.host, roomInfo.id, timer, user.id]);
 
   /* result, end logic*/
   useEffect(() => {
@@ -423,7 +386,7 @@ const Game = () => {
       socket.off('kung.result');
       socket.off('kung.end');
     };
-  });
+  }, [dispatch, game.type, result, router, user.id, user.provider]);
 
   useEffect(() => {
     socket.on('exit', (data) => {

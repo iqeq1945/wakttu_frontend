@@ -19,6 +19,7 @@ import { setGame } from '@/redux/game/gameSlice';
 import { selectBgmVolume } from '@/redux/audio/audioSlice';
 import useSound from '@/hooks/useSound';
 import Result from '@/containers/room/Result';
+import ChangeHost from '@/containers/room/HostModal';
 
 const Room = () => {
   const modal = useSelector(selectModal);
@@ -71,6 +72,7 @@ const Room = () => {
           <Chat />
         </RightWrapper>
       </WrapRoom>
+      {modal.modalType === 'CHANGE_HOST' && modal.open && <ChangeHost />}
       {modal.modalType === 'UPDATE_ROOM' && modal.open && <UpdateRoom />}
       {modal.modalType === 'KICK' && modal.open && <KickModal />}
       {modal.modalType === 'RESULT' && modal.open && <Result />}

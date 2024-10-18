@@ -70,8 +70,6 @@ const Game = () => {
 
   const { bgmVolume, effectVolume, voiceVolume } = useSelector(selectVolume);
 
-  const [late, setLate] = useState<boolean>(false);
-
   const [failUser, setFailuesr] = useState<{ name: string; count: number }>({
     name: '',
     count: 0,
@@ -133,7 +131,6 @@ const Game = () => {
 
   // Turn 시작시 BGM 켜는 함수
   const onBgm = useCallback(() => {
-    setLate(false);
     if (game.chain >= 10 || timer.turnTime - timer.countTime <= 10000) {
       if (fastSound && !fastSound.playing()) {
         if (sound && sound.playing()) sound.stop();
@@ -146,17 +143,6 @@ const Game = () => {
       }
     }
   }, [fastSound, game.chain, sound, timer.countTime, timer.turnTime]);
-
-  // Turn End(round 종료) 시 호출하는 함수
-  const setTurnEnd = useCallback(() => {
-    if (late) {
-      if (game.host === user.id) lastTurnEnd(roomInfo.id as string);
-      dispatch(setPause(false));
-      dispatch(clearTimer());
-      dispatch(clearAnswer());
-      setLate(false);
-    }
-  }, [late, game.host, user.id, roomInfo.id, dispatch]);
 
   const exitGame = useCallback(async () => {
     await router.push('/roomlist');
@@ -293,7 +279,6 @@ const Game = () => {
       });
 
       if (success) {
-        setLate(false);
         playAnswer({ ...word, chain: game.chain });
         sound?.pause();
         fastSound?.pause();
@@ -328,7 +313,6 @@ const Game = () => {
     answerSound,
     dispatch,
     fastSound,
-    late,
     roomInfo.id,
     sound,
     wrongSound,
@@ -349,17 +333,16 @@ const Game = () => {
 
   useEffect(() => {
     socket.on('pong', () => {
-      setLate(true);
+      if (game.host === user.id) lastTurnEnd(roomInfo.id as string);
+      dispatch(setPause(false));
+      dispatch(clearTimer());
+      dispatch(clearAnswer());
     });
 
     return () => {
       socket.off('pong');
     };
-  }, [dispatch, game.host, roomInfo.id, setTurnEnd, timer, user.id]);
-
-  useEffect(() => {
-    setTurnEnd();
-  }, [setTurnEnd]);
+  }, [dispatch, game.host, roomInfo.id, timer, user.id]);
 
   /* result, end logic*/
   useEffect(() => {

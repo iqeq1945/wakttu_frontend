@@ -26,9 +26,14 @@ const RoomNav = () => {
     dispatch(clearGame());
   }, [dispatch, roomId, router]);
 
-  const onModal = () => {
+  const onUpdate = () => {
     if (host !== user.id) return;
     dispatch(openModal('UPDATE_ROOM'));
+  };
+
+  const onChangeHost = () => {
+    if (host !== user.id) return;
+    dispatch(openModal('CHANGE_HOST'));
   };
 
   useEffect(() => {
@@ -48,7 +53,14 @@ const RoomNav = () => {
     };
   }, [dispatch, onExit]);
 
-  return <CRoomNav onExit={onExit} onModal={onModal} host={user.id === host} />;
+  return (
+    <CRoomNav
+      onExit={onExit}
+      onChangeHost={onChangeHost}
+      onUpdate={onUpdate}
+      host={user.id === host}
+    />
+  );
 };
 
 export default RoomNav;

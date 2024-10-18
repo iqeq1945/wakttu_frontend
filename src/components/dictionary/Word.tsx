@@ -16,51 +16,51 @@ import {
 import { getR2URL } from '@/services/api';
 
 const relevantInfo = {
-  'woowakgood': {
-    'koreanName': '우왁굳',
-    'backgroundColor': '#164532',
-    'color': '#FFFFFF'
+  woowakgood: {
+    koreanName: '우왁굳',
+    backgroundColor: '#164532',
+    color: '#FFFFFF',
   },
-  'ine': {
-    'koreanName': '아이네',
-    'backgroundColor': '#8A2BE2',
-    'color': '#FFFFFF'
+  ine: {
+    koreanName: '아이네',
+    backgroundColor: '#8A2BE2',
+    color: '#FFFFFF',
   },
-  'jingburger': {
-    'koreanName': '징버거',
-    'backgroundColor': '#F0A957',
-    'color': '#FFFFFF'
+  jingburger: {
+    koreanName: '징버거',
+    backgroundColor: '#F0A957',
+    color: '#FFFFFF',
   },
-  'lilpa': {
-    'koreanName': '릴파',
-    'backgroundColor': '#2A265A',
-    'color': '#FFFFFF'
+  lilpa: {
+    koreanName: '릴파',
+    backgroundColor: '#2A265A',
+    color: '#FFFFFF',
   },
-  'jururu': {
-    'koreanName': '주르르',
-    'backgroundColor': '#FF008C',
-    'color': '#FFFFFF'
+  jururu: {
+    koreanName: '주르르',
+    backgroundColor: '#FF008C',
+    color: '#FFFFFF',
   },
-  'gosegu': {
-    'koreanName': '고세구',
-    'backgroundColor': '#00A6FF',
-    'color': '#FFFFFF'
+  gosegu: {
+    koreanName: '고세구',
+    backgroundColor: '#00A6FF',
+    color: '#FFFFFF',
   },
-  'viichan': {
-    'koreanName': '비챤',
-    'backgroundColor': '#95C100',
-    'color': '#FFFFFF'
+  viichan: {
+    koreanName: '비챤',
+    backgroundColor: '#95C100',
+    color: '#FFFFFF',
   },
-  'gomem': {
-    'koreanName': '고멤',
-    'backgroundColor': '#C75D00',
-    'color': '#FFFFFF'
+  gomem: {
+    koreanName: '고멤',
+    backgroundColor: '#C75D00',
+    color: '#FFFFFF',
   },
-  'academy': {
-    'koreanName': '아카데미',
-    'backgroundColor': '#FF2323',
-    'color': '#FFFFFF'
-  }
+  academy: {
+    koreanName: '아카데미',
+    backgroundColor: '#FF2323',
+    color: '#FFFFFF',
+  },
 };
 type RelevantPerson = keyof typeof relevantInfo;
 type RelevantPersonArray = RelevantPerson[];
@@ -88,7 +88,13 @@ type Word_ = {
 };
 type Words_ = Word_[];
 
-const Word = ({ relevantPersonArray, tagArray, word, description, urls }: WordProps) => {
+const Word = ({
+  relevantPersonArray,
+  tagArray,
+  word,
+  description,
+  urls,
+}: WordProps) => {
   const handleButtonClick = () => {
     window.open(urls[0], '_blank');
   };
@@ -107,24 +113,25 @@ const Word = ({ relevantPersonArray, tagArray, word, description, urls }: WordPr
           </RelevantWrapper>
         </TopLeftWrapper>
 
-        {urls.map((url, index) => (
-          url && (
-            <LinkButton key={index} onClick={() => handleButtonClick()}>
-              <LinkIcon src={getR2URL('/assets/game/link.svg')} />
-            </LinkButton>
-          )
-        ))}
+        {urls.map(
+          (url, index) =>
+            url && (
+              <LinkButton key={index} onClick={() => handleButtonClick()}>
+                <LinkIcon src={getR2URL('/assets/icons/link.svg')} />
+              </LinkButton>
+            )
+        )}
       </TopWrapper>
 
       <Description>{description}</Description>
 
-      {tagArray && tagArray.length > 0 &&
+      {tagArray && tagArray.length > 0 && (
         <TagWrapper>
           {tagArray.map((tag, index) => (
             <TagContent key={index}>{`#${tag}`}</TagContent>
           ))}
         </TagWrapper>
-      }
+      )}
     </Wrapper>
   );
 };
