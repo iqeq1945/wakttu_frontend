@@ -10,8 +10,7 @@ import { selectTimer } from '@/redux/timer/timerSlice';
 import { sendChat, socket } from '@/services/socket/socket';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import wordRelay from '@/modules/WordRelay';
-import { selectUserId } from '@/redux/user/userSlice';
+
 import useEffectSound from '@/hooks/useEffectSound';
 import { selectEffectVolume } from '@/redux/audio/audioSlice';
 
