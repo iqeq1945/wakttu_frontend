@@ -81,9 +81,9 @@ const ResultSolo = ({ list, offModal, user }: Props) => {
 
                   <CPlayer>
                     <Card rank={1}>
-                      <Character character={list[0].character} />{' '}
+                      <Character character={list[0].character} />
                       <NameTag>
-                        <Grade src={getIcon(list[0].exp, list[0].character)} />
+                        <Grade src={getIcon(list[0].exp, list[0].provider)} />
                         <Name>{list[0].name}</Name>
                       </NameTag>
                       <Score rank={1}>{list[0].score}</Score>
@@ -97,7 +97,7 @@ const ResultSolo = ({ list, offModal, user }: Props) => {
                           <Character character={list[2].character} />
                           <NameTag>
                             <Grade
-                              src={getIcon(list[2].exp, list[2].character)}
+                              src={getIcon(list[2].exp, list[2].provider)}
                             />
                             <Name>{list.length > 2 ? list[2].name : ''}</Name>
                           </NameTag>
@@ -119,9 +119,7 @@ const ResultSolo = ({ list, offModal, user }: Props) => {
                         <RestItem key={user.userId}>
                           <RestText>{user.rank}등</RestText>
                           <NameTag>
-                            <Grade
-                              src={getR2URL('/assets/icons/chimpange.svg')}
-                            />
+                            <Grade src={getIcon(user.exp, user.provider)} />
                             <Name>{user.name}</Name>
                           </NameTag>
                         </RestItem>
