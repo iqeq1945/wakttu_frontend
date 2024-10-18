@@ -15,14 +15,54 @@ import {
 } from '@/styles/dictionary/Word';
 import { getR2URL } from '@/services/api';
 
-type RelevantPerson =
-  | 'woowakgood'
-  | 'ine'
-  | 'jingburger'
-  | 'lilpa'
-  | 'jururu'
-  | 'gosegu'
-  | 'viichan';
+const relevantInfo = {
+  woowakgood: {
+    koreanName: '우왁굳',
+    backgroundColor: '#164532',
+    color: '#FFFFFF',
+  },
+  ine: {
+    koreanName: '아이네',
+    backgroundColor: '#8A2BE2',
+    color: '#FFFFFF',
+  },
+  jingburger: {
+    koreanName: '징버거',
+    backgroundColor: '#F0A957',
+    color: '#FFFFFF',
+  },
+  lilpa: {
+    koreanName: '릴파',
+    backgroundColor: '#2A265A',
+    color: '#FFFFFF',
+  },
+  jururu: {
+    koreanName: '주르르',
+    backgroundColor: '#FF008C',
+    color: '#FFFFFF',
+  },
+  gosegu: {
+    koreanName: '고세구',
+    backgroundColor: '#00A6FF',
+    color: '#FFFFFF',
+  },
+  viichan: {
+    koreanName: '비챤',
+    backgroundColor: '#95C100',
+    color: '#FFFFFF',
+  },
+  gomem: {
+    koreanName: '고멤',
+    backgroundColor: '#C75D00',
+    color: '#FFFFFF',
+  },
+  academy: {
+    koreanName: '아카데미',
+    backgroundColor: '#FF2323',
+    color: '#FFFFFF',
+  },
+};
+type RelevantPerson = keyof typeof relevantInfo;
 type RelevantPersonArray = RelevantPerson[];
 
 type WordProps = {
@@ -65,13 +105,11 @@ const Word = ({
         <TopLeftWrapper>
           <Title>{word}</Title>
           <RelevantWrapper>
-            {relevantPersonArray.map((relevantPerson, index) => {
-              return (
-                <RelevantBdage key={index} $RelevantPerson={relevantPerson}>
-                  <RelevantText>{matchENtoKR(relevantPerson)}</RelevantText>
-                </RelevantBdage>
-              );
-            })}
+            {relevantPersonArray.map((relevantPerson, index) => (
+              <RelevantBdage key={index} $RelevantPerson={relevantPerson}>
+                <RelevantText>{matchENtoKR(relevantPerson)}</RelevantText>
+              </RelevantBdage>
+            ))}
           </RelevantWrapper>
         </TopLeftWrapper>
 
@@ -89,9 +127,9 @@ const Word = ({
 
       {tagArray && tagArray.length > 0 && (
         <TagWrapper>
-          {tagArray.map((tag: string, index) => {
-            return <TagContent key={index}>{`#${tag}`}</TagContent>;
-          })}
+          {tagArray.map((tag, index) => (
+            <TagContent key={index}>{`#${tag}`}</TagContent>
+          ))}
         </TagWrapper>
       )}
     </Wrapper>
@@ -99,6 +137,7 @@ const Word = ({
 };
 
 export {
+  relevantInfo,
   type RelevantPerson,
   type RelevantPersonArray,
   type WordProps,

@@ -18,8 +18,8 @@ const HeaderBlock = styled.div`
 `;
 
 const HeaderLogo = styled.img`
-  width: 57.59px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   flex-shrink: 0;
 
   cursor: pointer;

@@ -60,6 +60,10 @@ const UpdateRoom = () => {
       setRoom((prev) => {
         return { ...prev, option: copy };
       });
+    } else if (name === 'type') {
+      setRoom((prev) => {
+        return { ...prev, [name]: value, round: value === 2 ? 10 : 6 };
+      });
     } else {
       setRoom((prev) => {
         return { ...prev, [name]: value };

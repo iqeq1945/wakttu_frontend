@@ -58,6 +58,7 @@ const ListItems = styled.div`
 
   gap: 0.8125rem;
   overflow-y: scroll;
+  overflow-x: hidden;
   ${scrollbarStyles};
 `;
 

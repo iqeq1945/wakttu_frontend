@@ -9,7 +9,7 @@ import {
   Content,
 } from '@/styles/common/Header';
 import { Tab } from '@/components';
-import { R2_URL } from '@/services/api';
+import { getR2URL, R2_URL } from '@/services/api';
 import { getIcon } from '@/modules/UserInfo';
 
 interface Props {
@@ -23,7 +23,7 @@ const Header = ({ user, goRouter, onModal }: Props) => {
   return (
     <HeaderBlock>
       <HeaderLogo
-        src={R2_URL + '/assets/icons/logo.svg'}
+        src={getR2URL('/assets/icons/small-logo.svg')}
         onClick={() => goRouter()}
       />
       <WrapContent>
