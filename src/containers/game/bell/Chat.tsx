@@ -3,13 +3,17 @@ import useInput from '@/hooks/useInput';
 import { getTime } from '@/modules/Date';
 import countScore from '@/modules/Score';
 import { clean } from '@/modules/Slang';
-import { selectAnswer, selectPause } from '@/redux/answer/answerSlice';
+import {
+  selectAnswer,
+  selectPause,
+  setAnswer,
+} from '@/redux/answer/answerSlice';
 import { selectGame } from '@/redux/game/gameSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { selectTimer } from '@/redux/timer/timerSlice';
 import { sendChat, socket } from '@/services/socket/socket';
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import useEffectSound from '@/hooks/useEffectSound';
 import { selectEffectVolume } from '@/redux/audio/audioSlice';
@@ -31,6 +35,7 @@ const Chat = () => {
   const timer = useSelector(selectTimer);
   const pause = useSelector(selectPause);
   const effectVolume = useSelector(selectEffectVolume);
+  const dispatch = useDispatch();
 
   const [myTurn, setMyTurn] = useState(false);
 
@@ -56,7 +61,7 @@ const Chat = () => {
 
   const onSendAnswer = useCallback(() => {
     if (inputs.chat) {
-      if (inputs.chat !== game.target) {
+      if (inputs.chat !== game.target || !myTurn) {
         sendChat({
           roomId,
           chat: clean(inputs.chat),
@@ -76,14 +81,24 @@ const Chat = () => {
           }),
           success: true,
         });
+        dispatch(
+          setAnswer({
+            success: true,
+            answer: inputs.chat,
+            pause: false,
+            word: undefined,
+          })
+        );
         setMyTurn(false);
       }
     }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
   }, [
+    dispatch,
     game.target,
     inputs.chat,
+    myTurn,
     roomId,
     setInputs,
     timer.countTime,
@@ -92,21 +107,24 @@ const Chat = () => {
 
   const onSendMessage = useCallback(() => {
     if (inputs.chat) {
+      const chat = clean(inputs.chat);
       sendChat({
         roomId,
-        chat: clean(inputs.chat),
+        chat: chat.includes(game.target)
+          ? '전투***가 정답을 가로챘습니다.'
+          : chat,
         roundTime: null,
         score: null,
       });
     }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
-  }, [inputs.chat, roomId, setInputs]);
+  }, [game.target, inputs.chat, roomId, setInputs]);
 
   const handleEnter = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.isComposing) return;
     if (e.key === 'Enter') {
-      if (pause) onSendAnswer();
+      if (pause && myTurn) onSendAnswer();
       else onSendMessage();
     }
   };
