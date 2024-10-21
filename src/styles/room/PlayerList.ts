@@ -7,7 +7,7 @@ const CPlayerList = styled.article`
   align-self: stretch;
 
   width: 62rem;
-  padding: 2rem;
+  padding: 1rem 2rem;
   border-radius: 1rem;
   border: 2px solid ${COLORS['gray-4']};
 `;
@@ -38,7 +38,7 @@ const PlayerInfo = styled.div`
   justify-content: center;
   align-items: center;
   align-self: stretch;
-  height: 11.375rem;
+  height: 13rem;
 
   position: relative;
   padding: 1rem;

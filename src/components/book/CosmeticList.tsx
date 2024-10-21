@@ -103,7 +103,11 @@ const CosmeticList = ({
                 <CosmeticBackground
                   $itemType={data.category}
                 ></CosmeticBackground>
-                <ItemImage item={data.category} src={getR2URL(data.url)} />
+                <ItemImage
+                  item={data.category}
+                  id={data.id}
+                  src={getR2URL(data.url)}
+                />
               </Item>
             )
           )}

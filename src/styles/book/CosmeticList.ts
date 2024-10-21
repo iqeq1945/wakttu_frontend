@@ -132,7 +132,7 @@ const Item = styled.div`
   cursor: pointer;
 `;
 
-const ItemImage = styled.img<{ item: string }>`
+const ItemImage = styled.img<{ item: string; id?: string }>`
   position: absolute;
   z-index: 2;
   width: ${({ item }) => {
@@ -154,9 +154,10 @@ const ItemImage = styled.img<{ item: string }>`
     }
   }};
 
-  ${({ item }) => {
+  ${({ item, id }) => {
     switch (item) {
       case 'hand': {
+        if (id === 'H-5') return '';
         return 'left: 1rem';
       }
       default:

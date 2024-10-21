@@ -62,7 +62,7 @@ const InfoTop = styled.div<{ $itemType?: CosmeticVariant }>`
   ${BackgroundImage};
 `;
 
-const CosmeticImage = styled.img<{ item: string }>`
+const CosmeticImage = styled.img<{ item: string; id?: string }>`
   position: absolute;
   z-index: 2;
 
@@ -86,9 +86,10 @@ const CosmeticImage = styled.img<{ item: string }>`
   }};
   object-fit: fill;
 
-  ${({ item }) => {
+  ${({ item, id }) => {
     switch (item) {
       case 'hand': {
+        if (id === 'H-5') return '';
         return 'left: 3rem';
       }
       default:

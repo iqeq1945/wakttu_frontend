@@ -32,7 +32,7 @@ export const CAchieve = styled.div<{ idx?: number }>`
     ),
     #000;
 
-  animation: ${keyframe} 5s linear ${({ idx }) => (idx ? idx + 2 + 's' : '0s')};
+  animation: ${keyframe} 5s linear ${({ idx }) => (idx ? idx + 2 + 's' : '0s')}
   opacity: 0;
 `;
 

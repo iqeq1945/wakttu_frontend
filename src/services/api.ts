@@ -41,7 +41,7 @@ export const updatePlayCount = async (type: number = 0) => {
     .then((response) => response.data)
     .catch(console.error);
   const { achieves } = data;
-  if (achieves.length > 0) return achieves;
+  if (achieves) return achieves;
   else undefined;
 };
 
@@ -62,7 +62,7 @@ export const winTheGame = async (team: boolean = false) => {
     .then((response) => response.data)
     .catch(console.error);
   const { achieves } = data;
-  if (achieves.length > 0) return achieves;
+  if (achieves) return achieves;
   else undefined;
 };
 
@@ -81,7 +81,7 @@ export const updateStat = async (id: string) => {
     .then((response) => response.data)
     .catch(console.error);
   const { achieves } = data;
-  if (achieves.length > 0) return achieves;
+  if (achieves) return achieves;
   else undefined;
 };
 
@@ -96,7 +96,7 @@ export const updateResult = async (result: Result[]) => {
     .then((response) => response.data)
     .catch(console.error);
   const { achieves } = data;
-  if (achieves.length > 0) return achieves;
+  if (achieves) return achieves;
   else undefined;
 };
 

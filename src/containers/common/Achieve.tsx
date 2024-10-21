@@ -17,6 +17,7 @@ const Achieves = () => {
   useEffect(() => {
     let timeId: NodeJS.Timeout;
     if (achieves.length > 0) {
+      console.log(achieves);
       setData(achieves);
       dispatch(clearAchieve());
       timeId = setTimeout(() => {

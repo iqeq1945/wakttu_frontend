@@ -97,7 +97,7 @@ const ImageBox = styled.div`
   padding: 0.9375rem 0;
 `;
 
-const ItemImage = styled.img<{ item: string }>`
+const ItemImage = styled.img<{ item: string; id?: string }>`
   position: absolute;
   width: ${({ item }) => {
     switch (item) {
@@ -117,7 +117,8 @@ const ItemImage = styled.img<{ item: string }>`
   }};
 
   object-fit: contain;
-  ${({ item }) => (item === 'hand' ? 'left: 1rem;' : '')};
+  ${({ item, id }) =>
+    item === 'hand' ? (id === 'H-5' ? 'bottom:0.2rem;' : 'left: 1rem;') : ''};
 `;
 
 const ItemInfo = styled.div`
@@ -148,7 +149,7 @@ const ItemTag = styled.span<{ $itemType?: CosmeticVariant }>`
 `;
 
 const ItemName = styled.span`
-  max-width: 3.9375rem;
+  max-width: 7rem;
   word-wrap: break-word;
   font-size: 1.125rem;
 `;
