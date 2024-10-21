@@ -20,9 +20,9 @@ const Achieves = () => {
       console.log(achieves);
       setData(achieves);
       dispatch(clearAchieve());
-      timeId = setTimeout(() => {
+      /*timeId = setTimeout(() => {
         setData([]);
-      }, 5000 * achieves.length);
+      }, 5000 * achieves.length);*/
     }
   }, [achieves, dispatch]);
 

@@ -356,11 +356,11 @@ const Game = () => {
       dispatch(openModal('RESULT'));
 
       if (user.provider === 'waktaverse.games') {
-        const achieve = [];
+        let achieve: any[] = [];
         const ach_1 = await updatePlayCount(game.type);
         const ach_2 = await updateResult(result);
-        if (ach_1) await achieve.push(ach_1);
-        if (ach_2) await achieve.push(ach_2);
+        if (ach_1) achieve = [...achieve, ...ach_1];
+        if (ach_2) achieve = [...achieve, ...ach_2];
         await dispatch(setAchieve(achieve));
       }
     });

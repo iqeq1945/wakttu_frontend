@@ -17,6 +17,7 @@ interface Props {
 }
 
 const Achieve = ({ achieves }: Props) => {
+  console.log(achieves);
   return (
     <>
       {achieves.map((achieve: AchieveState, idx: number) => {

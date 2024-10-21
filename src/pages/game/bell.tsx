@@ -2,6 +2,7 @@ import Game from '@/containers/game/bell/Bell';
 import Chat from '@/containers/game/bell/Chat';
 import Header from '@/containers/game/bell/Header';
 import PlayerList from '@/containers/game/bell/PlayerList';
+import { setAchieve } from '@/redux/achieve/achieveSlice';
 import {
   clearAnswer,
   selectPause,
@@ -127,10 +128,6 @@ const Bell = () => {
 
   useEffect(() => {
     socket.on('bell.result', async (data) => {
-      if (user.provider === 'waktaverse.games') {
-        await updatePlayCount(game.type);
-        await updateResult(result);
-      }
       dispatch(clearResult());
       dispatch(clearAnswer());
       dispatch(clearTimer());
@@ -138,6 +135,15 @@ const Bell = () => {
 
       dispatch(setDataModal(data));
       dispatch(openModal('RESULT'));
+
+      if (user.provider === 'waktaverse.games') {
+        let achieve: any[] = [];
+        const ach_1 = await updatePlayCount(game.type);
+        const ach_2 = await updateResult(result);
+        if (ach_1) achieve = [...achieve, ...ach_1];
+        if (ach_2) achieve = [...achieve, ...ach_2];
+        await dispatch(setAchieve(achieve));
+      }
     });
 
     socket.on('bell.end', async (data) => {
