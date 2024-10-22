@@ -119,10 +119,19 @@ export const InfoTop = styled.div`
   border-radius: 1rem;
 `;
 
-export const Badge = styled.img`
+export const Badge = styled.img<{ got: boolean }>`
+  width: 16rem;
+  height: 16rem;
+  filter: ${({ got }) => (got ? 'grayscale(0)' : 'grayscale(1)')};
+
+  border-radius: 22.5rem;
+`;
+
+export const Hidden = styled.div`
   width: 16rem;
   height: 16rem;
   border-radius: 22.5rem;
+  background-color: black;
 `;
 
 export const InfoBottom = styled.div`

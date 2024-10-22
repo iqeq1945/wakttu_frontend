@@ -17,7 +17,6 @@ const Achieves = () => {
   useEffect(() => {
     let timeId: NodeJS.Timeout;
     if (achieves.length > 0) {
-      console.log(achieves);
       setData(achieves);
       dispatch(clearAchieve());
       /*timeId = setTimeout(() => {
@@ -26,7 +25,7 @@ const Achieves = () => {
     }
   }, [achieves, dispatch]);
 
-  return <Achieve achieves={data} />;
+  if (data.length > 0) return <Achieve achieves={data} />;
 };
 
 export default Achieves;
