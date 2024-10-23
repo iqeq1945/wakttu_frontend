@@ -1,7 +1,11 @@
 import { AchieveInfo, AchieveList } from '@/components';
 import { AchieveState } from '@/redux/achieve/achieveSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';
-import { getAchieveList, getMyAchieve } from '@/services/api';
+import {
+  getAchieveList,
+  getMyAchieve,
+  getMyAchieveLocal,
+} from '@/services/api';
 import { CharacterVariant } from '@/styles/achieve/AchieveInfo';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
@@ -42,7 +46,10 @@ const Achieve = () => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const { achieves } = await getMyAchieve();
+      const { achieves } =
+        user.provider === 'waktaverse.games'
+          ? await getMyAchieve()
+          : await getMyAchieveLocal();
       const list: [] = await getAchieveList();
       if (achieves && list) {
         setList(list);
@@ -59,8 +66,7 @@ const Achieve = () => {
         setAchieve(arr[0]);
       }
     };
-    if (user.provider === 'waktaverse.games') getInfo();
-    else router.push('/');
+    getInfo();
   }, [router, user.provider]);
 
   return (

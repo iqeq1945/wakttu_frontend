@@ -23,55 +23,6 @@ export const WAKGAME_URL = process.env.NEXT_PUBLIC_WAKGAME_URL;
 export const getWAKURL = (src: string) => WAKGAME_URL + src;
 
 /**
- *
- * @param type : number 값 게임의 타입 0 is Last 1 is Kung . maybe 2 is Bell
- * @default 0
- * @returns achieves : []
- */
-export const updatePlayCount = async (type: number = 0) => {
-  let id = 'LAST_COUNT';
-  if (type === 1) id = 'KUNG_COUNT';
-  else if (type === 2) id = 'BELL_COUNT';
-  const { stats } = await client
-    .get(`/wakta/stat?id=${id}`)
-    .then((response) => response.data)
-    .catch(console.error);
-  const data = await client
-    .put('/wakta/stat', {
-      stats: [{ id, val: stats.length > 0 ? stats[0].val + 1 : 1 }],
-    })
-    .then((response) => response.data)
-    .catch(console.error);
-
-  console.log('playcount', data);
-  const { achieves } = data;
-  if (achieves) return achieves;
-  else undefined;
-};
-
-/**
- * @description 1위한 횟수 통계
- * @param team : boolean
- */
-export const winTheGame = async (team: boolean = false) => {
-  const id = team ? 'WINTEAM' : 'WINSOL';
-  const { stats } = await client
-    .get(`/wakta/stat?id=${id}`)
-    .then((response) => response.data)
-    .catch(console.error);
-  const data = await client
-    .put('/wakta/stat', {
-      stats: [{ id, val: stats.length > 0 ? stats[0].val + 1 : 1 }],
-    })
-    .then((response) => response.data)
-    .catch(console.error);
-  console.log('winthegame', data);
-  const { achieves } = data;
-  if (achieves) return achieves;
-  else undefined;
-};
-
-/**
  * @description : 통계증가 함수
  */
 export const updateStat = async (id: string) => {
@@ -85,9 +36,70 @@ export const updateStat = async (id: string) => {
     })
     .then((response) => response.data)
     .catch(console.error);
+  console.log('id', data);
   const { achieves } = data;
   if (achieves) return achieves;
   else undefined;
+};
+
+/**
+ * @description : 통계증가 함수
+ */
+export const updateStatLocal = async (id: string, val: number = 1) => {
+  const data = await client
+    .put('/stats', {
+      statId: id,
+      val: val,
+    })
+    .then((response) => response.data)
+    .catch(console.error);
+  const { achieves } = data;
+  if (achieves) return achieves;
+  else undefined;
+};
+
+/**
+ *
+ * @param type : number 값 게임의 타입 0 is Last 1 is Kung . maybe 2 is Bell
+ * @default 0
+ * @returns achieves : []
+ */
+export const updatePlayCount = async (type: number = 0) => {
+  let id = 'LAST_COUNT';
+  if (type === 1) id = 'KUNG_COUNT';
+  else if (type === 2) id = 'BELL_COUNT';
+  return await updateStat(id);
+};
+
+/**
+ *
+ * @param type : number 값 게임의 타입 0 is Last 1 is Kung . maybe 2 is Bell
+ * @default 0
+ * @returns achieves : []
+ */
+export const updatePlayCountLocal = async (type: number = 0) => {
+  let id = 'LAST_COUNT';
+  if (type === 1) id = 'KUNG_COUNT';
+  else if (type === 2) id = 'BELL_COUNT';
+  return await updateStatLocal(id);
+};
+
+/**
+ * @description 1위한 횟수 통계
+ * @param team : boolean
+ */
+export const winTheGame = async (team: boolean = false) => {
+  const id = team ? 'WINTEAM' : 'WINSOL';
+  return await updateStat(id);
+};
+
+/**
+ * @description 1위한 횟수 통계
+ * @param team : boolean
+ */
+export const winTheGameLocal = async (team: boolean = false) => {
+  const id = team ? 'WINTEAM' : 'WINSOL';
+  return await updateStatLocal(id);
 };
 
 /**
@@ -98,6 +110,22 @@ export const updateResult = async (result: Result[]) => {
   const arr = result.filter((item) => item.type === 'WORD');
   const data = await client
     .put(`/wakta/result`, arr)
+    .then((response) => response.data)
+    .catch(console.error);
+  console.log('result', data);
+  const { achieves } = data;
+  if (achieves) return achieves;
+  else undefined;
+};
+
+/**
+ * @param result : {type: 어떤 타입의 데이터 , word : 단어에 대한 정보가 들어가있음}[]
+ * @returns void : 게임내에서 작성한 데이터 통계가 올라감!
+ */
+export const updateResultLocal = async (result: Result[]) => {
+  const arr = result.filter((item) => item.type === 'WORD');
+  const data = await client
+    .put(`/stats/result`, arr)
     .then((response) => response.data)
     .catch(console.error);
   console.log('result', data);
@@ -148,6 +176,13 @@ export const getMyAchieve = async (): Promise<{
 }> => {
   const data = await client
     .get('/wakta/achieve')
+    .then((response) => response.data)
+    .catch(console.error);
+  return data;
+};
+
+export const getMyAchieveLocal = async (): Promise<any> => {
+  const data = await client('/stats/achieve')
     .then((response) => response.data)
     .catch(console.error);
   return data;

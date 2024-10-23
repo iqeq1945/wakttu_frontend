@@ -3,21 +3,20 @@ import { COLORS, FONT_SIZES } from '../theme';
 
 const keyframe = keyframes`
 0%{
-    transform: translateY(0);
-    opacity:1;
+    transform: translateY(+5.5rem);
 }
 100%{
-    transform: translateY(-5rem);
-    opacity:0;
+    transform: translateY(0);
 }
 `;
 
 export const CAchieve = styled.div<{ idx?: number }>`
   position: fixed;
-  bottom: 0;
+  bottom: ${({ idx }) => (idx ? idx * 5.5 + 'rem' : '0')};
   right: 0;
   display: flex;
   width: 21.75rem;
+  height: 5.5rem;
   padding: 0.5rem 1rem;
   flex-direction: column;
   justify-content: center;
@@ -32,8 +31,8 @@ export const CAchieve = styled.div<{ idx?: number }>`
     ),
     #000;
 
-  animation: ${keyframe} 5s linear ${({ idx }) => (idx ? idx + 2 + 's' : '0s')};
-  opacity: 0;
+  animation: ${keyframe} 3s linear;
+  opacity: 1;
 `;
 
 export const CTitle = styled.div`

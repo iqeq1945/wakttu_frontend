@@ -8,7 +8,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectEffectVolume } from '@/redux/audio/audioSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';
-import { updateStat } from '@/services/api';
+import { updateStat, updateStatLocal } from '@/services/api';
 import { setAchieve } from '@/redux/achieve/achieveSlice';
 
 interface InputProps {
@@ -48,8 +48,11 @@ const Chat = () => {
       const chat = clean(inputs.chat);
       sendLobbyChat(chat);
       setInputs({ chat: '' });
-      if (chat !== inputs.chat && user.provider === 'waktaverse.games') {
-        const achieves = await updateStat('FILTER');
+      if (chat !== inputs.chat) {
+        const achieves =
+          user.provider === 'waktaverse.games'
+            ? await updateStat('FILTER')
+            : await updateStatLocal('FILTER');
         if (achieves) dispatch(setAchieve(achieves));
       }
     }

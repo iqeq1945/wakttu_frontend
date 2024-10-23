@@ -7,7 +7,7 @@ import { setAchieve } from '@/redux/achieve/achieveSlice';
 import { selectEffectVolume } from '@/redux/audio/audioSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';
-import { updateStat } from '@/services/api';
+import { updateStat, updateStatLocal } from '@/services/api';
 import { sendChat, socket } from '@/services/socket/socket';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -56,8 +56,11 @@ const Chat = () => {
         score: null,
       });
       setInputs({ chat: '' });
-      if (chat !== inputs.chat && user.provider === 'waktaverse.games') {
-        const achieves = await updateStat('FILTER');
+      if (chat !== inputs.chat) {
+        const achieves =
+          user.provider === 'waktaverse.games'
+            ? await updateStat('FILTER')
+            : await updateStatLocal('FILTER');
         if (achieves) dispatch(setAchieve(achieves));
       }
     }

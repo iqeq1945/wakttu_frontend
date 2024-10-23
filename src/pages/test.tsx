@@ -1,31 +1,12 @@
 import { setAchieve } from '@/redux/achieve/achieveSlice';
+import { updatePlayCountLocal } from '@/services/api';
 import { useDispatch } from 'react-redux';
 
 const Test = () => {
   const dispatch = useDispatch();
   const click = async () => {
-    dispatch(
-      setAchieve([
-        {
-          id: '',
-          name: '아녕',
-          desc: '안녕클레오파트라',
-          img: 'flflfl',
-          regDate: 111111122,
-          statId: 'LAST',
-          targetStatVal: 10,
-        },
-        {
-          id: '',
-          name: '룩삼',
-          desc: '안녕클레오파트라',
-          img: 'flflfl',
-          regDate: 111111122,
-          statId: 'LAST',
-          targetStatVal: 10,
-        },
-      ])
-    );
+    const achieves = await updatePlayCountLocal(0);
+    if (achieves) dispatch(setAchieve(achieves));
   };
 
   return <div onClick={click}>hihi</div>;

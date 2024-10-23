@@ -45,7 +45,7 @@ const AchieveInfo = ({ achieve }: Props) => {
     }
   };
 
-  if (achieve.hidden) {
+  if (achieve.hidden && !achieve.got) {
     return (
       <LeftWrapper>
         <TitleSection>

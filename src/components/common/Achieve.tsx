@@ -1,5 +1,5 @@
 import { AchieveState } from '@/redux/achieve/achieveSlice';
-import { getR2URL, getWAKURL } from '@/services/api';
+import { getAchieveURL } from '@/services/api';
 import {
   Badge,
   CAchieve,
@@ -14,14 +14,13 @@ interface Props {
 }
 
 const Achieve = ({ achieves }: Props) => {
-  console.log(achieves);
   return (
     <>
       {achieves.map((achieve: AchieveState, idx: number) => {
         return (
           <CAchieve idx={idx} key={achieve.id}>
             <Content>
-              <Badge src={getWAKURL(achieve.img)} />
+              <Badge src={getAchieveURL(achieve.id)} />
               <Info>
                 <Name>{achieve.name}</Name>
                 <Desc>{achieve.desc}</Desc>
