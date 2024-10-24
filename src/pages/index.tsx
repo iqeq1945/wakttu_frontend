@@ -7,9 +7,11 @@ import { selectModal } from '@/redux/modal/modalSlice';
 import MainFormContainer from '@/containers/main/MainForm';
 import { Container } from '@/styles/common/Layout';
 import { Wrapper } from '@/styles/main/Layout';
+import WakttuInfo from '@/components/main/Info';
 
 const Main = () => {
   const modal = useSelector(selectModal);
+
   return (
     <>
       {modal.open ? (
@@ -20,6 +22,7 @@ const Main = () => {
           <Wrapper>
             <MainFormContainer />
           </Wrapper>
+          <WakttuInfo />
         </Container>
       )}
     </>

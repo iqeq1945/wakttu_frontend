@@ -20,10 +20,12 @@ import {
   CLeft,
   MissionText,
   CRight,
+  Logo,
 } from '@/styles/last/Game';
 import { RefObject } from 'react';
-import WordErrorEffect from './WordErrorEffect';
-import WordEffect from './WordEffect';
+import WordErrorEffect from '../WordErrorEffect';
+import WordEffect from '../WordEffect';
+import { getR2URL } from '@/services/api';
 
 interface Props {
   history: any[];
@@ -39,8 +41,8 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
     if (res !== game.target && res !== '') return `(${res})`;
     else return '';
   };
-  {
-    /** const scrollToBottom = useCallback(() => {
+
+  /** const scrollToBottom = useCallback(() => {
     if (historyBoxRef.current) {
       historyBoxRef.current.scrollTop = historyBoxRef.current.scrollHeight;
     }
@@ -49,24 +51,23 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
   useEffect(() => {
     scrollToBottom();
   }, [history, scrollToBottom]);*/
-  }
 
   return (
     <CMain>
       <CLeft>
-        <Left src="/assets/game/blinker.svg" />
+        <Left src={getR2URL('/assets/game/blinker.svg')} />
         <Light
-          src="assets/game/red.svg"
+          src={getR2URL('/assets/game/red.svg')}
           top="4.6rem"
           onLight={answer.success === false}
         />
         <Light
-          src="assets/game/yellow.svg"
+          src={getR2URL('/assets/game/yellow.svg')}
           top="8.25rem"
           onLight={answer.success === undefined}
         />
         <Light
-          src="assets/game/green.svg"
+          src={getR2URL('/assets/game/green.svg')}
           top="11.8rem"
           onLight={answer.success}
         />
@@ -75,19 +76,19 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
       <Main>
         <CTrain>
           <CWord>
-            <WordText>끝말잇기!</WordText>
+            <Logo src={getR2URL('/assets/game/last-logo.svg')} />
           </CWord>
           <SWheel
-            src="/assets/game/wheel.svg"
+            src={getR2URL('/assets/game/wheel.svg')}
             $rotate={answer.success === true}
           />
           <BWheel
-            src="/assets/game/wheel.svg"
+            src={getR2URL('/assets/game/wheel.svg')}
             left="9.8rem"
             $rotate={answer.success === true}
           />
           <BWheel
-            src="/assets/game/wheel.svg"
+            src={getR2URL('/assets/game/wheel.svg')}
             left="16.8rem"
             $rotate={answer.success === true}
           />
@@ -98,19 +99,17 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
               <WordEffect word={history[history.length - 1].id} />
             </WordText>
             <CDesc>
-              <Category>
-                <span>{history[history.length - 1].type[0]}</span>
-              </Category>
+              <Category>{history[history.length - 1].type[0]}</Category>
               <Desc>{history[history.length - 1].mean}</Desc>
             </CDesc>
           </CWordC>
           <BWheel
-            src="/assets/game/wheel.svg"
+            src={getR2URL('/assets/game/wheel.svg')}
             left="1.2rem"
             $rotate={answer.success === true}
           />
           <BWheel
-            src="/assets/game/wheel.svg"
+            src={getR2URL('/assets/game/wheel.svg')}
             left="12.5rem"
             $rotate={answer.success === true}
           />
@@ -133,19 +132,19 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
             </CDesc>
           </CWordC>
           <BWheel
-            src="/assets/game/wheel.svg"
+            src={getR2URL('/assets/game/wheel.svg')}
             left="1.2rem"
             $rotate={answer.success === true}
           />
           <BWheel
-            src="/assets/game/wheel.svg"
+            src={getR2URL('/assets/game/wheel.svg')}
             left="12.5rem"
             $rotate={answer.success === true}
           />
         </CCargo>
       </Main>
       <CRight>
-        <Right src="/assets/game/mission.svg" />
+        <Right src={getR2URL('/assets/game/mission.svg')} />
         <MissionText>{game.mission}</MissionText>
       </CRight>
     </CMain>

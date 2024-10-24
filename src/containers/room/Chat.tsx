@@ -1,11 +1,16 @@
 import { ChatBox } from '@/components';
+import useEffectSound from '@/hooks/useEffectSound';
 import useInput from '@/hooks/useInput';
 import { getTime } from '@/modules/Date';
 import { clean } from '@/modules/Slang';
+import { setAchieve } from '@/redux/achieve/achieveSlice';
+import { selectEffectVolume } from '@/redux/audio/audioSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
+import { selectUserInfo } from '@/redux/user/userSlice';
+import { updateStat, updateStatLocal } from '@/services/api';
 import { sendChat, socket } from '@/services/socket/socket';
-import { useEffect, useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState, useRef, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface InputProps {
   chat: string;
@@ -18,6 +23,13 @@ export interface LogProps {
 }
 
 const Chat = () => {
+  const user = useSelector(selectUserInfo);
+  const dispatch = useDispatch();
+  const effectVolume = useSelector(selectEffectVolume);
+  const logSound = useEffectSound(
+    '/assets/sound-effects/lossy/ui_click.webm',
+    effectVolume
+  );
   const roomId = useSelector(selectRoomId) as string;
   const [log, setLog] = useState<LogProps[]>([]);
   const { inputs, setInputs, onInputChange } = useInput<InputProps>({
@@ -27,18 +39,33 @@ const Chat = () => {
   const chatBoxRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const onSendMessage = () => {
+  const playSound = useCallback(() => {
+    if (logSound) {
+      if (logSound.playing()) logSound.stop();
+      logSound.play();
+    }
+  }, [logSound]);
+
+  const onSendMessage = useCallback(async () => {
     if (inputs.chat) {
+      const chat = clean(inputs.chat);
       sendChat({
         roomId,
-        chat: clean(inputs.chat),
+        chat: chat,
         roundTime: null,
         score: null,
       });
+      setInputs({ chat: '' });
+      if (chat !== inputs.chat) {
+        const achieves =
+          user.provider === 'waktaverse.games'
+            ? await updateStat('FILTER')
+            : await updateStatLocal('FILTER');
+        if (achieves) dispatch(setAchieve(achieves));
+      }
     }
-    setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
-  };
+  }, [dispatch, inputs.chat, roomId, setInputs, user.provider]);
 
   useEffect(() => {
     socket.on('alarm', (data) => {
@@ -54,11 +81,12 @@ const Chat = () => {
     socket.on('chat', (data) => {
       data.date = getTime();
       setLog((prev) => [...prev, data]);
+      playSound();
     });
     return () => {
       socket.off('chat');
     };
-  }, [log]);
+  }, [log, playSound]);
 
   return (
     <ChatBox

@@ -1,4 +1,5 @@
-import { getUserDesc } from '@/modules/UserInfo';
+import { getCharacter, getUserDesc } from '@/modules/UserInfo';
+import { getR2URL } from '@/services/api';
 import {
   CPlayerInfo,
   PlayerProfile,
@@ -11,18 +12,15 @@ import {
   LevelInfo,
   WrapText,
   LevelText,
-  WrapCoin,
-  Wallet,
-  Coin,
   GaugeBar,
 } from '@/styles/roomList/PlayerInfo';
+import Character from '../common/Character';
 
 const PlayerInfo = ({ user }: any) => {
   const { icon, level, exp } = getUserDesc(user.score, user.provider);
-
   return (
     <CPlayerInfo>
-      <PlayerProfile src="/assets/player-profile.png" />
+      <Character character={user.character} />
       <Info>
         <WrapPlayerName>
           <PlayerIcon src={icon} />

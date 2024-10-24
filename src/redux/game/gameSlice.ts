@@ -22,6 +22,9 @@ const initialState: Game = {
   roundTime: 0,
   turnTime: 0,
   mission: undefined,
+  ban: [],
+  team: { woo: [], gomem: [], academy: [], isedol: [] },
+  quiz: undefined,
 };
 
 export const gameSlice = createSlice({
@@ -48,10 +51,11 @@ export const selectHost = (state: { game: Game }) => state.game.host;
 export const selectWhoisTurn = (state: { game: Game }) => {
   const users = state.game.users;
   const turn = state.game.turn;
-  if (users.length > 0) {
+  if (users.length > 0 && users.length > turn) {
     return users[turn].name;
   }
   return '';
 };
+export const selectTeam = (state: { game: Game }) => state.game.team;
 
 export default gameSlice.reducer;

@@ -44,7 +44,8 @@ const CreateIcon = styled.img`
 const CreateLabel = styled.h5`
   color: ${COLORS.text};
 
-  font-family: 'WantedSans-Semibold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 const CCreate = styled.div`
@@ -64,7 +65,8 @@ const CLabel = styled.span`
   white-space: nowrap;
   ${COLORS.text}
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-2']};
 `;
 
@@ -81,7 +83,8 @@ const CInput = styled.input`
 
   color: ${COLORS['gray-2']};
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-1']};
 `;
 
@@ -136,7 +139,8 @@ const DropdownItem = styled.li`
   text-align: left;
   color: ${COLORS.text};
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-1']};
 
   cursor: pointer;
@@ -161,11 +165,63 @@ const DropdownLine = styled.img<{ isopen: boolean }>`
   transition: transform 0.3s ease;
 `;
 
-const Selected = styled.span`
+interface SelectedProps {
+  tooltip?: string;
+}
+
+const Selected = styled.span<SelectedProps>`
   color: ${COLORS.text};
 
-  font-family: 'WantedSans-Medium';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: ${FONT_SIZES['body-1']};
+  
+  position: relative;
+  cursor: ${(props) => (props.tooltip ? 'pointer' : 'default')}; /* tooltip이 있을 때만 포인터 */
+
+  ${(props) =>
+    props.tooltip &&
+    `
+    &:hover::after {
+      content: '${props.tooltip}';
+      visibility: visible;
+      opacity: 1;
+      position: absolute;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      bottom: 150%; /* 툴팁이 위에 표시되도록 */
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      white-space: nowrap;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    /* 화살표 추가 */
+    &:hover::before {
+      content: ''; /* 화살표 */
+      position: absolute;
+      bottom: 100%; /* 툴팁 바로 아래에 화살표 */
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: black transparent transparent transparent;
+      z-index: 1;
+      visibility: visible;
+      opacity: 1;
+    }
+
+    &:hover::after, &:hover::before {
+      visibility: visible;
+      opacity: 1;
+    }
+  `}
 `;
 
 const CButton = styled.div`
@@ -215,9 +271,9 @@ const CancleButton = styled.button`
 const ButtonText = styled.span<{ $color?: boolean }>`
   color: ${({ $color }) => ($color ? COLORS['gray-1'] : COLORS.bg)};
   text-align: center;
-  font-family: 'WantedSans-SemiBold';
-  font-size: ${FONT_SIZES['subtitle-1']};
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-weight: 600;
+  font-size: ${FONT_SIZES['subtitle-1']};
 `;
 
 export {

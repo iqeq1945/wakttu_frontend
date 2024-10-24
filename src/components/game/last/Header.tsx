@@ -1,3 +1,4 @@
+import { R2_URL } from '@/services/api';
 import { Room } from '@/services/socket/socket';
 import {
   Button,
@@ -13,18 +14,18 @@ import {
 
 interface Props {
   roomInfo: Room;
+  exit: () => void;
 }
 
-const Header = ({ roomInfo }: Props) => {
+const Header = ({ roomInfo, exit }: Props) => {
   return (
     <CHeader>
       <CButton>
+        {/*
         <Button>
           <ButtonText>사전</ButtonText>
         </Button>
-        <Button>
-          <ButtonText>방설정</ButtonText>
-        </Button>
+        */}
         <Button>
           <ButtonText>도움말</ButtonText>
         </Button>
@@ -34,9 +35,9 @@ const Header = ({ roomInfo }: Props) => {
         <Title>{roomInfo.title}</Title>
       </CTitle>
       <CButton>
-        <ExitButton>
+        <ExitButton onClick={exit}>
           <ButtonText>나가기</ButtonText>
-          <ExitIcon src="/assets/icons/game-exit.svg" />
+          <ExitIcon src={R2_URL + '/assets/game/game-exit.svg'} />
         </ExitButton>
       </CButton>
     </CHeader>

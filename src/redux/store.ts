@@ -9,6 +9,9 @@ import gameReducer from './game/gameSlice';
 import answerReducer from './answer/answerSlice';
 import timerReducer from './timer/timerSlice';
 import historyReducer from './history/historySlice';
+import audioReducer from './audio/audioSlice';
+import resultReducer from './result/resultSlice';
+import achieveReducer from './achieve/achieveSlice';
 
 export interface RootState {
   user: ReturnType<typeof userReducer>;
@@ -19,6 +22,9 @@ export interface RootState {
   answer: ReturnType<typeof answerReducer>;
   timer: ReturnType<typeof timerReducer>;
   history: ReturnType<typeof historyReducer>;
+  audio: ReturnType<typeof audioReducer>;
+  result: ReturnType<typeof resultReducer>;
+  achieve: ReturnType<typeof achieveReducer>;
 }
 
 const reducers = combineReducers({
@@ -30,12 +36,15 @@ const reducers = combineReducers({
   answer: answerReducer,
   timer: timerReducer,
   history: historyReducer,
+  audio: audioReducer,
+  result: resultReducer,
+  achieve: achieveReducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user'],
+  whitelist: ['user', 'audio'],
   blacklist: [
     'modal',
     'roomInfo',
@@ -44,6 +53,8 @@ const persistConfig = {
     'answer',
     'timer',
     'history',
+    'result',
+    'achieve',
   ],
 };
 

@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import { COLORS, FONT_SIZES } from '../theme';
+import { R2_URL } from '@/services/api';
 
 const rotate = keyframes`
  from {
@@ -61,7 +62,8 @@ export const MissionText = styled.h2`
 
   color: ${COLORS.text};
   text-align: center;
-  font-family: 'WantedSans-Bold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 export const Main = styled.div`
@@ -88,7 +90,7 @@ export const CTrain = styled.div`
   height: 20.1875rem;
   flex-shrink: 0;
 
-  background-image: url('/assets/game/train.svg');
+  background-image: url(${R2_URL}/assets/game/train.svg);
   background-repeat: no-repeat;
   background-size: cover;
 `;
@@ -100,7 +102,9 @@ export const SWheel = styled.img<{ $rotate?: boolean }>`
   bottom: 0.3rem;
 
   transition: ${({ $rotate }) =>
-    $rotate ? 'transform 2s ease-in-out 0.5s' : 'transform 0 ease-in-out 0.5s'};
+    $rotate
+      ? 'transform 1.5s ease-in-out 0.5s'
+      : 'transform 0 ease-in-out 0.5s'};
 
   ${({ $rotate }) => {
     return $rotate ? 'transform : rotate(-360deg)' : '';
@@ -129,7 +133,7 @@ export const CCargo = styled.div`
   height: 15.4375rem;
   flex-shrink: 0;
 
-  background-image: url('/assets/game/cargo.svg');
+  background-image: url(${R2_URL}/assets/game/cargo.svg);
   background-repeat: no-repeat;
   background-size: cover;
 `;
@@ -154,18 +158,22 @@ export const CWordC = styled(CWord)`
   margin: 2.19rem 1.56rem 6.44rem 1.56rem;
 `;
 
+export const Logo = styled.img`
+  width: 12rem;
+  height: 7.25rem;
+  border-radius: 0.625rem;
+`;
+
 export const WordText = styled.h3`
+  position: relative;
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 2rem;
+  height: 2.2rem;
   color: ${COLORS.text};
-  overflow: hidden;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 export const CDesc = styled.div`
@@ -178,21 +186,18 @@ export const CDesc = styled.div`
 
 export const Category = styled.div`
   display: flex;
+  width: 1rem;
+  height: 1rem;
   align-items: center;
+  justify-content: center;
   border-radius: 12.5rem;
   background: ${COLORS.pupple};
 
-  & > span {
-    width: 1rem;
-    height: 1rem;
-    color: ${COLORS.bg};
-    text-align: center;
-    font-family: 'Wanted Sans';
-    font-size: 0.625rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
+  color: ${COLORS.bg};
+  text-align: center;
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.625rem;
 `;
 
 export const Desc = styled.span`
@@ -215,7 +220,8 @@ export const NameText = styled.span<{ $name?: boolean }>`
   }};
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
   font-size: ${FONT_SIZES['subtitle-1']};
 `;
 

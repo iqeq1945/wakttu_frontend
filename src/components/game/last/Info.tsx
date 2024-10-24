@@ -1,3 +1,4 @@
+import { getR2URL } from '@/services/api';
 import { Game } from '@/services/socket/socket';
 import {
   BChainText,
@@ -58,7 +59,7 @@ const Info = ({ game, pause, timer, keyword }: Props) => {
           <CTimer>
             <TimerItem>
               <LeftTimer>
-                <TimerIcon src="/assets/game/timer.svg" />
+                <TimerIcon src={getR2URL('/assets/game/timer.svg')} />
                 <TimerText>라운드 남은 시간</TimerText>
               </LeftTimer>
               <RightTimer>
@@ -76,7 +77,7 @@ const Info = ({ game, pause, timer, keyword }: Props) => {
             </TimerItem>
             <TimerItem>
               <LeftTimer>
-                <TimerIcon src="/assets/game/timer.svg" />
+                <TimerIcon src={getR2URL('/assets/game/timer.svg')} />
                 <TimerText>이번턴 남은 시간</TimerText>
               </LeftTimer>
               <RightTimer>

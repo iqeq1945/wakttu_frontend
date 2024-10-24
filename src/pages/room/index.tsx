@@ -7,24 +7,49 @@ import Chat from '@/containers/room/Chat';
 import Ready from '@/containers/room/Ready';
 import PlayerList from '@/containers/room/PlyaerList';
 import RoomDesc from '@/containers/room/RoomDesc';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectModal } from '@/redux/modal/modalSlice';
 import UpdateRoom from '@/containers/room/UpdateRoom';
 import KickModal from '@/containers/room/KickModal';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { socket } from '@/services/socket/socket';
+import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
+import { setGame } from '@/redux/game/gameSlice';
+import { selectBgmVolume } from '@/redux/audio/audioSlice';
+import useSound from '@/hooks/useSound';
+import Result from '@/containers/room/Result';
+import ChangeHost from '@/containers/room/HostModal';
 
 const Room = () => {
   const modal = useSelector(selectModal);
   const router = useRouter();
+  const dispatch = useDispatch();
+  const roomInfo = useSelector(selectRoomInfo);
+  const bgmVolume = useSelector(selectBgmVolume);
+  const sound = useSound('/assets/bgm/lossy/ui_main.webm', bgmVolume, 0, true);
 
   useEffect(() => {
-    if (!socket.connected) {
-      router.push('/');
-      return;
-    }
+    if (!socket.connected) router.push('/');
   }, [router]);
+
+  useEffect(() => {
+    if (sound) sound.play();
+  }, [sound]);
+
+  useEffect(() => {
+    if (roomInfo.start) {
+      socket.emit('start', roomInfo.id);
+    }
+
+    socket.on('start', (data) => {
+      const { roomInfo, game } = data;
+      dispatch(setRoomInfo(roomInfo));
+      dispatch(setGame(game));
+    });
+
+    return;
+  }, [dispatch, roomInfo.id, roomInfo.start]);
 
   return (
     <Container>
@@ -47,8 +72,10 @@ const Room = () => {
           <Chat />
         </RightWrapper>
       </WrapRoom>
+      {modal.modalType === 'CHANGE_HOST' && modal.open && <ChangeHost />}
       {modal.modalType === 'UPDATE_ROOM' && modal.open && <UpdateRoom />}
       {modal.modalType === 'KICK' && modal.open && <KickModal />}
+      {modal.modalType === 'RESULT' && modal.open && <Result />}
     </Container>
   );
 };

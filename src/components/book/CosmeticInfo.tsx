@@ -1,3 +1,4 @@
+import { getR2URL, R2_URL } from '@/services/api';
 import {
   CosmeticImage,
   GetButton,
@@ -10,43 +11,64 @@ import {
   TitleSection,
   Wrap,
 } from '@/styles/book/CosmeticInfo';
-import { CosmeticBackground } from '@/styles/book/CosmeticType';
-import { LeftWrapper } from '@/styles/book/MypageForm';
+import {
+  CosmeticBackground,
+  CosmeticStyles,
+  CosmeticVariant,
+} from '@/styles/book/CosmeticType';
+import { LeftWrapper } from '@/styles/book/BookForm';
+import { ITEM } from '@/containers/book/Cosmetic';
+import { AchieveState } from '@/redux/achieve/achieveSlice';
 
-const CosmeticInfo = () => {
+interface Props {
+  info: ITEM;
+  isMine: boolean;
+  onClick: () => void;
+}
+
+const CosmeticInfo = ({ info, isMine, onClick }: Props) => {
   return (
     <LeftWrapper>
       <TitleSection>
-        <Tag $itemType="skin">스킨</Tag>
-        <Title>이름</Title>
+        <Tag $itemType={info.category as CosmeticVariant}>
+          {CosmeticStyles[info.category as CosmeticVariant].name}
+        </Tag>
+        <Title>{info.name}</Title>
       </TitleSection>
 
       <InfoSection>
         <InfoTop>
-          <CosmeticBackground $itemType="skin"></CosmeticBackground>
-          <CosmeticImage src="/assets/ipali.png" />
+          <CosmeticBackground
+            $itemType={info.category as CosmeticVariant}
+          ></CosmeticBackground>
+          <CosmeticImage
+            item={info.category}
+            id={info.id}
+            src={getR2URL(info.url)}
+          />
         </InfoTop>
 
         <InfoBottom>
           <Wrap>
             <Info $variant="title">제작자</Info>
-            <Info $variant="content">제작자명</Info>
+            <Info $variant="content">{info.author}</Info>
           </Wrap>
           <Wrap>
             <Info $variant="title">스킨 설명</Info>
-            <Info $variant="content">
-              스킨에 대해서 대략 두 줄 정도 이렇게 설명이 들어가면 되겠죠
-            </Info>
+            <Info $variant="content">{info.description}</Info>
           </Wrap>
           <Wrap>
             <Info $variant="title">획득조건</Info>
-            <Info $variant="content">
-              여기에 이렇게 획득 조건이 들어가게 되겠죠
-            </Info>
+            <Info $variant="content">{info.hint}</Info>
           </Wrap>
         </InfoBottom>
       </InfoSection>
-      <GetButton $itemType="skin">획득하기</GetButton>
+      <GetButton
+        $itemType={info.category as CosmeticVariant}
+        onClick={isMine ? onClick : undefined}
+      >
+        {isMine ? '획득하기' : '획득불가'}
+      </GetButton>
     </LeftWrapper>
   );
 };

@@ -1,4 +1,4 @@
-import { closeModal } from '@/redux/modal/modalSlice';
+import { getR2URL, R2_URL } from '@/services/api';
 import {
   SelectOption,
   Wrap,
@@ -16,26 +16,40 @@ import {
   ItemImage,
   WrapFlex,
 } from '@/styles/book/CosmeticList';
-import { CosmeticBackground } from '@/styles/book/CosmeticType';
-import { RightWrapper } from '@/styles/book/MypageForm';
+import {
+  CosmeticBackground,
+  CosmeticStyles,
+  CosmeticType,
+  CosmeticVariant,
+} from '@/styles/book/CosmeticType';
+import { RightWrapper } from '@/styles/book/BookForm';
 import { RefObject } from 'react';
+import Router from 'next/router';
 
 interface Props {
+  dataset: any;
   isOpen: boolean;
   dropDownRef: RefObject<HTMLDivElement>;
-  selectedOption: string;
-  options: any;
+  selectedOption: { category: string; name: string };
   toggleDropdown: () => void;
-  handleOptionClick: (option: string) => void;
+  handleOptionClick: ({
+    category,
+    name,
+  }: {
+    category: string;
+    name: string;
+  }) => void;
   handleLeaveClick: () => void;
+  handleInfoClick: (e: any) => void;
 }
 
 const CosmeticList = ({
+  dataset,
   isOpen,
   dropDownRef,
   toggleDropdown,
-  options,
   selectedOption,
+  handleInfoClick,
   handleOptionClick,
   handleLeaveClick,
 }: Props) => {
@@ -46,89 +60,57 @@ const CosmeticList = ({
           <WrapFlex>
             <DropdownSelect ref={dropDownRef} isOpen={isOpen}>
               <SelectOption onClick={toggleDropdown}>
-                <DropdownText>{selectedOption}</DropdownText>
+                <DropdownText>{selectedOption.name}</DropdownText>
                 <DropdownImage
                   isOpen={isOpen}
-                  src="/assets/icons//down-line.svg"
+                  src={R2_URL + '/assets/icons/down-line.svg'}
                 />
               </SelectOption>
               <DropdownWrapper>
-                {options
-                  .filter((option: string) => option !== selectedOption)
-                  .map((option: string) => (
-                    <DropdownOption
-                      key={option}
-                      onClick={() => handleOptionClick(option)}
-                    >
-                      {option}
-                    </DropdownOption>
-                  ))}
+                {Object.entries(CosmeticStyles).map(([key, values]) => (
+                  <DropdownOption
+                    key={key}
+                    onClick={() =>
+                      handleOptionClick({ category: key, name: values.name })
+                    }
+                  >
+                    {values.name}
+                  </DropdownOption>
+                ))}
               </DropdownWrapper>
             </DropdownSelect>
 
             <Leave onClick={handleLeaveClick}>
-              <LeaveText>나가기</LeaveText>
-              <LeaveIcon src="/assets/icons//right-line.svg" />
+              <LeaveText onClick={() => Router.push('/roomlist')}>
+                나가기
+              </LeaveText>
+              <LeaveIcon src={R2_URL + '/assets/icons/right-line.svg'} />
             </Leave>
           </WrapFlex>
         </Wrap>
       </TopBar>
 
       <ListContainer>
-        {/* {dataset.map(data => (
-          <Item key={data.#}>
-            <CosmeticBackground $itemType={data.#}></CosmeticBackground>
-            <ItemImage src={data.img} />
-          </Item>
-        ))} */}
-        <Item>
-          <CosmeticBackground $itemType="skin"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
-        </Item>
-        <Item>
-          <CosmeticBackground $itemType="skin"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
-        </Item>
-        <Item>
-          <CosmeticBackground $itemType="skin"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
-        </Item>
-        <Item>
-          <CosmeticBackground $itemType="head"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
-        </Item>
-        <Item>
-          <CosmeticBackground $itemType="head"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
-        </Item>
-        <Item>
-          <CosmeticBackground $itemType="hand"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
-        </Item>
-        <Item>
-          <CosmeticBackground $itemType="hand"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
-        </Item>
-        <Item>
-          <CosmeticBackground $itemType="eye"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
-        </Item>
-        <Item>
-          <CosmeticBackground $itemType="eye"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
-        </Item>
-        <Item>
-          <CosmeticBackground $itemType="eye"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
-        </Item>
-        <Item>
-          <CosmeticBackground $itemType="eye"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
-        </Item>
-        <Item>
-          <CosmeticBackground $itemType="eye"></CosmeticBackground>
-          <ItemImage src="/assets/ipali.png" />
-        </Item>
+        {dataset
+          .filter((data: any) =>
+            selectedOption.category === 'all'
+              ? true
+              : data.category === selectedOption.category
+          )
+          .map(
+            (data: { id: string; category: CosmeticVariant; url: string }) => (
+              <Item key={data.id} data-id={data.id} onClick={handleInfoClick}>
+                <CosmeticBackground
+                  $itemType={data.category}
+                ></CosmeticBackground>
+                <ItemImage
+                  item={data.category}
+                  id={data.id}
+                  src={getR2URL(data.url)}
+                />
+              </Item>
+            )
+          )}
       </ListContainer>
     </RightWrapper>
   );

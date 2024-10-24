@@ -1,6 +1,8 @@
 import { CreateRoom as CCreateRoom } from '@/components';
+import { cleanTitle } from '@/modules/Slang';
 import { closeModal, selectModal } from '@/redux/modal/modalSlice';
 import { createRoom } from '@/services/socket/socket';
+import { prepareAutoBatched } from '@reduxjs/toolkit';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -41,8 +43,8 @@ const CreateRoom = () => {
     const { name, value, type } = e.target;
     if (type === 'number') {
       let onlyNumber = parseInt(value, 10);
-      if (Number.isNaN(onlyNumber) || onlyNumber < 2 || onlyNumber > 8)
-        onlyNumber = 8;
+      if (Number.isNaN(onlyNumber) || onlyNumber < 2 || onlyNumber > 30)
+        onlyNumber = 10;
       setRoom((prev) => {
         return { ...prev, [name]: onlyNumber };
       });
@@ -65,6 +67,10 @@ const CreateRoom = () => {
       setRoom((prev) => {
         return { ...prev, option: copy };
       });
+    } else if (name === 'type') {
+      setRoom((prev) => {
+        return { ...prev, [name]: value, round: value === 2 ? 10 : 6 };
+      });
     } else {
       setRoom((prev) => {
         return { ...prev, [name]: value };
@@ -78,7 +84,11 @@ const CreateRoom = () => {
 
   const onCreate = () => {
     dispatch(closeModal());
-    createRoom(room);
+    let roomInfo = {
+      ...room,
+      title: cleanTitle(room.title),
+    };
+    createRoom(roomInfo);
   };
 
   useEffect(() => {

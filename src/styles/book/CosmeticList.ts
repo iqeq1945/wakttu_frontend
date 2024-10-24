@@ -1,7 +1,7 @@
-import styled, { css } from "styled-components";
-import { COLORS } from "@/styles/theme";
-import { scrollbarStyles } from "./Scrollbar";
-import { BackgroundImage } from "./CosmeticType";
+import styled, { css } from 'styled-components';
+import { COLORS } from '@/styles/theme';
+import { scrollbarStyles } from './Scrollbar';
+import { BackgroundImage, CosmeticType } from './CosmeticType';
 
 export type Variant = 'block' | 'none';
 
@@ -29,8 +29,8 @@ const DropdownSelect = styled.div<{ isOpen: boolean }>`
 
   width: 12.625rem;
   max-height: ${({ isOpen }) => (isOpen ? '15rem' : '2.75rem')};
-  
-  border: 1px solid ${COLORS["gray-4"]};
+
+  border: 1px solid ${COLORS['gray-4']};
   border-radius: 0.5rem;
   background-color: #fff;
 
@@ -48,6 +48,7 @@ const SelectOption = styled.div`
 `;
 
 const DropdownText = styled.div`
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-weight: 600;
   color: ${COLORS.text};
 `;
@@ -72,11 +73,13 @@ const DropdownWrapper = styled.div`
 const DropdownOption = styled.div`
   height: 2.75rem;
   padding: 10px 1rem;
-  color: ${COLORS["gray-2"]};
+  color: ${COLORS['gray-2']};
   cursor: pointer;
-  
+
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+
   &:hover {
-    background-color: ${COLORS["gray-4"]};
+    background-color: ${COLORS['gray-4']};
   }
 `;
 
@@ -89,8 +92,9 @@ const Leave = styled.div`
 `;
 
 const LeaveText = styled.div`
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-size: 1.125rem;
-  color: ${COLORS["gray-3"]};
+  color: ${COLORS['gray-3']};
 `;
 
 const LeaveIcon = styled.img`
@@ -100,9 +104,10 @@ const LeaveIcon = styled.img`
 
 const ListContainer = styled.div`
   display: flex;
+  width: 100%;
   flex-wrap: wrap;
   overflow-y: scroll;
-  
+
   padding-bottom: 2rem;
   gap: 2rem;
 
@@ -119,7 +124,7 @@ const Item = styled.div`
   width: 10rem;
   height: 10rem;
 
-  border: 1px solid ${COLORS["gray-4"]};
+  border: 1px solid ${COLORS['gray-4']};
   border-radius: 1rem;
   box-sizing: border-box;
 
@@ -127,10 +132,38 @@ const Item = styled.div`
   cursor: pointer;
 `;
 
-const ItemImage = styled.img`
+const ItemImage = styled.img<{ item: string; id?: string }>`
+  position: absolute;
   z-index: 2;
-  width: 6.625rem;
-  height: 6.625rem;
+  width: ${({ item }) => {
+    switch (item) {
+      case 'hand': {
+        return '13rem';
+      }
+      default:
+        return '6.625rem';
+    }
+  }};
+  height: ${({ item }) => {
+    switch (item) {
+      case 'hand': {
+        return '13rem';
+      }
+      default:
+        return '6.625rem';
+    }
+  }};
+
+  ${({ item, id }) => {
+    switch (item) {
+      case 'hand': {
+        if (id === 'H-5') return '';
+        return 'left: 1rem';
+      }
+      default:
+        return '';
+    }
+  }}
 `;
 
 export {
@@ -148,5 +181,5 @@ export {
   WrapFlex,
   ListContainer,
   Item,
-  ItemImage
-}
+  ItemImage,
+};

@@ -34,9 +34,27 @@ const ExitIcon = styled.img`
 const ButtonText = styled.span`
   color: ${COLORS.bg};
 
-  font-family: 'WantedSans-SemiBold';
-  font-size: ${FONT_SIZES['subtitle-2']};
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-weight: 600;
+  font-size: ${FONT_SIZES['subtitle-2']};
+`;
+
+const ChangeButton = styled.button`
+  display: flex;
+  padding: 0.5rem 0.75rem;
+  align-items: center;
+  gap: 0.5rem;
+
+  cursor: pointer;
+
+  border-radius: 0.5rem;
+  border: none;
+  background: ${COLORS.blue};
+`;
+
+const ChangeIcon = styled.img`
+  width: 0.7012rem;
+  height: 0.75rem;
 `;
 
 const UpdateButton = styled.button`
@@ -60,6 +78,8 @@ const UpdateIcon = styled.img`
 export {
   CRoomNav,
   CButton,
+  ChangeButton,
+  ChangeIcon,
   ExitButton,
   ExitIcon,
   ButtonText,

@@ -1,17 +1,25 @@
 import { PlayerList as CPlayerList } from '@/components';
-import { selectHost, selectReadyUser, setGame } from '@/redux/game/gameSlice';
+import {
+  selectHost,
+  selectReadyUser,
+  selectTeam,
+  setGame,
+} from '@/redux/game/gameSlice';
 import { openModal, setDataModal } from '@/redux/modal/modalSlice';
 import { selectRoomUsers, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
-import { selectUserName } from '@/redux/user/userSlice';
+import { selectUserInfo } from '@/redux/user/userSlice';
 import { socket } from '@/services/socket/socket';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const PlayerList = () => {
   const users = useSelector(selectRoomUsers);
+  const me = useSelector(selectUserInfo);
   const ready = useSelector(selectReadyUser);
   const host = useSelector(selectHost);
-  const myName = useSelector(selectUserName);
+  const team = useSelector(selectTeam);
+  const router = useRouter();
   const [userList, setUserList] = useState<any[]>([]);
 
   const dispatch = useDispatch();
@@ -22,6 +30,10 @@ const PlayerList = () => {
   };
 
   useEffect(() => {
+    if (!users) {
+      router.push('/');
+      return;
+    }
     let copy = [...users];
     if (copy.length > 0) {
       const len = copy.length;
@@ -29,7 +41,7 @@ const PlayerList = () => {
     }
 
     setUserList(copy);
-  }, [users]);
+  }, [router, users]);
 
   useEffect(() => {
     socket.on('enter', (data: any) => {
@@ -40,8 +52,12 @@ const PlayerList = () => {
       }
     });
 
+    socket.on('host', (data) => {
+      dispatch(setGame(data));
+    });
     return () => {
       socket.off('enter');
+      socket.off('host');
     };
   }, [dispatch]);
 
@@ -50,8 +66,9 @@ const PlayerList = () => {
       users={userList}
       ready={ready}
       host={host}
-      name={myName as string}
+      me={me.id!}
       onKick={onKick}
+      team={team}
     />
   );
 };

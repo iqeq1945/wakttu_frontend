@@ -15,6 +15,7 @@ import {
   useCallback,
 } from 'react';
 import { LogProps } from '@/containers/roomlist/Chat';
+import { R2_URL } from '@/services/api';
 
 interface Props {
   log: LogProps[];
@@ -41,6 +42,7 @@ const ChatBox = ({
 
   const handleEnter = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.nativeEvent.isComposing) return;
       if (e.key === 'Enter') {
         onClick();
       }
@@ -77,7 +79,7 @@ const ChatBox = ({
           autoComplete="off"
         />
         <SendMessage onClick={onClick}>
-          <SendIcon src="/assets/icons/send.svg" />
+          <SendIcon src={R2_URL + '/assets/icons/send.svg'} />
         </SendMessage>
       </MessageBlock>
     </CChat>

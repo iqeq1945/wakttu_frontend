@@ -11,6 +11,10 @@ const COLORS = {
   'gray-4': '#EAEAEA',
   'gray-5': '#F7F7F7',
   pupple: '#A377FF',
+  blue: '#85E2FF',
+  red: '#FFA2A2',
+  yellow: '#FFF6A2',
+  green: '#B6ECC5',
 };
 
 const FONT_SIZES = {

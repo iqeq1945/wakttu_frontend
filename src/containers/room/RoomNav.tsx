@@ -1,12 +1,12 @@
 import { RoomNav as CRoomNav } from '@/components';
-import { selectHost, setGame } from '@/redux/game/gameSlice';
+import { clearGame, selectHost, setGame } from '@/redux/game/gameSlice';
 import { openModal } from '@/redux/modal/modalSlice';
 import {
   clearRoomInfo,
   selectRoomId,
   setRoomInfo,
 } from '@/redux/roomInfo/roomInfoSlice';
-import { selectUserName } from '@/redux/user/userSlice';
+import { selectUserInfo } from '@/redux/user/userSlice';
 import { exit, socket } from '@/services/socket/socket';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect } from 'react';
@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const RoomNav = () => {
   const roomId = useSelector(selectRoomId) as string;
-  const userName = useSelector(selectUserName);
+  const user = useSelector(selectUserInfo);
   const host = useSelector(selectHost);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -23,11 +23,17 @@ const RoomNav = () => {
     exit(roomId);
     await router.push('/roomlist');
     dispatch(clearRoomInfo());
+    dispatch(clearGame());
   }, [dispatch, roomId, router]);
 
-  const onModal = () => {
-    if (host !== userName) return;
+  const onUpdate = () => {
+    if (host !== user.id) return;
     dispatch(openModal('UPDATE_ROOM'));
+  };
+
+  const onChangeHost = () => {
+    if (host !== user.id) return;
+    dispatch(openModal('CHANGE_HOST'));
   };
 
   useEffect(() => {
@@ -48,7 +54,12 @@ const RoomNav = () => {
   }, [dispatch, onExit]);
 
   return (
-    <CRoomNav onExit={onExit} onModal={onModal} host={userName === host} />
+    <CRoomNav
+      onExit={onExit}
+      onChangeHost={onChangeHost}
+      onUpdate={onUpdate}
+      host={user.id === host}
+    />
   );
 };
 

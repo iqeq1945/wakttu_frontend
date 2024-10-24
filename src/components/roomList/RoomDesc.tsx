@@ -13,9 +13,11 @@ import {
   WatingText,
   JoinButton,
   JoinText,
+  TitleText,
 } from '@/styles/roomList/RoomDesc';
 import { RoomNumber } from '@/components';
 import { Room } from '@/services/socket/socket';
+import { getR2URL } from '@/services/api';
 
 interface Props {
   roomInfo: Room;
@@ -27,10 +29,24 @@ const RoomDesc = ({ roomInfo, onEnter }: Props) => {
     <CRoomDesc>
       <WrapRoomTitle>
         <RoomNumber number={roomInfo.idx as number} />
-        <h5>{roomInfo.title}</h5>
+        <TitleText>{roomInfo.title}</TitleText>
       </WrapRoomTitle>
       <WrapGameInfo>
-        <GameInfo src="/assets/game-info.png" />
+        {roomInfo.type === 0 ? (
+          <GameInfo src={getR2URL('/assets/game-info.png')} />
+        ) : (
+          ''
+        )}
+        {roomInfo.type === 1 ? (
+          <GameInfo src={getR2URL('/assets/game-info-2.png')} />
+        ) : (
+          ''
+        )}
+        {roomInfo.type === 2 ? (
+          <GameInfo src={getR2URL('/assets/game-info-3.png')} />
+        ) : (
+          ''
+        )}
         <RoomInfo>
           <WrapInfo>
             <Info $variant="title">플레이어</Info>
@@ -42,7 +58,7 @@ const RoomDesc = ({ roomInfo, onEnter }: Props) => {
               {roomInfo.users?.length}/{roomInfo.total}명
             </Info>
             <Info>{roomInfo.round}</Info>
-            <Info>{roomInfo.time! / 1000}초</Info>
+            <Info>{roomInfo.type === 2 ? '30' : roomInfo.time! / 1000}초</Info>
           </WrapInfo>
         </RoomInfo>
       </WrapGameInfo>
@@ -58,7 +74,7 @@ const RoomDesc = ({ roomInfo, onEnter }: Props) => {
       </WrapMod>
       {onEnter && (
         <JoinButton onClick={roomInfo.start ? undefined : onEnter}>
-          <JoinText>입장하기</JoinText>
+          <JoinText>{roomInfo.start ? '입장 불가' : '입장 하기'}</JoinText>
         </JoinButton>
       )}
     </CRoomDesc>

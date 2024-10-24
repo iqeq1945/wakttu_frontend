@@ -1,4 +1,5 @@
 import { RoomNumber } from '@/components';
+import { getR2URL } from '@/services/api';
 import { Room } from '@/services/socket/socket';
 import {
   CItem,
@@ -57,16 +58,26 @@ const List = ({ roomList, onClick, filter, onToggle }: Props) => {
                         <SemiText $color={true}>/</SemiText>
                         <SemiText>{room.total}</SemiText>
                       </RoomCount>
-                      {room.password && <Lock src="/assets/icons/lock.svg" />}
+                      {room.password && (
+                        <Lock src={getR2URL('/assets/icons/lock.svg')} />
+                      )}
                     </RoomNameCount>
                     <RoomGame>
                       <SemiText>
-                        {room.type === 0 ? '끝말잇기' : '쿵쿵따'}
+                        {room.type === 0
+                          ? '끝말잇기'
+                          : room.type === 1
+                          ? '쿵쿵따'
+                          : '왁타 골든벨'}
                       </SemiText>
                       <MediumText $color={true}>라운드</MediumText>
                       <MediumText>{room.round}</MediumText>
-                      <MediumText $color={true}>시간</MediumText>
-                      <MediumText>{room.time! / 1000}초</MediumText>
+                      {room.type !== 2 && (
+                        <>
+                          <MediumText $color={true}>시간</MediumText>
+                          <MediumText>{room.time! / 1000}초</MediumText>
+                        </>
+                      )}
                     </RoomGame>
                   </RoomInfo>
                 </Summary>

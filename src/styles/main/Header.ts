@@ -1,15 +1,35 @@
 import styled from 'styled-components';
-import { Content, HeaderBlock } from '../common/Header';
+import { COLORS } from '../theme';
 
-const MainHeaderBlock = styled(HeaderBlock)`
+const MainHeaderBlock = styled.div`
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 88rem;
+  height: 8rem;
+
+  padding: 0 2rem;
+
+  border-radius: 1rem;
   border: none;
   background: none;
 `;
 
-const MainContent = styled(Content)`
-  & > li {
-    font-family: WantedSans-Medium;
-  }
+const MainContent = styled.span`
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+
+  color: ${COLORS.text};
+  cursor: pointer;
 `;
 
-export { MainHeaderBlock, MainContent };
+const MainHeaderLogo = styled.img`
+  width: 96px;
+  height: 96px;
+  cursor: pointer;
+`;
+
+export { MainHeaderBlock, MainContent, MainHeaderLogo };

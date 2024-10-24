@@ -21,19 +21,24 @@ import { enter, socket } from '@/services/socket/socket';
 import { setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { setGame } from '@/redux/game/gameSlice';
 import { useRouter } from 'next/router';
+import useSound from '@/hooks/useSound';
+import { selectBgmVolume } from '@/redux/audio/audioSlice';
 
 const RoomList = () => {
   const modal = useSelector(selectModal);
   const [toggle, setToggle] = useState<boolean>(false);
   const dispatch = useDispatch();
   const router = useRouter();
+  const bgmVolume = useSelector(selectBgmVolume);
+  const sound = useSound('/assets/bgm/lossy/ui_main.webm', bgmVolume, 0, true);
 
   useEffect(() => {
-    if (!socket.connected) {
-      router.push('/');
-      return;
-    }
+    if (!socket.connected) router.push('/');
   }, [router]);
+
+  useEffect(() => {
+    if (sound) sound.play();
+  }, [sound]);
 
   useEffect(() => {
     socket.on('createRoom', (data) => {

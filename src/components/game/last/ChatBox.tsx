@@ -11,6 +11,7 @@ import { ChangeEventHandler, useEffect, RefObject, useCallback } from 'react';
 import { LogProps } from '@/containers/roomlist/Chat';
 import { Game } from '@/services/socket/socket';
 import { Answer } from '@/redux/answer/answerSlice';
+import { R2_URL } from '@/services/api';
 
 interface Props {
   log: LogProps[];
@@ -84,18 +85,21 @@ const ChatBox = ({
             ref={inputRef}
             name="chat"
             value={message}
-            maxLength={100}
+            maxLength={135}
             onChange={onChange}
             onKeyDown={handleEnter}
+            onPaste={(e) => {
+              e.preventDefault();
+            }}
             autoComplete="off"
           />
           {pause && myTurn ? (
             <SendMessage onClick={onAnswer}>
-              <SendIcon src="/assets/icons/send.svg" />
+              <SendIcon src={R2_URL + '/assets/icons/send.svg'} />
             </SendMessage>
           ) : (
             <SendMessage onClick={onMessage}>
-              <SendIcon src="/assets/icons/send.svg" />
+              <SendIcon src={R2_URL + '/assets/icons/send.svg'} />
             </SendMessage>
           )}
         </MessageBlock>

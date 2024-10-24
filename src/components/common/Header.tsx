@@ -6,26 +6,38 @@ import {
   Rank,
   Line,
   PlayerName,
+  Content,
 } from '@/styles/common/Header';
 import { Tab } from '@/components';
+import { getR2URL, R2_URL } from '@/services/api';
+import { getIcon } from '@/modules/UserInfo';
 
 interface Props {
   user: any;
-  goHome: () => void;
+  goRouter: (src?: string) => void;
+  onModal: () => void;
 }
 
-const Header = ({ user, goHome }: Props) => {
+const Header = ({ user, goRouter, onModal }: Props) => {
+  const icon = getIcon(user.score, user.provider);
   return (
     <HeaderBlock>
-      <HeaderLogo src="/assets/icons/logo.svg" onClick={goHome} />
+      <HeaderLogo
+        src={getR2URL('/assets/icons/small-logo.svg')}
+        onClick={() => goRouter()}
+      />
       <WrapContent>
-        <Tab menuName="방 목록" href="/roomlist" />
-        <Tab menuName="마이 페이지" href="/roomlist" />
-        <Tab menuName="사전" href="/roomlist" />
-        <Tab menuName="도감" href="/book" />
-        <Tab menuName="옵션" href="/roomlist" />
+        <Tab menuName="방 목록" goRouter={() => goRouter('/roomlist')} />
+        <Tab menuName="마이 페이지" goRouter={() => goRouter('/mypage')} />
+        <Tab menuName="사전" goRouter={() => goRouter('/dictionary')} />
+        <Tab menuName="도감" goRouter={() => goRouter('/book')} />
+        <Tab menuName="도전과제" goRouter={() => goRouter('/achieve')} />
+
+        <Content onClick={onModal}>
+          <li>옵션</li>
+        </Content>
         <Player>
-          <Rank src="/assets/icons/amoeba.svg" />
+          <Rank src={icon} />
           <Line />
           <PlayerName>{user.name}</PlayerName>
         </Player>

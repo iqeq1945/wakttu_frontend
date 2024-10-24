@@ -21,7 +21,7 @@ const CHeader = styled.div`
 
 const CButton = styled.div`
   display: inline-flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
   height: 2.5rem;
   gap: 0.625rem;
@@ -52,7 +52,8 @@ const ButtonText = styled.h5`
   color: ${COLORS.bg};
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 const ExitButton = styled.button`
@@ -63,6 +64,8 @@ const ExitButton = styled.button`
   align-items: center;
   gap: 0.625rem;
   flex-shrink: 0;
+
+  margin-left: auto;
 
   border: none;
   border-radius: 6.25rem;
@@ -91,15 +94,16 @@ const Index = styled.h5`
   color: #9d9d9d;
   text-align: center;
 
-  /* H5 - 20px - SemiBold */
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 const Title = styled.h4`
   color: ${COLORS.text};
   text-align: center;
 
-  font-family: 'WantedSans-SemiBold';
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 600;
 `;
 
 export {

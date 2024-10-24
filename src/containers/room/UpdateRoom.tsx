@@ -1,4 +1,5 @@
 import { UpdateRoom as CUpdateRoom } from '@/components';
+import { cleanTitle } from '@/modules/Slang';
 import { closeModal, selectModal } from '@/redux/modal/modalSlice';
 import { selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { Room, updateRoom } from '@/services/socket/socket';
@@ -35,8 +36,8 @@ const UpdateRoom = () => {
     const { name, value, type } = e.target;
     if (type === 'number') {
       let onlyNumber = parseInt(value, 10);
-      if (Number.isNaN(onlyNumber) || onlyNumber < 2 || onlyNumber > 8)
-        onlyNumber = 8;
+      if (Number.isNaN(onlyNumber) || onlyNumber < 2 || onlyNumber > 30)
+        onlyNumber = 10;
       setRoom((prev) => {
         return { ...prev, [name]: onlyNumber };
       });
@@ -59,6 +60,10 @@ const UpdateRoom = () => {
       setRoom((prev) => {
         return { ...prev, option: copy };
       });
+    } else if (name === 'type') {
+      setRoom((prev) => {
+        return { ...prev, [name]: value, round: value === 2 ? 10 : 6 };
+      });
     } else {
       setRoom((prev) => {
         return { ...prev, [name]: value };
@@ -72,8 +77,9 @@ const UpdateRoom = () => {
 
   const onUpdate = () => {
     dispatch(closeModal());
-    const { id, users, ...data } = room;
-    updateRoom({ roomId: id, data });
+    let { id, users, ...roomInfo } = room;
+    roomInfo.title = cleanTitle(roomInfo.title as string);
+    updateRoom({ roomId: id, data: roomInfo });
   };
 
   useEffect(() => {

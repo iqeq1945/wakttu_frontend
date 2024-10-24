@@ -11,6 +11,7 @@ import {
   CancleText,
   Container,
 } from '@/styles/roomList/PasswordModal';
+import { handleKeyDown } from '@/utils/keyboard';
 import { ChangeEvent } from 'react';
 
 interface Props {
@@ -28,6 +29,9 @@ const PasswordModal = ({
   password,
   $error,
 }: Props) => {
+
+
+
   return (
     <Modal>
       <Container>
@@ -38,6 +42,7 @@ const PasswordModal = ({
             name="password"
             value={password}
             onChange={onChange}
+            onKeyDown={handleKeyDown}
             autoComplete="off"
             $error={$error}
           />

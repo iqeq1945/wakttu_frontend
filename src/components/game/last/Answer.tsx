@@ -1,6 +1,4 @@
 import { hangulTools } from '@/modules/Hangul';
-import { selectPause } from '@/redux/answer/answerSlice';
-import { selectTimer } from '@/redux/timer/timerSlice';
 import { Game } from '@/services/socket/socket';
 import {
   BTimerBar,
@@ -20,7 +18,8 @@ import {
 } from '@/styles/last/Answer';
 import { LeftTimer, RightTimer } from '@/styles/last/Info';
 import { Answer as TypeAnswer } from '@/redux/answer/answerSlice';
-import WordErrorEffect from './WordErrorEffect';
+import WordErrorEffect from '../WordErrorEffect';
+import { R2_URL } from '@/services/api';
 
 interface Props {
   chat: string;
@@ -55,7 +54,7 @@ const Answer = ({ chat, game, timer, answer, pause }: Props) => {
         )}
         <CTimer>
           <LeftTimer>
-            <TimerIcon src="/assets/game/timer.svg" />
+            <TimerIcon src={R2_URL + '/assets/game/timer.svg'} />
             <TimerText>라운드 남은 시간</TimerText>
           </LeftTimer>
           <RightTimer>
@@ -73,7 +72,7 @@ const Answer = ({ chat, game, timer, answer, pause }: Props) => {
         </CTimer>
         <CTimer>
           <LeftTimer>
-            <TimerIcon src="/assets/game/timer.svg" />
+            <TimerIcon src={R2_URL + '/assets/game/timer.svg'} />
             <TimerText>이번턴 남은 시간</TimerText>
           </LeftTimer>
           <RightTimer>

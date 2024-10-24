@@ -6,6 +6,7 @@ export const socket = io(`${API_URL}/wakttu`, {
   autoConnect: true,
   reconnection: true,
   reconnectionAttempts: 5,
+  transports: ['websocket'],
 });
 
 export interface Chat {
@@ -13,6 +14,7 @@ export interface Chat {
   chat: string;
   roundTime: number | null;
   score: number | null;
+  success?: boolean;
 }
 
 export interface Enter {
@@ -40,6 +42,7 @@ export interface Room {
 }
 
 export interface Game {
+  ban: string[];
   host: string;
   type: number;
   round: number;
@@ -53,6 +56,8 @@ export interface Game {
   roundTime: number;
   turnTime: number;
   mission: string | undefined;
+  team: { woo: string[]; gomem: string[]; isedol: string[]; academy: string[] };
+  quiz?: { _id: string; choseong: string; hint: string[]; [x: string]: any }[];
 }
 
 export type UpdateRoom = Partial<Room>;
@@ -158,6 +163,20 @@ export const ready = (roomId: string) => {
   socket.emit('ready', roomId);
 };
 
+/**
+ * 팀선택
+ */
+
+export const selectTeam = ({
+  roomId,
+  team,
+}: {
+  roomId: string;
+  team: string;
+}) => {
+  socket.emit('team', { roomId, team });
+};
+
 /*
  * 서버에 있는 Game, RoomInfo, User 정보가져오기
  */
@@ -183,6 +202,22 @@ export const lastStart = (roomId: string) => {
  */
 export const lastRound = (roomId: string) => {
   socket.emit('last.round', roomId);
+};
+
+/**
+ *
+ * 턴시작 socket
+ */
+export const lastTurnStart = (roomId: string) => {
+  socket.emit('last.turnStart', roomId);
+};
+
+/**
+ *
+ * 턴끝 socket
+ */
+export const lastTurnEnd = (roomId: string) => {
+  socket.emit('last.turnEnd', roomId);
 };
 
 /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  *
@@ -211,4 +246,40 @@ export const kungRound = (roomId: string) => {
  */
 export const kungBan = (data: Ban) => {
   socket.emit('kung.ban', data);
+};
+
+export const kungBanStart = (roomId: string) => {
+  socket.emit('kung.banStart', roomId);
+};
+
+/**
+ *
+ * 턴시작 socket
+ */
+export const kungTurnStart = (roomId: string) => {
+  socket.emit('kung.turnStart', roomId);
+};
+
+/**
+ *
+ * 턴끝 socket
+ */
+export const kungTurnEnd = (roomId: string) => {
+  socket.emit('kung.turnEnd', roomId);
+};
+
+export const bellStart = (roomId: string) => {
+  socket.emit('bell.start', roomId);
+};
+
+export const bellRound = (roomId: string) => {
+  socket.emit('bell.round', roomId);
+};
+
+export const bellRoundStart = (roomId: string) => {
+  socket.emit('bell.roundStart', roomId);
+};
+
+export const bellRoundEnd = (roomId: string) => {
+  socket.emit('bell.roundEnd', roomId);
 };

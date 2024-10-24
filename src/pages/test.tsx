@@ -1,22 +1,40 @@
-import { useCallback, useState } from 'react';
+import { setAchieve } from '@/redux/achieve/achieveSlice';
+import {
+  clearResult,
+  selectResult,
+  setResult,
+} from '@/redux/result/resultSlice';
+import { updatePlayCountLocal, updateResultLocal } from '@/services/api';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Test = () => {
-  const count = 100;
-  const [score, setScore] = useState(0);
+  const dispatch = useDispatch();
+  const result = useSelector(selectResult);
 
-  const enter = useCallback(() => {
-    let num = count;
-    const timeId = setInterval(() => {
-      if (num <= 0) clearInterval(timeId);
-      setScore((prev) => prev + 1);
-      num -= 1;
-    }, 5);
-  }, []);
-  return (
-    <>
-      {score} <button onClick={enter}>버튼</button>
-    </>
-  );
+  const click = async () => {
+    const word = {
+      id: '징버거',
+      type: 'JINGBURGER',
+      meta: { tag: ['징버거'] },
+    };
+    dispatch(setResult({ type: 'WORD', word }));
+  };
+
+  useEffect(() => {
+    const updateResult = async () => {
+      let achieves = [];
+      const achieve_1 = await updateResultLocal(result);
+      const achieve_2 = await updatePlayCountLocal(0);
+      achieves = [...achieve_1, ...achieve_2];
+      await dispatch(setAchieve(achieves));
+    };
+    if (result.length > 0) {
+      updateResult();
+      dispatch(clearResult());
+    }
+  }, [dispatch, result]);
+  return <div onClick={click}>hihi</div>;
 };
 
 export default Test;

@@ -31,13 +31,22 @@ const textDecorationEffect = keyframes`
 
 const TypingContainer = styled.div`
   position: absolute;
+
+  z-index: 2;
   display: inherit;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
   font: inherit;
+  color: inherit;
   justify-content: center;
 `;
 
 const TypingSpan = styled.span<{ isTyped: boolean }>`
+  white-space: nowrap;
   font: inherit;
+  color: inherit;
+
   ${({ isTyped }) =>
     isTyped
       ? css`
@@ -48,8 +57,28 @@ const TypingSpan = styled.span<{ isTyped: boolean }>`
 `;
 
 const TypingWrong = styled.span`
+  width: 100%;
+  text-overflow: ellipsis;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+
   color: #ff385c;
   animation: ${textDecorationEffect} 0.7s step-end 3 forwards;
 `;
 
-export { TypingContainer, TypingSpan, TypingWrong };
+const EndText = styled.div<{ end: boolean }>`
+  position: absolute;
+
+  z-index: 1;
+  opacity: ${({ end }) => (end ? 1 : 0)};
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  white-space: nowrap;
+  font: inherit;
+  color: inherit;
+`;
+
+export { TypingContainer, TypingSpan, TypingWrong, EndText };
