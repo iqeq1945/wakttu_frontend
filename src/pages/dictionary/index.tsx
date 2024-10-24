@@ -3,6 +3,9 @@ import Header from '@/containers/common/Header';
 import MainSection from '@/components/dictionary/MainSection';
 import WordSection from '@/components/dictionary/WordSection';
 import { Container } from '@/components/dictionary/Container';
+import useSound from '@/hooks/useSound';
+import { selectBgmVolume } from '@/redux/audio/audioSlice';
+import { useSelector } from 'react-redux';
 
 const Dictionary: React.FC = () => {
   const bgmVolume = useSelector(selectBgmVolume);
