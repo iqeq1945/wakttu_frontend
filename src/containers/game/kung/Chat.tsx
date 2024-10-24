@@ -70,12 +70,15 @@ const Chat = () => {
     }
   }, [logSound]);
 
-  const isInHistory = (keyword: string) => {
-    const idx = history.findIndex((item) => item.id === keyword);
-    return idx === -1 ? true : false;
-  };
+  const isInHistory = useCallback(
+    (keyword: string) => {
+      const idx = history.findIndex((item) => item.id === keyword);
+      return idx === -1 ? true : false;
+    },
+    [history]
+  );
 
-  const onSendAnswer = () => {
+  const onSendAnswer = useCallback(() => {
     if (inputs.chat) {
       const { isValid, message } = wordRelay(
         game.target,
@@ -100,8 +103,19 @@ const Chat = () => {
     }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
-  };
-  const onSendMessage = () => {
+  }, [
+    game.chain,
+    game.target,
+    inputs.chat,
+    isInHistory,
+    roomId,
+    setInputs,
+    timer.countTime,
+    timer.roundTime,
+    timer.turnTime,
+  ]);
+
+  const onSendMessage = useCallback(() => {
     if (inputs.chat) {
       sendChat({
         roomId,
@@ -112,15 +126,18 @@ const Chat = () => {
     }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
-  };
+  }, [inputs.chat, roomId, setInputs]);
 
-  const handleEnter = (e: React.KeyboardEvent) => {
-    if (e.nativeEvent.isComposing) return;
-    if (e.key === 'Enter') {
-      if (myTurn && pause) onSendAnswer();
-      else onSendMessage();
-    }
-  };
+  const handleEnter = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.nativeEvent.isComposing) return;
+      if (e.key === 'Enter') {
+        if (myTurn && pause) onSendAnswer();
+        else onSendMessage();
+      }
+    },
+    [myTurn, onSendAnswer, onSendMessage, pause]
+  );
 
   /**
    * UseEffect Part

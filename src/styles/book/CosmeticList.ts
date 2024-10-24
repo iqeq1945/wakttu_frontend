@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { COLORS } from '@/styles/theme';
 import { scrollbarStyles } from './Scrollbar';
-import { BackgroundImage } from './CosmeticType';
+import { BackgroundImage, CosmeticType } from './CosmeticType';
 
 export type Variant = 'block' | 'none';
 
@@ -132,10 +132,38 @@ const Item = styled.div`
   cursor: pointer;
 `;
 
-const ItemImage = styled.img`
+const ItemImage = styled.img<{ item: string; id?: string }>`
+  position: absolute;
   z-index: 2;
-  width: 6.625rem;
-  height: 6.625rem;
+  width: ${({ item }) => {
+    switch (item) {
+      case 'hand': {
+        return '13rem';
+      }
+      default:
+        return '6.625rem';
+    }
+  }};
+  height: ${({ item }) => {
+    switch (item) {
+      case 'hand': {
+        return '13rem';
+      }
+      default:
+        return '6.625rem';
+    }
+  }};
+
+  ${({ item, id }) => {
+    switch (item) {
+      case 'hand': {
+        if (id === 'H-5') return '';
+        return 'left: 1rem';
+      }
+      default:
+        return '';
+    }
+  }}
 `;
 
 export {

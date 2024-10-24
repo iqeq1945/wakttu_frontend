@@ -52,8 +52,12 @@ const PlayerList = () => {
       }
     });
 
+    socket.on('host', (data) => {
+      dispatch(setGame(data));
+    });
     return () => {
       socket.off('enter');
+      socket.off('host');
     };
   }, [dispatch]);
 

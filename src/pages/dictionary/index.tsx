@@ -4,7 +4,14 @@ import MainSection from '@/components/dictionary/MainSection';
 import WordSection from '@/components/dictionary/WordSection';
 import { Container } from '@/components/dictionary/Container';
 
-const Dictionary: React.FC = () => {
+const Dictionary: React.FC<DictionaryProps> = ({ todayWord }) => {
+  const bgmVolume = useSelector(selectBgmVolume);
+  const sound = useSound('/assets/bgm/lossy/ui_main.webm', bgmVolume, 0, true);
+
+  useEffect(() => {
+    if (sound) sound.play();
+  }, [sound]);
+
   return (
     <Container>
       <Header />

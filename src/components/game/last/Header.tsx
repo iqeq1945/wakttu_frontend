@@ -21,11 +21,13 @@ const Header = ({ roomInfo, exit }: Props) => {
   return (
     <CHeader>
       <CButton>
+        {/*
         <Button>
           <ButtonText>사전</ButtonText>
         </Button>
+        */}
         <Button>
-          <ButtonText>방설정</ButtonText>
+          <ButtonText>도움말</ButtonText>
         </Button>
       </CButton>
       <CTitle>

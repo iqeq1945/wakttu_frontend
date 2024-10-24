@@ -5,7 +5,6 @@ import {
   Host,
   Name,
   Score,
-  Skin,
   TeamTag,
 } from '@/styles/bell/PlayerList';
 import { Game } from '@/services/socket/socket';
@@ -14,7 +13,7 @@ import { ScoreBox } from '@/components';
 import { Bubble } from '@/containers/game/last/PlayerList';
 import BubbleBox from '../Bubble';
 import Difference from './DifferenceBox';
-import { getCharacter } from '@/modules/UserInfo';
+import Character from '@/components/common/Character';
 
 interface Props {
   users: any;
@@ -39,25 +38,18 @@ const PlayList = ({ users, game, answer, bubble, team }: Props) => {
   return (
     <CPlayerList>
       {users.map((user: any, index: number) => {
-        const character = getCharacter(user.character);
         const myTeam = checkMyTeam(user.userId);
-        const isFail =
-          user.success === false
-            ? true
-            : user.success === true
-            ? false
-            : undefined;
         const lastBubble = bubble.findLast(
           (item: Bubble) => item.user.name === user.name
         );
         return (
-          <CPlayer key={user.id} $pause={answer.pause} $fail={isFail}>
+          <CPlayer key={user.id} $success={user.success}>
             {myTeam ? <TeamTag team={myTeam.team}>{myTeam.name}</TeamTag> : ''}
             {lastBubble ? <BubbleBox chat={lastBubble.chat} /> : ''}
-            <Skin src={character.skin} />
+            <Character character={user.character} />
 
             <CName>
-              {user.name === game.host && (
+              {user.id === game.host && (
                 <Host>
                   <span>방장</span>
                 </Host>

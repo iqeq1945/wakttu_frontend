@@ -45,7 +45,13 @@ import useSound from '@/hooks/useSound';
 import useEffectSound from '@/hooks/useEffectSound';
 import useWaktaSound from '@/hooks/useWaktaSound';
 import { GetKey } from '@/modules/Voice';
-import { client, updatePlayCount, updateResult } from '@/services/api';
+import {
+  client,
+  updatePlayCount,
+  updatePlayCountLocal,
+  updateResult,
+  updateResultLocal,
+} from '@/services/api';
 import useAnswerSound from '@/hooks/useAnswerSound';
 import { selectVolume } from '@/redux/audio/audioSlice';
 import {
@@ -54,6 +60,7 @@ import {
   setResult,
 } from '@/redux/result/resultSlice';
 import { openModal, setDataModal } from '@/redux/modal/modalSlice';
+import { setAchieve } from '@/redux/achieve/achieveSlice';
 
 const Game = () => {
   /** Redux and State Part */
@@ -68,8 +75,6 @@ const Game = () => {
   const result = useSelector(selectResult);
 
   const { bgmVolume, effectVolume, voiceVolume } = useSelector(selectVolume);
-
-  const [late, setLate] = useState<boolean>(true);
 
   const [failUser, setFailuesr] = useState<{ name: string; count: number }>({
     name: '',
@@ -132,7 +137,6 @@ const Game = () => {
 
   // Turn 시작시 BGM 켜는 함수
   const onBgm = useCallback(() => {
-    setLate(true);
     if (game.chain >= 10 || timer.turnTime - timer.countTime <= 10000) {
       if (fastSound && !fastSound.playing()) {
         if (sound && sound.playing()) sound.stop();
@@ -145,24 +149,6 @@ const Game = () => {
       }
     }
   }, [fastSound, game.chain, sound, timer.countTime, timer.turnTime]);
-
-  // Turn End(round 종료) 시 호출하는 함수
-  const setTurnEnd = useCallback(() => {
-    if (timer.turnTime > 0 && timer.countTime === timer.turnTime) {
-      setLate(false);
-      if (game.host === user.id) lastTurnEnd(roomInfo.id as string);
-      dispatch(setPause(false));
-      dispatch(clearTimer());
-      dispatch(clearAnswer());
-    }
-  }, [
-    timer.turnTime,
-    timer.countTime,
-    game.host,
-    user.id,
-    roomInfo.id,
-    dispatch,
-  ]);
 
   const exitGame = useCallback(async () => {
     await router.push('/roomlist');
@@ -183,7 +169,7 @@ const Game = () => {
       type: string;
       meta?: { [x: string]: any };
     }) => {
-      answerSound![id.length - 2].play();
+      answerSound![id.length < 10 ? id.length - 2 : 9].play();
       if (wakta) {
         const key = GetKey(type, meta);
         setTimeout(() => waktaSound![key].play(), 500);
@@ -278,17 +264,10 @@ const Game = () => {
     user.id,
   ]);
 
-  useEffect(() => {
-    setTurnEnd();
-  }, [setTurnEnd]);
-
   /* turn game logic */
   useEffect(() => {
     socket.on('last.game', (data) => {
-      if (!late) {
-        return;
-      }
-      const { success, answer, game, message, word } = data;
+      const { success, answer, game, message, word, who } = data;
 
       setTimeout(() =>
         dispatch(
@@ -309,11 +288,12 @@ const Game = () => {
         playAnswer({ ...word, chain: game.chain });
         sound?.pause();
         fastSound?.pause();
-        if (user.id === game.host) socket.emit('pong', roomInfo.id);
         dispatch(setHistory(word));
 
         // Result 용 데이터
-        if (word.wakta) dispatch(setResult({ type: 'WORD', word }));
+        if (word.wakta && who === user.id) {
+          dispatch(setResult({ type: 'WORD', word }));
+        }
 
         setTimeout(() => {
           setTimeout(() =>
@@ -341,7 +321,6 @@ const Game = () => {
     answerSound,
     dispatch,
     fastSound,
-    late,
     roomInfo.id,
     sound,
     wrongSound,
@@ -360,13 +339,22 @@ const Game = () => {
     };
   }, [dispatch, pause, sound]);
 
+  useEffect(() => {
+    socket.on('pong', () => {
+      if (game.host === user.id) lastTurnEnd(roomInfo.id as string);
+      dispatch(setPause(false));
+      dispatch(clearTimer());
+      dispatch(clearAnswer());
+    });
+
+    return () => {
+      socket.off('pong');
+    };
+  }, [dispatch, game.host, roomInfo.id, timer, user.id]);
+
   /* result, end logic*/
   useEffect(() => {
     socket.on('last.result', async (data) => {
-      if (user.provider === 'waktaverse.games') {
-        await updatePlayCount(game.type);
-        await updateResult(result);
-      }
       dispatch(clearResult());
       dispatch(clearAnswer());
       dispatch(clearTimer());
@@ -374,10 +362,22 @@ const Game = () => {
 
       dispatch(setDataModal(data));
       dispatch(openModal('RESULT'));
+
+      let achieve: any[] = [];
+      const ach_1 =
+        user.provider === 'waktaverse.games'
+          ? await updatePlayCount(game.type)
+          : await updatePlayCountLocal(game.type);
+      const ach_2 =
+        user.provider === 'waktaverse.games'
+          ? await updateResult(result)
+          : await updateResultLocal(result);
+      if (ach_1) achieve = [...achieve, ...ach_1];
+      if (ach_2) achieve = [...achieve, ...ach_2];
+      await dispatch(setAchieve(achieve));
     });
 
     socket.on('last.end', async (data) => {
-      console.log('end :', data);
       const { game, roomInfo } = data;
 
       const response = await client.get(`/user/${user.id}`);

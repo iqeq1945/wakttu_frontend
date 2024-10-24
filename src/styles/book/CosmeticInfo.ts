@@ -27,6 +27,7 @@ const Tag = styled.div<{ $itemType?: CosmeticVariant }>`
   padding: 0.25rem 0.625rem;
   border-radius: 0.5rem;
 
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
 
@@ -34,6 +35,7 @@ const Tag = styled.div<{ $itemType?: CosmeticVariant }>`
 `;
 
 const Title = styled.div`
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-size: 1.25rem;
   font-weight: 600;
   color: ${COLORS.text};
@@ -60,13 +62,40 @@ const InfoTop = styled.div<{ $itemType?: CosmeticVariant }>`
   ${BackgroundImage};
 `;
 
-const CosmeticImage = styled.img`
+const CosmeticImage = styled.img<{ item: string; id?: string }>`
   position: absolute;
   z-index: 2;
 
-  width: 13.5rem;
-  height: 13.5rem;
+  width: ${({ item }) => {
+    switch (item) {
+      case 'hand': {
+        return '25rem';
+      }
+      default:
+        return '13.5rem';
+    }
+  }};
+  height: ${({ item }) => {
+    switch (item) {
+      case 'hand': {
+        return '25rem';
+      }
+      default:
+        return '13.5rem';
+    }
+  }};
   object-fit: fill;
+
+  ${({ item, id }) => {
+    switch (item) {
+      case 'hand': {
+        if (id === 'H-5') return '';
+        return 'left: 3rem';
+      }
+      default:
+        return '';
+    }
+  }}
 `;
 
 const InfoBottom = styled.div`
@@ -107,7 +136,7 @@ const Info = styled.li<{ $variant?: InfoVariant }>`
       case 'content':
         return css`
           display: -webkit-box;
-          -webkit-line-clamp: 2;
+          -webkit-line-clamp: 5;
           -webkit-box-orient: vertical;
           overflow: hidden;
           text-overflow: ellipsis;

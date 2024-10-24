@@ -3,15 +3,18 @@ import useInput from '@/hooks/useInput';
 import { getTime } from '@/modules/Date';
 import countScore from '@/modules/Score';
 import { clean } from '@/modules/Slang';
-import { selectAnswer, selectPause } from '@/redux/answer/answerSlice';
+import {
+  selectAnswer,
+  selectPause,
+  setAnswer,
+} from '@/redux/answer/answerSlice';
 import { selectGame } from '@/redux/game/gameSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { selectTimer } from '@/redux/timer/timerSlice';
 import { sendChat, socket } from '@/services/socket/socket';
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { useSelector } from 'react-redux';
-import wordRelay from '@/modules/WordRelay';
-import { selectUserId } from '@/redux/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 import useEffectSound from '@/hooks/useEffectSound';
 import { selectEffectVolume } from '@/redux/audio/audioSlice';
 
@@ -26,14 +29,15 @@ export interface LogProps {
 }
 
 const Chat = () => {
-  const userId = useSelector(selectUserId);
   const roomId = useSelector(selectRoomId) as string;
   const game = useSelector(selectGame);
   const answer = useSelector(selectAnswer);
   const timer = useSelector(selectTimer);
   const pause = useSelector(selectPause);
   const effectVolume = useSelector(selectEffectVolume);
-  const [myTurn, setMyTurn] = useState(true);
+  const dispatch = useDispatch();
+
+  const [myTurn, setMyTurn] = useState(false);
 
   const logSound = useEffectSound(
     '/assets/sound-effects/lossy/ui_click.webm',
@@ -55,9 +59,9 @@ const Chat = () => {
     }
   }, [logSound]);
 
-  const onSendAnswer = () => {
+  const onSendAnswer = useCallback(() => {
     if (inputs.chat) {
-      if (inputs.chat !== game.target) {
+      if (inputs.chat !== game.target || !myTurn) {
         sendChat({
           roomId,
           chat: clean(inputs.chat),
@@ -71,30 +75,51 @@ const Chat = () => {
           roundTime: timer.roundTime - timer.countTime,
           score: countScore({
             wordLength: inputs.chat.length,
-            chainCount: game.chain,
+            chainCount: 1,
             timeLimit: timer.roundTime,
             remainingTime: timer.roundTime - timer.countTime,
           }),
           success: true,
         });
+        dispatch(
+          setAnswer({
+            success: true,
+            answer: inputs.chat,
+            pause: false,
+            word: undefined,
+          })
+        );
         setMyTurn(false);
       }
     }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
-  };
-  const onSendMessage = () => {
+  }, [
+    dispatch,
+    game.target,
+    inputs.chat,
+    myTurn,
+    roomId,
+    setInputs,
+    timer.countTime,
+    timer.roundTime,
+  ]);
+
+  const onSendMessage = useCallback(() => {
     if (inputs.chat) {
+      const chat = clean(inputs.chat);
       sendChat({
         roomId,
-        chat: clean(inputs.chat),
+        chat: chat.includes(game.target)
+          ? '전투***가 정답을 가로챘습니다.'
+          : chat,
         roundTime: null,
         score: null,
       });
     }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
-  };
+  }, [game.target, inputs.chat, roomId, setInputs]);
 
   const handleEnter = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.isComposing) return;
@@ -103,10 +128,6 @@ const Chat = () => {
       else onSendMessage();
     }
   };
-
-  useEffect(() => {
-    setMyTurn(true);
-  }, [game.round]);
 
   useEffect(() => {
     socket.on('alarm', (data) => {
@@ -129,6 +150,14 @@ const Chat = () => {
     };
   }, [log]);
 
+  useEffect(() => {
+    if (pause) {
+      setMyTurn(true);
+    } else {
+      setMyTurn(false);
+    }
+  }, [pause]);
+
   return (
     <BChatBox
       log={log}
@@ -139,7 +168,6 @@ const Chat = () => {
       handleEnter={handleEnter}
       inputRef={inputRef}
       chatBoxRef={chatBoxRef}
-      myTurn={myTurn}
       game={game}
       answer={answer}
       timer={timer}

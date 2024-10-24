@@ -45,5 +45,5 @@ export const getUserDesc = (score: number, provider?: string) => {
   return { icon, level, exp };
 };
 
-const getCharacterUrl = (id?: string) =>
+export const getCharacterUrl = (id?: string) =>
   id ? R2_URL + '/assets/items/' + id + '.svg' : undefined;

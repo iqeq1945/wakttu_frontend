@@ -38,11 +38,6 @@ const MyCharacterBox = styled.div`
   border: 2px solid ${COLORS['gray-4']};
 `;
 
-const CharacterImage = styled.img`
-  width: 10.4375rem;
-  height: 10.0625rem;
-`;
-
 const User = styled.div`
   display: flex;
   justify-content: center;
@@ -79,6 +74,7 @@ const WearingItems = styled.div`
 `;
 
 const WearingItem = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -93,11 +89,24 @@ const WearingItem = styled.div`
   overflow: hidden;
 `;
 
-const WearingImage = styled.img`
-  width: 8.0625rem;
-  height: 7.8125rem;
+const WearingImage = styled.img<{ item: string }>`
+  width: ${({ item }) => {
+    switch (item) {
+      case 'hand':
+        return '13rem';
+      default:
+        return ' 8.0625rem';
+    }
+  }};
+  height: ${({ item }) => {
+    switch (item) {
+      case 'hand':
+        return '13rem';
+      default:
+        return '7.8125rem';
+    }
+  }};
   object-fit: contain;
-
   ${({ src }) => (src ? 'opacity : 1' : 'opacity : 0')};
 `;
 
@@ -141,7 +150,6 @@ export {
   LeftWrapper,
   Character,
   MyCharacterBox,
-  CharacterImage,
   User,
   UserIcon,
   UserName,

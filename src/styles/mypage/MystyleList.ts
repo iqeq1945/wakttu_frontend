@@ -58,6 +58,7 @@ const ListItems = styled.div`
 
   gap: 0.8125rem;
   overflow-y: scroll;
+  overflow-x: hidden;
   ${scrollbarStyles};
 `;
 
@@ -86,6 +87,7 @@ const ListItem = styled.div<{ $isClickedItem: boolean }>`
 `;
 
 const ImageBox = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -95,10 +97,28 @@ const ImageBox = styled.div`
   padding: 0.9375rem 0;
 `;
 
-const ItemImage = styled.img`
-  max-width: 6.75rem;
-  max-height: 6.525rem;
+const ItemImage = styled.img<{ item: string; id?: string }>`
+  position: absolute;
+  width: ${({ item }) => {
+    switch (item) {
+      case 'hand':
+        return '13rem';
+      default:
+        return '6.75rem';
+    }
+  }};
+  height: ${({ item }) => {
+    switch (item) {
+      case 'hand':
+        return '13rem';
+      default:
+        return '6.52rem';
+    }
+  }};
+
   object-fit: contain;
+  ${({ item, id }) =>
+    item === 'hand' ? (id === 'H-5' ? 'bottom:0.2rem;' : 'left: 1rem;') : ''};
 `;
 
 const ItemInfo = styled.div`
@@ -129,7 +149,7 @@ const ItemTag = styled.span<{ $itemType?: CosmeticVariant }>`
 `;
 
 const ItemName = styled.span`
-  max-width: 3.9375rem;
+  max-width: 7rem;
   word-wrap: break-word;
   font-size: 1.125rem;
 `;

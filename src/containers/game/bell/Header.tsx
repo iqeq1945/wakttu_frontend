@@ -1,8 +1,9 @@
 import { BHeader } from '@/components';
+import { setAchieve } from '@/redux/achieve/achieveSlice';
 import { clearGame } from '@/redux/game/gameSlice';
 import { clearRoomInfo, selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';
-import { runGame } from '@/services/api';
+import { updateStat, updateStatLocal } from '@/services/api';
 import { exit } from '@/services/socket/socket';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
@@ -19,7 +20,11 @@ const Header = () => {
     await dispatch(clearRoomInfo());
     await dispatch(clearGame());
     exit(roomInfo.id as string);
-    if (user.provider === 'waktaverse.games') await runGame();
+    const achieves =
+      user.provider === 'waktaverse.games'
+        ? await updateStat('EXIT')
+        : await updateStatLocal('EXIT');
+    if (achieves) dispatch(setAchieve(achieves));
   }, [dispatch, roomInfo.id, router, user.provider]);
 
   return <BHeader roomInfo={roomInfo} exit={exitGame} />;

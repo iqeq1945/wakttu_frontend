@@ -1,15 +1,14 @@
 import styled from 'styled-components';
-import { HeaderBlock } from '../common/Header';
 import { COLORS } from '../theme';
 
-const MainHeaderBlock = styled(HeaderBlock)`
+const MainHeaderBlock = styled.div`
   display: flex;
   flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
 
   width: 88rem;
-  height: 4.1875rem;
+  height: 8rem;
 
   padding: 0 2rem;
 
@@ -27,4 +26,10 @@ const MainContent = styled.span`
   cursor: pointer;
 `;
 
-export { MainHeaderBlock, MainContent };
+const MainHeaderLogo = styled.img`
+  width: 96px;
+  height: 96px;
+  cursor: pointer;
+`;
+
+export { MainHeaderBlock, MainContent, MainHeaderLogo };

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { R2_URL } from '@/services/api';
+import { getR2URL, R2_URL } from '@/services/api';
 
 export type CosmeticVariant = 'all' | 'skin' | 'head' | 'hand' | 'eye';
 
@@ -19,7 +19,7 @@ export const CosmeticStyles: Record<
   },
   head: {
     name: '머리',
-    backgroundColor: '#85E2FF',
+    backgroundColor: '#A8FFFB',
     color: '#004E66',
   },
   hand: {
@@ -53,7 +53,7 @@ const BackgroundImage = css`
     width: 100%;
     height: 100%;
 
-    background-image: url(${R2_URL} + '/assets/mypage-background.png');
+    background-image: url(${getR2URL('/assets/mypage-background.png')});
     background-size: cover;
     background-repeat: no-repeat;
     opacity: 0.3;

@@ -8,10 +8,10 @@ interface Props {
 
 const Logo = ({ size, type }: Props) => {
   if (type == 'logotype') {
-    return <LogoLG src={getR2URL('/assets/logoType.svg')} />;
+    return <LogoLG src={getR2URL('/assets/icons/logo.svg')} />;
   }
 
-  return <LogoLG src={getR2URL('/assets/logoType.svg')} />;
+  return <LogoLG src={getR2URL('/assets/icons/logo.svg')} />;
 };
 
 export default Logo;
