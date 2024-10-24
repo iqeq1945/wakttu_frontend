@@ -270,7 +270,7 @@ const Game = () => {
 
   useEffect(() => {
     socket.on('kung.game', (data) => {
-      const { success, answer, game, message, word } = data;
+      const { success, answer, game, message, word, who } = data;
       setTimeout(() =>
         dispatch(
           setAnswer({
@@ -292,7 +292,8 @@ const Game = () => {
         dispatch(setHistory(word));
 
         // Result 용 데이터
-        if (word.wakta) dispatch(setResult({ type: 'WORD', word }));
+        if (word.wakta && who === user.id)
+          dispatch(setResult({ type: 'WORD', word }));
 
         setTimeout(() => {
           setTimeout(() =>

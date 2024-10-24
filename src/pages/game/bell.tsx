@@ -7,7 +7,6 @@ import {
   clearAnswer,
   selectPause,
   setAnswer,
-  setFail,
   setPause,
 } from '@/redux/answer/answerSlice';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
@@ -16,7 +15,6 @@ import { openModal, setDataModal } from '@/redux/modal/modalSlice';
 import { clearResult, selectResult } from '@/redux/result/resultSlice';
 import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import {
-  clearCountTime,
   clearTimer,
   selectTimer,
   setTimer,

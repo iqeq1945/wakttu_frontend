@@ -36,7 +36,6 @@ export const updateStat = async (id: string) => {
     })
     .then((response) => response.data)
     .catch(console.error);
-  console.log('id', data);
   const { achieves } = data;
   if (achieves) return achieves;
   else undefined;
@@ -112,7 +111,6 @@ export const updateResult = async (result: Result[]) => {
     .put(`/wakta/result`, arr)
     .then((response) => response.data)
     .catch(console.error);
-  console.log('result', data);
   const { achieves } = data;
   if (achieves) return achieves;
   else undefined;
@@ -128,7 +126,6 @@ export const updateResultLocal = async (result: Result[]) => {
     .put(`/stats/result`, arr)
     .then((response) => response.data)
     .catch(console.error);
-  console.log('result', data);
   const { achieves } = data;
   if (achieves) return achieves;
   else undefined;
