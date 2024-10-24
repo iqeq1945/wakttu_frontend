@@ -1,11 +1,12 @@
 import { Result as CResult, ResultSolo, ResultTeam } from '@/components';
 import { closeModal, selectData } from '@/redux/modal/modalSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';
-import { winTheGame } from '@/services/api';
+import { winTheGame, winTheGameLocal } from '@/services/api';
 import { Game } from '@/services/socket/socket';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RoomInfo } from './UpdateRoom';
+import { setAchieve } from '@/redux/achieve/achieveSlice';
 
 interface User {
   character: any;
@@ -35,18 +36,27 @@ const Result = () => {
   const user = useSelector(selectUserInfo);
   const [list, setList] = useState<Result[]>([]);
 
-  const offModal = useCallback(() => {
-    if (user.provider === 'waktaverse.games') {
-      if (roomInfo.option.includes('팀전')) {
-        const team = list[0].team;
-        const check = list.find(
-          (item) => item.userId === user.id && item.team === team
-        );
-        if (check) winTheGame(true);
-      } else {
-        if (list[0].userId === user.id) winTheGame(false);
-      }
+  const offModal = useCallback(async () => {
+    let achieves;
+    if (roomInfo.option.includes('팀전')) {
+      const team = list[0].team;
+      const check = list.find(
+        (item) => item.userId === user.id && item.team === team
+      );
+      if (check)
+        achieves =
+          user.provider === 'waktaverse.games'
+            ? await winTheGame(true)
+            : await winTheGameLocal(true);
+    } else {
+      if (list[0].userId === user.id)
+        achieves =
+          user.provider === 'waktaverse.games'
+            ? await winTheGame(false)
+            : await winTheGameLocal(false);
     }
+    dispatch(setAchieve(achieves));
+
     dispatch(closeModal());
   }, [dispatch, list, roomInfo.option, user.id, user.provider]);
 

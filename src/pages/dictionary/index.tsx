@@ -6,6 +6,10 @@ import { Container } from '@/components/dictionary/Container';
 import { client } from '@/services/api';
 import { processWordData } from '@/utils/processWordData';
 import axios from 'axios';
+import useSound from '@/hooks/useSound';
+import { useEffect } from 'react';
+import { selectBgmVolume } from '@/redux/audio/audioSlice';
+import { useSelector } from 'react-redux';
 
 interface ApiResponse<T> {
   data: T;
@@ -16,6 +20,13 @@ interface DictionaryProps {
 }
 
 const Dictionary: React.FC<DictionaryProps> = ({ todayWord }) => {
+  const bgmVolume = useSelector(selectBgmVolume);
+  const sound = useSound('/assets/bgm/lossy/ui_main.webm', bgmVolume, 0, true);
+
+  useEffect(() => {
+    if (sound) sound.play();
+  }, [sound]);
+
   return (
     <Container>
       <Header />

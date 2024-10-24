@@ -1,16 +1,13 @@
 import { AchieveState } from '@/redux/achieve/achieveSlice';
-import { getR2URL, getWAKURL } from '@/services/api';
+import { getAchieveURL } from '@/services/api';
 import {
   Badge,
   CAchieve,
   Content,
-  CTitle,
   Desc,
   Info,
   Name,
-  Title,
-  Trophy,
-} from '@/styles/common/Acheive';
+} from '@/styles/common/Achieve';
 
 interface Props {
   achieves: AchieveState[];
@@ -22,12 +19,8 @@ const Achieve = ({ achieves }: Props) => {
       {achieves.map((achieve: AchieveState, idx: number) => {
         return (
           <CAchieve idx={idx} key={achieve.id}>
-            <CTitle>
-              <Trophy src={getR2URL('/assets/icons/trophy.svg')} />
-              <Title>도전과제</Title>
-            </CTitle>
             <Content>
-              <Badge src={getWAKURL(achieve.img)} />
+              <Badge src={getAchieveURL(achieve.id)} />
               <Info>
                 <Name>{achieve.name}</Name>
                 <Desc>{achieve.desc}</Desc>

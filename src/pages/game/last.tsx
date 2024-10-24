@@ -45,7 +45,13 @@ import useSound from '@/hooks/useSound';
 import useEffectSound from '@/hooks/useEffectSound';
 import useWaktaSound from '@/hooks/useWaktaSound';
 import { GetKey } from '@/modules/Voice';
-import { client, updatePlayCount, updateResult } from '@/services/api';
+import {
+  client,
+  updatePlayCount,
+  updatePlayCountLocal,
+  updateResult,
+  updateResultLocal,
+} from '@/services/api';
 import useAnswerSound from '@/hooks/useAnswerSound';
 import { selectVolume } from '@/redux/audio/audioSlice';
 import {
@@ -261,7 +267,7 @@ const Game = () => {
   /* turn game logic */
   useEffect(() => {
     socket.on('last.game', (data) => {
-      const { success, answer, game, message, word } = data;
+      const { success, answer, game, message, word, who } = data;
 
       setTimeout(() =>
         dispatch(
@@ -285,7 +291,9 @@ const Game = () => {
         dispatch(setHistory(word));
 
         // Result 용 데이터
-        if (word.wakta) dispatch(setResult({ type: 'WORD', word }));
+        if (word.wakta && who === user.id) {
+          dispatch(setResult({ type: 'WORD', word }));
+        }
 
         setTimeout(() => {
           setTimeout(() =>
@@ -355,14 +363,18 @@ const Game = () => {
       dispatch(setDataModal(data));
       dispatch(openModal('RESULT'));
 
-      if (user.provider === 'waktaverse.games') {
-        const achieve = [];
-        const ach_1 = await updatePlayCount(game.type);
-        const ach_2 = await updateResult(result);
-        if (ach_1) await achieve.push(ach_1);
-        if (ach_2) await achieve.push(ach_2);
-        await dispatch(setAchieve(achieve));
-      }
+      let achieve: any[] = [];
+      const ach_1 =
+        user.provider === 'waktaverse.games'
+          ? await updatePlayCount(game.type)
+          : await updatePlayCountLocal(game.type);
+      const ach_2 =
+        user.provider === 'waktaverse.games'
+          ? await updateResult(result)
+          : await updateResultLocal(result);
+      if (ach_1) achieve = [...achieve, ...ach_1];
+      if (ach_2) achieve = [...achieve, ...ach_2];
+      await dispatch(setAchieve(achieve));
     });
 
     socket.on('last.end', async (data) => {
