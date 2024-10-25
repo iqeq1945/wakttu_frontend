@@ -21,7 +21,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   const path = usePathname();
   const queryClient = new QueryClient();
   const [isMobile, setIsMobile] = useState(false);
-  const isNotMainPage = path !== '/';
+  const isNotMainPage = path !== '/' && !path.startsWith('/game/');
 
   useEffect(() => {
     setIsMobile(isMobileDevice());
@@ -53,7 +53,6 @@ const App = ({ Component, pageProps }: AppProps) => {
                 {isNotMainPage && <Header />}
                 <Component {...pageProps} />
               </MainPageContainer>
-
             )}
           </Container>
         </Provider>
