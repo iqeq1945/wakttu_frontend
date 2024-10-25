@@ -21,10 +21,7 @@ const Search: React.FC<SearchProps> = () => {
   }, [sound]);
 
   return (
-    <Container>
-      <Header />
-      <SearchSection />
-    </Container>
+    <SearchSection />
   );
 };
 
