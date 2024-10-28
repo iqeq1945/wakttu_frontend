@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const ContentContainer = styled.div<{ path?: string }>`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -41,9 +42,10 @@ const ContentContainer = styled.div<{ path?: string }>`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 
-  width: 88rem;
-  height: 67.5rem;
+  width: 100%;
+  height: 100%;
 
   gap: 1rem;
 `;

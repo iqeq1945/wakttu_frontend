@@ -2,7 +2,7 @@ import Chat from '@/containers/game/kung/Chat';
 import Header from '@/containers/game/kung/Header';
 import Kung from '@/containers/game/kung/Kung';
 import PlayerList from '@/containers/game/kung/PlayerList';
-import { Container } from '@/styles/kung/Layout';
+import { Container } from '@/styles/common/Layout';
 import {
   exit,
   kungRound,

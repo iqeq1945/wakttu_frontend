@@ -1,5 +1,3 @@
-import { Container } from '@/styles/common/Layout';
-import Header from '@/containers/common/Header';
 import { LeftFooter, RightWrapper, WrapRoom } from '@/styles/room/Room';
 import { LeftWrapper, Copyright } from '@/styles/room/Room';
 import RoomNav from '@/containers/room/RoomNav';
@@ -52,8 +50,7 @@ const Room = () => {
   }, [dispatch, roomInfo.id, roomInfo.start]);
 
   return (
-    <Container>
-      <Header />
+    <>
       <WrapRoom>
         <LeftWrapper>
           <RoomDesc />
@@ -76,7 +73,7 @@ const Room = () => {
       {modal.modalType === 'UPDATE_ROOM' && modal.open && <UpdateRoom />}
       {modal.modalType === 'KICK' && modal.open && <KickModal />}
       {modal.modalType === 'RESULT' && modal.open && <Result />}
-    </Container>
+    </>
   );
 };
 

@@ -143,7 +143,7 @@ const ItemTag = styled.span<{ $itemType?: CosmeticVariant }>`
       color: ${style.color};
     `;
   }}
-
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
 `;
@@ -151,6 +151,7 @@ const ItemTag = styled.span<{ $itemType?: CosmeticVariant }>`
 const ItemName = styled.span`
   max-width: 7rem;
   word-wrap: break-word;
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-size: 1.125rem;
 `;
 

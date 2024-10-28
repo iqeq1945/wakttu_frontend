@@ -51,6 +51,7 @@ const UserIcon = styled.img`
 `;
 
 const UserName = styled.span`
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
 `;
@@ -120,7 +121,7 @@ const WearingTag = styled.div<{ $backgroundColor: string; $color: string }>`
   height: 1.75rem;
   background-color: ${(props) => props.$backgroundColor};
   color: ${(props) => props.$color};
-
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-size: 1.25rem;
   font-weight: 600;
 `;
