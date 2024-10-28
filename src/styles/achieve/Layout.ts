@@ -1,13 +1,19 @@
 import styled from 'styled-components';
 import { COLORS } from '@/styles/theme';
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.375rem;
+`;
+
 const ContainerContent = styled.div`
   display: flex;
 
   width: 65.875rem;
   height: 48.625rem;
   padding: 2rem 2rem 0 2rem;
-  margin-top: 2.375rem;
   gap: 2rem;
 
   border-radius: 1rem;
@@ -39,4 +45,4 @@ const RightWrapper = styled.div`
   gap: 2rem;
 `;
 
-export { ContainerContent, LeftWrapper, RightWrapper };
+export { Container, ContainerContent, LeftWrapper, RightWrapper };

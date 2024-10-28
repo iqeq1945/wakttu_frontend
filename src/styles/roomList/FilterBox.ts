@@ -30,8 +30,7 @@ const CDropdown = styled.div`
 const DropdownLabel = styled.span`
   color: ${COLORS.text};
 
-  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-  font-weight: 500;
+  font-family: 'WantedSans-Medium';
   font-size: ${FONT_SIZES['body-2']};
 `;
 const Dropdown = styled.ul`

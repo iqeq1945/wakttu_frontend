@@ -29,7 +29,7 @@ import {
   bellRoundStart,
   socket,
 } from '@/services/socket/socket';
-import { Container } from '@/styles/common/Layout';
+import { Container } from '@/styles/bell/Layout';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
