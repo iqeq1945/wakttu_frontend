@@ -25,6 +25,8 @@ const SaveButton = styled.div`
 
   border-radius: 0.5rem;
   background-color: ${COLORS['primary']};
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: 1.125rem;
   color: white;
   cursor: pointer;
@@ -39,6 +41,8 @@ const ResetButton = styled.div`
 
   border-radius: 0.5rem;
   background-color: #ff7070;
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-weight: 500;
   font-size: 1.125rem;
   color: white;
   cursor: pointer;
