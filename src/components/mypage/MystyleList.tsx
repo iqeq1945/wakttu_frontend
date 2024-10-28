@@ -13,10 +13,7 @@ import {
   Tag,
   ImageBox,
 } from '@/styles/mypage/MystyleList';
-import { MouseEvent, useCallback } from 'react';
-import useWaktaSound from '@/hooks/useWaktaSound';
-import { selectVoiceVolume } from '@/redux/audio/audioSlice';
-import { useSelector } from 'react-redux';
+import { MouseEvent } from 'react';
 
 type Variant = 'skin' | 'head' | 'hand' | 'eye';
 interface Props {
@@ -46,13 +43,6 @@ const MystyleList = ({
   handleClickItem,
   handleClickTag,
 }: Props) => {
-  const voiceVolume = useSelector(selectVoiceVolume);
-  const sound = useWaktaSound(voiceVolume);
-
-  const handleMouseEnter = useCallback(() => {
-    if (sound) sound['l-2'].play();
-  }, [sound]);
-
   return (
     <RightWrapper>
       <ListBox>
@@ -76,7 +66,6 @@ const MystyleList = ({
                 id={data.id}
                 data-category={data.category}
                 onClick={handleClickItem}
-                onMouseEnter={handleMouseEnter} // 마우스 호버 이벤트 추가
                 $isClickedItem={clickItem[data.category] === data.id}
               >
                 <ImageBox>

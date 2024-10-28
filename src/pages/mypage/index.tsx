@@ -2,6 +2,7 @@ import MyEmoticon from '@/components/mypage/MyEmoticon';
 import MyPageHeader from '@/containers/mypage/MyPageHeader';
 import CharacterInfo from '@/containers/mypage/CharacterInfo';
 import MyStyleList from '@/containers/mypage/MyStyleList';
+import { Container } from '@/styles/common/Layout';
 import {
   Content,
   ContentFooter,
@@ -9,6 +10,7 @@ import {
   Wrapper,
 } from '@/styles/mypage/Mystyles';
 import { Copyright } from '@/styles/room/Room';
+import Header from '@/containers/common/Header';
 import useSound from '@/hooks/useSound';
 import { useSelector } from 'react-redux';
 import { selectBgmVolume } from '@/redux/audio/audioSlice';
@@ -30,7 +32,8 @@ const Mypage = () => {
   }, [sound]);
 
   return (
-    <>
+    <Container>
+      <Header />
       <MyPageHeader />
       <Wrapper>
         <LeftWrapper>
@@ -48,7 +51,7 @@ const Mypage = () => {
         </LeftWrapper>
         <MyStyleList />
       </Wrapper>
-    </>
+    </Container>
   );
 };
 

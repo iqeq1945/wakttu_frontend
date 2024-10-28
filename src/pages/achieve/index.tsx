@@ -1,5 +1,5 @@
-import { ContainerContent } from '@/styles/achieve/Layout';
-
+import { Container, ContainerContent } from '@/styles/achieve/Layout';
+import Header from '@/containers/common/Header';
 import Achieve from '@/containers/achieve/Achieve';
 import { selectBgmVolume } from '@/redux/audio/audioSlice';
 import { useSelector } from 'react-redux';
@@ -15,11 +15,12 @@ const Achieves = () => {
   }, [sound]);
 
   return (
-    <>
+    <Container>
+      <Header />
       <ContainerContent>
         <Achieve />
       </ContainerContent>
-    </>
+    </Container>
   );
 };
 

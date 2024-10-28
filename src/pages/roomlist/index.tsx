@@ -1,6 +1,8 @@
 import GameNav from '@/containers/roomlist/GameNav';
 import List from '@/containers/roomlist/List';
 import RoomDesc from '@/containers/roomlist/RoomDesc';
+import Header from '@/containers/common/Header';
+import { Container } from '@/styles/common/Layout';
 import Chat from '@/containers/roomlist/Chat';
 import {
   WrapRoomList,
@@ -59,7 +61,8 @@ const RoomList = () => {
   }, [dispatch, router]);
 
   return (
-    <>
+    <Container>
+      <Header />
       <WrapRoomList>
         <LeftWrapper>
           {!toggle ? <UserList /> : <RoomDesc />}
@@ -78,7 +81,7 @@ const RoomList = () => {
       </WrapRoomList>
       {modal.modalType === 'CREATE_ROOM' && modal.open && <CreateRoom />}
       {modal.modalType === 'PASSWORD' && modal.open && <PasswordModal />}
-    </>
+    </Container>
   );
 };
 

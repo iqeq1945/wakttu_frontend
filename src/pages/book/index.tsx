@@ -1,5 +1,6 @@
-import { ContainerContent } from '@/styles/book/BookForm';
+import { Container, ContainerContent } from '@/styles/book/BookForm';
 import Cosmetic from '@/containers/book/Cosmetic';
+import Header from '@/containers/common/Header';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { selectBgmVolume } from '@/redux/audio/audioSlice';
@@ -21,11 +22,12 @@ const Book = () => {
   }, [sound]);
 
   return (
-    <>
+    <Container>
+      <Header />
       <ContainerContent>
         <Cosmetic />
       </ContainerContent>
-    </>
+    </Container>
   );
 };
 export default Book;

@@ -1,4 +1,4 @@
-import { Container } from '@/styles/common/Layout';
+import { Container } from '@/styles/last/Layout';
 import PlayerList from '@/containers/game/last/PlayerList';
 import Chat from '@/containers/game/last/Chat';
 import Header from '@/containers/game/last/Header';
