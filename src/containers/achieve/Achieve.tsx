@@ -33,11 +33,10 @@ const Achieve = () => {
   const [achieve, setAchieve] = useState<Item>();
 
   const onClick = useCallback(
-    (e: any) => {
-      if (e.currentTarget.dataset.id) {
-        const achieve = achieves.find(
-          (data) => data.id === e.currentTarget.dataset.id
-        );
+    (e: React.MouseEvent<HTMLElement>) => {
+      const id = e.currentTarget.dataset.id;
+      if (id) {
+        const achieve = achieves.find((data) => data.id === id);
         if (achieve) setAchieve(achieve);
       }
     },
@@ -46,26 +45,29 @@ const Achieve = () => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const { achieves } =
-        user.provider === 'waktaverse.games'
-          ? await getMyAchieve()
-          : await getMyAchieveLocal();
-      const list: [] = await getAchieveList();
-      if (achieves && list) {
+      try {
+        const { achieves } =
+          user.provider === 'waktaverse.games'
+            ? await getMyAchieve()
+            : await getMyAchieveLocal();
+        const list = await getAchieveList();
+
+        if (!achieves || !list) return;
+
         setList(list);
-        const arr: Item[] = list.map((info: Info) => {
-          return {
-            ...info,
-            got: achieves.some(
-              (achieve: AchieveState) => achieve.id === info.id
-            ),
-          };
-        });
-        arr.sort((a, b) => (a.hidden === b.hidden ? 0 : a.hidden ? 1 : -1));
+        const arr: Item[] = list.map((info: Info) => ({
+          ...info,
+          got: achieves.some((achieve: AchieveState) => achieve.id === info.id),
+        }));
+
+        arr.sort((a, b) => Number(a.hidden) - Number(b.hidden));
         setAchieves(arr);
         setAchieve(arr[0]);
+      } catch (error) {
+        console.error('업적 정보를 불러오는데 실패했습니다:', error);
       }
     };
+
     getInfo();
   }, [router, user.provider]);
 

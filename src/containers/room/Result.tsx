@@ -55,7 +55,9 @@ const Result = () => {
             ? await winTheGame(false)
             : await winTheGameLocal(false);
     }
-    dispatch(setAchieve(achieves));
+    if (achieves) {
+      dispatch(setAchieve(achieves));
+    }
 
     dispatch(closeModal());
   }, [dispatch, list, roomInfo.option, user.id, user.provider]);
