@@ -2,6 +2,7 @@ import Game from '@/containers/game/bell/Bell';
 import Chat from '@/containers/game/bell/Chat';
 import Header from '@/containers/game/bell/Header';
 import PlayerList from '@/containers/game/bell/PlayerList';
+import useSound from '@/hooks/useSound';
 import { setAchieve } from '@/redux/achieve/achieveSlice';
 import {
   clearAnswer,
@@ -9,6 +10,7 @@ import {
   setAnswer,
   setPause,
 } from '@/redux/answer/answerSlice';
+import { selectBgmVolume } from '@/redux/audio/audioSlice';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
 import { clearHistory } from '@/redux/history/historySlice';
 import { openModal, setDataModal } from '@/redux/modal/modalSlice';
@@ -31,7 +33,7 @@ import {
 } from '@/services/socket/socket';
 import { Container } from '@/styles/bell/Layout';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Bell = () => {
@@ -39,11 +41,19 @@ const Bell = () => {
   const game = useSelector(selectGame);
   const roomInfo = useSelector(selectRoomInfo);
   const dispatch = useDispatch();
-  const timer = useSelector(selectTimer);
   const router = useRouter();
   const result = useSelector(selectResult);
+  const bgmVolume = useSelector(selectBgmVolume);
+  const sound = useSound(
+    '/assets/bgm/lossy/ui_in-game-b.webm',
+    bgmVolume,
+    0,
+    true
+  );
 
-  const pause = useSelector(selectPause);
+  const onBgm = useCallback(() => {
+    if (sound) sound.play();
+  }, [sound]);
 
   useEffect(() => {
     const opening = setTimeout(() => {
@@ -53,6 +63,7 @@ const Bell = () => {
       }
     }, 2000);
 
+    onBgm();
     return () => {
       clearTimeout(opening);
     };
@@ -158,7 +169,7 @@ const Bell = () => {
       socket.off('bell.result');
       socket.off('bell.end');
     };
-  }, [dispatch, game.type, router, user.id, user.provider]);
+  }, [dispatch, game.type, result, router, user.id, user.provider]);
 
   useEffect(() => {
     socket.on('exit', (data) => {
