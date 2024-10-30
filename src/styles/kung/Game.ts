@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { COLORS, FONT_SIZES } from '../theme';
 import { getR2URL, R2_URL } from '@/services/api';
 
@@ -430,6 +430,15 @@ export const BTimerBar = styled(TimerBar)`
   background: #605774;
 `;
 
+const TimerAnimation = keyframes`
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+`;
+
 export const GaugeBar = styled.div<{
   gauge: number;
   pause: boolean;
@@ -439,10 +448,11 @@ export const GaugeBar = styled.div<{
   height: 100%;
   border-radius: 6.25rem;
   background: ${({ color }) => (color ? '#FF4B4B' : '#FCFF62')};
-
-  transition: ${({ gauge, pause }) => {
-    return pause ? `transform ${gauge}ms linear 0.2s` : '';
-  }};
-  transform: scaleX(${({ pause }) => (pause ? 0 : 1)});
   transform-origin: left;
+  will-change: transform;
+
+  animation: ${({ pause }) => (pause ? TimerAnimation : 'none')}
+    ${({ gauge }) => gauge * 1.1}ms linear;
+  animation-play-state: ${({ pause }) => (pause ? 'running' : 'paused')};
+  animation-fill-mode: forwards;
 `;

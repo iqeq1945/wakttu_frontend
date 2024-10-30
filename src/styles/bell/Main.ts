@@ -71,6 +71,7 @@ export const CTag = styled.div`
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
+  flex-wrap: wrap;
 `;
 
 export const Tag = styled.div<{ tag: string }>`
@@ -232,13 +233,13 @@ export const Answer = styled.div`
   flex-shrink: 0;
 `;
 
-export const AnswerText = styled.h3`
+export const AnswerText = styled.h2`
   color: ${COLORS.text};
   text-align: center;
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 700;
   line-height: normal;
 `;
 

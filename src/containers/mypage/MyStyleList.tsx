@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectUserInfo, setCharacter } from '@/redux/user/userSlice';
 import { client, getMyItemList } from '@/services/api';
 import { MouseEvent } from 'react';
+import useClickSound from '@/hooks/useClickSound';
+import { selectVoiceVolume } from '@/redux/audio/audioSlice';
 
 type Variant = 'skin' | 'head' | 'hand' | 'eye';
 
@@ -31,6 +33,8 @@ const MyStyleList = () => {
     head: string;
     eye: string;
   }>(user.character);
+  const voiceVolume = useSelector(selectVoiceVolume);
+  const { play: playClickSound } = useClickSound(voiceVolume);
 
   const handleClickTag = (e: MouseEvent<HTMLElement>) => {
     const clicked = e.currentTarget.dataset.category;
@@ -40,6 +44,7 @@ const MyStyleList = () => {
   };
 
   const handleClickItem = (e: MouseEvent<HTMLElement>) => {
+    playClickSound();
     const clickedId = e.currentTarget.id;
     const clickedCategory = e.currentTarget.dataset['category'] as Variant;
     if (
