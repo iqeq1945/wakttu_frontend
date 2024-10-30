@@ -52,8 +52,14 @@ const Bell = () => {
   );
 
   const onBgm = useCallback(() => {
-    if (sound) sound.play();
+    if (sound) {
+      sound.play();
+    }
   }, [sound]);
+
+  useEffect(() => {
+    onBgm();
+  }, [onBgm]);
 
   useEffect(() => {
     const opening = setTimeout(() => {
@@ -62,8 +68,6 @@ const Bell = () => {
         bellRound(roomInfo.id as string);
       }
     }, 2000);
-
-    onBgm();
     return () => {
       clearTimeout(opening);
     };
