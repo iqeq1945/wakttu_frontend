@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Howl } from 'howler';
 import { List } from '@/modules/Voice';
 
-const SOUND_IDS = ['i-9', 'woo-8', 'ji-10', 'l-8', 'ju-9', 'g-10', 'v-21'];
+const SOUND_IDS = ['i-9', 'woo-8', 'ji-12', 'l-8', 'ju-9', 'g-10', 'v-21'];
 
 function useClickSound(volume: number = 1) {
   const [sounds, setSounds] = useState<Howl[]>([]);
