@@ -11,6 +11,9 @@ import {
 } from '@/services/api';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { UseSelector } from 'react-redux';
+import { selectVoiceVolume } from '@/redux/audio/audioSlice';
+import useClickSound from '@/hooks/useClickSound';
 
 export interface ITEM {
   id: string;
@@ -38,6 +41,8 @@ const Cosmetic = () => {
     name: '전체',
   });
   const [isMine, setMine] = useState(true);
+  const voiceVolume = useSelector(selectVoiceVolume);
+  const { play } = useClickSound(voiceVolume);
 
   const dropDownRef = useRef<HTMLDivElement>(null);
 
@@ -68,6 +73,7 @@ const Cosmetic = () => {
   };
 
   const handleInfoClick = (e: any) => {
+    play();
     const id = e.currentTarget.dataset.id;
     const item = items.find((item) => item.id === id);
     if (item) setInfo(item);
