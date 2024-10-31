@@ -10,7 +10,7 @@ import { CookiesProvider } from 'react-cookie';
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
 
-import { handleResize } from '@/modules/BaseFontSize';
+import { fontSizeManager } from '@/modules/BaseFontSize';
 import { isMobileDevice } from '@/modules/Mobile';
 
 import { usePathname } from 'next/navigation';
@@ -24,9 +24,9 @@ const App = ({ Component, pageProps }: AppProps) => {
     setIsMobile(isMobileDevice());
 
     if (!isMobile) {
-      const resizeHandler = () => handleResize();
+      const resizeHandler = () => fontSizeManager.handleResize();
 
-      handleResize();
+      resizeHandler();
 
       window.addEventListener('resize', resizeHandler);
 

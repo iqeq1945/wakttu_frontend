@@ -30,6 +30,13 @@ const Pdf = styled.span`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+
+  cursor: pointer;
 `;
 
-export { Info, CopyRight, Pdf };
+const Flex = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
+
+export { Info, CopyRight, Pdf, Flex };
