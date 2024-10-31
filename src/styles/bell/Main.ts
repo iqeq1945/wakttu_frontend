@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { COLORS } from '../theme';
 import { R2_URL } from '@/services/api';
 
@@ -233,7 +233,7 @@ export const Answer = styled.div`
   flex-shrink: 0;
 `;
 
-export const AnswerText = styled.h2`
+export const AnswerText = styled.span<{ length?: number }>`
   color: ${COLORS.text};
   text-align: center;
 
@@ -241,6 +241,21 @@ export const AnswerText = styled.h2`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  animation: ${(props) =>
+    props.length
+      ? css`typing ${props.length * 0.1}s steps(${props.length})`
+      : 'none'};
+  white-space: nowrap;
+  overflow: hidden;
+
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
 `;
 
 export const CRight = styled.div`
