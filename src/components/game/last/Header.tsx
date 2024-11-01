@@ -11,6 +11,8 @@ import {
   Index,
   Title,
 } from '@/styles/last/Header';
+import { useState } from 'react';
+import HelpModal from '../HelpModal';
 
 interface Props {
   roomInfo: Room;
@@ -18,15 +20,12 @@ interface Props {
 }
 
 const Header = ({ roomInfo, exit }: Props) => {
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
+
   return (
     <CHeader>
       <CButton>
-        {/*
-        <Button>
-          <ButtonText>사전</ButtonText>
-        </Button>
-        */}
-        <Button>
+        <Button onClick={() => setIsHelpOpen(true)}>
           <ButtonText>도움말</ButtonText>
         </Button>
       </CButton>
@@ -40,6 +39,7 @@ const Header = ({ roomInfo, exit }: Props) => {
           <ExitIcon src={R2_URL + '/assets/game/game-exit.svg'} />
         </ExitButton>
       </CButton>
+      {isHelpOpen && <HelpModal onClose={() => setIsHelpOpen(false)} />}
     </CHeader>
   );
 };

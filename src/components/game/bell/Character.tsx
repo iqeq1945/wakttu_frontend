@@ -25,7 +25,7 @@ const messageTypes = {
   jokes: (name: string) => [
     `${name}님 수듄ㅋㅋ`,
     `역시 형이야`,
-    `${name}님 미테테네`,
+    `${name} 미테테네`,
   ],
   reactions: (name: string) => [
     `와우 ${name}!`,
