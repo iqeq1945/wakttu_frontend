@@ -1,24 +1,30 @@
 import { useEffect, useState } from 'react';
 import { Howl } from 'howler';
-import { List } from '@/modules/Voice';
+import { getR2URL } from '@/services/api';
 
-const SOUND_IDS = ['i-9', 'woo-8', 'ji-12', 'l-8', 'ju-9', 'g-10', 'v-21'];
+const SOUND_IDS = [
+  'ui_click_i',
+  'ui_click_ji',
+  'ui_click_l',
+  'ui_click_ju',
+  'ui_click_g',
+  'ui_click_v',
+];
 
 function useClickSound(volume: number = 1) {
   const [sounds, setSounds] = useState<Howl[]>([]);
 
   useEffect(() => {
-    const selectedSounds = List()
-      .filter((item) => SOUND_IDS.includes(item.id))
-      .map((item) => {
-        const sound = new Howl({
-          src: item.src,
-        });
-        sound.volume(volume);
-        return sound;
+    const selectedSounds = SOUND_IDS.map((item) => {
+      const sound = new Howl({
+        src: getR2URL('/assets/sound-effects/lossy/' + item + '.webm'),
       });
+      sound.volume(volume);
+      return sound;
+    });
 
     setSounds(selectedSounds);
+    console.log(selectedSounds);
   }, [volume]);
 
   const playRandom = () => {

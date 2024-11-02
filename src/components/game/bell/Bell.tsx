@@ -94,13 +94,14 @@ const Game = ({ game, quiz, answer, timer }: Props) => {
         <REye src={getR2URL('/assets/game/eye.svg')} />
         <Mouse>
           <CTag>
-            {quiz?.tag?.map((tag: string) => (
-              <Tag key={tag} tag={tag}>
-                {tag}
-              </Tag>
-            ))}
+            {answer.pause &&
+              quiz?.tag?.map((tag: string) => (
+                <Tag key={tag} tag={tag}>
+                  {tag}
+                </Tag>
+              ))}
           </CTag>
-          <Target>{quiz?.choseong}</Target>
+          <Target>{answer.pause ? quiz?.choseong : ''}</Target>
         </Mouse>
       </CLeft>
       <Middle>

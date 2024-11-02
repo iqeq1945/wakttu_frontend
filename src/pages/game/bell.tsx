@@ -98,10 +98,10 @@ const Bell = () => {
 
   useEffect(() => {
     socket.on('bell.round', (data) => {
-      dispatch(setGame(data));
       dispatch(clearAnswer());
       setTimeout(() => {
         dispatch(setTimer({ roundTime: 30000, turnTime: 30000 }));
+        dispatch(setGame(data));
         if (game.host === user.id) bellRoundStart(roomInfo.id as string);
       }, 2000);
     });
@@ -112,9 +112,11 @@ const Bell = () => {
 
   useEffect(() => {
     socket.on('bell.roundStart', () => {
-      if (game.host === user.id) socket.emit('bell.ping', roomInfo.id);
-      dispatch(setPause(true));
-      if (bellRoundStartSound) bellRoundStartSound.play();
+      setTimeout(() => {
+        if (game.host === user.id) socket.emit('bell.ping', roomInfo.id);
+        dispatch(setPause(true));
+        if (bellRoundStartSound) bellRoundStartSound.play();
+      }, 3000);
     });
 
     socket.on('bell.roundEnd', (data) => {

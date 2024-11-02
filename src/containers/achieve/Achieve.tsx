@@ -10,7 +10,7 @@ import { CharacterVariant } from '@/styles/achieve/AchieveInfo';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectVoiceVolume } from '@/redux/audio/audioSlice';
+import { selectEffectVolume } from '@/redux/audio/audioSlice';
 import useClickSound from '@/hooks/useClickSound';
 
 export interface Info {
@@ -33,8 +33,8 @@ const Achieve = () => {
   const [achieves, setAchieves] = useState<Item[]>([]);
   const [list, setList] = useState<Info[]>([]);
   const [achieve, setAchieve] = useState<Item>();
-  const voiceVolume = useSelector(selectVoiceVolume);
-  const { play } = useClickSound(voiceVolume);
+  const effectVolume = useSelector(selectEffectVolume);
+  const { play } = useClickSound(effectVolume);
 
   const onClick = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
