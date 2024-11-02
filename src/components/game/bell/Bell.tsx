@@ -94,14 +94,11 @@ const Game = ({ game, quiz, answer, timer }: Props) => {
         <REye src={getR2URL('/assets/game/eye.svg')} />
         <Mouse>
           <CTag>
-            {quiz &&
-              quiz.tag.map((tag: string) => {
-                return (
-                  <Tag key={tag} tag={tag}>
-                    {tag}
-                  </Tag>
-                );
-              })}
+            {quiz?.tag?.map((tag: string) => (
+              <Tag key={tag} tag={tag}>
+                {tag}
+              </Tag>
+            ))}
           </CTag>
           <Target>{quiz?.choseong}</Target>
         </Mouse>
@@ -129,21 +126,23 @@ const Game = ({ game, quiz, answer, timer }: Props) => {
           quiz.hint?.map((item, idx) => {
             if (idx === 0 && timer.countTime >= 10000)
               return (
-                <Hint key={idx} $pause={answer.pause}>
+                <Hint key={idx}>
                   <HintText>{item}</HintText>
                 </Hint>
               );
             else if (idx === 1 && timer.countTime >= 15000) {
               return (
-                <Hint key={idx} $pause={answer.pause}>
+                <Hint key={idx}>
                   <HintText>{item}</HintText>
                 </Hint>
               );
             }
           })}
-        <Hint $pause={answer.pause && timer.countTime >= 20000}>
-          <HintText>{quiz?.mean}</HintText>
-        </Hint>
+        {timer.countTime >= 20000 && (
+          <Hint>
+            <HintText>{quiz?.mean}</HintText>
+          </Hint>
+        )}
       </CRight>
     </CMain>
   );
