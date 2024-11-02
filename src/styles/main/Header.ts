@@ -27,8 +27,8 @@ const MainContent = styled.span`
 `;
 
 const MainHeaderLogo = styled.img`
-  width: 96px;
-  height: 96px;
+  width: 42px;
+  height: 42px;
   cursor: pointer;
 `;
 

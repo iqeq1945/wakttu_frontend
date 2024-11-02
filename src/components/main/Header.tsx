@@ -6,7 +6,7 @@ import { getR2URL } from '@/services/api';
 const Header = () => {
   return (
     <MainHeaderBlock>
-      <MainHeaderLogo src={getR2URL('/assets/icons/logo.svg')} />
+      <MainHeaderLogo src={getR2URL('/assets/icons/small-logo.svg')} />
       <WrapContent>
         <MainTab menuName="게임 소개" href="/" />
         <MainTab menuName="공지" href="/" />
