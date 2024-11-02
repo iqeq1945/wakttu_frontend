@@ -27,6 +27,10 @@ import { Answer as TypeAnswer } from '@/redux/answer/answerSlice';
 import { Timer } from '@/redux/timer/timerSlice';
 import Character from './Character';
 import { getR2URL } from '@/services/api';
+import { useEffect } from 'react';
+import useEffectSound from '@/hooks/useEffectSound';
+import { useSelector } from 'react-redux';
+import { selectEffectVolume } from '@/redux/audio/audioSlice';
 interface Props {
   answer: TypeAnswer;
   game: TypeGame;
@@ -35,6 +39,22 @@ interface Props {
 }
 
 const Game = ({ game, quiz, answer, timer }: Props) => {
+  const effectVolume = useSelector(selectEffectVolume);
+  const hintSound = useEffectSound(
+    '/assets/sound-effects/lossy/bell_hint.webm',
+    effectVolume
+  );
+
+  useEffect(() => {
+    if (
+      timer.countTime === 10000 ||
+      timer.countTime === 15000 ||
+      timer.countTime === 20000
+    ) {
+      if (hintSound) hintSound.play();
+    }
+  }, [timer.countTime, hintSound]);
+
   return (
     <CMain>
       <Character

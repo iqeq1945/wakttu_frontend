@@ -2,6 +2,7 @@ import Game from '@/containers/game/bell/Bell';
 import Chat from '@/containers/game/bell/Chat';
 import Header from '@/containers/game/bell/Header';
 import PlayerList from '@/containers/game/bell/PlayerList';
+import useEffectSound from '@/hooks/useEffectSound';
 import useSound from '@/hooks/useSound';
 import { setAchieve } from '@/redux/achieve/achieveSlice';
 import {
@@ -10,7 +11,7 @@ import {
   setAnswer,
   setPause,
 } from '@/redux/answer/answerSlice';
-import { selectBgmVolume } from '@/redux/audio/audioSlice';
+import { selectBgmVolume, selectEffectVolume } from '@/redux/audio/audioSlice';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
 import { clearHistory } from '@/redux/history/historySlice';
 import { openModal, setDataModal } from '@/redux/modal/modalSlice';
@@ -44,11 +45,32 @@ const Bell = () => {
   const router = useRouter();
   const result = useSelector(selectResult);
   const bgmVolume = useSelector(selectBgmVolume);
+  const effectVolume = useSelector(selectEffectVolume);
   const sound = useSound(
     '/assets/bgm/lossy/ui_in-game-b.webm',
     bgmVolume,
     0,
     true
+  );
+
+  const bellStartSound = useEffectSound(
+    '/assets/sound-effects/lossy/bell_start.webm',
+    effectVolume
+  );
+
+  const bellRoundStartSound = useEffectSound(
+    '/assets/sound-effects/lossy/bell_round_start.webm',
+    effectVolume
+  );
+
+  const bellRoundEndSound = useEffectSound(
+    '/assets/sound-effects/lossy/bell_round_end.webm',
+    effectVolume
+  );
+
+  const correctSound = useEffectSound(
+    '/assets/sound-effects/lossy/bell_correct.webm',
+    effectVolume
   );
 
   const onBgm = useCallback(() => {
@@ -66,12 +88,13 @@ const Bell = () => {
       if (game.host === user.id) {
         console.log('opening');
         bellRound(roomInfo.id as string);
+        if (bellStartSound) bellStartSound.play();
       }
     }, 2000);
     return () => {
       clearTimeout(opening);
     };
-  }, [roomInfo.id, user.id]);
+  }, [roomInfo.id, user.id, bellStartSound]);
 
   useEffect(() => {
     socket.on('bell.round', (data) => {
@@ -91,6 +114,7 @@ const Bell = () => {
     socket.on('bell.roundStart', () => {
       if (game.host === user.id) socket.emit('bell.ping', roomInfo.id);
       dispatch(setPause(true));
+      if (bellRoundStartSound) bellRoundStartSound.play();
     });
 
     socket.on('bell.roundEnd', (data) => {
@@ -98,23 +122,32 @@ const Bell = () => {
 
       if (game.host === user.id)
         setTimeout(() => bellRound(roomInfo.id as string), 3000);
+      if (bellRoundEndSound) bellRoundEndSound.play();
     });
 
     return () => {
       socket.off('bell.roundStart');
       socket.off('bell.roundEnd');
     };
-  }, [dispatch, game.host, roomInfo.id, user.id]);
+  }, [
+    dispatch,
+    game.host,
+    roomInfo.id,
+    user.id,
+    bellRoundEndSound,
+    bellRoundStartSound,
+  ]);
 
   useEffect(() => {
     socket.on('bell.game', (data) => {
       dispatch(setGame(data));
+      if (correctSound) correctSound.play();
     });
 
     return () => {
       socket.off('bell.game');
     };
-  }, [dispatch, game]);
+  }, [dispatch, game, correctSound]);
 
   useEffect(() => {
     socket.on('bell.ping', () => {
