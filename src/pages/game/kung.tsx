@@ -167,6 +167,18 @@ const Game = () => {
    */
 
   useEffect(() => {
+    const handleDisconnect = () => {
+      router.replace('/');
+    };
+
+    socket.on('disconnect', handleDisconnect);
+
+    return () => {
+      socket.off('disconnect', handleDisconnect);
+    };
+  }, [router]);
+
+  useEffect(() => {
     const opening = setTimeout(() => {
       if (game.host === user.id) {
         console.log('opening');

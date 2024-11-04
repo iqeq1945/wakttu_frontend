@@ -3,7 +3,7 @@ import { API_URL } from '../api';
 
 export const socket = io(`${API_URL}/wakttu`, {
   withCredentials: true,
-  autoConnect: true,
+  autoConnect: false,
   reconnection: true,
   reconnectionAttempts: 5,
   transports: ['websocket'],

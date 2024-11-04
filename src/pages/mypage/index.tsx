@@ -24,9 +24,16 @@ const Mypage = () => {
   const sound = useSound('/assets/bgm/lossy/ui_main.webm', bgmVolume, 0, true);
 
   useEffect(() => {
-    if (!socket.connected) router.push('/');
-  }, [router]);
+    const handleDisconnect = () => {
+      router.replace('/');
+    };
 
+    socket.on('disconnect', handleDisconnect);
+
+    return () => {
+      socket.off('disconnect', handleDisconnect);
+    };
+  }, [router]);
   useEffect(() => {
     if (sound) sound.play();
   }, [sound]);
