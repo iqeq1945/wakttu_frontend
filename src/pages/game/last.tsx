@@ -180,6 +180,18 @@ const Game = () => {
 
   /** Socekt Logic Part */
 
+  useEffect(() => {
+    const handleDisconnect = () => {
+      router.replace('/');
+    };
+
+    socket.on('disconnect', handleDisconnect);
+
+    return () => {
+      socket.off('disconnect', handleDisconnect);
+    };
+  }, [router]);
+
   /* round 종료시 history 없애기*/
   useEffect(() => {
     dispatch(clearHistory());

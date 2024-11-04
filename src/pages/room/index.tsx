@@ -30,7 +30,15 @@ const Room = () => {
   const sound = useSound('/assets/bgm/lossy/ui_main.webm', bgmVolume, 0, true);
 
   useEffect(() => {
-    if (!socket.connected) router.push('/');
+    const handleDisconnect = () => {
+      router.replace('/');
+    };
+
+    socket.on('disconnect', handleDisconnect);
+
+    return () => {
+      socket.off('disconnect', handleDisconnect);
+    };
   }, [router]);
 
   useEffect(() => {
