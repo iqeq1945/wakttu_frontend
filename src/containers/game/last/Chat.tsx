@@ -121,8 +121,9 @@ const Chat = () => {
   );
 
   useEffect(() => {
-    if (game.users.length > game.turn)
-      setMyTurn(userId === game.users[game.turn].userId);
+    const isValidTurn =
+      game.users.length > 0 && game.turn >= 0 && game.turn < game.users.length;
+    setMyTurn(isValidTurn ? game.users[game.turn].userId === userId : false);
   }, [game.turn, game.users, userId]);
 
   useEffect(() => {

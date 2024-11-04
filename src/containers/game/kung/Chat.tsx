@@ -36,7 +36,6 @@ export interface LogProps {
 }
 
 const Chat = () => {
-  const name = useSelector(selectUserName);
   const userId = useSelector(selectUserId);
   const roomId = useSelector(selectRoomId) as string;
   const game = useSelector(selectGame);
@@ -144,8 +143,9 @@ const Chat = () => {
    */
 
   useEffect(() => {
-    if (game.users.length > game.turn)
-      setMyTurn(userId === game.users[game.turn].userId);
+    const isValidTurn =
+      game.users.length > 0 && game.turn >= 0 && game.turn < game.users.length;
+    setMyTurn(isValidTurn ? game.users[game.turn].userId === userId : false);
   }, [game.turn, game.users, userId]);
 
   useEffect(() => {
