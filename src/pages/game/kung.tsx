@@ -372,37 +372,61 @@ const Game = () => {
   /* result, end logic*/
   useEffect(() => {
     socket.on('kung.result', async (data) => {
-      dispatch(clearResult());
-      dispatch(clearAnswer());
-      dispatch(clearTimer());
-      dispatch(clearHistory());
+      try {
+        dispatch(clearResult());
+        dispatch(clearAnswer());
+        dispatch(clearTimer());
+        dispatch(clearHistory());
 
-      dispatch(setDataModal(data));
-      dispatch(openModal('RESULT'));
+        dispatch(setDataModal(data));
+        dispatch(openModal('RESULT'));
 
-      let achieve: any[] = [];
-      const ach_1 =
-        user.provider === 'waktaverse.games'
-          ? await updatePlayCount(game.type)
-          : await updatePlayCountLocal(game.type);
-      const ach_2 =
-        user.provider === 'waktaverse.games'
-          ? await updateResult(result)
-          : await updateResultLocal(result);
-      if (ach_1) achieve = [...achieve, ...ach_1];
-      if (ach_2) achieve = [...achieve, ...ach_2];
-      await dispatch(setAchieve(achieve));
+        let achieve: any[] = [];
+
+        // API 호출 부분 try-catch로 감싸기
+        try {
+          const ach_1 =
+            user.provider === 'waktaverse.games'
+              ? await updatePlayCount(game.type)
+              : await updatePlayCountLocal(game.type);
+          if (ach_1) achieve = [...achieve, ...ach_1];
+        } catch (error) {
+          console.error('업적 업데이트 실패 (플레이 카운트):', error);
+        }
+
+        try {
+          const ach_2 =
+            user.provider === 'waktaverse.games'
+              ? await updateResult(result)
+              : await updateResultLocal(result);
+          if (ach_2) achieve = [...achieve, ...ach_2];
+        } catch (error) {
+          console.error('업적 업데이트 실패 (결과):', error);
+        }
+
+        await dispatch(setAchieve(achieve));
+      } catch (error) {
+        console.error('결과 처리 중 오류 발생:', error);
+      }
     });
 
     socket.on('kung.end', async (data) => {
-      const { game, roomInfo } = data;
+      try {
+        const { game, roomInfo } = data;
 
-      const response = await client.get(`/user/${user.id}`);
-      if (response) await dispatch(setUserInfo(response.data));
+        const response = await client.get(`/user/${user.id}`);
+        if (response) {
+          await dispatch(setUserInfo(response.data));
+        }
 
-      await router.push('/room');
-      await dispatch(setRoomInfo(roomInfo));
-      await dispatch(setGame(game));
+        await router.push('/room');
+        await dispatch(setRoomInfo(roomInfo));
+        await dispatch(setGame(game));
+      } catch (error) {
+        console.error('게임 종료 처리 중 오류 발생:', error);
+        // 오류 발생 시 기본 페이지로 리다이렉트
+        router.push('/');
+      }
     });
 
     return () => {

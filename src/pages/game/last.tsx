@@ -390,14 +390,20 @@ const Game = () => {
     });
 
     socket.on('last.end', async (data) => {
-      const { game, roomInfo } = data;
+      try {
+        const { game, roomInfo } = data;
 
-      const response = await client.get(`/user/${user.id}`);
-      if (response) await dispatch(setUserInfo(response.data));
+        const response = await client.get(`/user/${user.id}`);
+        if (response) await dispatch(setUserInfo(response.data));
 
-      await router.push('/room');
-      await dispatch(setRoomInfo(roomInfo));
-      await dispatch(setGame(game));
+        await router.push('/room');
+        await dispatch(setRoomInfo(roomInfo));
+        await dispatch(setGame(game));
+      } catch (error) {
+        console.error('게임 종료 처리 중 오류 발생:', error);
+        // 오류 발생 시 기본 페이지로 리다이렉트
+        router.push('/');
+      }
     });
 
     return () => {
