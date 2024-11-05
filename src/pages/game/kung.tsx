@@ -414,9 +414,15 @@ const Game = () => {
   useEffect(() => {
     socket.on('exit', (data) => {
       const { roomInfo, game } = data;
+
+      if (!roomInfo || !game) return;
+
       dispatch(setRoomInfo(roomInfo));
       dispatch(setGame(game));
-      if (roomInfo.users.length === 1) router.push('/room');
+
+      if (roomInfo.users && roomInfo.users.length <= 1) {
+        router.push('/room');
+      }
     });
 
     return () => {

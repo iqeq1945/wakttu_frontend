@@ -58,6 +58,7 @@ export interface Game {
   mission: string | undefined;
   team: { woo: string[]; gomem: string[]; isedol: string[]; academy: string[] };
   quiz?: { _id: string; choseong: string; hint: string[]; [x: string]: any }[];
+  turnChanged: boolean;
 }
 
 export type UpdateRoom = Partial<Room>;
