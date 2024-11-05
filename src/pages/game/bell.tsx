@@ -194,36 +194,47 @@ const Bell = () => {
 
   useEffect(() => {
     socket.on('bell.result', async (data) => {
-      dispatch(clearResult());
-      dispatch(clearAnswer());
-      dispatch(clearTimer());
-      dispatch(clearHistory());
+      try {
+        dispatch(clearResult());
+        dispatch(clearAnswer());
+        dispatch(clearTimer());
+        dispatch(clearHistory());
 
-      dispatch(setDataModal(data));
-      dispatch(openModal('RESULT'));
+        dispatch(setDataModal(data));
+        dispatch(openModal('RESULT'));
 
-      let achieve: any[] = [];
-      const ach_1 =
-        user.provider === 'waktaverse.games'
-          ? await updatePlayCount(game.type)
-          : await updatePlayCountLocal(game.type);
-      const ach_2 =
-        user.provider === 'waktaverse.games'
-          ? await updateResult(result)
-          : await updateResultLocal(result);
-      if (ach_1) achieve = [...achieve, ...ach_1];
-      if (ach_2) achieve = [...achieve, ...ach_2];
-      await dispatch(setAchieve(achieve));
+        let achieve: any[] = [];
+        const ach_1 =
+          user.provider === 'waktaverse.games'
+            ? await updatePlayCount(game.type)
+            : await updatePlayCountLocal(game.type);
+        const ach_2 =
+          user.provider === 'waktaverse.games'
+            ? await updateResult(result)
+            : await updateResultLocal(result);
+        if (ach_1) achieve = [...achieve, ...ach_1];
+        if (ach_2) achieve = [...achieve, ...ach_2];
+        await dispatch(setAchieve(achieve));
+      } catch (error) {
+        console.error('Failed to update achievements:', error);
+        // 에러 상태 처리
+      }
     });
 
     socket.on('bell.end', async (data) => {
-      const { game, roomInfo } = data;
-      const response = await client.get(`/user/${user.id}`);
-      if (response) await dispatch(setUserInfo(response.data));
+      try {
+        const { game, roomInfo } = data;
+        const response = await client.get(`/user/${user.id}`);
+        if (response) await dispatch(setUserInfo(response.data));
 
-      await router.push('/room');
-      await dispatch(setRoomInfo(roomInfo));
-      await dispatch(setGame(game));
+        await router.push('/room');
+        await dispatch(setRoomInfo(roomInfo));
+        await dispatch(setGame(game));
+      } catch (error) {
+        console.error('게임 종료 처리 중 오류 발생:', error);
+        // 오류 발생 시 기본 페이지로 리다이렉트
+        router.push('/');
+      }
     });
 
     return () => {
@@ -235,15 +246,22 @@ const Bell = () => {
   useEffect(() => {
     socket.on('exit', (data) => {
       const { roomInfo, game } = data;
+
+      if (!roomInfo || !game) return;
+
       dispatch(setRoomInfo(roomInfo));
       dispatch(setGame(game));
-      if (roomInfo.users.length === 1) router.push('/room');
+
+      if (roomInfo.users && roomInfo.users.length <= 1) {
+        router.push('/room');
+      }
     });
 
     return () => {
       socket.off('exit');
     };
   }, [dispatch, router]);
+
   return (
     <Container>
       <Header />

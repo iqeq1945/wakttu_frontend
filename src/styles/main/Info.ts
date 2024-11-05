@@ -3,7 +3,7 @@ import { COLORS, FONT_SIZES } from '../theme';
 
 const Info = styled.div`
   display: flex;
-  width: 18.75rem;
+  width: 22rem;
   flex-direction: column;
   align-items: center;
   align-self: center;

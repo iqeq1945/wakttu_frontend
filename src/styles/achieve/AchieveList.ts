@@ -34,8 +34,25 @@ export const Badge = styled.img<{ got: boolean }>`
   width: 8rem;
   height: 8rem;
   flex-shrink: 0;
-  filter: ${({ got }) => (got ? 'grayscale(0)' : 'grayscale(1)')};
+  position: relative;
+  filter: ${({ got }) =>
+    got ? 'grayscale(0)' : 'grayscale(1) brightness(0.7)'};
   border-radius: 22.5rem;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: ${({ got }) =>
+      got
+        ? 'transparent'
+        : 'linear-gradient(180deg, rgba(128,128,128,0.6) 0%, rgba(128,128,128,0.9) 100%)'};
+    border-radius: 22.5rem;
+    pointer-events: none;
+  }
 `;
 
 export const Hidden = styled.div`
