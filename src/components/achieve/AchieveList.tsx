@@ -1,5 +1,4 @@
 import { Item } from '@/containers/achieve/Achieve';
-import { AchieveState } from '@/redux/achieve/achieveSlice';
 import { getAchieveURL, getR2URL, getWAKURL } from '@/services/api';
 import { Badge, BadgeBox, Hidden, List } from '@/styles/achieve/AchieveList';
 import { RightWrapper } from '@/styles/achieve/Layout';

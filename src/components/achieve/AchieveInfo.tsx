@@ -1,6 +1,5 @@
-import { Info as InfoState, Item } from '@/containers/achieve/Achieve';
-import { AchieveState } from '@/redux/achieve/achieveSlice';
-import { getAchieveURL, getR2URL, getWAKURL } from '@/services/api';
+import { Item } from '@/containers/achieve/Achieve';
+import { getAchieveURL } from '@/services/api';
 import {
   Badge,
   Hidden,
@@ -19,31 +18,20 @@ interface Props {
   achieve: Item;
 }
 
+const CHARACTER_NAMES: Record<string, string> = {
+  woowakgood: '우왁굳',
+  ine: '아이네',
+  jingburger: '징버거',
+  lilpa: '릴파',
+  jururu: '주르르',
+  gosegu: '고세구',
+  viichan: '비챤',
+  gomem: '고멤',
+  academy: '아카데미',
+} as const;
+
 const AchieveInfo = ({ achieve }: Props) => {
-  const name = (type: string) => {
-    switch (type) {
-      case 'woowakgood':
-        return '우왁굳';
-      case 'ine':
-        return '아이네';
-      case 'jingburger':
-        return '징버거';
-      case 'lilpa':
-        return '릴파';
-      case 'jururu':
-        return '주르르';
-      case 'gosegu':
-        return '고세구';
-      case 'viichan':
-        return '비챤';
-      case 'gomem':
-        return '고멤';
-      case 'academy':
-        return '아카데미';
-      default:
-        return '왁타';
-    }
-  };
+  const name = (type: string) => CHARACTER_NAMES[type] || '왁타';
 
   if (achieve.hidden && !achieve.got) {
     return (

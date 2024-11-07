@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { COLORS } from '../theme';
 import { R2_URL } from '@/services/api';
 
@@ -71,6 +71,7 @@ export const CTag = styled.div`
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
+  flex-wrap: wrap;
 `;
 
 export const Tag = styled.div<{ tag: string }>`
@@ -123,6 +124,19 @@ export const Target = styled.h2`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+
+  animation: slideInFade 0.5s ease-out forwards;
+
+  @keyframes slideInFade {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 `;
 
 export const Middle = styled.div`
@@ -232,14 +246,31 @@ export const Answer = styled.div`
   flex-shrink: 0;
 `;
 
-export const AnswerText = styled.h3`
+export const AnswerText = styled.h2`
   color: ${COLORS.text};
   text-align: center;
-
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 700;
   line-height: normal;
+
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-width: 100%;
+
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 `;
 
 export const CRight = styled.div`
@@ -251,7 +282,7 @@ export const CRight = styled.div`
   flex-shrink: 0;
 `;
 
-export const Hint = styled.div<{ $pause: boolean }>`
+export const Hint = styled.div`
   display: flex;
   max-width: 31.125rem;
   min-height: 4rem;
@@ -259,10 +290,24 @@ export const Hint = styled.div<{ $pause: boolean }>`
   justify-content: center;
   align-items: center;
 
-  opacity: ${({ $pause }) => ($pause ? 1 : 0)};
+  opacity: 0;
+  transform: translateX(3.125rem);
+  animation: slideIn 0.5s ease forwards;
+
   border-radius: 1rem;
   border: 4px solid ${COLORS.primary};
   background: ${COLORS.bg};
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(3.125rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 `;
 
 export const HintText = styled.h4`

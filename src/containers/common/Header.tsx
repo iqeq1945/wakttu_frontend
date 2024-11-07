@@ -34,12 +34,12 @@ const Header = () => {
           '현재 방에서 나가집니다. 동의하면 확인 아니면 취소 해주세요!'
         );
         if (!check) return;
-        await router.push(src);
+        await router.replace(src);
         await exit(roomInfo.id as string);
         await dispatch(clearGame());
         await dispatch(clearRoomInfo());
       } else {
-        await router.push(src);
+        await router.replace(src);
       }
     },
     [dispatch, game.host, roomInfo.id, router]

@@ -27,6 +27,10 @@ import { Answer as TypeAnswer } from '@/redux/answer/answerSlice';
 import { Timer } from '@/redux/timer/timerSlice';
 import Character from './Character';
 import { getR2URL } from '@/services/api';
+import { useEffect } from 'react';
+import useEffectSound from '@/hooks/useEffectSound';
+import { useSelector } from 'react-redux';
+import { selectEffectVolume } from '@/redux/audio/audioSlice';
 interface Props {
   answer: TypeAnswer;
   game: TypeGame;
@@ -35,6 +39,22 @@ interface Props {
 }
 
 const Game = ({ game, quiz, answer, timer }: Props) => {
+  const effectVolume = useSelector(selectEffectVolume);
+  const hintSound = useEffectSound(
+    '/assets/sound-effects/lossy/bell_hint.webm',
+    effectVolume
+  );
+
+  useEffect(() => {
+    if (
+      timer.countTime === 10000 ||
+      timer.countTime === 15000 ||
+      timer.countTime === 20000
+    ) {
+      if (hintSound) hintSound.play();
+    }
+  }, [timer.countTime, hintSound]);
+
   return (
     <CMain>
       <Character
@@ -74,16 +94,14 @@ const Game = ({ game, quiz, answer, timer }: Props) => {
         <REye src={getR2URL('/assets/game/eye.svg')} />
         <Mouse>
           <CTag>
-            {quiz &&
-              quiz.tag.map((tag: string) => {
-                return (
-                  <Tag key={tag} tag={tag}>
-                    {tag}
-                  </Tag>
-                );
-              })}
+            {answer.pause &&
+              quiz?.tag?.map((tag: string) => (
+                <Tag key={tag} tag={tag}>
+                  {tag}
+                </Tag>
+              ))}
           </CTag>
-          <Target>{quiz?.choseong}</Target>
+          <Target>{answer.pause ? quiz?.choseong : ''}</Target>
         </Mouse>
       </CLeft>
       <Middle>
@@ -109,21 +127,23 @@ const Game = ({ game, quiz, answer, timer }: Props) => {
           quiz.hint?.map((item, idx) => {
             if (idx === 0 && timer.countTime >= 10000)
               return (
-                <Hint key={idx} $pause={answer.pause}>
+                <Hint key={idx}>
                   <HintText>{item}</HintText>
                 </Hint>
               );
             else if (idx === 1 && timer.countTime >= 15000) {
               return (
-                <Hint key={idx} $pause={answer.pause}>
+                <Hint key={idx}>
                   <HintText>{item}</HintText>
                 </Hint>
               );
             }
           })}
-        <Hint $pause={answer.pause && timer.countTime >= 20000}>
-          <HintText>{quiz?.mean}</HintText>
-        </Hint>
+        {timer.countTime >= 20000 && (
+          <Hint>
+            <HintText>{quiz?.mean}</HintText>
+          </Hint>
+        )}
       </CRight>
     </CMain>
   );
