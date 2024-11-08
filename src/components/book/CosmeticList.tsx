@@ -25,10 +25,6 @@ import {
 import { RightWrapper } from '@/styles/book/BookForm';
 import { RefObject } from 'react';
 import Router from 'next/router';
-import { useSelector } from 'react-redux';
-import { selectVoiceVolume } from '@/redux/audio/audioSlice';
-import useWaktaSound from '@/hooks/useWaktaSound';
-import { useCallback } from 'react';
 
 interface Props {
   dataset: any;
@@ -57,13 +53,6 @@ const CosmeticList = ({
   handleOptionClick,
   handleLeaveClick,
 }: Props) => {
-  const voiceVolume = useSelector(selectVoiceVolume);
-  const sound = useWaktaSound(voiceVolume);
-
-  const handleMouseEnter = useCallback(() => {
-    if (sound) sound['l-2'].play();
-  }, [sound]);
-
   return (
     <RightWrapper>
       <TopBar>
@@ -110,12 +99,7 @@ const CosmeticList = ({
           )
           .map(
             (data: { id: string; category: CosmeticVariant; url: string }) => (
-              <Item
-                key={data.id}
-                data-id={data.id}
-                onClick={handleInfoClick}
-                onMouseEnter={handleMouseEnter}
-              >
+              <Item key={data.id} data-id={data.id} onClick={handleInfoClick}>
                 <CosmeticBackground
                   $itemType={data.category}
                 ></CosmeticBackground>

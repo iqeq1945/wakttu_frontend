@@ -1,6 +1,8 @@
 import GameNav from '@/containers/roomlist/GameNav';
 import List from '@/containers/roomlist/List';
 import RoomDesc from '@/containers/roomlist/RoomDesc';
+import Header from '@/containers/common/Header';
+import { Container } from '@/styles/common/Layout';
 import Chat from '@/containers/roomlist/Chat';
 import {
   WrapRoomList,
@@ -31,7 +33,15 @@ const RoomList = () => {
   const sound = useSound('/assets/bgm/lossy/ui_main.webm', bgmVolume, 0, true);
 
   useEffect(() => {
-    if (!socket.connected) router.push('/');
+    const handleDisconnect = () => {
+      router.replace('/');
+    };
+
+    socket.on('disconnect', handleDisconnect);
+
+    return () => {
+      socket.off('disconnect', handleDisconnect);
+    };
   }, [router]);
 
   useEffect(() => {
@@ -59,7 +69,8 @@ const RoomList = () => {
   }, [dispatch, router]);
 
   return (
-    <>
+    <Container>
+      <Header />
       <WrapRoomList>
         <LeftWrapper>
           {!toggle ? <UserList /> : <RoomDesc />}
@@ -78,7 +89,7 @@ const RoomList = () => {
       </WrapRoomList>
       {modal.modalType === 'CREATE_ROOM' && modal.open && <CreateRoom />}
       {modal.modalType === 'PASSWORD' && modal.open && <PasswordModal />}
-    </>
+    </Container>
   );
 };
 

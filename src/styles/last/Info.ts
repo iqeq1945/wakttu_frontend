@@ -3,12 +3,12 @@ import { COLORS, FONT_SIZES } from '../theme';
 
 const DROM_SHADOW = '0px 1px 10px 0px rgba(0, 0, 0, 0.15)';
 
-const GAUGE = keyframes`
-  0% {
-    width: 100%;
+const TimerAnimation = keyframes`
+  from {
+    transform: scaleX(1);
   }
-  100%{
-    width: 0%;
+  to {
+    transform: scaleX(0);
   }
 `;
 
@@ -175,12 +175,13 @@ export const GaugeBar = styled.div<{ gauge: number; pause: boolean }>`
   height: 100%;
   border-radius: 6.25rem;
   background: ${COLORS.pupple};
-
-  transition: ${({ gauge, pause }) => {
-    return pause ? `transform ${gauge}ms linear 0.2s` : '';
-  }};
-  transform: scaleX(${({ pause }) => (pause ? 0 : 1)});
   transform-origin: left;
+  will-change: transform;
+
+  animation: ${({ pause }) => (pause ? TimerAnimation : 'none')}
+    ${({ gauge }) => gauge * 1.1}ms linear;
+  animation-play-state: ${({ pause }) => (pause ? 'running' : 'paused')};
+  animation-fill-mode: forwards;
 `;
 
 export const CChain = styled.div<{ $flag?: boolean }>`

@@ -1,3 +1,5 @@
+import { Container } from '@/styles/common/Layout';
+import Header from '@/containers/common/Header';
 import { LeftFooter, RightWrapper, WrapRoom } from '@/styles/room/Room';
 import { LeftWrapper, Copyright } from '@/styles/room/Room';
 import RoomNav from '@/containers/room/RoomNav';
@@ -28,7 +30,15 @@ const Room = () => {
   const sound = useSound('/assets/bgm/lossy/ui_main.webm', bgmVolume, 0, true);
 
   useEffect(() => {
-    if (!socket.connected) router.push('/');
+    const handleDisconnect = () => {
+      router.replace('/');
+    };
+
+    socket.on('disconnect', handleDisconnect);
+
+    return () => {
+      socket.off('disconnect', handleDisconnect);
+    };
   }, [router]);
 
   useEffect(() => {
@@ -50,7 +60,8 @@ const Room = () => {
   }, [dispatch, roomInfo.id, roomInfo.start]);
 
   return (
-    <>
+    <Container>
+      <Header />
       <WrapRoom>
         <LeftWrapper>
           <RoomDesc />
@@ -73,7 +84,7 @@ const Room = () => {
       {modal.modalType === 'UPDATE_ROOM' && modal.open && <UpdateRoom />}
       {modal.modalType === 'KICK' && modal.open && <KickModal />}
       {modal.modalType === 'RESULT' && modal.open && <Result />}
-    </>
+    </Container>
   );
 };
 

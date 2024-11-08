@@ -1,5 +1,6 @@
-import { ContainerContent } from '@/styles/book/BookForm';
+import { Container, ContainerContent } from '@/styles/book/BookForm';
 import Cosmetic from '@/containers/book/Cosmetic';
+import Header from '@/containers/common/Header';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { selectBgmVolume } from '@/redux/audio/audioSlice';
@@ -13,7 +14,15 @@ const Book = () => {
   const sound = useSound('/assets/bgm/lossy/ui_main.webm', bgmVolume, 0, true);
 
   useEffect(() => {
-    if (!socket.connected) router.push('/');
+    const handleDisconnect = () => {
+      router.replace('/');
+    };
+
+    socket.on('disconnect', handleDisconnect);
+
+    return () => {
+      socket.off('disconnect', handleDisconnect);
+    };
   }, [router]);
 
   useEffect(() => {
@@ -21,11 +30,12 @@ const Book = () => {
   }, [sound]);
 
   return (
-    <>
+    <Container>
+      <Header />
       <ContainerContent>
         <Cosmetic />
       </ContainerContent>
-    </>
+    </Container>
   );
 };
 export default Book;

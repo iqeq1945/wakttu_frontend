@@ -6,80 +6,29 @@ const { woo, gomem, ine, jingburger, lilpa, jururu, gosegu, viichan } = data;
 const Read = () =>
   console.log(woo, ine, jingburger, lilpa, jururu, gosegu, viichan);
 
+const createVoiceArray = (
+  characterData: { id: string; src?: string }[],
+  characterName: string
+) => {
+  return characterData.map((item) => ({
+    id: item.id,
+    src: item.src
+      ? item.src
+      : `${R2_URL}/assets/voice/${characterName}/${item.id}.webm`,
+  }));
+};
+
 const List = () => {
-  const arr: { id: string; src: string }[] = [];
-  woo.map((item: { id: string; src?: string }) => {
-    const obj = {
-      id: item.id,
-      src: item.src ? item.src : R2_URL + `/assets/voice/woo/${item.id}.webm`,
-    };
-    arr.push(obj);
-  });
-
-  gomem.map((item: { id: string; src?: string }) => {
-    const obj = {
-      id: item.id,
-      src: item.src ? item.src : R2_URL + `/assets/voice/gomem/${item.id}.webm`,
-    };
-    arr.push(obj);
-  });
-
-  ine.map((item: { id: string; src?: string }) => {
-    const obj = {
-      id: item.id,
-      src: item.src ? item.src : R2_URL + `/assets/voice/ine/${item.id}.webm`,
-    };
-    arr.push(obj);
-  });
-
-  jingburger.map((item: { id: string; src?: string }) => {
-    const obj = {
-      id: item.id,
-      src: item.src
-        ? item.src
-        : R2_URL + `/assets/voice/jingburger/${item.id}.webm`,
-    };
-    arr.push(obj);
-  });
-
-  lilpa.map((item: { id: string; src?: string }) => {
-    const obj = {
-      id: item.id,
-      src: item.src ? item.src : R2_URL + `/assets/voice/lilpa/${item.id}.webm`,
-    };
-    arr.push(obj);
-  });
-
-  jururu.map((item: { id: string; src?: string }) => {
-    const obj = {
-      id: item.id,
-      src: item.src
-        ? item.src
-        : R2_URL + `/assets/voice/jururu/${item.id}.webm`,
-    };
-    arr.push(obj);
-  });
-
-  gosegu.map((item: { id: string; src?: string }) => {
-    const obj = {
-      id: item.id,
-      src: item.src
-        ? item.src
-        : R2_URL + `/assets/voice/gosegu/${item.id}.webm`,
-    };
-    arr.push(obj);
-  });
-
-  viichan.map((item: { id: string; src?: string }) => {
-    const obj = {
-      id: item.id,
-      src: item.src
-        ? item.src
-        : R2_URL + `/assets/voice/viichan/${item.id}.webm`,
-    };
-    arr.push(obj);
-  });
-
+  const arr = [
+    ...createVoiceArray(woo, 'woo'),
+    ...createVoiceArray(gomem, 'gomem'),
+    ...createVoiceArray(ine, 'ine'),
+    ...createVoiceArray(jingburger, 'jingburger'),
+    ...createVoiceArray(lilpa, 'lilpa'),
+    ...createVoiceArray(jururu, 'jururu'),
+    ...createVoiceArray(gosegu, 'gosegu'),
+    ...createVoiceArray(viichan, 'viichan'),
+  ];
   return arr;
 };
 

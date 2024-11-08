@@ -4,7 +4,7 @@ import { useLoading } from '@/hooks/useLoading';
 import Loading from './Loding';
 interface Props {
   path: string;
-  children: React.ReactNode;
+  children: JSX.Element;
 }
 
 const Container = ({ path, children }: Props) => {

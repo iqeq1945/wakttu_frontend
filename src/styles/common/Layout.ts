@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 const ContentContainer = styled.div<{ path?: string }>`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -26,10 +25,6 @@ const ContentContainer = styled.div<{ path?: string }>`
     `;
     else if (path?.includes('/kung'))
       return `height: 100vh; background: linear-gradient(180deg, #C3FFB4 0%, #C3FFB4 100%);  padding-bottom:0;`;
-    else if (path === '/dictionary')
-      return `height: 100vh; padding-bottom: 0;`;
-    else if (path === '/dictionary/search')
-      return `height: 100vh; background: var(--Gray-5, #F7F7F7); padding-bottom: 0;`;
     else if (path?.includes('/bell'))
       return `height: 100vh;
     background: url('${R2_URL}/assets/checker.png');
@@ -42,10 +37,9 @@ const ContentContainer = styled.div<{ path?: string }>`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
 
-  width: 100%;
-  height: 100%;
+  width: 88rem;
+  height: 67.5rem;
 
   gap: 1rem;
 `;

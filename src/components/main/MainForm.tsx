@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import {
   GameStart,
   WrapForm,
@@ -26,7 +26,12 @@ interface Props {
 }
 
 const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
-  const icon = getIcon(user.score as number, user.provider as any);
+  const [currentIcon, setCurrentIcon] = useState(getIcon(0));
+
+  useEffect(() => {
+    const newIcon = getIcon(user.score as number, user.provider as any);
+    setCurrentIcon(newIcon);
+  }, [user.score, user.provider]);
 
   const waktaLogin = async (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -41,7 +46,7 @@ const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
       </GameStart>
       {isLogined ? (
         <Player onClick={logout}>
-          <Rank src={icon} />
+          <Rank src={currentIcon} />
           <Line />
           <PlayerName>{user.name}</PlayerName>
           <Link href="/">

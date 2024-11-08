@@ -3,7 +3,7 @@ import { COLORS, FONT_SIZES } from '../theme';
 
 const Info = styled.div`
   display: flex;
-  width: 18.75rem;
+  width: 22rem;
   flex-direction: column;
   align-items: center;
   align-self: center;
@@ -30,6 +30,13 @@ const Pdf = styled.span`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+
+  cursor: pointer;
 `;
 
-export { Info, CopyRight, Pdf };
+const Flex = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
+
+export { Info, CopyRight, Pdf, Flex };

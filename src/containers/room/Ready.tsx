@@ -46,58 +46,60 @@ const Ready = () => {
     ready(roomInfo.id as string);
   };
 
+  const validateTeams = (
+    teams: { [key: string]: any[] },
+    totalUsers: number
+  ) => {
+    const teamCounts = Object.values(teams)
+      .map((team) => team.length)
+      .filter((count) => count > 0);
+
+    const totalTeamMembers = teamCounts.reduce((acc, curr) => acc + curr, 0);
+    if (teamCounts.length <= 1 || totalTeamMembers !== totalUsers) {
+      alert('모두 팀을 선택하지 않았습니다!');
+      return false;
+    }
+
+    const isTeamBalanced = teamCounts.every((count) => count === teamCounts[0]);
+    if (!isTeamBalanced) {
+      alert('인원수가 맞지 않습니다.');
+      return false;
+    }
+
+    return true;
+  };
+
   const onStart = useCallback(() => {
     if (roomInfo.users.length === 1) {
       alert('혼자서는 시작할 수 없습니다!');
       return;
     }
-    if (roomInfo.users.length - 1 > readyUsers.length) {
-      alert('모두 준비 상태가 아닙니다.');
-      return;
-    } else if (roomInfo.users.length - 1 < readyUsers.length) {
-      alert('침입자가 존재합니다. 방을새로파세용!');
+
+    const expectedReadyCount = roomInfo.users.length - 1;
+    if (readyUsers.length !== expectedReadyCount) {
+      alert(
+        readyUsers.length < expectedReadyCount
+          ? '모두 준비 상태가 아닙니다.'
+          : '침입자가 존재합니다. 방을 새로 파세요!'
+      );
       return;
     }
+
     if (roomInfo.option?.includes('팀전')) {
-      const countWoo = game.team.woo.length;
-      const countGomem = game.team.gomem.length;
-      const countAcademy = game.team.academy.length;
-      const countIsedol = game.team.isedol.length;
-
-      const check = [];
-      if (countWoo > 0) check.push(countWoo);
-      if (countGomem > 0) check.push(countGomem);
-      if (countAcademy > 0) check.push(countAcademy);
-      if (countIsedol > 0) check.push(countIsedol);
-
-      if (
-        check.length <= 1 ||
-        countWoo + countGomem + countIsedol + countAcademy !==
-          roomInfo.users.length
-      ) {
-        alert('모두 팀을 선택하지 않았습니다.!');
-        return;
-      }
-      for (let i = 0; i < check.length - 1; i++)
-        for (let j = 1; j < check.length; j++) {
-          if (check[i] != check[j]) {
-            alert('인원수가 맞지 않습니다.');
-            return;
-          }
-        }
+      const isValid = validateTeams(game.team, roomInfo.users.length);
+      if (!isValid) return;
     }
-    switch (roomInfo.type) {
-      case 0: {
-        lastStart(roomInfo.id as string);
-        break;
-      }
-      case 1: {
-        kungStart(roomInfo.id as string);
-        break;
-      }
-      case 2: {
-        bellStart(roomInfo.id as string);
-      }
+
+    const startFunctions: Record<number, (roomId: string) => void> = {
+      0: lastStart,
+      1: kungStart,
+      2: bellStart,
+    };
+
+    const startFunction =
+      roomInfo.type !== undefined ? startFunctions[roomInfo.type] : undefined;
+    if (startFunction) {
+      startFunction(roomInfo.id as string);
     }
   }, [game.team, readyUsers.length, roomInfo]);
 

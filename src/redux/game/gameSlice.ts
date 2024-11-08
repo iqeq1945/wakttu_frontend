@@ -25,6 +25,7 @@ const initialState: Game = {
   ban: [],
   team: { woo: [], gomem: [], academy: [], isedol: [] },
   quiz: undefined,
+  turnChanged: false,
 };
 
 export const gameSlice = createSlice({

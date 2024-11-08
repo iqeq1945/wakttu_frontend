@@ -2,6 +2,7 @@ import MyEmoticon from '@/components/mypage/MyEmoticon';
 import MyPageHeader from '@/containers/mypage/MyPageHeader';
 import CharacterInfo from '@/containers/mypage/CharacterInfo';
 import MyStyleList from '@/containers/mypage/MyStyleList';
+import { Container } from '@/styles/common/Layout';
 import {
   Content,
   ContentFooter,
@@ -9,6 +10,7 @@ import {
   Wrapper,
 } from '@/styles/mypage/Mystyles';
 import { Copyright } from '@/styles/room/Room';
+import Header from '@/containers/common/Header';
 import useSound from '@/hooks/useSound';
 import { useSelector } from 'react-redux';
 import { selectBgmVolume } from '@/redux/audio/audioSlice';
@@ -22,15 +24,23 @@ const Mypage = () => {
   const sound = useSound('/assets/bgm/lossy/ui_main.webm', bgmVolume, 0, true);
 
   useEffect(() => {
-    if (!socket.connected) router.push('/');
-  }, [router]);
+    const handleDisconnect = () => {
+      router.replace('/');
+    };
 
+    socket.on('disconnect', handleDisconnect);
+
+    return () => {
+      socket.off('disconnect', handleDisconnect);
+    };
+  }, [router]);
   useEffect(() => {
     if (sound) sound.play();
   }, [sound]);
 
   return (
-    <>
+    <Container>
+      <Header />
       <MyPageHeader />
       <Wrapper>
         <LeftWrapper>
@@ -48,7 +58,7 @@ const Mypage = () => {
         </LeftWrapper>
         <MyStyleList />
       </Wrapper>
-    </>
+    </Container>
   );
 };
 
