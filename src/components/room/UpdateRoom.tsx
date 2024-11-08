@@ -59,6 +59,7 @@ const UpdateRoom = ({
             defaultValue={roomInfo.title}
             onChange={onRoomInfo}
             onKeyDown={handleKeyDown}
+            maxLength={10}
           />
         </CCreate>
         <CCreate>
@@ -69,6 +70,7 @@ const UpdateRoom = ({
             defaultValue={roomInfo.password}
             onChange={onRoomInfo}
             autoComplete="off"
+            maxLength={8}
           />
         </CCreate>
         <CCreate>
