@@ -17,7 +17,12 @@ const SearchSection = () => {
 
   useEffect(() => {
     const getWords = async () => {
-      if (!keyword) return;  // keyword가 없으면 요청하지 않음
+      if (!keyword) {
+        setWords([])
+        setLoading(false);
+        setError(false);
+        return;
+      };  // keyword가 없으면 요청하지 않음
       setLoading(true);
       setError(false);  // 요청 시작 시 에러 상태 초기화
       try {
