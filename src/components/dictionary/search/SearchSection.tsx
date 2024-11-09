@@ -18,6 +18,7 @@ const SearchSection = () => {
   useEffect(() => {
     const getWords = async () => {
       if (!keyword) {
+        setWords([])
         setLoading(false);
         setError(false);
         return;
