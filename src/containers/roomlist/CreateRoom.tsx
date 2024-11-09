@@ -71,7 +71,6 @@ const CreateRoom = () => {
     setRoom((prev) => ({ ...prev, [name]: value }));
   };
 
-
   const onSelect = (name: string, value: any) => {
     if (name === 'option') {
       let copy;
@@ -86,7 +85,12 @@ const CreateRoom = () => {
       });
     } else if (name === 'type') {
       setRoom((prev) => {
-        return { ...prev, [name]: value, round: value === 2 ? 10 : 6 };
+        return {
+          ...prev,
+          [name]: value,
+          round: value === 2 ? 10 : 6,
+          option: [],
+        };
       });
     } else {
       setRoom((prev) => {

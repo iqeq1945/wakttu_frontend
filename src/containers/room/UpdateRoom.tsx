@@ -78,7 +78,12 @@ const UpdateRoom = () => {
       });
     } else if (name === 'type') {
       setRoom((prev) => {
-        return { ...prev, [name]: value, round: value === 2 ? 10 : 6 };
+        return {
+          ...prev,
+          [name]: value,
+          round: value === 2 ? 10 : 6,
+          option: [],
+        };
       });
     } else {
       setRoom((prev) => {
