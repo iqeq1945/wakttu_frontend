@@ -8,6 +8,7 @@ const Info = styled.div`
   align-items: center;
   align-self: center;
   gap: 0.5rem;
+  margin-bottom: 2rem;
 `;
 
 const CopyRight = styled.span`
