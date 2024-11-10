@@ -31,6 +31,17 @@ export default class MyDocument extends Document {
     return (
       <Html lang="ko-kr" dir="ltr">
         <Head>
+
+          <meta name="description" content="웹에서 즐길 수 있는 왁타버스 끝말잇기" />
+          <meta name="keywords" content="왁타버스" />
+          <meta property="og:title" content="왁뚜" />
+          <meta property="og:type" content="website" />
+          <meta property="og:description" content="웹에서 즐길 수 있는 왁타버스 끝말잇기" />
+          <meta property="og:image" content="https://r2.wakttu.kr/og-image.png" />
+          <meta property="og:image:alt" content="왁뚜 게임 이미지" />
+
+          <title>왁뚜 - 우리 모두 품어놀자!</title>
+
           <link
             rel="preconnect"
             href="https://cdn.jsdelivr.net"
