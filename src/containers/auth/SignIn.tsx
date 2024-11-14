@@ -97,8 +97,9 @@ const SignIn = ({ onToggle }: Props) => {
   };
 
   const waktaLogin = async () => {
-    const { data } = await client.get('auth/wakta');
-    window.location.href = data.url;
+    /* const { data } = await client.get('auth/wakta');
+    window.location.href = data.url;*/
+    alert('조공 서버에서는 막힌 기능이에요!');
   };
 
   return (

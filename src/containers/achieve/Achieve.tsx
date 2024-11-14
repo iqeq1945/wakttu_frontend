@@ -3,7 +3,7 @@ import { AchieveState } from '@/redux/achieve/achieveSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';
 import {
   getAchieveList,
-  getMyAchieve,
+  // getMyAchieve,
   getMyAchieveLocal,
 } from '@/services/api';
 import { CharacterVariant } from '@/styles/achieve/AchieveInfo';
@@ -51,10 +51,10 @@ const Achieve = () => {
   useEffect(() => {
     const getInfo = async () => {
       try {
-        const { achieves } =
-          user.provider === 'waktaverse.games'
+        const { achieves } = await getMyAchieveLocal();
+        /* user.provider === 'waktaverse.games'
             ? await getMyAchieve()
-            : await getMyAchieveLocal();
+            : await getMyAchieveLocal();*/
         const list = await getAchieveList();
 
         if (!achieves || !list) return;
