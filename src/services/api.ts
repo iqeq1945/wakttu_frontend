@@ -19,13 +19,13 @@ export const getAchieveURL = (id: string) =>
 /**
  * Waktaverse Games API
  */
-export const WAKGAME_URL = process.env.NEXT_PUBLIC_WAKGAME_URL;
-export const getWAKURL = (src: string) => WAKGAME_URL + src;
+//export const WAKGAME_URL = process.env.NEXT_PUBLIC_WAKGAME_URL;
+//export const getWAKURL = (src: string) => WAKGAME_URL + src;
 
 /**
  * @description : 통계증가 함수
  */
-export const updateStat = async (id: string) => {
+/*export const updateStat = async (id: string) => {
   const { stats } = await client
     .get(`/wakta/stat?id=${id}`)
     .then((response) => response.data)
@@ -39,7 +39,7 @@ export const updateStat = async (id: string) => {
   const { achieves } = data;
   if (achieves) return achieves;
   else undefined;
-};
+};*/
 
 /**
  * @description : 통계증가 함수
@@ -63,12 +63,12 @@ export const updateStatLocal = async (id: string, val: number = 1) => {
  * @default 0
  * @returns achieves : []
  */
-export const updatePlayCount = async (type: number = 0) => {
+/*export const updatePlayCount = async (type: number = 0) => {
   let id = 'LAST_COUNT';
   if (type === 1) id = 'KUNG_COUNT';
   else if (type === 2) id = 'BELL_COUNT';
   return await updateStat(id);
-};
+};*/
 
 /**
  *
@@ -87,10 +87,10 @@ export const updatePlayCountLocal = async (type: number = 0) => {
  * @description 1위한 횟수 통계
  * @param team : boolean
  */
-export const winTheGame = async (team: boolean = false) => {
+/*export const winTheGame = async (team: boolean = false) => {
   const id = team ? 'WINTEAM' : 'WINSOL';
   return await updateStat(id);
-};
+};*/
 
 /**
  * @description 1위한 횟수 통계
@@ -105,7 +105,7 @@ export const winTheGameLocal = async (team: boolean = false) => {
  * @param result : {type: 어떤 타입의 데이터 , word : 단어에 대한 정보가 들어가있음}[]
  * @returns void : 게임내에서 작성한 데이터 통계가 올라감!
  */
-export const updateResult = async (result: Result[]) => {
+/*export const updateResult = async (result: Result[]) => {
   const arr = result.filter((item) => item.type === 'WORD');
   const data = await client
     .put(`/wakta/result`, arr)
@@ -114,7 +114,7 @@ export const updateResult = async (result: Result[]) => {
   const { achieves } = data;
   if (achieves) return achieves;
   else undefined;
-};
+};*/
 
 /**
  * @param result : {type: 어떤 타입의 데이터 , word : 단어에 대한 정보가 들어가있음}[]
@@ -167,7 +167,7 @@ export const getAchieveList = async () => {
  *
  * @returns {achieves : AchieveState, size : number}
  */
-export const getMyAchieve = async (): Promise<{
+/*export const getMyAchieve = async (): Promise<{
   achieves: AchieveState[];
   size: number;
 }> => {
@@ -176,7 +176,7 @@ export const getMyAchieve = async (): Promise<{
     .then((response) => response.data)
     .catch(console.error);
   return data;
-};
+};*/
 
 export const getMyAchieveLocal = async (): Promise<any> => {
   const data = await client('/stats/achieve')

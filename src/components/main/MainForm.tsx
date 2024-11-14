@@ -33,32 +33,35 @@ const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
     setCurrentIcon(newIcon);
   }, [user.score, user.provider]);
 
-  const waktaLogin = async (e: MouseEvent<HTMLElement>) => {
+  /*const waktaLogin = async (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     const { data } = await client.get('auth/wakta');
     window.location.href = data.url;
-  };
+  };*/
 
   return (
     <WrapForm onClick={onModal}>
       <GameStart onClick={start}>
         {isLogined ? '게임 시작' : '로그인'}
       </GameStart>
-      {isLogined ? (
-        <Player onClick={logout}>
-          <Rank src={currentIcon} />
-          <Line />
-          <PlayerName>{user.name}</PlayerName>
-          <Link href="/">
-            <LogOut src={getR2URL('/assets/icons/logout.svg')} />
-          </Link>
-        </Player>
-      ) : (
+      {
+        isLogined ? (
+          <Player onClick={logout}>
+            <Rank src={currentIcon} />
+            <Line />
+            <PlayerName>{user.name}</PlayerName>
+            <Link href="/">
+              <LogOut src={getR2URL('/assets/icons/logout.svg')} />
+            </Link>
+          </Player>
+        ) : null
+        /*  
         <LogIn onClick={waktaLogin}>
           <Wakgames src={getR2URL('/assets/icons/wakgames.svg')} />
           <LoginName>왁타버스 게임즈로 로그인</LoginName>
         </LogIn>
-      )}
+        */
+      }
     </WrapForm>
   );
 };
