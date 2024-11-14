@@ -12,8 +12,7 @@ import {
   LoginName,
 } from '@/styles/main/MainForm';
 import Link from 'next/link';
-import { selectUserInfo } from '@/redux/user/userSlice';
-import { useSelector } from 'react-redux';
+
 import { client, getR2URL } from '@/services/api';
 import { getIcon } from '@/modules/UserInfo';
 
