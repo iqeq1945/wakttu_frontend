@@ -10,7 +10,6 @@ import { isExistError, isIdValidError } from '@/containers/auth/checkAuth';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '@/redux/user/userSlice';
 import { closeModal } from '@/redux/modal/modalSlice';
-import styled from 'styled-components';
 import { socket } from '@/services/socket/socket';
 
 interface InputProps {
@@ -97,9 +96,8 @@ const SignIn = ({ onToggle }: Props) => {
   };
 
   const waktaLogin = async () => {
-    /* const { data } = await client.get('auth/wakta');
-    window.location.href = data.url;*/
-    alert('조공 서버에서는 막힌 기능이에요!');
+    const { data } = await client.get('auth/wakta');
+    window.location.href = data.url;
   };
 
   return (
