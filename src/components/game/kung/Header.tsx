@@ -24,44 +24,11 @@ interface Props {
 
 const Header = ({ roomInfo, exit }: Props) => {
   const [isHelpOpen, setIsHelpOpen] = useState(false);
-  const [isOptionOpen, setIsOptionOpen] = useState(false);
   const [isExitOpen, setIsExitOpen] = useState(false);
-
-  const dispatch = useDispatch();
-  const audio = useSelector(selectVolume);
-  const [volume, setVolume] = useState({
-    bgmVolume: 0.5,
-    effectVolume: 0.5,
-    voiceVolume: 0.5,
-  });
-
-  const onBgmChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target as HTMLInputElement;
-    setVolume({ ...volume, bgmVolume: Number(value) });
-  };
-
-  const onEffectChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target as HTMLInputElement;
-    setVolume({ ...volume, effectVolume: Number(value) });
-  };
-
-  const onVoiceChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target as HTMLInputElement;
-    setVolume({ ...volume, voiceVolume: Number(value) });
-  };
-
-  const onClick = () => {
-    dispatch(setAudio(volume));
-    setIsOptionOpen(false);
-  };
-
-  useEffect(() => {
-    setVolume(audio);
-  }, [audio]);
 
   const onConfirm = () => {
     exit();
-    setIsOptionOpen(false);
+    setIsExitOpen(false);
   };
 
   return (
@@ -69,9 +36,6 @@ const Header = ({ roomInfo, exit }: Props) => {
       <CButton>
         <Button onClick={() => setIsHelpOpen(true)}>
           <ButtonText>도움말</ButtonText>
-        </Button>
-        <Button onClick={() => setIsOptionOpen(true)}>
-          <ButtonText>옵션</ButtonText>
         </Button>
       </CButton>
       <CTitle>
@@ -85,16 +49,6 @@ const Header = ({ roomInfo, exit }: Props) => {
         </ExitButton>
       </CButton>
       {isHelpOpen && <HelpModal onClose={() => setIsHelpOpen(false)} />}
-      {isOptionOpen && (
-        <Option
-          audio={volume}
-          onClick={onClick}
-          offModal={() => setIsOptionOpen(false)}
-          onBgmChange={onBgmChange}
-          onEffectChange={onEffectChange}
-          onVoiceChange={onVoiceChange}
-        />
-      )}
       {isExitOpen && (
         <ExitModal
           onConfirm={onConfirm}
