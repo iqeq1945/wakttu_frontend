@@ -139,7 +139,7 @@ const ResultSolo = ({ list, offModal, user }: Props) => {
                     <Grade src={getIcon(user.score + 1000, user.provider)} />
                   </CLevelIcon>
                   <ExpBar>
-                    <Gauge exp={(user.score % 1000) / 10} />
+                    <Gauge exp={(user.score % 1000) / 100} />
                   </ExpBar>
                   <Stat>
                     <Item>
