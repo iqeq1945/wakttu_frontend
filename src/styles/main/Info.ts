@@ -7,6 +7,7 @@ const Info = styled.div`
   flex-direction: column;
   align-items: center;
   align-self: center;
+  margin-top: auto;
   gap: 0.5rem;
   margin-bottom: 2rem;
 `;

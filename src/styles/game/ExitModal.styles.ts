@@ -23,7 +23,7 @@ export const Container = styled.div`
   align-items: center;
   gap: 1.5rem;
 
-  border-radius: 2rem;
+  border-radius: 1rem;
   border: 2px solid ${COLORS['gray-4']};
   background: ${COLORS.bg};
 `;

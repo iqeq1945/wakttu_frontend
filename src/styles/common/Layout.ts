@@ -13,7 +13,9 @@ const ContentContainer = styled.div<{ path?: string }>`
   ${({ path }) => {
     if (path === '/')
       return `height: 100vh;
-  background: url('${R2_URL}/assets/background.png') lightgray 50% / cover no-repeat;
+background: url('${R2_URL}/assets/main.png') no-repeat center center; 
+background-size: cover;
+
 `;
     else if (path?.includes('/last'))
       return `height: 100vh;
