@@ -143,15 +143,17 @@ const ResultTeam = ({ list, offModal, user }: Props) => {
                       <Grade src={getIcon(user.score, user.provider)} />
                       <Exp>
                         +
-                        {list.length > 0 &&
-                          list.find((item) => item.userId === user.id)!.score}
+                        {Math.ceil(
+                          list.find((item) => item.userId === user.id)!.score /
+                            10
+                        )}
                         xp
                       </Exp>
                     </NowLevel>
                     <Grade src={getIcon(user.score + 1000, user.provider)} />
                   </CLevelIcon>
                   <ExpBar>
-                    <Gauge exp={(user.score % 1000) / 100} />
+                    <Gauge exp={(user.score % 1000) / 10} />
                   </ExpBar>
                   <Stat>
                     <Item>
