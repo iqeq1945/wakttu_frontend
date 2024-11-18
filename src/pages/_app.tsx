@@ -13,6 +13,7 @@ import store from '@/redux/store';
 import { fontSizeManager } from '@/modules/BaseFontSize';
 import { isMobileDevice } from '@/modules/Mobile';
 
+import Head from 'next/head';
 import { usePathname } from 'next/navigation';
 import { GoogleTagManager } from '@next/third-parties/google';
 
@@ -52,6 +53,9 @@ const App = ({ Component, pageProps }: AppProps) => {
     <QueryClientProvider client={queryClient}>
       <CookiesProvider>
         <Provider store={store}>
+          <Head>
+            <title>왁뚜 - 우리 모두 품어놀자!</title>
+          </Head>
           <GlobalStyle />
           <Container path={path}>
             {isMobile ? (
