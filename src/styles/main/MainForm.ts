@@ -237,7 +237,7 @@ const GrayText = styled.span`
   color: ${COLORS['gray-2']};
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-  font-size: ${FONT_SIZES['body-2']};
+  font-size: ${FONT_SIZES.caption};
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -247,7 +247,7 @@ const BlackText = styled.span`
   color: ${COLORS.text};
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-  font-size: ${FONT_SIZES['body-2']};
+  font-size: ${FONT_SIZES.caption};
   font-style: normal;
   font-weight: 500;
   line-height: normal;
