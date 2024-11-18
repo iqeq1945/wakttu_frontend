@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { GlobalStyle } from '@/styles/GlobalStyle';
-import { Container, Loading } from '@/components';
+import { Container } from '@/components';
 
 import { CookiesProvider } from 'react-cookie';
 import { Provider } from 'react-redux';
@@ -14,6 +14,7 @@ import { fontSizeManager } from '@/modules/BaseFontSize';
 import { isMobileDevice } from '@/modules/Mobile';
 
 import { usePathname } from 'next/navigation';
+import { GoogleTagManager } from '@next/third-parties/google';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const path = usePathname();
@@ -21,19 +22,30 @@ const App = ({ Component, pageProps }: AppProps) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setIsMobile(isMobileDevice());
+    const mobileChecker = () => {
+      setIsMobile(isMobileDevice());
+    };
+
+    mobileChecker();
+    window.addEventListener('resize', mobileChecker);
 
     if (!isMobile) {
-      const resizeHandler = () => fontSizeManager.handleResize();
+      const resizeHandler = () => {
+        fontSizeManager.handleResize();
+      };
 
       resizeHandler();
-
       window.addEventListener('resize', resizeHandler);
 
       return () => {
+        window.removeEventListener('resize', mobileChecker);
         window.removeEventListener('resize', resizeHandler);
       };
     }
+
+    return () => {
+      window.removeEventListener('resize', mobileChecker);
+    };
   }, [isMobile]);
 
   return (
@@ -48,6 +60,8 @@ const App = ({ Component, pageProps }: AppProps) => {
               <Component {...pageProps} />
             )}
           </Container>
+
+          <GoogleTagManager gtmId="GTM-PF5QTVJR" />
         </Provider>
         <ReactQueryDevtools initialIsOpen={false} />
       </CookiesProvider>
