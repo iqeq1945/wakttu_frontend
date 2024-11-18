@@ -42,11 +42,10 @@ const GusetLogin = styled.div`
   }
 `;
 
-const GuestText = styled.span`
+const GuestText = styled.h6`
   color: ${COLORS['gray-2']};
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-  font-size: ${FONT_SIZES['body-1']};
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -72,11 +71,10 @@ const WakGamesLogin = styled.div`
   }
 `;
 
-const WakgamesText = styled.span`
+const WakgamesText = styled.h6`
   color: ${COLORS.bg};
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-  font-size: ${FONT_SIZES['body-1']};
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -84,7 +82,7 @@ const WakgamesText = styled.span`
 
 const SignUp = styled.div`
   display: flex;
-  width: 17.5rem;
+  width: 100%;
   justify-content: center;
   align-items: center;
   gap: 0.375rem;
@@ -96,7 +94,7 @@ const LeftText = styled.span`
   color: ${COLORS['gray-2']};
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-  font-size: ${FONT_SIZES['body-2']};
+  font-size: ${FONT_SIZES['body-1']};
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -113,7 +111,7 @@ const RightText = styled.span`
   color: ${COLORS.primary};
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-  font-size: ${FONT_SIZES['body-2']};
+  font-size: ${FONT_SIZES['body-1']};
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -136,7 +134,7 @@ const GameStart = styled.div`
   color: ${COLORS.bg};
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.125rem;
 
   border-radius: 1rem;
   border: 1px solid var(--Outline-Black, rgba(0, 0, 0, 0.1));
@@ -239,7 +237,7 @@ const GrayText = styled.span`
   color: ${COLORS['gray-2']};
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-  font-size: ${FONT_SIZES.caption};
+  font-size: ${FONT_SIZES['body-2']};
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -249,7 +247,7 @@ const BlackText = styled.span`
   color: ${COLORS.text};
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-  font-size: ${FONT_SIZES.caption};
+  font-size: ${FONT_SIZES['body-2']};
   font-style: normal;
   font-weight: 500;
   line-height: normal;
