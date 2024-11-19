@@ -31,13 +31,13 @@ export default class MyDocument extends Document {
     return (
       <Html lang="ko-kr" dir="ltr">
         <Head>
-          <meta property="description" content="웹에서 즐길 수 있는 왁타버스 끝말잇기" />
+          <meta name="description" content="웹에서 즐길 수 있는 왁타버스 끝말잇기" />
 
-          <meta property="og:title" content="왁뚜 - 우리 모두 품어놀자!" />
-          <meta property="og:type" content="website" />
-          <meta property="og:image" content="https://r2.wakttu.kr/og-image.png" />
-          <meta property="og:description" content="웹에서 즐길 수 있는 왁타버스 끝말잇기" />
-          <meta property="og:url" content="https://www.wakttu.kr" />
+          <meta name="og:title" content="왁뚜 - 우리 모두 품어놀자!" />
+          <meta name="og:type" content="website" />
+          <meta name="og:image" content="https://r2.wakttu.kr/og-image.png" />
+          <meta name="og:description" content="웹에서 즐길 수 있는 왁타버스 끝말잇기" />
+          <meta name="og:url" content="https://www.wakttu.kr" />
           
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:title" content="왁뚜 - 우리 모두 품어놀자!" />
