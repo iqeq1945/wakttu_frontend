@@ -55,7 +55,6 @@ const App = ({ Component, pageProps }: AppProps) => {
       <CookiesProvider>
         <Provider store={store}>
           <Head>
-            <title>왁뚜 - 우리 모두 품어놀자!</title>
             <link rel="canonical" href={`https://www.wakttu.kr/${path}`} />
 
             <meta name="robots" content={`${
