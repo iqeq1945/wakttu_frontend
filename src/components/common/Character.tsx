@@ -13,7 +13,7 @@ interface Props {
   transform?: React.CSSProperties; // transform
 }
 
-const Character = ({ character, style, transform }: Props) => {
+const Character = ({ character, style }: Props) => {
   const src = getCharacter(character);
 
   return (
@@ -21,7 +21,6 @@ const Character = ({ character, style, transform }: Props) => {
       <CharacterImage
         style={{
           ...style,
-          ...transform, // transform 적용
         }}
       >
         <SkinItem

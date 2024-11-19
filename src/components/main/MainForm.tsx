@@ -85,8 +85,10 @@ const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
             <CPLayer>
               <Character
                 character={character}
-                style={{ left: '-3rem' }}
-                transform={{ transform: 'scale(0.8)' }}
+                style={{
+                  transform: 'scale(0.8)',
+                  left: '-3rem',
+                }}
               />
               <Info>
                 <NameNRank>
