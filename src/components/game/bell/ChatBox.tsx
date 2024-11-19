@@ -79,11 +79,11 @@ const ChatBox = ({
           />
           {pause ? (
             <SendMessage onClick={onAnswer}>
-              <SendIcon src={R2_URL + '/assets/icons/send.svg'} />
+              <SendIcon src={R2_URL + '/assets/icons/send.svg'} alt="보내기 아이콘" />
             </SendMessage>
           ) : (
             <SendMessage onClick={onMessage}>
-              <SendIcon src={R2_URL + '/assets/icons/send.svg'} />
+              <SendIcon src={R2_URL + '/assets/icons/send.svg'} alt="보내기 아이콘" />
             </SendMessage>
           )}
         </MessageBlock>

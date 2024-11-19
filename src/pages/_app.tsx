@@ -1,5 +1,10 @@
 import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
+
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { GoogleTagManager } from '@next/third-parties/google';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
@@ -13,12 +18,8 @@ import store from '@/redux/store';
 import { fontSizeManager } from '@/modules/BaseFontSize';
 import { isMobileDevice } from '@/modules/Mobile';
 
-import Head from 'next/head';
-import { usePathname } from 'next/navigation';
-import { GoogleTagManager } from '@next/third-parties/google';
-
 const App = ({ Component, pageProps }: AppProps) => {
-  const path = usePathname();
+  const { pathname: path } = useRouter();
   const queryClient = new QueryClient();
   const [isMobile, setIsMobile] = useState(false);
 
@@ -55,7 +56,13 @@ const App = ({ Component, pageProps }: AppProps) => {
         <Provider store={store}>
           <Head>
             <title>왁뚜 - 우리 모두 품어놀자!</title>
+            <link rel="canonical" href={`https://www.wakttu.kr/${path}`} />
+
+            <meta name="robots" content={`${
+              (path.includes('/main/') || path === '/') ? 'index' : 'noindex'
+            },follow`} />
           </Head>
+
           <GlobalStyle />
           <Container path={path}>
             {isMobile ? (
@@ -67,6 +74,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 
           <GoogleTagManager gtmId="GTM-PF5QTVJR" />
         </Provider>
+
         <ReactQueryDevtools initialIsOpen={false} />
       </CookiesProvider>
     </QueryClientProvider>

@@ -45,7 +45,7 @@ const Header = ({ roomInfo, exit }: Props) => {
       <CButton>
         <ExitButton onClick={() => setIsExitOpen(true)}>
           <ButtonText>나가기</ButtonText>
-          <ExitIcon src={R2_URL + '/assets/game/game-exit.svg'} />
+          <ExitIcon src={R2_URL + '/assets/game/game-exit.svg'} alt="나가기 아이콘" />
         </ExitButton>
       </CButton>
       {isHelpOpen && <HelpModal onClose={() => setIsHelpOpen(false)} />}

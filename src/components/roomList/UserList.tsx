@@ -26,7 +26,7 @@ const UserList = ({ users }: Props) => {
           const level = getIcon(users[key].score, users[key].provider);
           return (
             <CPlayer key={key}>
-              <Icon src={level} />
+              <Icon src={level} alt="플레이어 등급" />
               <Name $color={users[key].color}>{users[key].name}</Name>
             </CPlayer>
           );

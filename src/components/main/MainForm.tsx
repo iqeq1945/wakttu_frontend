@@ -92,7 +92,7 @@ const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
               />
               <Info>
                 <NameNRank>
-                  <Rank src={userInfo.icon} />
+                  <Rank src={userInfo.icon} alt="플레이어 등급" />
                   <PlayerName> {user.name}</PlayerName>
                 </NameNRank>
                 <LevelBar>
@@ -140,26 +140,6 @@ const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
           </SignUp>
         </CLogin>
       )}
-
-      {/*
-      <GameStart onClick={start}>
-        {isLogined ? '게임 시작' : '로그인'}
-      </GameStart>
-      {isLogined ? (
-        <Player onClick={logout}>
-          <Rank src={currentIcon} />
-          <Line />
-          <PlayerName>{user.name}</PlayerName>
-          <Link href="/">
-            <LogOut src={getR2URL('/assets/icons/logout.svg')} />
-          </Link>
-        </Player>
-      ) : (
-        <LogIn onClick={waktaLogin}>
-          <Wakgames src={getR2URL('/assets/icons/wakgames.svg')} />
-          <LoginName>왁타버스 게임즈로 로그인</LoginName>
-        </LogIn>
-      )}*/}
     </WrapForm>
   );
 };

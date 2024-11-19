@@ -56,7 +56,7 @@ const Answer = ({ chat, game, timer, answer, pause }: Props) => {
         )}
         <CTimer>
           <LeftTimer>
-            <TimerIcon src={R2_URL + '/assets/game/timer-white.svg'} />
+            <TimerIcon src={R2_URL + '/assets/game/timer-white.svg'} alt="타이머 아이콘" />
             <TimerText>라운드 남은 시간</TimerText>
           </LeftTimer>
           <RightTimer>
@@ -74,7 +74,7 @@ const Answer = ({ chat, game, timer, answer, pause }: Props) => {
         </CTimer>
         <CTimer>
           <LeftTimer>
-            <TimerIcon src={R2_URL + '/assets/game/timer-white.svg'} />
+            <TimerIcon src={R2_URL + '/assets/game/timer-white.svg'} alt="타이머 아이콘" />
             <TimerText>이번턴 남은 시간</TimerText>
           </LeftTimer>
           <RightTimer>

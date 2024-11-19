@@ -49,7 +49,7 @@ const CreateRoom = ({
     <Modal>
       <CCreateRoom ref={modalRef}>
         <LabelWithIcon>
-          <CreateIcon src={getR2URL('/assets/icons/plus-green.svg')} />
+          <CreateIcon src={getR2URL('/assets/icons/plus-green.svg')} alt="방 만들기 아이콘" />
           <CreateLabel>방 만들기</CreateLabel>
         </LabelWithIcon>
         <CCreate>
@@ -95,7 +95,7 @@ const CreateRoom = ({
             </Selected>
             <DropdownLine
               isopen={isDown[0]}
-              src={getR2URL('/assets/icons/down-line.svg')}
+              src={getR2URL('/assets/icons/down-line.svg')} alt="아래쪽 화살표 아이콘"
             />
             {isDown[0] && (
               <>
@@ -130,7 +130,7 @@ const CreateRoom = ({
               <Selected>{roomInfo.time! / 1000}초</Selected>
               <DropdownLine
                 isopen={isDown[1]}
-                src={getR2URL('/assets/icons/down-line.svg')}
+                src={getR2URL('/assets/icons/down-line.svg')} alt="아래쪽 화살표 아이콘"
               />
               {isDown[1] && (
                 <>
@@ -158,9 +158,9 @@ const CreateRoom = ({
             <CheckBox onClick={() => onSelect('option', '팀전')}>
               <CCheck>
                 {roomInfo.option!.indexOf('팀전') === -1 ? (
-                  <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} />
+                  <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} alt="체크 안됨" />
                 ) : (
-                  <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
+                  <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} alt="체크 됨" />
                 )}
                 <Selected tooltip="팀전이 가능해 집니다. 총 4팀까지 나눌 수 있습니다.">
                   팀전
@@ -173,9 +173,9 @@ const CreateRoom = ({
               <CheckBox onClick={() => onSelect('option', '매너')}>
                 <CCheck>
                   {roomInfo.option!.indexOf('매너') === -1 ? (
-                    <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} />
+                    <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} alt="체크 안됨" />
                   ) : (
-                    <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
+                    <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} alt="체크 됨" />
                   )}
                   <Selected tooltip="한방 단어를 사용 할 수 없게 됩니다.">
                     매너
@@ -185,9 +185,9 @@ const CreateRoom = ({
               <CheckBox onClick={() => onSelect('option', '외수')}>
                 <CCheck>
                   {roomInfo.option!.indexOf('외수') === -1 ? (
-                    <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} />
+                    <CheckIcon src={getR2URL('/assets/icons/check-off.svg')} alt="체크 안됨" />
                   ) : (
-                    <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} />
+                    <CheckIcon src={getR2URL('/assets/icons/check-on.svg')} alt="체크 됨" />
                   )}
                   <Selected tooltip="끄투의 어인정 단어를 사용할 수 있게 됩니다.">
                     외수

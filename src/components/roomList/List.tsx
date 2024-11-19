@@ -59,7 +59,7 @@ const List = ({ roomList, onClick, filter, onToggle }: Props) => {
                         <SemiText>{room.total}</SemiText>
                       </RoomCount>
                       {room.password && (
-                        <Lock src={getR2URL('/assets/icons/lock.svg')} />
+                        <Lock src={getR2URL('/assets/icons/lock.svg')} alt="자물쇠 아이콘" />
                       )}
                     </RoomNameCount>
                     <RoomGame>
