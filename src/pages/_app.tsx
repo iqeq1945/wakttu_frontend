@@ -55,7 +55,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       <CookiesProvider>
         <Provider store={store}>
           <Head>
-            <link rel="canonical" href={`https://www.wakttu.kr/${path}`} />
+            <link rel="canonical" href={`https://www.wakttu.kr${path}`} />
 
             <meta name="robots" content={`${
               (path.includes('/main/') || path === '/') ? 'index' : 'noindex'
