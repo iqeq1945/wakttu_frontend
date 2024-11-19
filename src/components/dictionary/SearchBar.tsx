@@ -26,21 +26,29 @@ const SearchBar: React.FC<SearchBarProps> = ({ inputValue, setInputValue }) => {
   };
   const handleClick = useCallback(async () => {
     router.push(`/dictionary/search?keyword=${inputValue}`);
-    if (inputValue === '이파리' && user.provider === 'waktaverse.games') {
-      const { success } = await client
-        .post('/wakta/achieve?id=IPARI')
-        .then((response) => response.data)
-        .catch(console.error);
-      if (success) {
-        const { size, achieves } = await client
-          .get('/wakta/achieve')
-          .then((res) => res.data)
+    if (inputValue === '이세계아이돌') {
+      if (user.provider === 'waktaverse.games') {
+        const { success } = await client
+          .post('/wakta/achieve?id=IPARI')
+          .then((response) => response.data)
           .catch(console.error);
+        if (success) {
+          const { size, achieves } = await client
+            .get('/wakta/achieve')
+            .then((res) => res.data)
+            .catch(console.error);
 
-        const achieve = achieves.filter(
-          (item: { id: string; [x: string]: any }) => item.id === 'IPARI'
-        );
-        dispatch(setAchieve(achieve));
+          const achieve = achieves.filter(
+            (item: { id: string; [x: string]: any }) => item.id === 'IPARI'
+          );
+          dispatch(setAchieve(achieve));
+        }
+      } else {
+        const data = await client
+          .post('/stats/achieve', { id: 'IPARI' })
+          .then((response) => response.data)
+          .catch(console.error);
+        dispatch(setAchieve([data]));
       }
     }
   }, [dispatch, inputValue, router, user.provider]);
