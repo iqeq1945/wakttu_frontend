@@ -38,13 +38,13 @@ const GameNav = ({
     <CGameNav>
       <LeftIcons>
         <CreateRoomBtn onClick={() => onModal('CREATE_ROOM')}>
-          <Plus src={getR2URL('/assets/icons/plus.svg')} />
+          <Plus src={getR2URL('/assets/icons/plus.svg')} alt="방 만들기 아이콘" />
           <PlusTitle>방 만들기</PlusTitle>
         </CreateRoomBtn>
 
         <CSearch $open={open}>
           <SearchBtn
-            src={getR2URL('/assets/icons/search.svg')}
+            src={getR2URL('/assets/icons/search.svg')} alt="검색 아이콘"
             onClick={onClick}
           />
           {open ? (
@@ -57,7 +57,7 @@ const GameNav = ({
                 autoComplete="off"
               />
               <CloseBtn
-                src={getR2URL('/assets/icons/close.svg')}
+                src={getR2URL('/assets/icons/close.svg')} alt="닫기 아이콘"
                 onClick={onClick}
               />
             </>
@@ -65,12 +65,12 @@ const GameNav = ({
         </CSearch>
 
         <RefreshBtn
-          src={getR2URL('/assets/icons/refresh.svg')}
+          src={getR2URL('/assets/icons/refresh.svg')} alt="새로고침 아이콘"
           onClick={onRoomList}
         />
       </LeftIcons>
       <FilterToggled onClick={() => onModal('FILTER')}>
-        <FilterIcon src={getR2URL('/assets/icons/filter.svg')} />
+        <FilterIcon src={getR2URL('/assets/icons/filter.svg')} alt="필터 아이콘" />
         {children}
       </FilterToggled>
     </CGameNav>

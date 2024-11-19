@@ -59,7 +59,7 @@ const Info = ({ game, pause, timer, keyword }: Props) => {
           <CTimer>
             <TimerItem>
               <LeftTimer>
-                <TimerIcon src={getR2URL('/assets/game/timer.svg')} />
+                <TimerIcon src={getR2URL('/assets/game/timer.svg')} alt="타이머 아이콘" />
                 <TimerText>라운드 남은 시간</TimerText>
               </LeftTimer>
               <RightTimer>
@@ -77,7 +77,7 @@ const Info = ({ game, pause, timer, keyword }: Props) => {
             </TimerItem>
             <TimerItem>
               <LeftTimer>
-                <TimerIcon src={getR2URL('/assets/game/timer.svg')} />
+                <TimerIcon src={getR2URL('/assets/game/timer.svg')} alt="타이머 아이콘" />
                 <TimerText>이번턴 남은 시간</TimerText>
               </LeftTimer>
               <RightTimer>

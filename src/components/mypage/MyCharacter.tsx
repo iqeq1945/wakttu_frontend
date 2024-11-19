@@ -20,7 +20,7 @@ const MyCharacter = ({ user, character }: Props) => {
     <MyCharacterBox>
       <Character character={character} />
       <User>
-        <UserIcon src={icon} />
+        <UserIcon src={icon} alt="플레이어 등급" />
         <UserName>{user.name}</UserName>
       </User>
     </MyCharacterBox>

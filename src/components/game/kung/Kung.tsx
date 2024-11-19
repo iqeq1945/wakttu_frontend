@@ -79,19 +79,19 @@ const Kung = ({
   return (
     <CKung>
       <Left>
-        <Speaker src={getR2URL('/assets/game/speaker.svg')} reverse={false} />
+        <Speaker src={getR2URL('/assets/game/speaker.svg')} alt="스피커 아이콘" reverse={false} />
         <Tv>
           {pause ? (
-            <Logo src={getR2URL('/assets/game/kung-logo.svg')} />
+            <Logo src={getR2URL('/assets/game/kung-logo.svg')} alt="추억의 쿵쿵따!" />
           ) : (
-            <PauseTv src={getR2URL('/assets/game/pauseTv.svg')} />
+            <PauseTv src={getR2URL('/assets/game/pauseTv.svg')} alt="화면 조정 아이콘" />
           )}
         </Tv>
       </Left>
       <Board>
         <Info>
           <Object>
-            <Pen src={getR2URL('/assets/game/pen.svg')} />
+            <Pen src={getR2URL('/assets/game/pen.svg')} alt="수정하기 아이콘" />
             <ObjectText>학습목표</ObjectText>
           </Object>
           <Round>
@@ -141,7 +141,7 @@ const Kung = ({
         <CTimer>
           <TimerItem>
             <LeftTimer>
-              <TimerIcon src={getR2URL('/assets/game/timer-white.svg')} />
+              <TimerIcon src={getR2URL('/assets/game/timer-white.svg')} alt="타이머 아이콘" />
               <TimerText>라운드 남은시간</TimerText>
             </LeftTimer>
             <RightTimer>
@@ -160,7 +160,7 @@ const Kung = ({
           </TimerItem>
           <TimerItem>
             <LeftTimer>
-              <TimerIcon src={getR2URL('/assets/game/timer-white.svg')} />
+              <TimerIcon src={getR2URL('/assets/game/timer-white.svg')} alt="타이머 아이콘" />
               <TimerText>이번턴 남은시간</TimerText>
             </LeftTimer>
             <RightTimer>
@@ -180,16 +180,16 @@ const Kung = ({
         </CTimer>
       </Board>
       <Right>
-        <Speaker src={getR2URL('/assets/game/speaker.svg')} reverse={true} />
-        <Frame src={getR2URL('/assets/game/tae.svg')} />
-        <Frame src={getR2URL('/assets/game/ment.svg')} />
+        <Speaker src={getR2URL('/assets/game/speaker.svg')} alt="스피커 아이콘" reverse={true} />
+        <Frame src={getR2URL('/assets/game/tae.svg')} alt="태극기 아이콘" />
+        <Frame src={getR2URL('/assets/game/ment.svg')} alt="급훈: 알잘딱" />
         <CPost>
           <Post>
             <CPostTitle>
               <PostTitle>게 시 판</PostTitle>
             </CPostTitle>
             <CList>
-              <Emergency src={getR2URL('/assets/game/emergency.png')} />
+              <Emergency src={getR2URL('/assets/game/emergency.png')} alt="(진지) 경고장: 님은 너무 귀엽습니다 조심해주세요" />
             </CList>
           </Post>
         </CPost>

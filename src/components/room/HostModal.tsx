@@ -42,6 +42,7 @@ const HostModal = ({
           <DropdownLine
             isopen={isDown}
             src={getR2URL('/assets/icons/down-line.svg')}
+            alt="아래쪽 화살표 아이콘"
           />
           {isDown && (
             <>

@@ -77,7 +77,7 @@ const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
 
   return (
     <WrapForm>
-      <MainLogo src={getR2URL('/logo.svg')} />
+      <MainLogo src={getR2URL('/logo.svg')} alt="왁뚜 로고" />
 
       {isLogined ? (
         <CStart>
@@ -85,12 +85,14 @@ const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
             <CPLayer>
               <Character
                 character={character}
-                style={{ left: '-3rem' }}
-                transform={{ transform: 'scale(0.8)' }}
+                style={{
+                  transform: 'scale(0.8)',
+                  left: '-3rem',
+                }}
               />
               <Info>
                 <NameNRank>
-                  <Rank src={userInfo.icon} />
+                  <Rank src={userInfo.icon} alt="플레이어 등급" />
                   <PlayerName> {user.name}</PlayerName>
                 </NameNRank>
                 <LevelBar>
@@ -112,6 +114,7 @@ const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
               <RightText>로그아웃</RightText>
               <RightArrow
                 src={getR2URL('/assets/icons/green-right-line.svg')}
+                alt="오른쪽 화살표 아이콘"
               />
             </CRight>
           </SignUp>
@@ -122,7 +125,7 @@ const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
             <GuestText>{'[형이봤] 형 게스트 만들어왔어'}</GuestText>
           </GusetLogin>
           <WakGamesLogin onClick={waktaLogin}>
-            <Wakgames src={getR2URL('/assets/icons/wakgames.svg')} />
+            <Wakgames src={getR2URL('/assets/icons/wakgames.svg')} alt="왁타버스 게임즈 로고" />
             <WakgamesText>왁타버스 게임즈로 로그인</WakgamesText>
           </WakGamesLogin>
           <SignUp>
@@ -131,31 +134,12 @@ const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
               <RightText>왁뚜 계정으로 로그인</RightText>
               <RightArrow
                 src={getR2URL('/assets/icons/green-right-line.svg')}
+                alt="오른쪽 화살표 아이콘"
               />
             </CRight>
           </SignUp>
         </CLogin>
       )}
-
-      {/*
-      <GameStart onClick={start}>
-        {isLogined ? '게임 시작' : '로그인'}
-      </GameStart>
-      {isLogined ? (
-        <Player onClick={logout}>
-          <Rank src={currentIcon} />
-          <Line />
-          <PlayerName>{user.name}</PlayerName>
-          <Link href="/">
-            <LogOut src={getR2URL('/assets/icons/logout.svg')} />
-          </Link>
-        </Player>
-      ) : (
-        <LogIn onClick={waktaLogin}>
-          <Wakgames src={getR2URL('/assets/icons/wakgames.svg')} />
-          <LoginName>왁타버스 게임즈로 로그인</LoginName>
-        </LogIn>
-      )}*/}
     </WrapForm>
   );
 };

@@ -36,7 +36,7 @@ const OptionBox = ({
     <Modal onClick={offModal}>
       <COption onClick={(e) => e.stopPropagation()}>
         <Title>
-          <Setting src={getR2URL('/assets/icons/setting.svg')} />
+          <Setting src={getR2URL('/assets/icons/setting.svg')} alt="환경설정 아이콘" />
           <TitleText>환경설정</TitleText>
         </Title>
         <CVolume>

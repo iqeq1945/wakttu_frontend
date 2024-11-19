@@ -23,7 +23,7 @@ const PlayerInfo = ({ user }: any) => {
       <Character character={user.character} />
       <Info>
         <WrapPlayerName>
-          <PlayerIcon src={icon} />
+          <PlayerIcon src={icon} alt="플레이어 등급" />
           <PlayerName>{user.name}</PlayerName>
         </WrapPlayerName>
         <Level>

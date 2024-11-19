@@ -23,6 +23,8 @@ const SkinItem = styled.img<{ skin?: string }>`
       }
     }
   }};
+  will-change: transform;
+
   opacity: ${({ skin }) => (skin ? 1 : 0)};
 `;
 

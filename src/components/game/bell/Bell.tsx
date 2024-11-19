@@ -90,8 +90,8 @@ const Game = ({ game, quiz, answer, timer }: Props) => {
       />
       <CLeft>
         <Round>Round {game.round}</Round>
-        <LEye src={getR2URL('/assets/game/eye.svg')} />
-        <REye src={getR2URL('/assets/game/eye.svg')} />
+        <LEye src={getR2URL('/assets/game/eye.svg')} alt="왼쪽 눈 아이콘" />
+        <REye src={getR2URL('/assets/game/eye.svg')} alt="오른쪽 눈 아이콘" />
         <Mouse>
           <CTag>
             {answer.pause &&
@@ -111,7 +111,7 @@ const Game = ({ game, quiz, answer, timer }: Props) => {
           </Answer>
         </Board>
         <Info>
-          <TimerIcon src={getR2URL('/assets/game/bell-timer.svg')} />
+          <TimerIcon src={getR2URL('/assets/game/bell-timer.svg')} alt="타이머 아이콘" />
           <CTimer>
             <Remain>
               {((timer.roundTime - timer.countTime) / 1000.0).toFixed(1)}초

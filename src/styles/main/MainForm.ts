@@ -177,7 +177,7 @@ const CPLayer = styled.div`
 
 const Info = styled.div`
   position: absolute;
-  right: 1.2rem;
+  right: 0.6rem;
   display: flex;
   flex-direction: column;
   justify-content: center;

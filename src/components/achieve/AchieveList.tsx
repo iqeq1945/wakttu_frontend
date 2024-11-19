@@ -18,7 +18,7 @@ const AchieveList = ({ achieves, onClick }: Props) => {
               {achieve.hidden && !achieve.got ? (
                 <Hidden />
               ) : (
-                <Badge got={achieve.got} src={getAchieveURL(achieve.id)} />
+                <Badge got={achieve.got} src={getAchieveURL(achieve.id)} alt="뱃지 이미지" />
               )}
             </BadgeBox>
           );

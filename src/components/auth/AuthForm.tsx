@@ -53,10 +53,11 @@ const AuthForm = ({
                 <SubmitButton>{formTitle}</SubmitButton>
               </SubmitContainer>
               <SnsContainer>
-                <SnsText>sns로 간편하게 {formTitle}</SnsText>
+                <SnsText>SNS로 간편하게 {formTitle}</SnsText>
                 <SnsIcon
                   src={R2_URL + '/assets/icons/wakgames-icon.svg'}
                   onClick={onAuth}
+                  alt="왁타버스 게임즈 아이콘"
                 />
               </SnsContainer>
             </WrapButton>

@@ -74,7 +74,7 @@ const AchieveInfo = ({ achieve }: Props) => {
       </TitleSection>
       <InfoSection>
         <InfoTop>
-          <Badge got={achieve.got} src={getAchieveURL(achieve.id)} />
+          <Badge got={achieve.got} src={getAchieveURL(achieve.id)} alt="뱃지 이미지" />
         </InfoTop>
         <InfoBottom>
           <Wrap>

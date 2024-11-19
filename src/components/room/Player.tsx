@@ -46,7 +46,7 @@ const Player = ({
           <PlayerInfo>
             <Character character={character} />
             <CBadge>
-              <PlayerIcon src={icon} />
+              <PlayerIcon src={icon} alt="플레이어 등급" />
               <PlayerName>{user.name}</PlayerName>
             </CBadge>
             {team === undefined ? (
@@ -57,6 +57,7 @@ const Player = ({
             {myId === host && user.id !== host && (
               <KickIcon
                 src={getR2URL('/assets/icons/kick.svg')}
+                alt="내보내기 아이콘"
                 onClick={() => onKick({ id: user.id, name: user.name })}
               />
             )}

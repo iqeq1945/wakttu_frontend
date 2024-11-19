@@ -55,19 +55,22 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
   return (
     <CMain>
       <CLeft>
-        <Left src={getR2URL('/assets/game/blinker.svg')} />
+        <Left src={getR2URL('/assets/game/blinker.svg')} alt="신호등 아이콘" />
         <Light
           src={getR2URL('/assets/game/red.svg')}
+          alt="신호등 빨간 불"
           top="4.6rem"
           onLight={answer.success === false}
         />
         <Light
           src={getR2URL('/assets/game/yellow.svg')}
+          alt="신호등 노란 불"
           top="8.25rem"
           onLight={answer.success === undefined}
         />
         <Light
           src={getR2URL('/assets/game/green.svg')}
+          alt="신호등 초록 불"
           top="11.8rem"
           onLight={answer.success}
         />
@@ -76,19 +79,22 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
       <Main>
         <CTrain>
           <CWord>
-            <Logo src={getR2URL('/assets/game/last-logo.svg')} />
+            <Logo src={getR2URL('/assets/game/last-logo.svg')} alt="끝말잇기" />
           </CWord>
           <SWheel
             src={getR2URL('/assets/game/wheel.svg')}
+            alt="움직이는 바퀴 아이콘"
             $rotate={answer.success === true}
           />
           <BWheel
             src={getR2URL('/assets/game/wheel.svg')}
+            alt="정지된 바퀴 아이콘"
             left="9.8rem"
             $rotate={answer.success === true}
           />
           <BWheel
             src={getR2URL('/assets/game/wheel.svg')}
+            alt="정지된 바퀴 아이콘"
             left="16.8rem"
             $rotate={answer.success === true}
           />
@@ -105,11 +111,13 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
           </CWordC>
           <BWheel
             src={getR2URL('/assets/game/wheel.svg')}
+            alt="정지된 바퀴 아이콘"
             left="1.2rem"
             $rotate={answer.success === true}
           />
           <BWheel
             src={getR2URL('/assets/game/wheel.svg')}
+            alt="정지된 바퀴 아이콘"
             left="12.5rem"
             $rotate={answer.success === true}
           />
@@ -137,18 +145,20 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
           </CWordC>
           <BWheel
             src={getR2URL('/assets/game/wheel.svg')}
+            alt="정지된 바퀴 아이콘"
             left="1.2rem"
             $rotate={answer.success === true}
           />
           <BWheel
             src={getR2URL('/assets/game/wheel.svg')}
+            alt="정지된 바퀴 아이콘"
             left="12.5rem"
             $rotate={answer.success === true}
           />
         </CCargo>
       </Main>
       <CRight>
-        <Right src={getR2URL('/assets/game/mission.svg')} />
+        <Right src={getR2URL('/assets/game/mission.svg')} alt="미션 아이콘" />
         <MissionText>{game.mission}</MissionText>
       </CRight>
     </CMain>

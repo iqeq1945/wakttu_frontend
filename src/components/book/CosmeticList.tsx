@@ -64,6 +64,7 @@ const CosmeticList = ({
                 <DropdownImage
                   isOpen={isOpen}
                   src={R2_URL + '/assets/icons/down-line.svg'}
+                  alt="아래쪽 화살표 아이콘"
                 />
               </SelectOption>
               <DropdownWrapper>
@@ -107,6 +108,7 @@ const CosmeticList = ({
                   item={data.category}
                   id={data.id}
                   src={getR2URL(data.url)}
+                  alt="스킨 이미지"
                 />
               </Item>
             )

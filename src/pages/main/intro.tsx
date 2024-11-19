@@ -1,6 +1,9 @@
+import Head from 'next/head';
+
 import { MainHeader } from '@/components';
 import { getR2URL } from '@/services/api';
 import { Container } from '@/styles/common/Layout';
+
 import styled from 'styled-components';
 
 const ScrollContainer = styled.div`
@@ -22,12 +25,18 @@ const StyledImage = styled.img`
 
 const Intro = () => {
   return (
-    <Container>
-      <MainHeader />
-      <ScrollContainer>
-        <StyledImage src={getR2URL('/intro.png')} alt="intro" />
-      </ScrollContainer>
-    </Container>
+    <>
+      <Head>
+        <title>게임 소개 | 왁뚜 - 우리 모두 품어놀자!</title>
+      </Head>
+      
+      <Container>
+        <MainHeader />
+        <ScrollContainer>
+          <StyledImage src={getR2URL('/intro.png')} alt="게임 소개 이미지" />
+        </ScrollContainer>
+      </Container>
+    </>
   );
 };
 

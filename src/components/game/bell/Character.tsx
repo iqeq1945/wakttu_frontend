@@ -68,7 +68,7 @@ const Character = ({ src, left, right, width }: Props) => {
   return (
     <Box left={left} right={right}>
       {isVisible && <Message>{message}</Message>}
-      <Skin src={src} width={width} />
+      <Skin src={src} width={width} alt="캐릭터 스킨 이미지" />
     </Box>
   );
 };

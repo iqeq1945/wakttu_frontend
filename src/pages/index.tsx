@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useSelector } from 'react-redux';
 
 import { MainHeader } from '@/components';
@@ -14,6 +15,10 @@ const Main = () => {
 
   return (
     <>
+      <Head>
+        <title>왁뚜 - 우리 모두 품어놀자!</title>
+      </Head>
+    
       {modal.open ? (
         <Auth />
       ) : (

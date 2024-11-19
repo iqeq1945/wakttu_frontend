@@ -25,7 +25,7 @@ const Chat = ({ user, chat, date }: Props) => {
   return (
     <PlayerChat>
       <CPlayer>
-        <PlayerIcon src={icon} />
+        <PlayerIcon src={icon} alt="플레이어 등급" />
         <PlayerName $color={user.color}>{user.name}</PlayerName>
         <ChatContent>{chat}</ChatContent>
       </CPlayer>

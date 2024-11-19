@@ -100,7 +100,7 @@ const ResultTeam = ({ list, offModal, user }: Props) => {
         <Container>
           <CModal>
             <CTitle>
-              <Trophy src={getR2URL('/assets/icons/trophy.svg')} />
+              <Trophy src={getR2URL('/assets/icons/trophy.svg')} alt="트로피 아이콘" />
               <ResultTitle>게임 결과</ResultTitle>
             </CTitle>
             <CBody>
@@ -113,7 +113,7 @@ const ResultTeam = ({ list, offModal, user }: Props) => {
                         <CPlayer key={user.userId}>
                           <Character character={user.character} />
                           <NameTag>
-                            <Grade src={getIcon(user.exp, user.provider)} />
+                            <Grade src={getIcon(user.exp, user.provider)} alt="등수 아이콘" />
                             <Name>{user.name}</Name>
                           </NameTag>
                         </CPlayer>
@@ -140,7 +140,7 @@ const ResultTeam = ({ list, offModal, user }: Props) => {
                 <CLevel>
                   <CLevelIcon>
                     <NowLevel>
-                      <Grade src={getIcon(user.score, user.provider)} />
+                      <Grade src={getIcon(user.score, user.provider)} alt="등수 아이콘" />
                       <Exp>
                         +
                         {Math.ceil(
@@ -150,7 +150,7 @@ const ResultTeam = ({ list, offModal, user }: Props) => {
                         xp
                       </Exp>
                     </NowLevel>
-                    <Grade src={getIcon(user.score + 1000, user.provider)} />
+                    <Grade src={getIcon(user.score + 1000, user.provider)} alt="등수 아이콘" />
                   </CLevelIcon>
                   <ExpBar>
                     <Gauge exp={(user.score % 1000) / 10} />

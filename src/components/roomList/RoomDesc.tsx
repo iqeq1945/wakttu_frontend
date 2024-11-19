@@ -33,17 +33,17 @@ const RoomDesc = ({ roomInfo, onEnter }: Props) => {
       </WrapRoomTitle>
       <WrapGameInfo>
         {roomInfo.type === 0 ? (
-          <GameInfo src={getR2URL('/assets/game-info.png')} />
+          <GameInfo src={getR2URL('/assets/game-info.png')} alt="끝말잇기 배경 이미지" />
         ) : (
           ''
         )}
         {roomInfo.type === 1 ? (
-          <GameInfo src={getR2URL('/assets/game-info-2.png')} />
+          <GameInfo src={getR2URL('/assets/game-info-2.png')} alt="추억의 쿵쿵따 배경 이미지" />
         ) : (
           ''
         )}
         {roomInfo.type === 2 ? (
-          <GameInfo src={getR2URL('/assets/game-info-3.png')} />
+          <GameInfo src={getR2URL('/assets/game-info-3.png')} alt="왁타! 골든벨 배경 이미지" />
         ) : (
           ''
         )}
