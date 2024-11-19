@@ -45,6 +45,7 @@ const CosmeticInfo = ({ info, isMine, onClick }: Props) => {
             item={info.category}
             id={info.id}
             src={getR2URL(info.url)}
+            alt="스킨 이미지"
           />
         </InfoTop>
 

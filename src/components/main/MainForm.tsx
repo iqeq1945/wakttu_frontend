@@ -77,7 +77,7 @@ const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
 
   return (
     <WrapForm>
-      <MainLogo src={getR2URL('/logo.svg')} />
+      <MainLogo src={getR2URL('/logo.svg')} alt="왁뚜 로고" />
 
       {isLogined ? (
         <CStart>
@@ -112,6 +112,7 @@ const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
               <RightText>로그아웃</RightText>
               <RightArrow
                 src={getR2URL('/assets/icons/green-right-line.svg')}
+                alt="오른쪽 화살표 아이콘"
               />
             </CRight>
           </SignUp>
@@ -122,7 +123,7 @@ const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
             <GuestText>{'[형이봤] 형 게스트 만들어왔어'}</GuestText>
           </GusetLogin>
           <WakGamesLogin onClick={waktaLogin}>
-            <Wakgames src={getR2URL('/assets/icons/wakgames.svg')} />
+            <Wakgames src={getR2URL('/assets/icons/wakgames.svg')} alt="왁타버스 게임즈 로고" />
             <WakgamesText>왁타버스 게임즈로 로그인</WakgamesText>
           </WakGamesLogin>
           <SignUp>
@@ -131,6 +132,7 @@ const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
               <RightText>왁뚜 계정으로 로그인</RightText>
               <RightArrow
                 src={getR2URL('/assets/icons/green-right-line.svg')}
+                alt="오른쪽 화살표 아이콘"
               />
             </CRight>
           </SignUp>

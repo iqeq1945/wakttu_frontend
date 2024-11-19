@@ -39,6 +39,7 @@ const Achieve = ({ achieves }: Props) => {
                 <Badge
                   src={getAchieveURL(achieve.id)}
                   onLoad={() => handleImageLoad(achieve.id)}
+                  alt="뱃지 이미지"
                 />
                 <Info>
                   <Name>{achieve.name}</Name>

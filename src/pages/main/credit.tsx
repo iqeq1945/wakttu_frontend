@@ -25,7 +25,7 @@ const Credit = () => {
     <Container>
       <MainHeader />
       <ScrollContainer>
-        <StyledImage src={getR2URL('/credit.png')} alt="intro" />
+        <StyledImage src={getR2URL('/credit.png')} alt="크레딧 이미지" />
       </ScrollContainer>
     </Container>
   );

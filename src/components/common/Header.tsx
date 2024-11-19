@@ -37,7 +37,7 @@ const Header = ({ user, goRouter, onModal }: Props) => {
           <li>옵션</li>
         </Content>
         <Player>
-          <Rank src={icon} />
+          <Rank src={icon} alt="플레이어 등급" />
           <Line />
           <PlayerName>{user.name}</PlayerName>
         </Player>

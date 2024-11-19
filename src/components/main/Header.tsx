@@ -1,4 +1,5 @@
 import { WrapContent } from '@/styles/common/Header';
+import { ScreenReaderOnly } from '@/styles/common/Accessibility';
 import { MainHeaderBlock, MainHeaderLogo } from '@/styles/main/Header';
 import { MainTab } from '@/components';
 import { getR2URL } from '@/services/api';
@@ -12,8 +13,9 @@ const Header = () => {
 
   return (
     <MainHeaderBlock>
-      <Link href="/">
-        <MainHeaderLogo src={getR2URL('/assets/icons/small-logo.svg')} />
+      <Link href="/" title="메인페이지로 이동">
+        <ScreenReaderOnly>왁뚜</ScreenReaderOnly>
+        <MainHeaderLogo src={getR2URL('/assets/icons/small-logo.svg')} alt="왁뚜 로고" />
       </Link>
       <WrapContent>
         <MainTab menuName="게임 소개" href="/main/intro" />

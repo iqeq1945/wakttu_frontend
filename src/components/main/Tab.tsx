@@ -21,7 +21,7 @@ const Tab = ({ menuName, href, onClick }: Props) => {
 
   return (
     <MainContent onClick={handleClick}>
-      <li>{menuName}</li>
+      <span>{menuName}</span>
     </MainContent>
   );
 };
