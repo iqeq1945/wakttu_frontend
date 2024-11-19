@@ -31,7 +31,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang="ko-kr" dir="ltr">
         <Head>
-          <title>왁뚜 - 우리 모두 품어놀자!</title>
           <meta property="description" content="웹에서 즐길 수 있는 왁타버스 끝말잇기" />
 
           <meta property="og:title" content="왁뚜 - 우리 모두 품어놀자!" />
