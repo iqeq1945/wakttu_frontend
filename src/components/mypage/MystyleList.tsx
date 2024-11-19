@@ -73,6 +73,7 @@ const MystyleList = ({
                     id={data.id}
                     item={data.category}
                     src={getR2URL(data.url)}
+                    alt="스킨 이미지"
                   />
                 </ImageBox>
                 <ItemInfo>

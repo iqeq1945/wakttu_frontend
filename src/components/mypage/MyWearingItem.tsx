@@ -21,7 +21,7 @@ const MyWearingItem = ({ character }: Props) => {
         .filter(([key]) => key !== 'all')
         .map(([key, value]) => (
           <WearingItem key={key}>
-            <WearingImage item={key} src={characterInfo[key as Variant]} />
+            <WearingImage item={key} src={characterInfo[key as Variant]} alt="장착 중인 스킨" />
             <WearingTag
               $backgroundColor={value.backgroundColor}
               $color={value.color}

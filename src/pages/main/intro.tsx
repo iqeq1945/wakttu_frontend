@@ -25,7 +25,7 @@ const Intro = () => {
     <Container>
       <MainHeader />
       <ScrollContainer>
-        <StyledImage src={getR2URL('/intro.png')} alt="intro" />
+        <StyledImage src={getR2URL('/intro.png')} alt="" />
       </ScrollContainer>
     </Container>
   );

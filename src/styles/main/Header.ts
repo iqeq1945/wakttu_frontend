@@ -17,7 +17,7 @@ const MainHeaderBlock = styled.div`
   background: none;
 `;
 
-const MainContent = styled.span`
+const MainContent = styled.li`
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-size: 16px;
   font-weight: 500;

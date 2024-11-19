@@ -69,6 +69,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ inputValue, setInputValue }) => {
       <SearchButton onClick={handleClick}>
         <SearchIcon
           src={getR2URL('/assets/icons/search-green.svg')}
+          alt="검색 버튼 아이콘"
         ></SearchIcon>
       </SearchButton>
     </Wrapper>

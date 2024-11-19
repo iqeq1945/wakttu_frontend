@@ -27,9 +27,9 @@ const Character = ({ character, style }: Props) => {
           skin={character.skin ? character.skin : 'S-1'}
           src={src.skin ? src.skin : getCharacterUrl('S-1')}
         />
-        <HeadItem skin={character.skin} src={src.head} />
-        <HandItem skin={character.skin} item={character.hand} src={src.hand} />
-        <EyeItem skin={character.skin} src={src.eye} />
+        <HeadItem skin={character.skin} src={src.head} alt="캐릭터 머리" />
+        <HandItem skin={character.skin} item={character.hand} src={src.hand} alt="캐릭터 손" />
+        <EyeItem skin={character.skin} src={src.eye} alt="캐릭터 눈" />
       </CharacterImage>
     </>
   );
