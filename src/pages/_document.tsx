@@ -36,8 +36,6 @@ export default class MyDocument extends Document {
           <meta property="og:image" content="https://r2.wakttu.kr/og-image.png" />
           <meta property="og:description" content="웹에서 즐길 수 있는 왁타버스 끝말잇기" />
 
-          <title>왁뚜 - 우리 모두 품어놀자!</title>
-
           <link
             rel="preconnect"
             href="https://cdn.jsdelivr.net"
