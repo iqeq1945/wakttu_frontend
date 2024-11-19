@@ -118,7 +118,11 @@ const Game = ({ history, game, answer, name, historyBoxRef }: Props) => {
           <CWordC>
             <WordText>
               {answer.success === false ? (
-                <WordErrorEffect word={answer.answer} />
+                answer.pause === false ? (
+                  <> {game.target}</>
+                ) : (
+                  <WordErrorEffect word={answer.answer} />
+                )
               ) : (
                 <>
                   {game.target}
