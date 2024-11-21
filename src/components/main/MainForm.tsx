@@ -32,6 +32,7 @@ import { client, getR2URL } from '@/services/api';
 import { getIcon, getUserDesc } from '@/modules/UserInfo';
 import Character from '../common/Character';
 import Router from 'next/router';
+import Loading from '../common/Loding';
 
 interface Props {
   user: any;
@@ -40,6 +41,7 @@ interface Props {
   start: (e: MouseEvent<HTMLElement>) => void;
   logout: (e: MouseEvent<HTMLElement>) => void;
 }
+const ENV = process.env.NEXT_PUBLIC_NODE_ENV;
 
 const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
   const [currentIcon, setCurrentIcon] = useState(getIcon(0));
@@ -125,6 +127,8 @@ const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
             </CRight>
           </SignUp>
         </CStart>
+      ) : ENV === 'jogong' ? (
+        <Loading />
       ) : (
         <CLogin>
           <GusetLogin onClick={guestLogin}>

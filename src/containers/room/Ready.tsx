@@ -30,6 +30,7 @@ const Ready = () => {
   const userName = useSelector(selectUserName);
   const host = useSelector(selectHost);
   const game = useSelector(selectGame);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -70,39 +71,45 @@ const Ready = () => {
   };
 
   const onStart = useCallback(() => {
-    if (roomInfo.users.length === 1) {
-      alert('혼자서는 시작할 수 없습니다!');
-      return;
+    if (isButtonDisabled) return; // 버튼이 비활성화된 경우 실행되지 않음
+
+    setIsButtonDisabled(true); // 클릭 시 버튼 비활성화
+    try {
+      if (roomInfo.users.length === 1) {
+        alert('혼자서는 시작할 수 없습니다!');
+        return;
+      }
+
+      const expectedReadyCount = roomInfo.users.length - 1;
+      if (readyUsers.length !== expectedReadyCount) {
+        alert(
+          readyUsers.length < expectedReadyCount
+            ? '모두 준비 상태가 아닙니다.'
+            : '침입자가 존재합니다. 방을 새로 파세요!'
+        );
+        return;
+      }
+
+      if (roomInfo.option?.includes('팀전')) {
+        const isValid = validateTeams(game.team, roomInfo.users.length);
+        if (!isValid) return;
+      }
+
+      const startFunctions: Record<number, (roomId: string) => void> = {
+        0: lastStart,
+        1: kungStart,
+        2: bellStart,
+      };
+
+      const startFunction =
+        roomInfo.type !== undefined ? startFunctions[roomInfo.type] : undefined;
+      if (startFunction) {
+        startFunction(roomInfo.id as string);
+      }
+    } finally {
+      setTimeout(() => setIsButtonDisabled(false), 500); // 작업 완료 후 버튼 활성화 (0.5초 딜레이)
     }
-
-    const expectedReadyCount = roomInfo.users.length - 1;
-    if (readyUsers.length !== expectedReadyCount) {
-      alert(
-        readyUsers.length < expectedReadyCount
-          ? '모두 준비 상태가 아닙니다.'
-          : '침입자가 존재합니다. 방을 새로 파세요!'
-      );
-      return;
-    }
-
-    if (roomInfo.option?.includes('팀전')) {
-      const isValid = validateTeams(game.team, roomInfo.users.length);
-      if (!isValid) return;
-    }
-
-    const startFunctions: Record<number, (roomId: string) => void> = {
-      0: lastStart,
-      1: kungStart,
-      2: bellStart,
-    };
-
-    const startFunction =
-      roomInfo.type !== undefined ? startFunctions[roomInfo.type] : undefined;
-    if (startFunction) {
-      startFunction(roomInfo.id as string);
-    }
-  }, [game.team, readyUsers.length, roomInfo]);
-
+  }, [game.team, readyUsers.length, roomInfo, isButtonDisabled]);
   const onTeam = (team: string) => {
     if (readyUsers.findIndex((user) => user.name === userName) !== -1) {
       alert('준비 상태에서는 팀을 바꿀 수 없어요');

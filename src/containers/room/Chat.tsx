@@ -5,6 +5,7 @@ import { getTime } from '@/modules/Date';
 import { clean } from '@/modules/Slang';
 import { setAchieve } from '@/redux/achieve/achieveSlice';
 import { selectEffectVolume } from '@/redux/audio/audioSlice';
+import { selectHost } from '@/redux/game/gameSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';
 import { updateStat, updateStatLocal } from '@/services/api';
@@ -31,6 +32,7 @@ const Chat = () => {
     effectVolume
   );
   const roomId = useSelector(selectRoomId) as string;
+  const host = useSelector(selectHost);
   const [log, setLog] = useState<LogProps[]>([]);
   const { inputs, setInputs, onInputChange } = useInput<InputProps>({
     chat: '',
@@ -48,8 +50,9 @@ const Chat = () => {
 
   const onSendMessage = useCallback(async () => {
     if (inputs.chat) {
-      if (inputs.chat === '/r') {
+      if (inputs.chat === '/r' && host !== user.id) {
         ready(roomId);
+        setInputs({ chat: '' });
         return;
       }
       const chat = clean(inputs.chat);
@@ -69,7 +72,7 @@ const Chat = () => {
       }
     }
     if (inputRef.current) inputRef.current.focus();
-  }, [dispatch, inputs.chat, roomId, setInputs, user.provider]);
+  }, [dispatch, host, inputs.chat, roomId, setInputs, user.id, user.provider]);
 
   useEffect(() => {
     socket.on('alarm', (data) => {
