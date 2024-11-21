@@ -24,7 +24,7 @@ const MainFormContainer = () => {
   const [isLogined, setIsLogined] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [isFull, setIsFull] = useState(false);
-  const [cookies, setCookie] = useCookies(['cf_authorization']);
+  const [cookies, setCookie] = useCookies(['CF_Authorization']);
 
   // 로그인 체크 및 소켓 연결 관리
   useEffect(() => {
@@ -57,7 +57,7 @@ const MainFormContainer = () => {
       socket.off('disconnect');
       socket.off('full');
     };
-  }, [cookies.cf_authorization, dispatch, isConnected, router]);
+  }, [cookies.CF_Authorization, dispatch, isConnected, router]);
 
   useEffect(() => {
     if (userId) {
@@ -77,13 +77,13 @@ const MainFormContainer = () => {
 
   useEffect(() => {
     if (ENV === 'jogong') {
-      setCookie('cf_authorization', cookies.cf_authorization, {
+      setCookie('CF_Authorization', cookies.CF_Authorization, {
         path: '/',
-        secure: ENV === 'jogong',
-        httpOnly: ENV === 'jogong',
+        secure: ENV !== 'jogong',
+        httpOnly: ENV !== 'jogong',
       });
     }
-  }, [cookies.cf_authorization, setCookie]);
+  }, [cookies.CF_Authorization, setCookie]);
 
   useEffect(() => {
     if (ENV === 'jogong') {
@@ -91,7 +91,7 @@ const MainFormContainer = () => {
         await client
           .get('/auth/discord', {
             headers: {
-              Authorization: `Bearer ${cookies.cf_authorization}`, // 헤더로 토큰 전달
+              Authorization: `Bearer ${cookies.CF_Authorization}`, // 헤더로 토큰 전달
             },
           })
           .then((response) => {
@@ -99,11 +99,11 @@ const MainFormContainer = () => {
           })
           .catch((err) => console.error(err));
       };
-      if (cookies.cf_authorization) {
+      if (cookies.CF_Authorization) {
         discordLogin();
       }
     }
-  }, [cookies.cf_authorization, dispatch]);
+  }, [cookies.CF_Authorization, dispatch]);
 
   const start = useCallback(
     async (e: MouseEvent<HTMLElement>) => {
@@ -161,6 +161,10 @@ const MainFormContainer = () => {
   const logout = useCallback(
     async (e: MouseEvent<HTMLElement>) => {
       e.stopPropagation();
+      if (ENV === 'jogong') {
+        alert('조공 서버에서는 로그아웃이 불가능!');
+        return;
+      }
       await client.get('auth/logout');
       dispatch(clearUserInfo());
       socket.disconnect();
