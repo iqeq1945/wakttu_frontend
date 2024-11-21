@@ -52,7 +52,7 @@ const relevantInfo = {
     color: '#FFFFFF',
   },
   gomem: {
-    koreanName: '고멤',
+    koreanName: '클래식',
     backgroundColor: '#C75D00',
     color: '#FFFFFF',
   },
@@ -117,7 +117,10 @@ const Word = ({
           (url, index) =>
             url && (
               <LinkButton key={index} onClick={() => handleButtonClick()}>
-                <LinkIcon src={getR2URL('/assets/icons/link.svg')} alt="링크 아이콘" />
+                <LinkIcon
+                  src={getR2URL('/assets/icons/link.svg')}
+                  alt="링크 아이콘"
+                />
               </LinkButton>
             )
         )}
