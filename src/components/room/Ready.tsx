@@ -17,7 +17,7 @@ const Ready = ({ onReady, onStart, ready, team = false, onTeam }: Props) => {
               우왁굳 팀
             </TeamButton>
             <TeamButton team={'gomem'} onClick={() => onTeam('gomem')}>
-              고멤 팀
+              클래식 팀
             </TeamButton>
           </CTeam>
           <CTeam>

@@ -16,8 +16,8 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
     overflow: hidden;
     /* -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none; */
+    -moz-user-select: none;*/
+    user-select: none; 
   }
 
   h1,

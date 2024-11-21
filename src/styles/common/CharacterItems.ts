@@ -28,9 +28,9 @@ const SkinItem = styled.img<{ skin?: string }>`
   opacity: ${({ skin }) => (skin ? 1 : 0)};
 `;
 
-const HeadItem = styled.img<{ skin?: string }>`
+const HeadItem = styled.img<{ skin?: string; hand?: string }>`
   position: absolute;
-  z-index: 3;
+  z-index: ${({ hand }) => (hand === 'H-2' ? 5 : 3)};
   width: 11.25rem;
   height: 7.8125rem;
   bottom: 0;

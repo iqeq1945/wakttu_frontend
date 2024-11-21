@@ -8,7 +8,7 @@ import { selectEffectVolume } from '@/redux/audio/audioSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';
 import { updateStat, updateStatLocal } from '@/services/api';
-import { sendChat, socket } from '@/services/socket/socket';
+import { ready, sendChat, socket } from '@/services/socket/socket';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -48,6 +48,10 @@ const Chat = () => {
 
   const onSendMessage = useCallback(async () => {
     if (inputs.chat) {
+      if (inputs.chat === '/r') {
+        ready(roomId);
+        return;
+      }
       const chat = clean(inputs.chat);
       sendChat({
         roomId,
