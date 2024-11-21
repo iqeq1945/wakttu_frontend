@@ -98,6 +98,7 @@ export const Tag = styled.div<{ tag: string }>`
       case '비챤':
         return '#95C100';
       case '클래식':
+      case '고멤':
         return '#05BB60';
       case '아카데미':
         return '#A72E42';
