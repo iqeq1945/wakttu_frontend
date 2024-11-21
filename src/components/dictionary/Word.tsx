@@ -98,7 +98,6 @@ const Word = ({
   const handleButtonClick = () => {
     window.open(urls[0], '_blank');
   };
-
   return (
     <Wrapper>
       <TopWrapper>
@@ -117,7 +116,10 @@ const Word = ({
           (url, index) =>
             url && (
               <LinkButton key={index} onClick={() => handleButtonClick()}>
-                <LinkIcon src={getR2URL('/assets/icons/link.svg')} alt="링크 아이콘" />
+                <LinkIcon
+                  src={getR2URL('/assets/icons/link.svg')}
+                  alt="링크 아이콘"
+                />
               </LinkButton>
             )
         )}

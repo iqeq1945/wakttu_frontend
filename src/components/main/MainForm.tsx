@@ -60,14 +60,20 @@ const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
 
   const waktaLogin = async (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    const { data } = await client.get('auth/wakta');
-    window.location.href = data.url;
+    const data = await client
+      .get('auth/wakta')
+      .then((response) => response.data)
+      .catch((err) => alert('왁타버스 게임즈 연동 실패'));
+    if (data) window.location.href = data.url;
   };
 
   const guestLogin = async (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    const { data } = await client.get('auth/guest');
-    data.status === 200 ? Router.reload() : alert('게스트 로그인 실패');
+    const data = await client
+      .get('auth/guest')
+      .then((response) => response.data)
+      .catch((err) => alert('게스트 로그인 실패'));
+    if (data) Router.reload();
   };
 
   useEffect(() => {
@@ -125,7 +131,10 @@ const MainForm = ({ isLogined, onModal, logout, start, user }: Props) => {
             <GuestText>{'[형이봤] 형 게스트 만들어왔어'}</GuestText>
           </GusetLogin>
           <WakGamesLogin onClick={waktaLogin}>
-            <Wakgames src={getR2URL('/assets/icons/wakgames.svg')} alt="왁타버스 게임즈 로고" />
+            <Wakgames
+              src={getR2URL('/assets/icons/wakgames.svg')}
+              alt="왁타버스 게임즈 로고"
+            />
             <WakgamesText>왁타버스 게임즈로 로그인</WakgamesText>
           </WakGamesLogin>
           <SignUp>
