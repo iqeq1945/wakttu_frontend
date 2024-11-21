@@ -52,7 +52,7 @@ const relevantInfo = {
     color: '#FFFFFF',
   },
   gomem: {
-    koreanName: '클래식',
+    koreanName: '고멤',
     backgroundColor: '#C75D00',
     color: '#FFFFFF',
   },
@@ -98,7 +98,6 @@ const Word = ({
   const handleButtonClick = () => {
     window.open(urls[0], '_blank');
   };
-
   return (
     <Wrapper>
       <TopWrapper>
