@@ -77,16 +77,6 @@ const MainFormContainer = () => {
 
   useEffect(() => {
     if (ENV === 'jogong') {
-      setCookie('CF_Authorization', cookies.CF_Authorization, {
-        path: '/',
-        secure: ENV !== 'jogong',
-        httpOnly: ENV !== 'jogong',
-      });
-    }
-  }, [cookies.CF_Authorization]);
-
-  useEffect(() => {
-    if (ENV === 'jogong') {
       const discordLogin = async () => {
         await client
           .get('/auth/discord', {
@@ -161,12 +151,16 @@ const MainFormContainer = () => {
   const logout = useCallback(
     async (e: MouseEvent<HTMLElement>) => {
       e.stopPropagation();
+      
       if (ENV === 'jogong') {
-        alert('조공 서버에서는 로그아웃이 불가능!');
+        // alert('조공 서버에서는 로그아웃이 불가능!');
+        window.location.href = '/cdn-cgi/access/logout';
         return;
       }
+      
       await client.get('auth/logout');
       dispatch(clearUserInfo());
+      
       socket.disconnect();
       return;
     },
