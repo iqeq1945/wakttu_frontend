@@ -39,7 +39,12 @@ const Character = ({ character, style }: Props) => {
           src={src.hand}
           alt="캐릭터 손"
         />
-        <EyeItem skin={character.skin} src={src.eye} alt="캐릭터 눈" />
+        <EyeItem
+          skin={character.skin}
+          eye={character.eye}
+          src={src.eye}
+          alt="캐릭터 눈"
+        />
       </CharacterImage>
     </>
   );
