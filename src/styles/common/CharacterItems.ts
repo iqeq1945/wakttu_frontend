@@ -65,14 +65,17 @@ const HandItem = styled.img<{ skin?: string; item?: string }>`
   opacity: ${({ src }) => (src ? 1 : 0)};
 `;
 
-const EyeItem = styled.img<{ skin: string }>`
+const EyeItem = styled.img<{ skin: string; eye?: string }>`
   position: absolute;
   bottom: 0;
   z-index: 5;
-  margin-bottom: ${({ skin }) => {
+  margin-bottom: ${({ skin, eye }) => {
     switch (skin) {
       case 'S-8': {
-        return '1rem';
+        return eye === 'E-2' ? '0.8rem' : '1rem';
+      }
+      default: {
+        return eye === 'E-2' ? '-0.02rem' : 0;
       }
     }
   }};

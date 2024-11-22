@@ -110,9 +110,9 @@ const MainFormContainer = () => {
       if (isLogined) {
         e.stopPropagation();
         try {
-          // 기존 소켓 연결이 있다면 먼저 연결 해제
-          if (socket.connected) {
-            socket.disconnect();
+          if (socket.connected && user) {
+            await router.push('/roomlist');
+            return;
           }
 
           // 소켓 연결을 Promise로 래핑
@@ -155,7 +155,7 @@ const MainFormContainer = () => {
         });
       }
     },
-    [isLogined, router]
+    [isLogined, router, user]
   );
 
   const logout = useCallback(
