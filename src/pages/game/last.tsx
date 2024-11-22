@@ -251,7 +251,6 @@ const Game = () => {
       dispatch(setFail());
       dispatch(setGame(data));
       onFailUser(game.users[game.turn].name);
-      console.log(data);
       setTimeout(() => dispatch(clearSuccess()), 2200);
       if (game.host === user.id)
         setTimeout(() => lastRound(roomInfo.id as string), 4000);

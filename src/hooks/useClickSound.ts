@@ -24,7 +24,6 @@ function useClickSound(volume: number = 1) {
     });
 
     setSounds(selectedSounds);
-    console.log(selectedSounds);
   }, [volume]);
 
   const playRandom = () => {
