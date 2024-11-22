@@ -83,7 +83,7 @@ const MainFormContainer = () => {
         httpOnly: ENV !== 'jogong',
       });
     }
-  }, [cookies.CF_Authorization, setCookie]);
+  }, [cookies.CF_Authorization]);
 
   useEffect(() => {
     if (ENV === 'jogong') {
