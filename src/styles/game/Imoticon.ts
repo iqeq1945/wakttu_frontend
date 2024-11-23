@@ -7,7 +7,7 @@ const growShrink = keyframes`
   20% {
     transform: scale(1);
   }
-  80% {
+  90% {
     transform: scale(1);
   }
   100% {
