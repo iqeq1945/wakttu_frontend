@@ -18,6 +18,12 @@ export interface Character {
   eye: string;
 }
 
+export interface Emoticon {
+  keydown1: string;
+  keydown2: string;
+  keydown3: string;
+}
+
 const initialState: UserState = {
   id: null,
   name: null,
@@ -26,6 +32,7 @@ const initialState: UserState = {
   password: null,
   roomId: null,
   keyboard: null,
+  emoticon: { keydown1: '', keydown2: '', keydown3: '' },
 };
 
 export const userSlice = createSlice({
@@ -44,6 +51,9 @@ export const userSlice = createSlice({
     setCharacter: (state, action: PayloadAction<Character>) => {
       state.character = action.payload;
     },
+    setEmoticon: (state, action: PayloadAction<Emoticon>) => {
+      state.emoticon = action.payload;
+    },
     clearUserInfo: (state) => {
       return initialState;
     },
@@ -55,6 +65,7 @@ export const {
   clearUserId,
   setUserInfo,
   setCharacter,
+  setEmoticon,
   clearUserInfo,
 } = userSlice.actions;
 export const selectUserId = (state: { user: UserState }) => state.user.id;
@@ -62,4 +73,6 @@ export const selectUserName = (state: { user: UserState }) => state.user.name;
 export const selectUserInfo = (state: { user: UserState }) => state.user;
 export const selectCharacter = (state: { user: UserState }) =>
   state.user.character;
+export const selectEmoticon = (state: { user: UserState }) =>
+  state.user.emoticon;
 export default userSlice.reducer;
