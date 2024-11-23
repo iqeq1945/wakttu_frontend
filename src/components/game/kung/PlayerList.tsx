@@ -14,6 +14,7 @@ import BubbleBox from '../Bubble';
 import Difference from './DifferenceBox';
 import { TeamTag } from '@/styles/last/PlayList';
 import Character from '@/components/common/Character';
+import Emoticon from '@/containers/game/Emoticon';
 
 interface Props {
   users: any;
@@ -54,8 +55,8 @@ const PlayList = ({ users, game, answer, bubble, team }: Props) => {
           >
             {myTeam ? <TeamTag team={myTeam.team}>{myTeam.name}</TeamTag> : ''}
             {lastBubble ? <BubbleBox chat={lastBubble.chat} /> : ''}
+            <Emoticon />
             <Character character={user.character} />
-
             <CName>
               {user.name === game.host && (
                 <Host>
