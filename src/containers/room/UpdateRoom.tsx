@@ -34,7 +34,6 @@ const UpdateRoom = () => {
 
   const onRoomInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
-
     if (type === 'number') {
       // 공백일 경우 early return
       if (value === '') {
@@ -44,9 +43,15 @@ const UpdateRoom = () => {
 
       let onlyNumber = parseInt(value, 10);
 
-      // name에 따라 min과 max 값 설정
-      const min = name === 'round' ? 2 : 2;
-      const max = name === 'round' ? 30 : 8;
+      const limits: { [key: string]: { min: number; max: number } } = {
+        round: room.type === 2 ? { min: 1, max: 30 } : { min: 3, max: 8 },
+        total: { min: 2, max: 8 },
+      };
+
+      const { min, max } = limits[name] || {
+        min: 6,
+        max: 6,
+      };
 
       // onlyNumber가 숫자가 아니거나 범위를 벗어날 경우 min 또는 max로 설정
       if (Number.isNaN(onlyNumber)) {
@@ -63,7 +68,6 @@ const UpdateRoom = () => {
 
     setRoom((prev) => ({ ...prev, [name]: value }));
   };
-
   const onSelect = (name: string, value: any) => {
     if (name === 'option') {
       let copy = [];
