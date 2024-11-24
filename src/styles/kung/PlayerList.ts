@@ -15,6 +15,7 @@ const moveUpAndFadeOut = keyframes`
 `;
 
 export const CPlayerList = styled.div`
+  position: relative;
   display: flex;
   width: 100%;
   padding: 1.25rem 3rem;
@@ -59,7 +60,6 @@ export const CPlayer = styled.div<{
     }
   }}
 `;
-
 
 export const PlusScore = styled.div<{ plus: boolean }>`
   position: absolute;

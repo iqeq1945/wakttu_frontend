@@ -32,7 +32,7 @@ const initialState: UserState = {
   password: null,
   roomId: null,
   keyboard: null,
-  emoticon: { keydown1: '', keydown2: '', keydown3: '' },
+  emoticon: { keydown1: 'e-1', keydown2: 'e-1', keydown3: 'e-1' },
 };
 
 export const userSlice = createSlice({
@@ -74,5 +74,7 @@ export const selectUserInfo = (state: { user: UserState }) => state.user;
 export const selectCharacter = (state: { user: UserState }) =>
   state.user.character;
 export const selectEmoticon = (state: { user: UserState }) =>
-  state.user.emoticon;
+  state.user.emoticon
+    ? state.user.emoticon
+    : { keydown1: 'e-1', keydown2: 'e-1', keydown3: 'e-1' };
 export default userSlice.reducer;
