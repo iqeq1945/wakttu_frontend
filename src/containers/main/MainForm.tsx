@@ -23,7 +23,6 @@ const MainFormContainer = () => {
   const userId = useSelector(selectUserId);
   const [isLogined, setIsLogined] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
-  const [isFull, setIsFull] = useState(false);
   const [cookies, setCookie] = useCookies(['CF_Authorization']);
 
   // 로그인 체크 및 소켓 연결 관리
@@ -97,70 +96,76 @@ const MainFormContainer = () => {
 
   const start = useCallback(
     async (e: MouseEvent<HTMLElement>) => {
-      if (isLogined) {
-        e.stopPropagation();
-        try {
-          if (socket.connected && user) {
-            await router.push('/roomlist');
-            return;
-          }
+      if (!isLogined) return;
 
-          // 소켓 연결을 Promise로 래핑
-          await new Promise<void>((resolve, reject) => {
-            socket.connect();
-
-            socket.on('connect', () => {
-              setIsConnected(true);
-              resolve();
-            });
-
-            socket.on('connect_error', (error) => {
-              reject(error);
-            });
-
-            // 타임아웃 설정 (5초)
-            setTimeout(() => {
-              reject(new Error('Connection timeout'));
-            }, 5000);
-          });
-
-          // 소켓 연결이 성공적으로 완료된 후에 페이지 이동
+      e.stopPropagation();
+      try {
+        if (socket.connected && userId) {
           await router.push('/roomlist');
-        } catch (error) {
-          console.error('Socket connection failed:', error);
-          alert('서버 연결에 실패했습니다. 다시 시도해주세요.');
-          socket.disconnect();
-          setIsConnected(false);
+          return;
         }
 
-        // 이벤트 리스너들은 연결 성공 후에 등록
-        socket.on('disconnect', () => {
-          setIsConnected(false);
+        let isServerFull = false;
+        // 소켓 연결을 Promise로 래핑
+        await new Promise<void>((resolve, reject) => {
+          socket.connect();
+
+          const timer = setTimeout(() => {
+            reject(
+              new Error(
+                '서버 연결이 만료되었습니다. 네트워크 상태를 확인해 보세요'
+              )
+            );
+          }, 5000);
+
+          socket.on('connected', () => {
+            setIsConnected(true);
+            resolve();
+          });
+
+          socket.on('full', () => {
+            reject(
+              new Error(
+                '서버 최대 수용 인원을 초과했습니다. 잠시 후에 다시 접속해주세요 !'
+              )
+            );
+          });
+
+          socket.on('connect_error', (error) => {
+            reject(error);
+          });
         });
 
-        socket.on('full', () => {
-          setIsFull(true);
-          alert('현재 서버가 가득 찼습니다. 잠시 후 다시 시도해주세요.');
-          router.push('/');
-        });
+        // 소켓 연결이 성공적으로 완료된 후에 페이지 이동
+        await router.push('/roomlist');
+      } catch (error) {
+        console.error('Socket connection failed:', error);
+        alert(error);
+        socket.disconnect();
+        setIsConnected(false);
       }
+
+      // 이벤트 리스너들은 연결 성공 후에 등록 (중복 방지)
+      socket.off('disconnect').on('disconnect', () => {
+        setIsConnected(false);
+      });
     },
-    [isLogined, router, user]
+    [isLogined, router, userId]
   );
 
   const logout = useCallback(
     async (e: MouseEvent<HTMLElement>) => {
       e.stopPropagation();
-      
+
       if (ENV === 'jogong') {
         // alert('조공 서버에서는 로그아웃이 불가능!');
         window.location.href = '/cdn-cgi/access/logout';
         return;
       }
-      
+
       await client.get('auth/logout');
       dispatch(clearUserInfo());
-      
+
       socket.disconnect();
       return;
     },
