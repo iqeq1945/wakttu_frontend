@@ -52,7 +52,12 @@ const relevantInfo = {
     color: '#FFFFFF',
   },
   gomem: {
-    koreanName: '고멤',
+    koreanName: '클래식',
+    backgroundColor: '#C75D00',
+    color: '#FFFFFF',
+  },
+  classic: {
+    koreanName: '클래식',
     backgroundColor: '#C75D00',
     color: '#FFFFFF',
   },

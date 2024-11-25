@@ -26,7 +26,8 @@ const CHARACTER_NAMES: Record<string, string> = {
   jururu: '주르르',
   gosegu: '고세구',
   viichan: '비챤',
-  gomem: '고멤',
+  gomem: '클래식',
+  classic: '클래식',
   academy: '아카데미',
 } as const;
 
