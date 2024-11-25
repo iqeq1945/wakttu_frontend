@@ -1,5 +1,7 @@
 import { GEmoticon } from '@/components';
-import { KeyboardEvent, useEffect, useState } from 'react';
+import { getEmoticonURL } from '@/services/api';
+import { ImoticonImage } from '@/styles/game/Imoticon';
+import { useEffect, useState } from 'react';
 
 interface Props {
   emoticon?: string;
@@ -18,7 +20,11 @@ const Emoticon = ({ emoticon }: Props) => {
   }, [emoticon]);
 
   return (
-    <>{receivedEmoticon && <GEmoticon key={key} src={receivedEmoticon} />}</>
+    <>
+      {receivedEmoticon && (
+        <ImoticonImage src={getEmoticonURL(receivedEmoticon)} alt="Emoticon" />
+      )}
+    </>
   );
 };
 

@@ -15,7 +15,7 @@ import BubbleBox from '../Bubble';
 import Difference from './DifferenceBox';
 import Character from '@/components/common/Character';
 import { Emo } from '@/containers/game/bell/PlayerList';
-import Emoticon from '@/containers/game/Emoticon';
+import Emoticon from '@/components/game/Emoticon';
 
 interface Props {
   users: any;

@@ -14,7 +14,7 @@ import BubbleBox from '../Bubble';
 import Difference from './DifferenceBox';
 import { TeamTag } from '@/styles/last/PlayList';
 import Character from '@/components/common/Character';
-import Emoticon from '@/containers/game/Emoticon';
+import Emoticon from '@/components/game/Emoticon';
 import { Emo } from '@/containers/game/kung/PlayerList';
 
 interface Props {

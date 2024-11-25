@@ -9,19 +9,19 @@ import {
 } from '@/styles/last/PlayList';
 import { Game } from '@/services/socket/socket';
 import { Answer } from '@/redux/answer/answerSlice';
-import { ScoreBox } from '@/components';
+import { Chat, ScoreBox } from '@/components';
 import { Bubble, Emo } from '@/containers/game/last/PlayerList';
 import BubbleBox from '../Bubble';
 import Difference from './DifferenceBox';
 import Character from '@/components/common/Character';
-import Emoticon from '@/containers/game/Emoticon';
+import Emoticon from '@/components/game/Emoticon';
 
 interface Props {
   users: any;
   game: Game;
   answer: Answer;
   bubble: Bubble[];
-  emoticon?: Emo;
+  emoticon: Emo[];
   team: { woo: string[]; gomem: string[]; academy: string[]; isedol: string[] };
 }
 
@@ -48,7 +48,9 @@ const PlayList = ({ users, game, answer, bubble, team, emoticon }: Props) => {
           (item: Bubble) => item.user.id === user.userId
         );
 
-        const myEmo = emoticon?.userId === user.userId;
+        const lastEmo = emoticon.findLast(
+          (item: Emo) => item.userId === user.userId
+        );
 
         return (
           <CPlayer
@@ -58,8 +60,19 @@ const PlayList = ({ users, game, answer, bubble, team, emoticon }: Props) => {
             $end={isFail}
           >
             {myTeam ? <TeamTag team={myTeam.team}>{myTeam.name}</TeamTag> : ''}
-            {lastBubble ? <BubbleBox chat={lastBubble.chat} /> : ''}
-            {myEmo ? <Emoticon emoticon={emoticon?.emoticonId} /> : ''}
+            {lastBubble ? (
+              <BubbleBox key={user.id + bubble.length} chat={lastBubble.chat} />
+            ) : (
+              ''
+            )}
+            {lastEmo ? (
+              <Emoticon
+                key={user.id + emoticon.length}
+                emoticon={lastEmo.emoticonId}
+              />
+            ) : (
+              ''
+            )}
             <Character character={user.character} />
 
             <CName>
