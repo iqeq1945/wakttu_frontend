@@ -17,13 +17,13 @@ const growShrink = keyframes`
 
 export const ImoticonImage = styled.img`
   position: absolute;
-  top: -2.8125rem;
-  right: -2.8125rem;
+  top: -3.8rem;
+  right: -1.5rem;
 
   width: 6.25rem;
   height: 6.25rem;
 
-  z-index: 2;
+  z-index: 2222;
 
   object-fit: cover;
 

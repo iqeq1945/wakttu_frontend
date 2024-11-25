@@ -14,16 +14,19 @@ import { Bubble } from '@/containers/game/last/PlayerList';
 import BubbleBox from '../Bubble';
 import Difference from './DifferenceBox';
 import Character from '@/components/common/Character';
+import { Emo } from '@/containers/game/bell/PlayerList';
+import Emoticon from '@/containers/game/Emoticon';
 
 interface Props {
   users: any;
   game: Game;
   answer: Answer;
   bubble: Bubble[];
+  emoticon?: Emo;
   team: { woo: string[]; gomem: string[]; academy: string[]; isedol: string[] };
 }
 
-const PlayList = ({ users, game, answer, bubble, team }: Props) => {
+const PlayList = ({ users, game, answer, bubble, team, emoticon }: Props) => {
   const checkMyTeam = (userId: string) => {
     const InWoo = team.woo.findIndex((id) => id === userId);
     const InGomem = team.gomem.findIndex((id) => id === userId);
@@ -42,10 +45,15 @@ const PlayList = ({ users, game, answer, bubble, team }: Props) => {
         const lastBubble = bubble.findLast(
           (item: Bubble) => item.user.id === user.userId
         );
+
+        const myEmo = emoticon?.userId === user.userId;
+
         return (
           <CPlayer key={user.id} $success={user.success}>
             {myTeam ? <TeamTag team={myTeam.team}>{myTeam.name}</TeamTag> : ''}
             {lastBubble ? <BubbleBox chat={lastBubble.chat} /> : ''}
+            {myEmo ? <Emoticon emoticon={emoticon?.emoticonId} /> : ''}
+
             <Character character={user.character} />
 
             <CName>

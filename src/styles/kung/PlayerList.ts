@@ -23,6 +23,7 @@ export const CPlayerList = styled.div`
   align-items: center;
   gap: 1.25rem;
 
+  z-index: 1001;
   background: linear-gradient(0deg, #b6ecc5 0%, #b6ecc5 100%);
 `;
 
