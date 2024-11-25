@@ -1,4 +1,4 @@
-import { FormEvent, MouseEvent } from 'react';
+import { FormEvent, MouseEvent, useRef } from 'react';
 import {
   FormContainer,
   FormName,
@@ -35,15 +35,23 @@ const AuthForm = ({
   onAuth,
 }: Props) => {
   const dispatch = useDispatch();
+  const isInsideModal = useRef(false); // 모달 내부 클릭 여부 추적
 
-  const offModal = (e: MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    dispatch(closeModal());
+  const handleMouseDown = (e: MouseEvent<HTMLElement>) => {
+    // 클릭 시작 위치가 모달 내부인지 확인
+    isInsideModal.current = e.target instanceof HTMLElement && e.target.closest('#modal-content') !== null;
+  };
+
+  const handleMouseUp = (e: MouseEvent<HTMLElement>) => {
+    // 클릭 해제 시 모달 외부라면 닫기 동작 수행
+    if (!isInsideModal.current) {
+      dispatch(closeModal());
+    }
   };
 
   return (
-    <ModalContainer onClick={offModal}>
-      <Modal onClick={(e: MouseEvent<HTMLElement>) => e.stopPropagation()}>
+    <ModalContainer onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
+      <Modal id='modal-content' onClick={(e: MouseEvent<HTMLElement>) => e.stopPropagation()}>
         <FormContainer>
           <FormSection onSubmit={onSubmit}>
             <FormName>{formTitle}</FormName>
