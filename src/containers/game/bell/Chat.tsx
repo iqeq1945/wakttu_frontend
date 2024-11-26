@@ -119,7 +119,7 @@ const Chat = () => {
     }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
-  }, [game.target, inputs.chat, roomId, setInputs]);
+  }, [game.target, inputs.chat, roomId]);
 
   const handleEnter = useCallback(
     (e: React.KeyboardEvent) => {
