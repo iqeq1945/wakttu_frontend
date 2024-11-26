@@ -16,6 +16,7 @@ import Difference from './DifferenceBox';
 import Character from '@/components/common/Character';
 import { Emo } from '@/containers/game/bell/PlayerList';
 import Emoticon from '@/components/game/Emoticon';
+import { useRef } from 'react';
 
 interface Props {
   users: any;
@@ -38,15 +39,17 @@ const PlayList = ({ users, game, answer, bubble, team, emoticon }: Props) => {
     else if (InIsedol !== -1) return { team: 'isedol', name: '이세돌' };
     else return undefined;
   };
+
+  const lastBubbleIdxRef = useRef<number | null>(null);
+
   return (
     <CPlayerList>
       {users.map((user: any, index: number) => {
         const myTeam = checkMyTeam(user.userId);
 
-        let lastBubbleIdx = -1;
         const lastBubble = bubble.findLast((item: Bubble, index: number) => {
           if (item.user.id === user.userId) {
-            lastBubbleIdx = index;
+            lastBubbleIdxRef.current = index;
             return true;
           }
           return false;
@@ -65,7 +68,7 @@ const PlayList = ({ users, game, answer, bubble, team, emoticon }: Props) => {
           <CPlayer key={user.id} $success={user.success}>
             {myTeam ? <TeamTag team={myTeam.team}>{myTeam.name}</TeamTag> : ''}
             {lastBubble ? (
-              <BubbleBox key={user.id + lastBubbleIdx} chat={lastBubble.chat} />
+              <BubbleBox key={user.id + lastBubbleIdxRef} chat={lastBubble.chat} />
             ) : (
               ''
             )}

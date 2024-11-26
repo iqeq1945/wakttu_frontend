@@ -16,6 +16,7 @@ import { TeamTag } from '@/styles/last/PlayList';
 import Character from '@/components/common/Character';
 import Emoticon from '@/components/game/Emoticon';
 import { Emo } from '@/containers/game/kung/PlayerList';
+import { useRef } from 'react';
 
 interface Props {
   users: any;
@@ -38,6 +39,9 @@ const PlayList = ({ users, game, answer, bubble, team, emoticon }: Props) => {
     else if (InIsedol !== -1) return { team: 'isedol', name: '이세돌' };
     else return undefined;
   };
+
+  const lastBubbleIdxRef = useRef<number | null>(null);
+
   return (
     <CPlayerList>
       {users.map((user: any, index: number) => {
@@ -57,7 +61,7 @@ const PlayList = ({ users, game, answer, bubble, team, emoticon }: Props) => {
         let lastEmoIdx = -1;
         const lastEmo = emoticon.findLast((item: Emo, index: number) => {
           if (item.userId === user.userId) {
-            lastEmoIdx = index;
+            lastBubbleIdxRef.current = index;
             return true;
           }
           return false;
@@ -72,7 +76,7 @@ const PlayList = ({ users, game, answer, bubble, team, emoticon }: Props) => {
           >
             {myTeam ? <TeamTag team={myTeam.team}>{myTeam.name}</TeamTag> : ''}
             {lastBubble ? (
-              <BubbleBox key={user.id + lastBubbleIdx} chat={lastBubble.chat} />
+              <BubbleBox key={user.id + lastBubbleIdxRef} chat={lastBubble.chat} />
             ) : (
               ''
             )}
