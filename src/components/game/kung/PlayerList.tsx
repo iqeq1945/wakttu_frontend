@@ -22,7 +22,7 @@ interface Props {
   game: Game;
   answer: Answer;
   bubble: Bubble[];
-  emoticon?: Emo;
+  emoticon: Emo[];
   team: { woo: string[]; gomem: string[]; academy: string[]; isedol: string[] };
 }
 
@@ -45,11 +45,24 @@ const PlayList = ({ users, game, answer, bubble, team, emoticon }: Props) => {
         const isTurn = game.turn === index;
         const isFail = isTurn && answer.success === false;
 
-        const lastBubble = bubble.findLast(
-          (item: Bubble) => item.user.id === user.userId
-        );
+        let lastBubbleIdx = -1;
+        const lastBubble = bubble.findLast((item: Bubble, index: number) => {
+          if (item.user.id === user.userId) {
+            lastBubbleIdx = index;
+            return true;
+          }
+          return false;
+        });
 
-        const myEmo = emoticon?.userId === user.userId;
+        let lastEmoIdx = -1;
+        const lastEmo = emoticon.findLast((item: Emo, index: number) => {
+          if (item.userId === user.userId) {
+            lastEmoIdx = index;
+            return true;
+          }
+          return false;
+        });
+
         return (
           <CPlayer
             key={user.id}
@@ -58,8 +71,19 @@ const PlayList = ({ users, game, answer, bubble, team, emoticon }: Props) => {
             $end={isFail}
           >
             {myTeam ? <TeamTag team={myTeam.team}>{myTeam.name}</TeamTag> : ''}
-            {lastBubble ? <BubbleBox chat={lastBubble.chat} /> : ''}
-            {myEmo ? <Emoticon emoticon={emoticon?.emoticonId} /> : ''}
+            {lastBubble ? (
+              <BubbleBox key={user.id + lastBubbleIdx} chat={lastBubble.chat} />
+            ) : (
+              ''
+            )}
+            {lastEmo ? (
+              <Emoticon
+                key={user.id + lastEmoIdx}
+                emoticon={lastEmo.emoticonId}
+              />
+            ) : (
+              ''
+            )}
             <Character character={user.character} />
             <CName>
               {user.name === game.host && (

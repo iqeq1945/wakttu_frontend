@@ -26,22 +26,20 @@ const PlayerList = () => {
   const answer = useSelector(selectAnswer);
   const team = useSelector(selectTeam);
   const [bubble, setBubble] = useState<Bubble[]>([]);
-  const [receivedEmoticon, setReceivedEmoticon] = useState<Emo>();
+  const [receivedEmoticon, setReceivedEmoticon] = useState<Emo[]>([]);
 
   useEffect(() => {
     socket.on('chat', (data) => {
       setBubble([...bubble, data]);
     });
-
     socket.on('emoticon', (data) => {
-      setReceivedEmoticon({ ...data });
-      setTimeout(() => setReceivedEmoticon(undefined), 2000);
+      setReceivedEmoticon([...receivedEmoticon, data]);
     });
     return () => {
       socket.off('chat');
       socket.off('emoticon');
     };
-  }, [bubble]);
+  }, [bubble, receivedEmoticon]);
 
   return (
     <KPlayerList
