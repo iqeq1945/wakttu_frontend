@@ -68,6 +68,12 @@ export interface Ban {
   keyword: string;
 }
 
+export interface Emoticon {
+  roomId: string;
+  userId: string;
+  emoticonId: string;
+}
+
 /* * * * * * *
  * 공통 함수
  * * * * * * */
@@ -283,4 +289,12 @@ export const bellRoundStart = (roomId: string) => {
 
 export const bellRoundEnd = (roomId: string) => {
   socket.emit('bell.roundEnd', roomId);
+};
+
+/**
+ *
+ * 이모티콘 socket
+ */
+export const sendEmoticon = (data: Emoticon) => {
+  socket.emit('emoticon', data);
 };

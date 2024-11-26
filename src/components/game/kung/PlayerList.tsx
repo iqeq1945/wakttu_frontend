@@ -14,16 +14,19 @@ import BubbleBox from '../Bubble';
 import Difference from './DifferenceBox';
 import { TeamTag } from '@/styles/last/PlayList';
 import Character from '@/components/common/Character';
+import Emoticon from '@/components/game/Emoticon';
+import { Emo } from '@/containers/game/kung/PlayerList';
 
 interface Props {
   users: any;
   game: Game;
   answer: Answer;
   bubble: Bubble[];
+  emoticon: Emo[];
   team: { woo: string[]; gomem: string[]; academy: string[]; isedol: string[] };
 }
 
-const PlayList = ({ users, game, answer, bubble, team }: Props) => {
+const PlayList = ({ users, game, answer, bubble, team, emoticon }: Props) => {
   const checkMyTeam = (userId: string) => {
     const InWoo = team.woo.findIndex((id) => id === userId);
     const InGomem = team.gomem.findIndex((id) => id === userId);
@@ -42,9 +45,24 @@ const PlayList = ({ users, game, answer, bubble, team }: Props) => {
         const isTurn = game.turn === index;
         const isFail = isTurn && answer.success === false;
 
-        const lastBubble = bubble.findLast(
-          (item: Bubble) => item.user.id === user.userId
-        );
+        let lastBubbleIdx = -1;
+        const lastBubble = bubble.findLast((item: Bubble, index: number) => {
+          if (item.user.id === user.userId) {
+            lastBubbleIdx = index;
+            return true;
+          }
+          return false;
+        });
+
+        let lastEmoIdx = -1;
+        const lastEmo = emoticon.findLast((item: Emo, index: number) => {
+          if (item.userId === user.userId) {
+            lastEmoIdx = index;
+            return true;
+          }
+          return false;
+        });
+
         return (
           <CPlayer
             key={user.id}
@@ -53,9 +71,20 @@ const PlayList = ({ users, game, answer, bubble, team }: Props) => {
             $end={isFail}
           >
             {myTeam ? <TeamTag team={myTeam.team}>{myTeam.name}</TeamTag> : ''}
-            {lastBubble ? <BubbleBox chat={lastBubble.chat} /> : ''}
+            {lastBubble ? (
+              <BubbleBox key={user.id + lastBubbleIdx} chat={lastBubble.chat} />
+            ) : (
+              ''
+            )}
+            {lastEmo ? (
+              <Emoticon
+                key={user.id + lastEmoIdx}
+                emoticon={lastEmo.emoticonId}
+              />
+            ) : (
+              ''
+            )}
             <Character character={user.character} />
-
             <CName>
               {user.name === game.host && (
                 <Host>
