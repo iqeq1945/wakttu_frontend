@@ -119,7 +119,8 @@ const Chat = () => {
     }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
-  }, [game.target, inputs.chat, roomId, setInputs]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [game.target, inputs.chat, roomId]);
 
   const handleEnter = useCallback(
     (e: React.KeyboardEvent) => {
