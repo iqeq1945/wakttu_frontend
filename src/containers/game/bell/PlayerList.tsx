@@ -32,14 +32,20 @@ const PlayerList = () => {
     socket.on('chat', (data) => {
       setBubble([...bubble, data]);
     });
+    return () => {
+      socket.off('chat');
+    };
+  }, [bubble]);
+
+  useEffect(() => {
     socket.on('emoticon', (data) => {
       setReceivedEmoticon([...receivedEmoticon, data]);
     });
     return () => {
-      socket.off('chat');
       socket.off('emoticon');
     };
-  }, [bubble, receivedEmoticon]);
+  }, [receivedEmoticon]);
+
 
   return (
     <BPlayerList
