@@ -34,7 +34,7 @@ const PlayList = ({ users, game, answer, bubble, team, emoticon }: Props) => {
     const InAcademy = team.academy.findIndex((id) => id === userId);
     const InIsedol = team.isedol.findIndex((id) => id === userId);
     if (InWoo !== -1) return { team: 'woo', name: '우왁굳' };
-    else if (InGomem !== -1) return { team: 'gomem', name: '고멤' };
+    else if (InGomem !== -1) return { team: 'gomem', name: '클래식' };
     else if (InAcademy !== -1) return { team: 'academy', name: '아카데미' };
     else if (InIsedol !== -1) return { team: 'isedol', name: '이세돌' };
     else return undefined;
