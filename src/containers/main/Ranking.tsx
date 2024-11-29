@@ -35,7 +35,6 @@ const Rank = () => {
 
   const onClickNav = (e: MouseEvent<HTMLButtonElement>) => {
     const name = e.currentTarget.name as Ranks;
-    if (lists) console.log(lists[name]);
     setClicked(name);
   };
 
@@ -46,7 +45,6 @@ const Rank = () => {
         .then((response) => response.data)
         .catch(console.error);
       setLists(data);
-      console.log(data);
     };
 
     getList();

@@ -25,7 +25,6 @@ interface Props {
 }
 
 const Ranking = ({ isClicked, users, onClick }: Props) => {
-  console.log(users);
   return (
     <Wrapper>
       <Title>형 왁뚜 랭킹 봤어?</Title>
