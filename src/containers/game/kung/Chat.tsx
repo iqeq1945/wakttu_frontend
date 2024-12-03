@@ -102,13 +102,13 @@ const Chat = () => {
     }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     game.chain,
     game.target,
     inputs.chat,
     isInHistory,
     roomId,
-    setInputs,
     timer.countTime,
     timer.roundTime,
     timer.turnTime,
