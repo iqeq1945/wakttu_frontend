@@ -1,44 +1,29 @@
 import Board from '@/components/game/cloud/Board';
-import ChatInput from '@/components/game/cloud/ChatInput';
+import ChatInput from '@/containers/game/cloud/ChatInput';
 import ChatLog from '@/components/game/cloud/ChatLog';
-import Header from '@/components/game/cloud/Header';
-import Info from '@/components/game/cloud/Info';
-import PlayerList from '@/components/game/cloud/PlayerList';
+import Header from '@/containers/game/cloud/Header';
+import Info from '@/containers/game/cloud/Info';
+import PlayerList from '@/containers/game/cloud/PlayerList';
+import { selectGame } from '@/redux/game/gameSlice';
+import { selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
+import { selectTimer } from '@/redux/timer/timerSlice';
 import { Container, Main } from '@/styles/cloud/Layout';
+import { useSelector } from 'react-redux';
 
 const Cloud = () => {
+  const timer = useSelector(selectTimer);
+  const roomInfo = useSelector(selectRoomInfo);
+  const game = useSelector(selectGame);
+
   return (
     <Container>
-      <Header
-        roomInfo={{ id: '12345', title: 'hello', idx: 123 }}
-        exit={function (): void {
-          throw new Error('Function not implemented.');
-        }}
-      />
+      <Header />
       <Main>
         <Info />
         <Board />
         <ChatLog />
       </Main>
-      <PlayerList
-        users={[
-          {
-            id: '123',
-            userId: '1234',
-            name: 'hello',
-            character: { skin: 'S-1' },
-            score: 0,
-          },
-        ]}
-        bubble={[]}
-        emoticon={[]}
-        team={{
-          woo: [],
-          gomem: [],
-          academy: [],
-          isedol: [],
-        }}
-      />
+      <PlayerList />
       <ChatInput />
     </Container>
   );
