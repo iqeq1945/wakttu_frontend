@@ -1,23 +1,19 @@
 import { Cloud, CloudText, Game } from '@/styles/cloud/Cloud';
 
-const getRandomPosition = () => {
-  const maxWidth = 82 - 10.875;
-  const maxHeight = 32.6875 - 7.4375;
-  const x = `${Math.random() * maxWidth}rem`;
-  const y = `${Math.random() * maxHeight}rem`;
-  return { x, y };
-};
-const getRandomAnimationProperties = () => {
-  const duration = `${Math.random() * 3 + 3}s`; // 3초에서 6초 사이의 지속 시간
-  const delay = `${Math.random() * 2}s`; // 0초에서 2초 사이의 지연 시간
-  return { duration, delay };
-};
+export interface Cloud {
+  _id: string;
+  x: string;
+  y: string;
+  duration: string;
+  delay: string;
+  clear: boolean;
+}
 
-const Board = () => {
-  const clouds = Array.from({ length: 20 }, () => ({
-    ...getRandomPosition(),
-    ...getRandomAnimationProperties(),
-  }));
+interface Props {
+  clouds: Cloud[];
+}
+
+const Board = ({ clouds }: Props) => {
   return (
     <Game>
       {clouds.map((cloud, index) => (

@@ -24,6 +24,14 @@ interface Props {
   onEnter?: () => void;
 }
 
+type RoomType = Record<number, string>;
+const gameBackground: RoomType = {
+  0: getR2URL('/assets/game-info.png'),
+  1: getR2URL('/assets/game-info-2.png'),
+  2: getR2URL('/assets/game-info-3.png'),
+  4: getR2URL('/assets/game-info-3.png'),
+};
+
 const RoomDesc = ({ roomInfo, onEnter }: Props) => {
   return (
     <CRoomDesc>
@@ -33,17 +41,26 @@ const RoomDesc = ({ roomInfo, onEnter }: Props) => {
       </WrapRoomTitle>
       <WrapGameInfo>
         {roomInfo.type === 0 ? (
-          <GameInfo src={getR2URL('/assets/game-info.png')} alt="끝말잇기 배경 이미지" />
+          <GameInfo
+            src={gameBackground[roomInfo.type]}
+            alt="끝말잇기 배경 이미지"
+          />
         ) : (
           ''
         )}
         {roomInfo.type === 1 ? (
-          <GameInfo src={getR2URL('/assets/game-info-2.png')} alt="추억의 쿵쿵따 배경 이미지" />
+          <GameInfo
+            src={getR2URL('/assets/game-info-2.png')}
+            alt="추억의 쿵쿵따 배경 이미지"
+          />
         ) : (
           ''
         )}
         {roomInfo.type === 2 ? (
-          <GameInfo src={getR2URL('/assets/game-info-3.png')} alt="왁타! 골든벨 배경 이미지" />
+          <GameInfo
+            src={getR2URL('/assets/game-info-3.png')}
+            alt="왁타! 골든벨 배경 이미지"
+          />
         ) : (
           ''
         )}

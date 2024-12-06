@@ -5,7 +5,7 @@ import { socket } from '@/services/socket/socket';
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-interface Log {
+export interface LogProps {
   user: any;
   chat: string;
 }
@@ -16,7 +16,7 @@ const ChatLog = () => {
     '/assets/sound-effects/lossy/ui_click.webm',
     effectVolume
   );
-  const [log, setLog] = useState<Log[]>([]);
+  const [log, setLog] = useState<LogProps[]>([]);
 
   const playSound = useCallback(() => {
     if (logSound) {
@@ -45,7 +45,7 @@ const ChatLog = () => {
     };
   }, [log, playSound]);
 
-  return <CChatLog />;
+  return <CChatLog logs={log} />;
 };
 
 export default ChatLog;

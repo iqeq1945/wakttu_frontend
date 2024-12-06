@@ -1,3 +1,4 @@
+import { LogProps } from '@/containers/game/cloud/ChatLog';
 import {
   ChatBox,
   Log,
@@ -6,7 +7,11 @@ import {
 } from '@/styles/cloud/ChatLog';
 import { useCallback, useEffect, useRef } from 'react';
 
-const ChatLog = () => {
+interface Props {
+  logs: LogProps[];
+}
+
+const ChatLog = ({ logs }: Props) => {
   const chatBoxRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = useCallback(() => {
@@ -17,50 +22,18 @@ const ChatLog = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [scrollToBottom]);
+  }, [logs, scrollToBottom]);
 
   return (
     <ChatBox ref={chatBoxRef}>
-      <Log>
-        <PlayerName>아이네</PlayerName>
-        <PlayerContent>대가리!</PlayerContent>
-      </Log>
-      <Log>
-        <PlayerName>비챤</PlayerName>
-        <PlayerContent>
-          대가리! dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-        </PlayerContent>
-      </Log>
-      <Log>
-        <PlayerName>비챤</PlayerName>
-        <PlayerContent>
-          대가리! dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-        </PlayerContent>
-      </Log>
-      <Log>
-        <PlayerName>비챤</PlayerName>
-        <PlayerContent>
-          대가리! dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-        </PlayerContent>
-      </Log>
-      <Log>
-        <PlayerName>비챤</PlayerName>
-        <PlayerContent>
-          대가리! dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-        </PlayerContent>
-      </Log>
-      <Log>
-        <PlayerName>비챤</PlayerName>
-        <PlayerContent>
-          대가리! dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-        </PlayerContent>
-      </Log>
-      <Log>
-        <PlayerName>비챤</PlayerName>
-        <PlayerContent>
-          대가리! dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-        </PlayerContent>
-      </Log>
+      {logs.map((log: LogProps, index: number) => {
+        return (
+          <Log key={index}>
+            <PlayerName $color={log.user.color}>{log.user.name}</PlayerName>
+            <PlayerContent>{log.chat}</PlayerContent>
+          </Log>
+        );
+      })}
     </ChatBox>
   );
 };
