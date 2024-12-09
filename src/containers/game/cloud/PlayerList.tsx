@@ -1,4 +1,4 @@
-import { BPlayerList } from '@/components';
+import { CPlayerList } from '@/components';
 import { selectAnswer } from '@/redux/answer/answerSlice';
 import {
   selectGame,
@@ -22,20 +22,21 @@ export interface Emo {
 
 const PlayerList = () => {
   const users = useSelector(selectReadyUser);
-  const game = useSelector(selectGame);
-  const answer = useSelector(selectAnswer);
   const team = useSelector(selectTeam);
   const [bubble, setBubble] = useState<Bubble[]>([]);
   const [receivedEmoticon, setReceivedEmoticon] = useState<Emo[]>([]);
 
   useEffect(() => {
-    socket.on('chat', (data) => {
-      setBubble([...bubble, data]);
-    });
-    return () => {
-      socket.off('chat');
+    const handleChatBubble = (data: any) => {
+      setBubble((prev) => [...prev, data]); // 최신 상태를 안전하게 사용
     };
-  }, [bubble]);
+
+    socket.on('chat', handleChatBubble);
+
+    return () => {
+      socket.off('chat', handleChatBubble); // 특정 리스너만 제거
+    };
+  }, []);
 
   useEffect(() => {
     socket.on('emoticon', (data) => {
@@ -47,10 +48,8 @@ const PlayerList = () => {
   }, [receivedEmoticon]);
 
   return (
-    <BPlayerList
-      answer={answer}
+    <CPlayerList
       users={users}
-      game={game}
       bubble={bubble}
       team={team}
       emoticon={receivedEmoticon}

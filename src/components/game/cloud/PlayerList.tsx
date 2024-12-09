@@ -43,7 +43,6 @@ const PlayList = ({ users, bubble, team, emoticon }: Props) => {
     <CPlayerList>
       {users.map((user: any, index: number) => {
         const myTeam = checkMyTeam(user.userId);
-
         const lastBubble = bubble.findLast((item: Bubble, index: number) => {
           if (item.user.id === user.userId) {
             lastBubbleIdxRef.current = index;

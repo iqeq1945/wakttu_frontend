@@ -10,23 +10,26 @@ export interface Cloud {
 }
 
 interface Props {
-  clouds: Cloud[];
+  clouds?: Cloud[];
+  pause: boolean;
 }
 
-const Board = ({ clouds }: Props) => {
+const Board = ({ clouds, pause }: Props) => {
   return (
     <Game>
-      {clouds.map((cloud, index) => (
-        <Cloud
-          key={index}
-          x={cloud.x}
-          y={cloud.y}
-          duration={cloud.duration}
-          delay={cloud.delay}
-        >
-          <CloudText>이세계아이돌</CloudText>
-        </Cloud>
-      ))}
+      {clouds &&
+        clouds.map((cloud, index) => (
+          <Cloud
+            key={index}
+            x={cloud.x}
+            y={cloud.y}
+            duration={cloud.duration}
+            delay={cloud.delay}
+            clear={pause ? cloud.clear : true}
+          >
+            <CloudText>{cloud._id}</CloudText>
+          </Cloud>
+        ))}
     </Game>
   );
 };

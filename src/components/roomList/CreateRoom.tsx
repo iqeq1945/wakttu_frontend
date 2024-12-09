@@ -184,7 +184,7 @@ const CreateRoom = ({
               </CCheck>
             </CheckBox>
           ) : null}
-          {roomInfo.type !== 2 && roomInfo.type !== 3 ? (
+          {roomInfo.type !== 2 && roomInfo.type !== 4 ? (
             <>
               <CheckBox onClick={() => onSelect('option', '매너')}>
                 <CCheck>

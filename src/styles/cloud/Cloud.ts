@@ -24,6 +24,7 @@ export const Cloud = styled.div<{
   y: string;
   duration: string;
   delay: string;
+  clear: boolean;
 }>`
   position: absolute;
   display: flex;
@@ -39,6 +40,8 @@ export const Cloud = styled.div<{
   top: ${(props) => props.y};
   animation: ${floatAnimation} ${(props) => props.duration} ease-in-out infinite;
   animation-delay: ${(props) => props.delay};
+
+  opacity: ${(props) => (!props.clear ? 1 : 0)};
 `;
 
 export const CloudText = styled.h4`

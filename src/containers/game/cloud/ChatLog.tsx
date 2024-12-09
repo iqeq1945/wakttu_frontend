@@ -1,9 +1,7 @@
 import { CChatLog } from '@/components';
-import useEffectSound from '@/hooks/useEffectSound';
-import { selectEffectVolume } from '@/redux/audio/audioSlice';
+import { clean } from '@/modules/Slang';
 import { socket } from '@/services/socket/socket';
-import { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 export interface LogProps {
   user: any;
@@ -11,19 +9,7 @@ export interface LogProps {
 }
 
 const ChatLog = () => {
-  const effectVolume = useSelector(selectEffectVolume);
-  const logSound = useEffectSound(
-    '/assets/sound-effects/lossy/ui_click.webm',
-    effectVolume
-  );
   const [log, setLog] = useState<LogProps[]>([]);
-
-  const playSound = useCallback(() => {
-    if (logSound) {
-      if (logSound.playing()) logSound.stop();
-      logSound.play();
-    }
-  }, [logSound]);
 
   useEffect(() => {
     socket.on('alarm', (data) => {
@@ -36,14 +22,17 @@ const ChatLog = () => {
   }, []);
 
   useEffect(() => {
-    socket.on('chat', (data) => {
-      setLog((prev) => [...prev, data]);
-      playSound();
-    });
-    return () => {
-      socket.off('chat');
+    const handleChatLog = (data: LogProps) => {
+      const _data = { ...data, chat: clean(data.chat) };
+      setLog((prev) => [...prev, _data]);
     };
-  }, [log, playSound]);
+
+    socket.on('chat', handleChatLog);
+
+    return () => {
+      socket.off('chat', handleChatLog);
+    };
+  }, []);
 
   return <CChatLog logs={log} />;
 };

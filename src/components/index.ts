@@ -69,6 +69,7 @@ export { default as CChatInput } from './game/cloud/ChatInput';
 export { default as CChatLog } from './game/cloud/ChatLog';
 export { default as CBoard } from './game/cloud/Board';
 export { default as CInfo } from './game/cloud/Info';
+export { default as CPlayerList } from './game/cloud/PlayerList';
 
 export { default as MyStyleList } from './mypage/MystyleList';
 export { default as MypageHeader } from './mypage/MypageHeader';

@@ -64,6 +64,14 @@ const RoomDesc = ({ roomInfo, onEnter }: Props) => {
         ) : (
           ''
         )}
+        {roomInfo.type === 4 ? (
+          <GameInfo
+            src={getR2URL('/assets/game-info-3.png')}
+            alt="왁타! 골든벨 배경 이미지"
+          />
+        ) : (
+          ''
+        )}
         <RoomInfo>
           <WrapInfo>
             <Info $variant="title">플레이어</Info>

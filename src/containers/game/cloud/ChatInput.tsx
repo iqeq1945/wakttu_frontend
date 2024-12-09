@@ -1,5 +1,6 @@
 import { CChatInput } from '@/components';
 import useInput from '@/hooks/useInput';
+import countScore from '@/modules/Score';
 import { clean } from '@/modules/Slang';
 import { selectPause, setAnswer } from '@/redux/answer/answerSlice';
 import { selectGame } from '@/redux/game/gameSlice';
@@ -30,22 +31,20 @@ const ChatInput = () => {
     if (inputs.chat) {
       sendChat({
         roomId,
-        chat: clean(inputs.chat),
-        roundTime: null,
-        score: null,
+        chat: inputs.chat,
+        roundTime: timer.roundTime - timer.countTime,
+        score: countScore({
+          wordLength: inputs.chat.length,
+          chainCount: 5,
+          timeLimit: timer.roundTime,
+          remainingTime: timer.roundTime - timer.countTime,
+        }),
       });
     }
     setInputs({ chat: '' });
     if (inputRef.current) inputRef.current.focus();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    dispatch,
-    game.target,
-    inputs.chat,
-    roomId,
-    timer.countTime,
-    timer.roundTime,
-  ]);
+  }, [dispatch, inputs.chat, roomId, timer.countTime, timer.roundTime]);
 
   const onSendMessage = useCallback(() => {
     if (inputs.chat) {
