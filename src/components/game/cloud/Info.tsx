@@ -17,9 +17,11 @@ const Info = ({ game, weather, timer, pause }: Props) => {
         <Text>{game.round}</Text>
       </Box>
       <Box>
-        <Weather
-          src={pause ? '/assets/game/cloud.svg' : '/assets/game/sun.svg'}
-        />
+        {pause ? (
+          <Weather src={'/assets/game/cloud.svg'} />
+        ) : (
+          <Weather src={'/assets/game/sun.svg'} />
+        )}
       </Box>
       <Box>
         <Text>시간</Text>
