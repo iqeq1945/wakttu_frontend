@@ -261,7 +261,6 @@ const Game = () => {
             setTimer({ roundTime: data.roundTime, turnTime: data.turnTime })
           )
         );
-        setTimeout(() => dispatch(setPause(true)));
         if (game.host === user.id) kungTurnStart(roomInfo.id as string);
       }, 4000);
     });
@@ -289,6 +288,7 @@ const Game = () => {
   useEffect(() => {
     socket.on('kung.turnStart', () => {
       if (game.host === user.id) socket.emit('ping', roomInfo.id);
+      dispatch(setPause(true));
       onBgm();
     });
 
@@ -358,9 +358,6 @@ const Game = () => {
               setTurn({ roundTime: game.roundTime, turnTime: game.turnTime })
             )
           );
-          setTimeout(() => {
-            dispatch(setPause(true));
-          });
           if (user.id === game.host) kungTurnStart(roomInfo.id as string);
         }, 2200);
       } else {
