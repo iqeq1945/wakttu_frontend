@@ -1,17 +1,5 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { COLORS } from '../theme';
-
-const floatAnimation = keyframes`
-  0% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(0, -0.5rem); /* 약간 위로 이동 */
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-`;
 
 export const InfoContainer = styled.div`
   display: flex;
@@ -50,6 +38,4 @@ export const Text = styled.h3`
 
 export const Weather = styled.img`
   width: 9.375rem;
-
-  animation: ${floatAnimation} 2s ease-in-out infinite;
 `;

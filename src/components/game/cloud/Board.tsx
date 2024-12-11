@@ -1,4 +1,10 @@
-import { BlackCloud, Cloud, CloudText, Game } from '@/styles/cloud/Cloud';
+import {
+  BlackCloud,
+  Cloud,
+  CloudText,
+  Game,
+  GoldCloud,
+} from '@/styles/cloud/Cloud';
 
 export interface Cloud {
   _id: string;
@@ -35,7 +41,7 @@ const Board = ({ clouds, pause, weather }: Props) => {
                 <CloudText>{cloud._id}</CloudText>
               </Cloud>
             );
-          else
+          else if (cloud.type === 1)
             return (
               <BlackCloud
                 key={index}
@@ -48,6 +54,21 @@ const Board = ({ clouds, pause, weather }: Props) => {
                 <CloudText type={cloud.type}>{cloud._id}</CloudText>
               </BlackCloud>
             );
+          else {
+            if (pause)
+              return (
+                <GoldCloud
+                  key={index}
+                  x={cloud.x}
+                  y={cloud.y}
+                  duration={cloud.duration}
+                  delay={cloud.delay}
+                  clear={pause ? cloud.clear : true}
+                >
+                  <CloudText type={cloud.type}>{cloud._id}</CloudText>
+                </GoldCloud>
+              );
+          }
         })}
     </Game>
   );

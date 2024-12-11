@@ -13,6 +13,21 @@ const floatAnimation = keyframes`
   }
 `;
 
+const goldAnimation = keyframes`
+0% {
+    transform: translate(0, 0);
+    opacity:1;
+  }
+  50% {
+    transform: translate(0.5rem, -0.5rem); /* 약간 위로 이동 */
+    opacity:0;
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity:1;
+  }
+`;
+
 export const Game = styled.div`
   position: relative;
   width: 82rem;
@@ -57,7 +72,8 @@ export const BlackCloud = styled(Cloud)`
 `;
 
 export const GoldCloud = styled(Cloud)`
-  background-image: url('/assets/game/black-cloud.svg');
+  background-image: url('/assets/game/gold-cloud.svg');
+  animation: ${goldAnimation} 2s ease-in-out infinite;
 `;
 
 export const CloudText = styled.h4<{ type?: number }>`

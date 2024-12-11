@@ -31,7 +31,7 @@ const gameInfoPng: RoomType = {
   1: getR2URL('/assets/game-info-2.png'),
   2: getR2URL('/assets/game-info-3.png'),
   3: getR2URL('/assets/game-info-4.png'),
-  4: getR2URL('/assets/game-info-5.png'),
+  4: '/assets/game-info-5.png',
 };
 
 const RoomDesc = ({ roomInfo, onEnter }: Props) => {
@@ -42,7 +42,7 @@ const RoomDesc = ({ roomInfo, onEnter }: Props) => {
         <TitleText>{roomInfo.title}</TitleText>
       </WrapRoomTitle>
       <WrapGameInfo>
-        {roomInfo.type ? (
+        {typeof roomInfo.type === 'number' ? (
           <GameInfo src={gameInfoPng[roomInfo.type]} alt="배경 이미지" />
         ) : null}
 
