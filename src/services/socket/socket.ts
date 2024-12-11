@@ -65,6 +65,10 @@ export interface Game {
     x: string;
     y: string;
     clear: boolean;
+    special: boolean;
+    meta: any;
+    type: number;
+    [x: string]: any;
   }[];
   turnChanged: boolean;
 }

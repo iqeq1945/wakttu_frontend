@@ -25,6 +25,7 @@ export const Cloud = styled.div<{
   duration: string;
   delay: string;
   clear: boolean;
+  weather?: string;
 }>`
   position: absolute;
   display: flex;
@@ -42,15 +43,36 @@ export const Cloud = styled.div<{
   animation-delay: ${(props) => props.delay};
 
   opacity: ${(props) => (!props.clear ? 1 : 0)};
+
+  z-index: 1;
+  transform: ${({ weather }) =>
+    weather === 'segu' ? 'rotate(180deg)' : 'rotate(0deg)'};
+  transition: rotate 1s;
 `;
 
-export const CloudText = styled.h4`
+export const BlackCloud = styled(Cloud)`
+  background-image: url('/assets/game/black-cloud.svg');
+
+  z-index: 2;
+`;
+
+export const GoldCloud = styled(Cloud)`
+  background-image: url('/assets/game/black-cloud.svg');
+`;
+
+export const CloudText = styled.h4<{ type?: number }>`
   max-width: 9.5rem;
-  color: ${COLORS.text};
+  color: ${({ type }) => (type === 1 ? COLORS.bg : COLORS.text)};
   text-align: center;
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+`;
+
+export const Ready = styled.img`
+  width: 13.4375rem;
+  height: 9.125rem;
+  opacity: 0;
 `;

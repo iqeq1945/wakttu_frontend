@@ -112,16 +112,19 @@ const Cloud = () => {
   }, [roomInfo.id, user.id]);
 
   useEffect(() => {
-    socket.on('cloud.round', (data) => {
-      dispatch(setGame(data));
-      dispatch(setTimer({ roundTime: 30000, turnTime: 30000 }));
-      if (game.host == user.id) cloudRoundStart(roomInfo.id as string);
-    });
+    const handleRound = (data: any) => {
+      const { game, weather } = data;
+      dispatch(setGame(game));
+      dispatch(setTimer({ roundTime: 60000, turnTime: 60000 }));
+      if (game.host == user.id)
+        setTimeout(() => cloudRoundStart(roomInfo.id as string), 2000);
+    };
+    socket.on('cloud.round', handleRound);
 
     return () => {
-      socket.off('cloud.round');
+      socket.off('cloud.round', handleRound);
     };
-  });
+  }, [dispatch, roomInfo.id, user.id]);
 
   useEffect(() => {
     socket.on('cloud.roundStart', () => {
@@ -135,7 +138,7 @@ const Cloud = () => {
       dispatch(setGame(data));
       dispatch(setPause(false));
       if (game.host === user.id)
-        setTimeout(() => cloudRound(roomInfo.id as string), 3000);
+        setTimeout(() => cloudRound(roomInfo.id as string), 2000);
     });
 
     return () => {
