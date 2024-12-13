@@ -2,7 +2,6 @@ import { CBoard } from '@/components';
 import { Cloud } from '@/components/game/cloud/Board';
 import { selectPause } from '@/redux/answer/answerSlice';
 import { selectGame } from '@/redux/game/gameSlice';
-import { selectUserId } from '@/redux/user/userSlice';
 import { socket } from '@/services/socket/socket';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';

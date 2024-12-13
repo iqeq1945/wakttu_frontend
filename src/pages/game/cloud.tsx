@@ -1,3 +1,4 @@
+import WeatherSlide from '@/components/game/cloud/Weather';
 import Board from '@/containers/game/cloud/Board';
 import ChatInput from '@/containers/game/cloud/ChatInput';
 import ChatLog from '@/containers/game/cloud/ChatLog';
@@ -39,7 +40,7 @@ import {
 } from '@/services/socket/socket';
 import { Container, Main } from '@/styles/cloud/Layout';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Cloud = () => {
@@ -50,6 +51,9 @@ const Cloud = () => {
   const router = useRouter();
   const result = useSelector(selectResult);
   const dispatch = useDispatch();
+
+  const [weather, setWeather] = useState<string>();
+  const [isOpen, setOpen] = useState(false);
 
   const emoticonId = useSelector(selectEmoticon);
   const emoticonRef = useRef(0);
@@ -114,6 +118,8 @@ const Cloud = () => {
   useEffect(() => {
     const handleRound = (data: any) => {
       const { game, weather } = data;
+      setWeather(weather);
+      setOpen(true);
       dispatch(setGame(game));
       dispatch(setTimer({ roundTime: 60000, turnTime: 60000 }));
       if (game.host == user.id)
@@ -130,6 +136,7 @@ const Cloud = () => {
     socket.on('cloud.roundStart', () => {
       setTimeout(() => {
         if (game.host === user.id) socket.emit('cloud.ping', roomInfo.id);
+        setOpen(false);
         dispatch(setPause(true));
       }, 3000);
     });
@@ -245,6 +252,7 @@ const Cloud = () => {
   return (
     <Container>
       <Header />
+      {isOpen && weather && <WeatherSlide key={weather} weather={weather} />}
       <Main>
         <Info />
         <Board />

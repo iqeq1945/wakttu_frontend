@@ -1,5 +1,12 @@
 import styled, { keyframes } from 'styled-components';
+import { getR2URL } from '@/services/api';
 import { COLORS } from '../theme';
+
+const clouds = [
+  getR2URL('/assets/game/cloud.svg'),
+  getR2URL('/assets/game/black-cloud.svg'),
+  getR2URL('/assets/game/gold-cloud.svg'),
+];
 
 const floatAnimation = keyframes`
   0% {
@@ -10,6 +17,24 @@ const floatAnimation = keyframes`
   }
   100% {
     transform: translate(0, 0);
+  }
+`;
+
+const seguAnimation = keyframes`
+from{
+  transform: rotate(0deg);
+}
+to {
+  transform: rotate(360deg);
+}
+`;
+
+const windAnimation = keyframes`
+  0% {
+    transform: translateX(-10%); /* 화면 왼쪽 밖에서 시작 */
+  }
+  100% {
+    transform: translateX(110%); /* 화면 오른쪽 밖으로 이동 */
   }
 `;
 
@@ -25,6 +50,44 @@ const goldAnimation = keyframes`
   100% {
     transform: translate(0, 0);
     opacity:1;
+  }
+`;
+
+const goldSeguAnimation = keyframes`
+0%{
+  transform: rotate(0);
+  opacity: 1;
+}
+25%{
+  transform: rotate(90deg);
+  opacity: 0;
+}
+50% {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+75%{
+  transform: rotate(270eg);
+  opacity: 0;
+}
+100%{
+transform: rotate(360deg);
+opacity: 1;
+}
+`;
+
+const goldWindAnimation = keyframes`
+0% {
+    transform: translateX(-10%); 
+    opacity:0;
+  }
+  50%{
+    transform: translateX(50%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%); 
+    opacity: 0;
   }
 `;
 
@@ -50,11 +113,17 @@ export const Cloud = styled.div<{
   width: 10.875rem;
   height: 7.4375rem;
   flex-shrink: 0;
-  background-image: url('/assets/game/cloud.svg');
+  background-image: url(${clouds[0]});
   background-size: cover;
   left: ${(props) => props.x};
   top: ${(props) => props.y};
-  animation: ${floatAnimation} ${(props) => props.duration} ease-in-out infinite;
+  animation: ${({ weather }) => {
+      if (weather === 'segu') return seguAnimation;
+      else if (weather === 'wind') return windAnimation;
+      else if (weather === 'fog') return goldAnimation;
+      else return floatAnimation;
+    }}
+    ${(props) => props.duration} ease-in-out infinite;
   animation-delay: ${(props) => props.delay};
 
   opacity: ${(props) => (!props.clear ? 1 : 0)};
@@ -66,14 +135,19 @@ export const Cloud = styled.div<{
 `;
 
 export const BlackCloud = styled(Cloud)`
-  background-image: url('/assets/game/black-cloud.svg');
+  background-image: url(${clouds[1]});
 
   z-index: 2;
 `;
 
 export const GoldCloud = styled(Cloud)`
-  background-image: url('/assets/game/gold-cloud.svg');
-  animation: ${goldAnimation} 2s ease-in-out infinite;
+  background-image: url(${clouds[2]});
+  animation: ${({ weather }) => {
+      if (weather === 'segu') return goldSeguAnimation;
+      else if (weather === 'wind') return goldWindAnimation;
+      else return goldAnimation;
+    }}
+    ${(props) => props.duration} ease-in-out infinite;
 `;
 
 export const CloudText = styled.h4<{ type?: number }>`

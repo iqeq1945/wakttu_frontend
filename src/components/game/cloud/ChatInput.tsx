@@ -16,6 +16,7 @@ interface Props {
   onMessage: () => void;
   onAnswer: () => void;
   handleEnter: (e: React.KeyboardEvent) => void;
+  isPenalty: boolean;
 }
 
 const ChatInput = ({
@@ -26,6 +27,7 @@ const ChatInput = ({
   message,
   pause,
   inputRef,
+  isPenalty,
 }: Props) => {
   return (
     <InputContainer>
@@ -41,8 +43,9 @@ const ChatInput = ({
             e.preventDefault();
           }}
           autoComplete="off"
+          disabled={isPenalty}
         />
-        <SendMessage onClick={pause ? onAnswer : onMessage}>
+        <SendMessage onClick={pause && !isPenalty ? onAnswer : onMessage}>
           <SendIcon src={getR2URL('/assets/icons/send.svg')} />
         </SendMessage>
       </MessageBlock>

@@ -113,6 +113,9 @@ const UpdateRoom = ({
                 <DropdownItem onClick={() => onSelect('type', 2)}>
                   왁타골든벨
                 </DropdownItem>
+                <DropdownItem onClick={() => onSelect('type', 4)}>
+                  구름
+                </DropdownItem>
               </>
             )}
           </Dropdown>

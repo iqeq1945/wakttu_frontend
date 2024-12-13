@@ -6,8 +6,8 @@ import { selectPause, setAnswer } from '@/redux/answer/answerSlice';
 import { selectGame } from '@/redux/game/gameSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { selectTimer } from '@/redux/timer/timerSlice';
-import { sendChat } from '@/services/socket/socket';
-import { ChangeEvent, useCallback, useRef } from 'react';
+import { sendChat, socket } from '@/services/socket/socket';
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 interface InputProps {
@@ -24,6 +24,8 @@ const ChatInput = () => {
   const { inputs, setInputs, onInputChange } = useInput<InputProps>({
     chat: '',
   });
+
+  const [isPenalty, setPenalty] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -65,24 +67,42 @@ const ChatInput = () => {
 
   const handleEnter = useCallback(
     (e: React.KeyboardEvent) => {
+      if (isPenalty) return;
       if (e.nativeEvent.isComposing) return;
       if (e.key === 'Enter') {
         if (pause) onSendAnswer();
         else onSendMessage();
       }
     },
-    [pause, onSendAnswer, onSendMessage]
+    [isPenalty, pause, onSendAnswer, onSendMessage]
   );
+
+  useEffect(() => {
+    const handlePenalty = (data: any) => {
+      setPenalty(true);
+      setTimeout(() => {
+        setPenalty(false);
+        if (inputRef.current) inputRef.current.focus();
+      }, 3000);
+    };
+
+    socket.on('cloud.penalty', handlePenalty);
+
+    return () => {
+      socket.off('cloud.penalty', handlePenalty);
+    };
+  }, []);
 
   return (
     <CChatInput
       pause={pause}
-      message={inputs.chat}
+      message={isPenalty ? '3초간 입력불가능!' : inputs.chat}
       inputRef={inputRef}
       onChange={onInputChange}
       onMessage={onSendMessage}
       onAnswer={onSendAnswer}
       handleEnter={handleEnter}
+      isPenalty={isPenalty}
     />
   );
 };
