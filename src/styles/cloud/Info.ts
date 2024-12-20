@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { COLORS } from '../theme';
 
 export const InfoContainer = styled.div`
@@ -38,4 +38,19 @@ export const Text = styled.h3`
 
 export const Weather = styled.img`
   width: 9.375rem;
+`;
+
+export const blinkAnimation = keyframes`
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+`;
+
+export const AnimatedText = styled(Text)<{ isCritical: boolean }>`
+  ${({ isCritical }) =>
+    isCritical &&
+    `
+    animation: ${blinkAnimation} 0.5s infinite;
+    color: red; 
+  `}
 `;

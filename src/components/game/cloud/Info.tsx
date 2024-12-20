@@ -1,7 +1,14 @@
 import { Timer } from '@/redux/timer/timerSlice';
 import { getR2URL } from '@/services/api';
 import { Game } from '@/services/socket/socket';
-import { Box, InfoContainer, Text, Weather } from '@/styles/cloud/Info';
+import {
+  AnimatedText,
+  Box,
+  InfoContainer,
+  Text,
+  Weather,
+} from '@/styles/cloud/Info';
+import { useEffect, useState } from 'react';
 
 interface Props {
   game: Game;
@@ -15,6 +22,13 @@ const getWeatherImg = (weather = 'sun') => {
 };
 
 const Info = ({ game, weather, timer, pause }: Props) => {
+  const [isCritical, setCritical] = useState(false);
+
+  useEffect(() => {
+    if (timer.roundTime - timer.countTime <= 10000) setCritical(true);
+    else setCritical(false);
+  }, [timer]);
+
   return (
     <InfoContainer>
       <Box>
@@ -26,7 +40,9 @@ const Info = ({ game, weather, timer, pause }: Props) => {
       </Box>
       <Box>
         <Text>시간</Text>
-        <Text>{(timer.roundTime - timer.countTime) / 1000}</Text>
+        <AnimatedText isCritical={isCritical}>
+          {(timer.roundTime - timer.countTime) / 1000}
+        </AnimatedText>
       </Box>
     </InfoContainer>
   );

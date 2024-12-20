@@ -121,7 +121,7 @@ const Cloud = () => {
       setWeather(weather);
       setOpen(true);
       dispatch(setGame(game));
-      dispatch(setTimer({ roundTime: 60000, turnTime: 60000 }));
+      dispatch(setTimer({ roundTime: 45000, turnTime: 45000 }));
       if (game.host == user.id)
         setTimeout(() => cloudRoundStart(roomInfo.id as string), 2000);
     };

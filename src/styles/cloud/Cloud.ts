@@ -128,7 +128,7 @@ export const Cloud = styled.div<{
 
   opacity: ${(props) => (!props.clear ? 1 : 0)};
 
-  z-index: 1;
+  z-index: 2;
   transform: ${({ weather }) =>
     weather === 'segu' ? 'rotate(180deg)' : 'rotate(0deg)'};
   transition: rotate 1s;
@@ -141,6 +141,8 @@ export const BlackCloud = styled(Cloud)`
 `;
 
 export const GoldCloud = styled(Cloud)`
+  z-index: 1;
+
   background-image: url(${clouds[2]});
   animation: ${({ weather }) => {
       if (weather === 'segu') return goldSeguAnimation;
