@@ -5,7 +5,9 @@ import ChatLog from '@/containers/game/cloud/ChatLog';
 import Header from '@/containers/game/cloud/Header';
 import Info from '@/containers/game/cloud/Info';
 import PlayerList from '@/containers/game/cloud/PlayerList';
+import useSound from '@/hooks/useSound';
 import { setAchieve } from '@/redux/achieve/achieveSlice';
+import { selectBgmVolume } from '@/redux/audio/audioSlice';
 import { clearAnswer, setAnswer, setPause } from '@/redux/answer/answerSlice';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
 import { clearHistory } from '@/redux/history/historySlice';
@@ -34,7 +36,6 @@ import {
   cloudRound,
   cloudRoundEnd,
   cloudRoundStart,
-  cloudStart,
   sendEmoticon,
   socket,
 } from '@/services/socket/socket';
@@ -57,6 +58,23 @@ const Cloud = () => {
 
   const emoticonId = useSelector(selectEmoticon);
   const emoticonRef = useRef(0);
+
+  // sound 세팅
+
+  const bgmVolume = useSelector(selectBgmVolume);
+  const sound = useSound(
+    '/assets/bgm/lossy/ui_in-game-c.webm',
+    bgmVolume,
+    0,
+    true
+  );
+
+  const handleSound = useCallback(
+    (isPlay: boolean) => {
+      isPlay ? sound?.play() : sound?.pause();
+    },
+    [sound]
+  );
 
   const handleKeyUp = useCallback(
     (e: KeyboardEvent) => {
@@ -122,6 +140,7 @@ const Cloud = () => {
       setOpen(true);
       dispatch(setGame(game));
       dispatch(setTimer({ roundTime: 45000, turnTime: 45000 }));
+      handleSound(false);
       if (game.host == user.id)
         setTimeout(() => cloudRoundStart(roomInfo.id as string), 2000);
     };
@@ -130,7 +149,7 @@ const Cloud = () => {
     return () => {
       socket.off('cloud.round', handleRound);
     };
-  }, [dispatch, roomInfo.id, user.id]);
+  }, [dispatch, handleSound, roomInfo.id, user.id]);
 
   useEffect(() => {
     socket.on('cloud.roundStart', () => {
@@ -138,6 +157,7 @@ const Cloud = () => {
         if (game.host === user.id) socket.emit('cloud.ping', roomInfo.id);
         setOpen(false);
         dispatch(setPause(true));
+        handleSound(true);
       }, 3000);
     });
 

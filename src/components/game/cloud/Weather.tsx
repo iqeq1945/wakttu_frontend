@@ -1,3 +1,5 @@
+import useEffectSound from '@/hooks/useEffectSound';
+import { selectEffectVolume } from '@/redux/audio/audioSlice';
 import { getR2URL } from '@/services/api';
 import {
   Body,
@@ -11,6 +13,7 @@ import {
   WeatherText,
 } from '@/styles/cloud/Weather';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 interface Props {
   weather: string;
@@ -30,11 +33,23 @@ const titles = (weather: string) => {
 const WeatherSlide = ({ weather }: Props) => {
   const [title, setTitle] = useState<string[]>();
   const [selectedIndex, setIndex] = useState<number>(0);
+  const effectVolume = useSelector(selectEffectVolume);
+
+  const CloudStartSound = useEffectSound(
+    '/assets/sound-effects/lossy/cloud_start.webm',
+    effectVolume
+  );
+
+  const CloudWarnSound = useEffectSound(
+    '/assets/sound-effects/lossy/cloud_warning.webm',
+    effectVolume
+  );
 
   useEffect(() => {
+    weather === 'segu' ? CloudWarnSound?.play() : CloudStartSound?.play();
     setTitle(titles(weather));
     setIndex(weathers.findIndex((item) => item.weather === weather));
-  }, [weather]);
+  }, [CloudStartSound, CloudWarnSound, weather]);
 
   return (
     <Overlay>
@@ -43,8 +58,8 @@ const WeatherSlide = ({ weather }: Props) => {
           <TitleImg
             src={
               weather === 'segu'
-                ? '/assets/game/danger-icon.svg'
-                : '/assets/game/cloud-icon.svg'
+                ? getR2URL('/assets/game/danger-icon.svg')
+                : getR2URL('/assets/game/cloud-icon.svg')
             }
           />
           <Title weather={weather}>

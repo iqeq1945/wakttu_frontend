@@ -117,7 +117,8 @@ export const Cloud = styled.div<{
   background-size: cover;
   left: ${(props) => props.x};
   top: ${(props) => props.y};
-  animation: ${({ weather }) => {
+  animation: ${({ weather, clear }) => {
+      if (clear) return 'none';
       if (weather === 'segu') return seguAnimation;
       else if (weather === 'wind') return windAnimation;
       else if (weather === 'fog') return goldAnimation;
@@ -144,7 +145,8 @@ export const GoldCloud = styled(Cloud)`
   z-index: 1;
 
   background-image: url(${clouds[2]});
-  animation: ${({ weather }) => {
+  animation: ${({ weather, clear }) => {
+      if (clear) return 'none';
       if (weather === 'segu') return goldSeguAnimation;
       else if (weather === 'wind') return goldWindAnimation;
       else return goldAnimation;

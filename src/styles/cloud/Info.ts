@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { COLORS } from '../theme';
 
 export const InfoContainer = styled.div`
@@ -46,11 +46,12 @@ export const blinkAnimation = keyframes`
   100% { opacity: 1; }
 `;
 
-export const AnimatedText = styled(Text)<{ isCritical: boolean }>`
+export const AnimatedText = styled.h3<{ isCritical: boolean }>`
   ${({ isCritical }) =>
-    isCritical &&
-    `
-    animation: ${blinkAnimation} 0.5s infinite;
-    color: red; 
-  `}
+    isCritical
+      ? css`
+          animation: ${blinkAnimation} 0.5s infinite;
+          color: red;
+        `
+      : null}
 `;
