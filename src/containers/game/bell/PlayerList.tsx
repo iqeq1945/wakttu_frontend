@@ -30,6 +30,7 @@ const PlayerList = () => {
 
   useEffect(() => {
     socket.on('chat', (data) => {
+      console.log(data);
       setBubble([...bubble, data]);
     });
     return () => {
@@ -45,7 +46,6 @@ const PlayerList = () => {
       socket.off('emoticon');
     };
   }, [receivedEmoticon]);
-
 
   return (
     <BPlayerList

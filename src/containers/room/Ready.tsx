@@ -13,6 +13,7 @@ import { clearTimer } from '@/redux/timer/timerSlice';
 import { selectUserInfo, selectUserName } from '@/redux/user/userSlice';
 import {
   bellStart,
+  cloudStart,
   kungStart,
   lastStart,
   ready,
@@ -99,6 +100,7 @@ const Ready = () => {
         0: lastStart,
         1: kungStart,
         2: bellStart,
+        4: cloudStart,
       };
 
       const startFunction =
@@ -151,12 +153,21 @@ const Ready = () => {
       router.push('/game/bell');
     });
 
+    socket.on('cloud.start', async (data) => {
+      await dispatch(clearHistory());
+      await dispatch(clearTimer());
+      await dispatch(clearAnswer());
+      await dispatch(setGame(data));
+      router.push('/game/cloud');
+    });
+
     return () => {
       socket.off('ready');
       socket.off('team');
       socket.off('last.start');
       socket.off('kung.start');
       socket.off('bell.start');
+      socket.off('cloud.start');
     };
   }, [dispatch, roomInfo.id, router]);
 

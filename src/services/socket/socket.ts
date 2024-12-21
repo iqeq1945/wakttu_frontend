@@ -58,6 +58,18 @@ export interface Game {
   mission: string | undefined;
   team: { woo: string[]; gomem: string[]; isedol: string[]; academy: string[] };
   quiz?: { _id: string; choseong: string; hint: string[]; [x: string]: any }[];
+  cloud?: {
+    _id: string;
+    delay: string;
+    duration: string;
+    x: string;
+    y: string;
+    clear: boolean;
+    special: boolean;
+    meta: any;
+    type: number;
+    [x: string]: any;
+  }[];
   turnChanged: boolean;
 }
 
@@ -275,6 +287,11 @@ export const kungTurnEnd = (roomId: string) => {
   socket.emit('kung.turnEnd', roomId);
 };
 
+/**
+ *
+ * Bell
+ */
+
 export const bellStart = (roomId: string) => {
   socket.emit('bell.start', roomId);
 };
@@ -289,6 +306,27 @@ export const bellRoundStart = (roomId: string) => {
 
 export const bellRoundEnd = (roomId: string) => {
   socket.emit('bell.roundEnd', roomId);
+};
+
+/**
+ *
+ * cloud game
+ */
+
+export const cloudStart = (roomId: string) => {
+  socket.emit('cloud.start', roomId);
+};
+
+export const cloudRound = (roomId: string) => {
+  socket.emit('cloud.round', roomId);
+};
+
+export const cloudRoundStart = (roomId: string) => {
+  socket.emit('cloud.roundStart', roomId);
+};
+
+export const cloudRoundEnd = (roomId: string) => {
+  socket.emit('cloud.roundEnd', roomId);
 };
 
 /**
