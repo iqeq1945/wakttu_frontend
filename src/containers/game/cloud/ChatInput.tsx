@@ -80,10 +80,11 @@ const ChatInput = () => {
   useEffect(() => {
     const handlePenalty = (data: any) => {
       setPenalty(true);
-      setTimeout(() => {
+      const timeoutId = setTimeout(() => {
         setPenalty(false);
-        if (inputRef.current) inputRef.current.focus();
       }, 3000);
+
+      return () => clearTimeout(timeoutId);
     };
 
     socket.on('cloud.penalty', handlePenalty);
@@ -92,6 +93,12 @@ const ChatInput = () => {
       socket.off('cloud.penalty', handlePenalty);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isPenalty && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isPenalty]);
 
   return (
     <CChatInput
