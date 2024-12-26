@@ -308,6 +308,16 @@ export const bellRoundEnd = (roomId: string) => {
   socket.emit('bell.roundEnd', roomId);
 };
 
+//
+export const musicStart = (roomId: string) => {
+  socket.emit('music.start', roomId);
+};
+export const musicRound = (roomId: string) => {
+  socket.emit('music.round', roomId);
+};
+export const musicReady = (roomId: string) => {
+  socket.emit('music.ready', roomId);
+};
 /**
  *
  * cloud game

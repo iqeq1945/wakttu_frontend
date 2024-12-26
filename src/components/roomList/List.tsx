@@ -36,7 +36,12 @@ const roomType: RoomType = {
   0: '끝말잇기',
   1: '쿵쿵따',
   2: '왁타골든벨',
+  3: '왁타레코드',
   4: '구름',
+};
+
+const haveRoundTime = (type: number) => {
+  return type === 0 || type === 1;
 };
 
 const List = ({ roomList, onClick, filter, onToggle }: Props) => {
@@ -78,7 +83,7 @@ const List = ({ roomList, onClick, filter, onToggle }: Props) => {
                       <SemiText>{roomType[room.type as number]}</SemiText>
                       <MediumText $color={true}>라운드</MediumText>
                       <MediumText>{room.round}</MediumText>
-                      {room.type !== 2 && room.type !== 3 && (
+                      {haveRoundTime(room.type as number) && (
                         <>
                           <MediumText $color={true}>시간</MediumText>
                           <MediumText>{room.time! / 1000}초</MediumText>

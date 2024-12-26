@@ -40,7 +40,24 @@ const roomType: RoomType = {
   0: '끝말잇기',
   1: '쿵쿵따',
   2: '왁타골든벨',
+  3: '왁뚜레코드',
   4: '구름',
+};
+
+const haveRoundTime = (type: number) => {
+  return type === 0 || type === 1;
+};
+
+const haveRoundCount = (type: number) => {
+  const roundCount: Record<number, { min: string; max: string }> = {
+    0: { min: '3', max: '8' },
+    1: { min: '3', max: '8' },
+    2: { min: '10', max: '20' },
+    3: { min: '10', max: '20' },
+    4: { min: '10', max: '50' },
+  };
+
+  return roundCount[type];
 };
 
 const CreateRoom = ({
@@ -114,6 +131,9 @@ const CreateRoom = ({
                 <DropdownItem onClick={() => onSelect('type', 2)}>
                   왁타골든벨
                 </DropdownItem>
+                <DropdownItem onClick={() => onSelect('type', 3)}>
+                  왁뚜레코드
+                </DropdownItem>
                 <DropdownItem onClick={() => onSelect('type', 4)}>
                   구름
                 </DropdownItem>
@@ -128,11 +148,11 @@ const CreateRoom = ({
             type="number"
             value={roomInfo.round}
             onChange={onRoomInfo}
-            min={roomInfo.type === 2 ? '10' : '3'}
-            max={roomInfo.type === 2 ? '30' : '8'}
+            min={haveRoundCount(roomInfo.type).min}
+            max={haveRoundCount(roomInfo.type).max}
           />
         </CCreate>
-        {roomInfo.type !== 2 && roomInfo.type !== 4 ? (
+        {haveRoundTime(roomInfo.type) ? (
           <CCreate>
             <CLabel>라운드시간</CLabel>
             <Dropdown onClick={() => onDropdown(1)}>
@@ -164,7 +184,7 @@ const CreateRoom = ({
 
         <CCreate>
           <CLabel>특수규칙</CLabel>
-          {roomInfo.type !== 2 && roomInfo.type !== 4 ? (
+          {haveRoundTime(roomInfo.type) ? (
             <CheckBox onClick={() => onSelect('option', '팀전')}>
               <CCheck>
                 {roomInfo.option!.indexOf('팀전') === -1 ? (
@@ -184,7 +204,7 @@ const CreateRoom = ({
               </CCheck>
             </CheckBox>
           ) : null}
-          {roomInfo.type !== 2 && roomInfo.type !== 4 ? (
+          {haveRoundTime(roomInfo.type as number) ? (
             <>
               <CheckBox onClick={() => onSelect('option', '매너')}>
                 <CCheck>

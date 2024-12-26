@@ -8,6 +8,7 @@ import {
   setReady,
 } from '@/redux/game/gameSlice';
 import { clearHistory } from '@/redux/history/historySlice';
+import { clearMusic } from '@/redux/music/musicSlice';
 import { selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { clearTimer } from '@/redux/timer/timerSlice';
 import { selectUserInfo, selectUserName } from '@/redux/user/userSlice';
@@ -16,6 +17,7 @@ import {
   cloudStart,
   kungStart,
   lastStart,
+  musicStart,
   ready,
   selectTeam,
   socket,
@@ -100,6 +102,7 @@ const Ready = () => {
         0: lastStart,
         1: kungStart,
         2: bellStart,
+        3: musicStart,
         4: cloudStart,
       };
 
@@ -153,6 +156,14 @@ const Ready = () => {
       router.push('/game/bell');
     });
 
+    socket.on('music.start', async (data) => {
+      await dispatch(clearHistory());
+      await dispatch(clearTimer());
+      await dispatch(clearAnswer());
+      await dispatch(clearMusic());
+      await dispatch(setGame(data));
+      router.push('/game/music');
+    });
     socket.on('cloud.start', async (data) => {
       await dispatch(clearHistory());
       await dispatch(clearTimer());
@@ -167,9 +178,10 @@ const Ready = () => {
       socket.off('last.start');
       socket.off('kung.start');
       socket.off('bell.start');
+      socket.off('music.start');
       socket.off('cloud.start');
     };
-  }, [dispatch, roomInfo.id, router]);
+  }, [dispatch, router]);
 
   return (
     <CReady

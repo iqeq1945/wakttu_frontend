@@ -1,10 +1,10 @@
-import { CChatLog } from '@/components';
+import { SChatLog } from '@/components';
 import useEffectSound from '@/hooks/useEffectSound';
-import { clean } from '@/modules/Slang';
 import { selectEffectVolume } from '@/redux/audio/audioSlice';
+import { clean } from '@/modules/Slang';
 import { socket } from '@/services/socket/socket';
-import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 export interface LogProps {
   user: any;
@@ -19,7 +19,6 @@ const ChatLog = () => {
     '/assets/sound-effects/lossy/ui_click.webm',
     effectVolume
   );
-
   useEffect(() => {
     socket.on('alarm', (data) => {
       alert(data.message);
@@ -44,7 +43,7 @@ const ChatLog = () => {
     };
   }, [logSound]);
 
-  return <CChatLog logs={log} />;
+  return <SChatLog logs={log} />;
 };
 
 export default ChatLog;
