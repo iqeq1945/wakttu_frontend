@@ -17,6 +17,7 @@ import {
   cloudStart,
   kungStart,
   lastStart,
+  lastPractice,
   musicStart,
   ready,
   selectTeam,
@@ -78,7 +79,7 @@ const Ready = () => {
 
     setIsButtonDisabled(true); // 클릭 시 버튼 비활성화
     try {
-      if (roomInfo.users.length === 1) {
+      if (roomInfo.type! > 1 && roomInfo.users.length === 1) {
         alert('혼자서는 시작할 수 없습니다!');
         return;
       }
@@ -122,6 +123,35 @@ const Ready = () => {
     }
     selectTeam({ roomId: roomInfo.id as string, team: team });
   };
+
+  const onPractice = useCallback(() => {
+    if (isButtonDisabled) return; // 버튼이 비활성화된 경우 실행되지 않음
+
+    setIsButtonDisabled(true); // 클릭 시 버튼 비활성화
+    try {
+      if (roomInfo.users.length > 1) {
+        alert('혼자서만 가능합니다.');
+        return;
+      }
+
+      console.log('click');
+      const startFunctions: Record<number, (roomId: string) => void> = {
+        0: lastPractice,
+        /* 1: kungStart,
+        2: bellStart,
+        3: musicStart,
+        4: cloudStart,*/
+      };
+
+      const startFunction =
+        roomInfo.type !== undefined ? startFunctions[roomInfo.type] : undefined;
+      if (startFunction) {
+        startFunction(roomInfo.id as string);
+      }
+    } finally {
+      setTimeout(() => setIsButtonDisabled(false), 500); // 작업 완료 후 버튼 활성화 (0.5초 딜레이)
+    }
+  }, [isButtonDisabled, roomInfo.id, roomInfo.type, roomInfo.users.length]);
 
   useEffect(() => {
     socket.on('ready', (data) => {
@@ -187,6 +217,8 @@ const Ready = () => {
     <CReady
       ready={isReady}
       onReady={onReady}
+      alone={roomInfo.users.length === 1}
+      onPractice={onPractice}
       onStart={host === user.id ? onStart : undefined}
       onTeam={onTeam}
       team={roomInfo.option?.includes('팀전')}

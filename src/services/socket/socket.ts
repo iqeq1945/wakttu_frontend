@@ -215,6 +215,15 @@ export const lastStart = (roomId: string) => {
   socket.emit('last.start', roomId);
 };
 
+/**
+ *
+ * @param roomId
+ */
+
+export const lastPractice = (roomId: string) => {
+  socket.emit('last.practice', roomId);
+};
+
 /*
  * 라운드 시작 때 마다 호출
  * 한명만 호출하면 되기 때문에 방장이 호출하도록 함.
