@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components';
-import { COLORS, FONT_SIZES } from '../theme';
+import styled from 'styled-components';
+import { COLORS } from '../theme';
 
 export const CMain = styled.div`
   position: relative;
@@ -14,8 +14,13 @@ export const CMain = styled.div`
 
 export const SLeft = styled.div`
   position: relative;
-
-  width: 30rem;
+  display: flex;
+  width: 31.25rem;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: flex-start;
+  gap: 1.1875rem;
+  flex-shrink: 0;
 `;
 
 export const GameImg = styled.img`
@@ -61,25 +66,34 @@ export const Middle = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 45rem;
-  padding: 1rem 3rem;
-  height: 100%;
+  width: 40rem;
+
   border-radius: 1rem;
-  border: 1px solid #000;
-  background: #fff;
+  gap: 1.1875rem;
 `;
 
 export const YoutubeWrapper = styled.div`
+  display: flex;
   width: 40rem;
   height: 22.5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
 `;
 
 export const VideoScreen = styled.div<{ $isVisible: boolean }>`
-  width: 40rem;
-  height: 22.5rem;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.1875rem;
+
   position: relative;
-  background-color: #000;
   pointer-events: ${({ $isVisible }) => ($isVisible ? 'auto' : 'none')};
+  background: black;
+
+  border-radius: 1rem;
 
   & > div:first-child {
     opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
@@ -89,31 +103,39 @@ export const VideoScreen = styled.div<{ $isVisible: boolean }>`
 
 export const Song = styled.div`
   display: flex;
-  width: 100%;
-  justify-content: left;
+  width: 40rem;
+  height: 7.5rem;
+  padding: 0rem 1.875rem;
   align-items: center;
   gap: 0.625rem;
+
   border-radius: 1rem;
+  background: ${COLORS.bg};
 `;
 
 export const SongIcon = styled.img`
-  width: 2.6875rem;
-  height: 2.625rem;
+  width: 3.25rem;
+  height: 3.25rem;
   flex-shrink: 0;
 
-  border-radius: 2.6875rem;
+  border-radius: 1.625rem;
 `;
 
-export const SongText = styled.h4<{ $isVisible: boolean }>`
+export const SongInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
-  transition: opacity 0.3s ease;
+  align-items: flex-start;
+  gap: 0.25rem;
+  flex: 1 0 0;
+`;
+
+export const SongText = styled.h4`
+  max-width: 21rem;
 
   color: ${COLORS.text};
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-
+  font-size: 1.5rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -122,6 +144,16 @@ export const SongText = styled.h4<{ $isVisible: boolean }>`
   white-space: nowrap;
   text-overflow: ellipsis;
   width: 100%;
+`;
+
+export const SongSmallText = styled.span`
+  color: ${COLORS['gray-3']};
+
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 `;
 
 export const SRight = styled.div`
@@ -139,19 +171,19 @@ export const Systemlog = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   width: 31.125rem;
-  height: 25rem;
+  height: 24rem;
   gap: 1.1875rem;
   flex-shrink: 0;
 `;
 
 export const SystemlogItem = styled.div`
   display: flex;
-  max-width: 31.125rem;
+  padding: 1.25rem 4.125rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0.625rem 1rem;
   gap: 0.625rem;
+  flex-shrink: 0;
   align-self: stretch;
 
   border-radius: 1rem;
@@ -160,7 +192,7 @@ export const SystemlogItem = styled.div`
   color: ${COLORS.text};
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -177,6 +209,97 @@ export const SystemlogItem = styled.div`
       opacity: 1;
     }
   }
+`;
+
+export const SystemTag = styled.div`
+  display: flex;
+  padding: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  align-self: stretch;
+
+  gap: 0.5rem;
+
+  border-radius: 1rem;
+  background: ${COLORS.bg};
+
+  color: ${COLORS.text};
+
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+
+  animation: slideIn 0.5s ease-out;
+
+  flex-wrap: wrap;
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+`;
+
+export const SystemHint = styled.div`
+  display: flex;
+  padding: 1.5rem;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  align-self: stretch;
+  gap: 2rem;
+  border-radius: 1rem;
+  background: ${COLORS.bg};
+
+  color: ${COLORS.text};
+
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+
+  animation: slideIn 0.5s ease-out;
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+`;
+
+export const HintText = styled.div`
+  display: flex;
+  padding: 0.75rem 1.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+
+  border-radius: 1rem;
+  background: ${COLORS['gray-4']};
+
+  color: ${COLORS.text};
+  text-align: center;
+
+  font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 `;
 
 export const Tag = styled.div<{ tag: string }>`
@@ -202,13 +325,15 @@ export const Tag = styled.div<{ tag: string }>`
         return '#00A6FF';
       case '비챤':
         return '#95C100';
-      case '클래식':
-      case '고멤':
-        return '#05BB60';
-      case '아카데미':
-        return '#A72E42';
       default:
-        return '#818181';
+        const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+        const darkColor =
+          parseInt(randomColor, 16) < 0x808080
+            ? `#${randomColor}`
+            : `#${(0xffffff - parseInt(randomColor, 16))
+                .toString(16)
+                .padStart(6, '0')}`;
+        return darkColor;
     }
   }};
 
@@ -216,7 +341,7 @@ export const Tag = styled.div<{ tag: string }>`
 
   text-align: center;
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -224,26 +349,25 @@ export const Tag = styled.div<{ tag: string }>`
 
 export const VolumeControl = styled.div`
   display: flex;
+  width: 10.75rem;
   align-items: center;
   gap: 0.625rem;
-  padding: 0.5rem;
-  width: 200px;
+  flex-shrink: 0;
 `;
 
 export const VolumeImg = styled.img`
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2rem;
+  height: 2rem;
   flex-shrink: 0;
 `;
 
 export const VolumeSlider = styled.input`
   -webkit-appearance: none;
-  width: 100%;
+  width: 8.0625rem;
   height: 0.375rem;
   border-radius: 0.25rem;
   background: ${COLORS['gray-4']};
   outline: none;
-  opacity: 0.7;
   transition: opacity 0.2s;
 
   &:hover {
@@ -252,8 +376,8 @@ export const VolumeSlider = styled.input`
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 0.96438rem;
-    height: 0.96438rem;
+    width: 1.125rem;
+    height: 1.125rem;
     background: #5024d4;
     border-radius: 1rem;
     cursor: pointer;

@@ -15,7 +15,7 @@ const CHeader = styled.div`
   padding: 0.62rem;
 
   border-radius: 6.25rem;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.4);
 `;
 
 const CButton = styled.div`
@@ -40,7 +40,7 @@ const Button = styled.button`
 
   border: none;
   border-radius: 6.25rem;
-  background: ${COLORS.deepPurple};
+  background: #a377ff;
 
   box-shadow: ${DROM_SHADOW};
 
@@ -98,7 +98,7 @@ const Index = styled.h5`
 `;
 
 const Title = styled.h4`
-  color: ${COLORS.text};
+  color: ${COLORS.bg};
   text-align: center;
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;

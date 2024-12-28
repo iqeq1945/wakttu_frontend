@@ -1,4 +1,4 @@
-import { PlusScore } from '@/styles/bell/PlayerList';
+import { PlusScore } from '@/styles/music/PlayerList';
 import { useEffect, useRef, useState } from 'react';
 
 interface Props {

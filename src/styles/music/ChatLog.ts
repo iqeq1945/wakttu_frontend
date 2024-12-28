@@ -13,8 +13,8 @@ const slideIn = keyframes`
 
 export const ChatBox = styled.div`
   display: flex;
-  width: 31.25rem;
-  height: 25rem;
+  width: 30rem;
+  height: 31.1875rem;
   flex-direction: column;
   align-items: flex-start;
   gap: 1.1875rem;
@@ -30,24 +30,24 @@ export const ChatBox = styled.div`
     display: none;
   }
 `;
+
 export const Log = styled.div`
   display: flex;
-  min-width: fit-content;
-  max-width: 31.25rem;
-  flex-shrink: 0;
-  align-self: stretch;
+  max-width: 31.125rem;
+  min-height: 4rem;
+  padding: 0.25rem 1.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
 
-  gap: 0.5rem;
-
-  padding: 1rem;
   border-radius: 1rem;
   background: ${COLORS.bg};
 
   // 애니메이션 효과 추가
-  animation: ${slideIn} 0.3s ease-in-out forwards; // 애니메이션 적용
+  animation: ${slideIn} 0.5s ease-in-out forwards; // 애니메이션 적용
 `;
 
-export const PlayerName = styled.h5<{ $color?: string }>`
+export const PlayerName = styled.h4<{ $color?: string }>`
   display: flex;
   min-width: fit-content;
   color: ${({ $color }) => ($color ? $color : COLORS.text)};
@@ -58,7 +58,7 @@ export const PlayerName = styled.h5<{ $color?: string }>`
   line-height: normal;
 `;
 
-export const PlayerContent = styled.h5`
+export const PlayerContent = styled.h4`
   color: ${COLORS.text};
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;
