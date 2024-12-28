@@ -47,8 +47,8 @@ export const CPlayer = styled.div<{
 
   ${({ $success }) => {
     if ($success)
-      return `border: 4px solid #7631FF; 
-              background: linear-gradient(180deg, #A861F4 0%, #675DF8 100%); 
+      return `border: 4px solid #AA7FFF;
+              background: #DBC9FF;
               transform : translate(0 , -0.8rem);`;
     else return `background: linear-gradient(180deg, #fff 0%, #f2f2f2 100%);`;
   }}
@@ -66,7 +66,7 @@ export const PlusScore = styled.div<{ plus: boolean }>`
 
   z-index: 2;
 
-  color: ${({ plus }) => (plus ? '#028C27' : '#FF7070')};
+  color: ${({ plus }) => (plus ? '#A377FF' : '#FF7070')};
   font-size: 1.4rem;
   font-weight: bold;
 

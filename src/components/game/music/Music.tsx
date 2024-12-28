@@ -1,7 +1,6 @@
 import ReactPlayer from 'react-player';
 import {
   CMain,
-  Middle,
   YoutubeWrapper,
   Song,
   SongIcon,
@@ -19,9 +18,16 @@ import {
   Tag,
   CTimer,
   GameImg,
+  SongInfo,
+  SongSmallText,
+  SystemHint,
+  HintText,
+  Middle,
+  SystemTag,
 } from '@/styles/music/Main';
 import ChatLog from '@/containers/game/music/ChatLog';
 import { getR2URL } from '@/services/api';
+import React from 'react';
 
 // Props 타입 정의
 interface Props {
@@ -37,6 +43,18 @@ interface Props {
   isVideoVisible: boolean;
   playerRef: React.RefObject<ReactPlayer>;
 }
+
+const MemoizedSystemTag = React.memo(({ singers }: { singers: string[] }) => (
+  <SystemTag>
+    {singers.map((item: string) => (
+      <Tag key={item} tag={item}>
+        {item}
+      </Tag>
+    ))}
+  </SystemTag>
+));
+
+MemoizedSystemTag.displayName = 'MemoizedSystemTag';
 
 // Music 컴포넌트 정의
 const Music: React.FC<Props> = ({
@@ -57,19 +75,13 @@ const Music: React.FC<Props> = ({
       <SLeft>
         <Systemlog>
           <SystemlogItem>Round {round ? round : 0}</SystemlogItem>
-          {singer.length > 0 && (
-            <SystemlogItem>
-              {singer.map((item) => {
-                return (
-                  <Tag key={item} tag={item}>
-                    {item}
-                  </Tag>
-                );
-              })}
-            </SystemlogItem>
+          {singer.length > 0 && <MemoizedSystemTag singers={singer} />}
+          {hint !== '' && (
+            <SystemHint>
+              <>Hint</>
+              <HintText>{hint}</HintText>
+            </SystemHint>
           )}
-
-          {hint !== '' && <SystemlogItem>{hint}</SystemlogItem>}
         </Systemlog>
       </SLeft>
       <Middle>
@@ -122,7 +134,6 @@ const Music: React.FC<Props> = ({
             )}
           </TimerOverlay>
         </VideoScreen>
-
         <Song>
           <SongIcon
             src={
@@ -131,7 +142,14 @@ const Music: React.FC<Props> = ({
                 : getR2URL('/assets/channel/wakttu.svg')
             }
           />
-          <SongText $isVisible={isVideoVisible}>{music?.title}</SongText>
+          <SongInfo>
+            <SongText>{isVideoVisible ? music.title : '???'}</SongText>
+            <SongSmallText>
+              {isVideoVisible
+                ? singer.map((item: string) => <>{item} </>)
+                : '???'}
+            </SongSmallText>
+          </SongInfo>
           <VolumeControl>
             <VolumeImg src={getR2URL('/assets/game/music-volume.svg')} />
             <VolumeSlider
@@ -144,6 +162,7 @@ const Music: React.FC<Props> = ({
           </VolumeControl>
         </Song>
       </Middle>
+
       <SRight>
         <ChatLog />
       </SRight>

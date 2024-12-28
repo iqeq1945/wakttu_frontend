@@ -299,7 +299,7 @@ const Game = () => {
         playing={isPlaying}
         singer={singer}
         hint={hint}
-        isVideoVisible={isVideoVisible}
+        isVideoVisible={isVideoVisible || answer.success === true}
         playerRef={playerRef}
       />
       <PlayerList />
