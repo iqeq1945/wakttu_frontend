@@ -134,7 +134,6 @@ const Ready = () => {
         return;
       }
 
-      console.log('click');
       const startFunctions: Record<number, (roomId: string) => void> = {
         0: lastPractice,
         /* 1: kungStart,
@@ -168,6 +167,14 @@ const Ready = () => {
       await dispatch(clearAnswer());
       await dispatch(setGame(data));
       router.push('/game/last');
+    });
+
+    socket.on('last.practice', async (data) => {
+      await dispatch(clearHistory());
+      await dispatch(clearTimer());
+      await dispatch(clearAnswer());
+      await dispatch(setGame(data));
+      router.push('/practice/last');
     });
 
     socket.on('kung.start', async (data) => {
@@ -210,6 +217,7 @@ const Ready = () => {
       socket.off('bell.start');
       socket.off('music.start');
       socket.off('cloud.start');
+      socket.off('last.practice');
     };
   }, [dispatch, router]);
 

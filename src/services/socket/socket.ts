@@ -106,6 +106,26 @@ export const sendChat = (data: Chat) => {
   socket.emit('chat', data);
 };
 
+/**
+ *
+ * @param Chat
+ */
+export const sendBotAnswer = (data: Chat) => {
+  socket.emit('last.botAnswer', data);
+};
+
+/**
+ *
+ * @param {roomId, type, chat?}
+ */
+export const sendBotChat = (data: {
+  roomId: string;
+  type: number;
+  chat?: string;
+}) => {
+  socket.emit('bot.chat', data);
+};
+
 /*
  * 서버에 있는 모든 유저에게 알림을 날림.
  */
