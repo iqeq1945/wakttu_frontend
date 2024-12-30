@@ -277,6 +277,7 @@ const Game = () => {
     game.host,
     game.turn,
     game.users,
+    isBotTurn,
     onBgm,
     roomInfo.id,
     sound,
@@ -405,13 +406,14 @@ const Game = () => {
   }, [dispatch, router, user.id]);
 
   useEffect(() => {
-    socket.on('exit', (data) => {
+    socket.on('exit.practice', (data) => {
       const { roomInfo, game } = data;
 
       if (!roomInfo || !game) return;
 
       dispatch(setRoomInfo(roomInfo));
       dispatch(setGame(game));
+      dispatch(clearTimer());
 
       if (roomInfo.users && roomInfo.users.length <= 1) {
         router.push('/room');
@@ -419,13 +421,13 @@ const Game = () => {
     });
 
     return () => {
-      socket.off('exit');
+      socket.off('exit.practice');
     };
   }, [dispatch, router]);
 
   return (
     <Container>
-      <Header />
+      <Header practice={true} />
       <Info />
       <Last />
       <PlayerList />

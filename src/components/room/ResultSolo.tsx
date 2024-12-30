@@ -57,7 +57,10 @@ const ResultSolo = ({ list, offModal, user }: Props) => {
         <Container>
           <CModal>
             <CTitle>
-              <Trophy src={getR2URL('/assets/icons/trophy.svg')} alt="트로피 아이콘" />
+              <Trophy
+                src={getR2URL('/assets/icons/trophy.svg')}
+                alt="트로피 아이콘"
+              />
               <ResultTitle>게임 결과</ResultTitle>
             </CTitle>
             <CBody>
@@ -67,7 +70,10 @@ const ResultSolo = ({ list, offModal, user }: Props) => {
                     <Card rank={list.length > 1 ? list[1].rank : 2}>
                       <Character character={list[1].character} />
                       <NameTag>
-                        <Grade src={getIcon(list[1].exp, list[1].provider)} alt="등수 아이콘" />
+                        <Grade
+                          src={getIcon(list[1].exp, list[1].provider)}
+                          alt="등수 아이콘"
+                        />
                         <Name>{list.length > 1 ? list[1].name : ''}</Name>
                       </NameTag>
                       <Score rank={list.length > 1 ? list[1].rank : 2}>
@@ -83,7 +89,10 @@ const ResultSolo = ({ list, offModal, user }: Props) => {
                     <Card rank={1}>
                       <Character character={list[0].character} />
                       <NameTag>
-                        <Grade src={getIcon(list[0].exp, list[0].provider)} alt="등수 아이콘" />
+                        <Grade
+                          src={getIcon(list[0].exp, list[0].provider)}
+                          alt="등수 아이콘"
+                        />
                         <Name>{list[0].name}</Name>
                       </NameTag>
                       <Score rank={1}>{list[0].score}</Score>
@@ -97,7 +106,8 @@ const ResultSolo = ({ list, offModal, user }: Props) => {
                           <Character character={list[2].character} />
                           <NameTag>
                             <Grade
-                              src={getIcon(list[2].exp, list[2].provider)} alt="등수 아이콘"
+                              src={getIcon(list[2].exp, list[2].provider)}
+                              alt="등수 아이콘"
                             />
                             <Name>{list.length > 2 ? list[2].name : ''}</Name>
                           </NameTag>
@@ -119,7 +129,10 @@ const ResultSolo = ({ list, offModal, user }: Props) => {
                         <RestItem key={user.userId}>
                           <RestText>{user.rank}등</RestText>
                           <NameTag>
-                            <Grade src={getIcon(user.exp, user.provider)} alt="등수 아이콘" />
+                            <Grade
+                              src={getIcon(user.exp, user.provider)}
+                              alt="등수 아이콘"
+                            />
                             <Name>{user.name}</Name>
                           </NameTag>
                         </RestItem>
@@ -131,17 +144,23 @@ const ResultSolo = ({ list, offModal, user }: Props) => {
                 <CLevel>
                   <CLevelIcon>
                     <NowLevel>
-                      <Grade src={getIcon(user.score, user.provider)} alt="등수 아이콘" />
+                      <Grade
+                        src={getIcon(user.score, user.provider)}
+                        alt="등수 아이콘"
+                      />
                       <Exp>
                         +
                         {Math.ceil(
                           list.find((item) => item.userId === user.id)!.score /
-                            10
+                            5
                         )}
                         xp
                       </Exp>
                     </NowLevel>
-                    <Grade src={getIcon(user.score + 1000, user.provider)} alt="등수 아이콘" />
+                    <Grade
+                      src={getIcon(user.score + 1000, user.provider)}
+                      alt="등수 아이콘"
+                    />
                   </CLevelIcon>
                   <ExpBar>
                     <Gauge exp={(user.score % 1000) / 10} />

@@ -60,8 +60,8 @@ const RoomDesc = ({ roomInfo, onEnter }: Props) => {
             <Info>
               {roomInfo.type === 2
                 ? '30'
-                : roomInfo.type === 4
-                ? '60'
+                : roomInfo.type === 4 || roomInfo.type === 3
+                ? '40'
                 : roomInfo.time! / 1000}
               초
             </Info>

@@ -162,18 +162,26 @@ const Chat = () => {
       }
       const { isValid, message } = wordRelay(game.target, data);
       const isIn = isInHistory(data);
-      sendBotAnswer({
-        roomId,
-        chat: data,
-        roundTime: timer.roundTime - timer.countTime,
-        score: countScore({
-          wordLength: data.length,
-          chainCount: game.chain,
-          timeLimit: timer.turnTime,
-          remainingTime: timer.turnTime - timer.countTime,
-        }),
-        success: !isValid || !isIn,
-      });
+
+      const remainingTime = timer.turnTime - timer.countTime;
+      const delay = remainingTime >= 5000 ? 2000 : 500;
+      const timeoutId = setTimeout(() => {
+        sendBotAnswer({
+          roomId,
+          chat: data,
+          roundTime: timer.roundTime - timer.countTime - delay,
+          score: countScore({
+            wordLength: data.length,
+            chainCount: game.chain,
+            timeLimit: timer.turnTime,
+            remainingTime: timer.turnTime - timer.countTime - delay,
+          }),
+          success: !isValid || !isIn,
+        });
+      }, delay);
+
+      // 컴포넌트 언마운트 시 타이머 정리
+      return () => clearTimeout(timeoutId);
     };
 
     socket.on('last.getAnswer', handleGetAnswer);

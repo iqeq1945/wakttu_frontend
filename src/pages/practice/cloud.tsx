@@ -70,14 +70,9 @@ const Cloud = () => {
     true
   );
 
-  const handleSound = useCallback(
-    (isPlay: boolean) => {
-      if (sound) {
-        isPlay ? sound.play() : sound.pause();
-      }
-    },
-    [sound]
-  );
+  useEffect(() => {
+    console.log(sound);
+  }, [sound]);
 
   const handleKeyUp = useCallback(
     (e: KeyboardEvent) => {
@@ -143,7 +138,7 @@ const Cloud = () => {
       setOpen(true);
       dispatch(setGame(game));
       dispatch(setTimer({ roundTime: 40000, turnTime: 40000 }));
-      handleSound(false);
+      if (sound) sound.pause();
       if (game.host == user.id)
         setTimeout(() => cloudRoundStart(roomInfo.id as string), 2000);
     };
@@ -152,7 +147,7 @@ const Cloud = () => {
     return () => {
       socket.off('cloud.round', handleRound);
     };
-  }, [dispatch, handleSound, roomInfo.id, user.id]);
+  }, [dispatch, roomInfo.id, sound, user.id]);
 
   useEffect(() => {
     socket.on('cloud.roundStart', () => {
@@ -160,7 +155,9 @@ const Cloud = () => {
         if (game.host === user.id) socket.emit('cloud.ping', roomInfo.id);
         setOpen(false);
         dispatch(setPause(true));
-        handleSound(true);
+        if (sound) {
+          sound.play();
+        }
       }, 3000);
     });
 
@@ -175,7 +172,7 @@ const Cloud = () => {
       socket.off('cloud.roundStart');
       socket.off('cloud.roundEnd');
     };
-  }, [dispatch, game.host, roomInfo.id, user.id]);
+  }, [dispatch, game.host, roomInfo.id, sound, user.id]);
 
   useEffect(() => {
     socket.on('cloud.game', (data) => {
@@ -209,24 +206,8 @@ const Cloud = () => {
         dispatch(clearAnswer());
         dispatch(clearTimer());
         dispatch(clearHistory());
-
-        dispatch(setDataModal(data));
-        dispatch(openModal('RESULT'));
-
-        let achieve: any[] = [];
-        const ach_1 =
-          user.provider === 'waktaverse.games'
-            ? await updatePlayCount(game.type)
-            : await updatePlayCountLocal(game.type);
-        const ach_2 =
-          user.provider === 'waktaverse.games'
-            ? await updateResult(result)
-            : await updateResultLocal(result);
-        if (ach_1) achieve = [...achieve, ...ach_1];
-        if (ach_2) achieve = [...achieve, ...ach_2];
-        await dispatch(setAchieve(achieve));
       } catch (error) {
-        console.error('Failed to update achievements:', error);
+        console.error('Failed to Result:', error);
         dispatch(closeModal());
 
         // 에러 상태 처리
@@ -236,8 +217,6 @@ const Cloud = () => {
     socket.on('cloud.end', async (data) => {
       try {
         const { game, roomInfo } = data;
-        const response = await client.get(`/user/${user.id}`);
-        if (response) await dispatch(setUserInfo(response.data));
 
         await router.push('/room');
         await dispatch(setRoomInfo(roomInfo));
@@ -255,15 +234,15 @@ const Cloud = () => {
       socket.off('cloud.end');
     };
   }, [dispatch, game.type, result, router, user.id, user.provider]);
-
   useEffect(() => {
-    socket.on('exit', (data) => {
+    socket.on('exit.practice', (data) => {
       const { roomInfo, game } = data;
 
       if (!roomInfo || !game) return;
 
       dispatch(setRoomInfo(roomInfo));
       dispatch(setGame(game));
+      dispatch(clearTimer());
 
       if (roomInfo.users && roomInfo.users.length <= 1) {
         router.push('/room');
@@ -271,12 +250,13 @@ const Cloud = () => {
     });
 
     return () => {
-      socket.off('exit');
+      socket.off('exit.practice');
     };
   }, [dispatch, router]);
+
   return (
     <Container>
-      <Header />
+      <Header practice={true} />
       {isOpen && weather && <WeatherSlide key={weather} weather={weather} />}
       <Main>
         <Info />

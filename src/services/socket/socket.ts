@@ -375,3 +375,15 @@ export const cloudRoundEnd = (roomId: string) => {
 export const sendEmoticon = (data: Emoticon) => {
   socket.emit('emoticon', data);
 };
+
+/**
+ * 연습모드 종료
+ */
+
+export const exitPractice = (roomId: string) => {
+  socket.emit('exit.practice', roomId);
+};
+
+export const handlePractice = (roomId: string) => {
+  socket.emit('game.practice', roomId);
+};

@@ -1,14 +1,17 @@
-import WeatherSlide from '@/components/game/cloud/Weather';
-import Board from '@/containers/game/cloud/Board';
-import ChatInput from '@/containers/game/cloud/ChatInput';
-import ChatLog from '@/containers/game/cloud/ChatLog';
-import Header from '@/containers/game/cloud/Header';
-import Info from '@/containers/game/cloud/Info';
-import PlayerList from '@/containers/game/cloud/PlayerList';
+import Game from '@/containers/game/bell/Bell';
+import Chat from '@/containers/game/bell/Chat';
+import Header from '@/containers/game/bell/Header';
+import PlayerList from '@/containers/game/bell/PlayerList';
+import useEffectSound from '@/hooks/useEffectSound';
 import useSound from '@/hooks/useSound';
 import { setAchieve } from '@/redux/achieve/achieveSlice';
-import { selectBgmVolume } from '@/redux/audio/audioSlice';
-import { clearAnswer, setAnswer, setPause } from '@/redux/answer/answerSlice';
+import {
+  clearAnswer,
+  selectPause,
+  setAnswer,
+  setPause,
+} from '@/redux/answer/answerSlice';
+import { selectBgmVolume, selectEffectVolume } from '@/redux/audio/audioSlice';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
 import { clearHistory } from '@/redux/history/historySlice';
 import { closeModal, openModal, setDataModal } from '@/redux/modal/modalSlice';
@@ -16,9 +19,9 @@ import { clearResult, selectResult } from '@/redux/result/resultSlice';
 import { selectRoomInfo, setRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import {
   clearTimer,
-  cloudTick,
   selectTimer,
   setTimer,
+  tick,
 } from '@/redux/timer/timerSlice';
 import {
   selectEmoticon,
@@ -32,52 +35,62 @@ import {
   updateResult,
   updateResultLocal,
 } from '@/services/api';
+
 import {
-  cloudRound,
-  cloudRoundEnd,
-  cloudRoundStart,
+  bellRound,
+  bellRoundEnd,
+  bellRoundStart,
   sendEmoticon,
   socket,
 } from '@/services/socket/socket';
-import { Container, Main } from '@/styles/cloud/Layout';
+import { Container } from '@/styles/bell/Layout';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const Cloud = () => {
+const Bell = () => {
   const user = useSelector(selectUserInfo);
-  const timer = useSelector(selectTimer);
-  const roomInfo = useSelector(selectRoomInfo);
   const game = useSelector(selectGame);
+  const roomInfo = useSelector(selectRoomInfo);
+  const dispatch = useDispatch();
   const router = useRouter();
   const result = useSelector(selectResult);
-  const dispatch = useDispatch();
-
-  const [weather, setWeather] = useState<string>();
-  const [isOpen, setOpen] = useState(false);
-
   const emoticonId = useSelector(selectEmoticon);
-  const emoticonRef = useRef(0);
 
   // sound 세팅
 
   const bgmVolume = useSelector(selectBgmVolume);
-
+  const effectVolume = useSelector(selectEffectVolume);
   const sound = useSound(
-    '/assets/bgm/lossy/ui_in-game-c.webm',
+    '/assets/bgm/lossy/ui_in-game-b.webm',
     bgmVolume,
     0,
     true
   );
 
-  const handleSound = useCallback(
-    (isPlay: boolean) => {
-      if (sound) {
-        isPlay ? sound.play() : sound.pause();
-      }
-    },
-    [sound]
+  const bellStartSound = useEffectSound(
+    '/assets/sound-effects/lossy/bell_start.webm',
+    effectVolume
   );
+
+  const bellRoundStartSound = useEffectSound(
+    '/assets/sound-effects/lossy/bell_round_start.webm',
+    effectVolume
+  );
+
+  const bellRoundEndSound = useEffectSound(
+    '/assets/sound-effects/lossy/bell_round_end.webm',
+    effectVolume
+  );
+
+  const correctSound = useEffectSound(
+    '/assets/sound-effects/lossy/bell_correct.webm',
+    effectVolume
+  );
+
+  const emoticonRef = useRef(0);
+
+  // Function part
 
   const handleKeyUp = useCallback(
     (e: KeyboardEvent) => {
@@ -112,6 +125,12 @@ const Cloud = () => {
     };
   }, [handleKeyUp]);
 
+  const onBgm = useCallback(() => {
+    if (sound) {
+      sound.play();
+    }
+  }, [sound]);
+
   useEffect(() => {
     const handleDisconnect = () => {
       router.replace('/');
@@ -125,119 +144,117 @@ const Cloud = () => {
   }, [router]);
 
   useEffect(() => {
+    onBgm();
+  }, [onBgm]);
+
+  useEffect(() => {
     const opening = setTimeout(() => {
       if (game.host === user.id) {
         console.log('opening');
-        cloudRound(roomInfo.id as string);
+        bellRound(roomInfo.id as string);
+        if (bellStartSound) bellStartSound.play();
       }
     }, 2000);
     return () => {
       clearTimeout(opening);
     };
-  }, [roomInfo.id, user.id]);
+  }, [roomInfo.id, user.id, bellStartSound]);
 
   useEffect(() => {
-    const handleRound = (data: any) => {
-      const { game, weather } = data;
-      setWeather(weather);
-      setOpen(true);
-      dispatch(setGame(game));
-      dispatch(setTimer({ roundTime: 40000, turnTime: 40000 }));
-      handleSound(false);
-      if (game.host == user.id)
-        setTimeout(() => cloudRoundStart(roomInfo.id as string), 2000);
-    };
-    socket.on('cloud.round', handleRound);
-
-    return () => {
-      socket.off('cloud.round', handleRound);
-    };
-  }, [dispatch, handleSound, roomInfo.id, user.id]);
-
-  useEffect(() => {
-    socket.on('cloud.roundStart', () => {
+    socket.on('bell.round', (data) => {
+      dispatch(clearAnswer());
       setTimeout(() => {
-        if (game.host === user.id) socket.emit('cloud.ping', roomInfo.id);
-        setOpen(false);
-        dispatch(setPause(true));
-        handleSound(true);
-      }, 3000);
+        dispatch(setTimer({ roundTime: 30000, turnTime: 30000 }));
+        dispatch(setGame(data));
+        if (game.host === user.id) bellRoundStart(roomInfo.id as string);
+      }, 2000);
     });
-
-    socket.on('cloud.roundEnd', (data) => {
-      dispatch(setGame(data));
-      dispatch(setPause(false));
-      if (game.host === user.id)
-        setTimeout(() => cloudRound(roomInfo.id as string), 2000);
-    });
-
     return () => {
-      socket.off('cloud.roundStart');
-      socket.off('cloud.roundEnd');
+      socket.off('bell.round');
     };
   }, [dispatch, game.host, roomInfo.id, user.id]);
 
   useEffect(() => {
-    socket.on('cloud.game', (data) => {
+    socket.on('bell.roundStart', () => {
+      setTimeout(() => {
+        if (game.host === user.id) socket.emit('bell.ping', roomInfo.id);
+        dispatch(setPause(true));
+        if (bellRoundStartSound) bellRoundStartSound.play();
+      }, 3000);
+    });
+
+    socket.on('bell.roundEnd', (data) => {
       dispatch(setGame(data));
+
+      if (game.host === user.id)
+        setTimeout(() => bellRound(roomInfo.id as string), 3000);
+      if (bellRoundEndSound) bellRoundEndSound.play();
     });
 
     return () => {
-      socket.off('cloud.game');
+      socket.off('bell.roundStart');
+      socket.off('bell.roundEnd');
     };
-  }, [dispatch, game]);
+  }, [
+    dispatch,
+    game.host,
+    roomInfo.id,
+    user.id,
+    bellRoundEndSound,
+    bellRoundStartSound,
+  ]);
 
   useEffect(() => {
-    socket.on('cloud.ping', () => {
-      dispatch(cloudTick());
-    });
-
-    socket.on('cloud.pong', async () => {
-      if (game.host === user.id) await cloudRoundEnd(roomInfo.id!);
+    socket.on('bell.game', (data) => {
+      dispatch(setGame(data));
+      if (correctSound) correctSound.play();
     });
 
     return () => {
-      socket.off('cloud.ping');
-      socket.off('cloud.pong');
+      socket.off('bell.game');
+    };
+  }, [dispatch, game, correctSound]);
+
+  useEffect(() => {
+    socket.on('bell.ping', () => {
+      dispatch(tick());
+    });
+
+    socket.on('bell.pong', async () => {
+      if (game.host === user.id) await bellRoundEnd(roomInfo.id!);
+      dispatch(
+        setAnswer({
+          success: true,
+          pause: false,
+          answer: game.target,
+          word: undefined,
+        })
+      );
+    });
+
+    return () => {
+      socket.off('bell.ping');
+      socket.off('bell.pong');
     };
   });
 
   useEffect(() => {
-    socket.on('cloud.result', async (data) => {
+    socket.on('bell.result', async (data) => {
       try {
         dispatch(clearResult());
         dispatch(clearAnswer());
         dispatch(clearTimer());
         dispatch(clearHistory());
-
-        dispatch(setDataModal(data));
-        dispatch(openModal('RESULT'));
-
-        let achieve: any[] = [];
-        const ach_1 =
-          user.provider === 'waktaverse.games'
-            ? await updatePlayCount(game.type)
-            : await updatePlayCountLocal(game.type);
-        const ach_2 =
-          user.provider === 'waktaverse.games'
-            ? await updateResult(result)
-            : await updateResultLocal(result);
-        if (ach_1) achieve = [...achieve, ...ach_1];
-        if (ach_2) achieve = [...achieve, ...ach_2];
-        await dispatch(setAchieve(achieve));
       } catch (error) {
-        console.error('Failed to update achievements:', error);
+        console.error('Failed to Result:', error);
         dispatch(closeModal());
-
         // 에러 상태 처리
       }
     });
 
-    socket.on('cloud.end', async (data) => {
+    socket.on('bell.end', async (data) => {
       try {
         const { game, roomInfo } = data;
-        const response = await client.get(`/user/${user.id}`);
-        if (response) await dispatch(setUserInfo(response.data));
 
         await router.push('/room');
         await dispatch(setRoomInfo(roomInfo));
@@ -251,19 +268,20 @@ const Cloud = () => {
     });
 
     return () => {
-      socket.off('cloud.result');
-      socket.off('cloud.end');
+      socket.off('bell.result');
+      socket.off('bell.end');
     };
   }, [dispatch, game.type, result, router, user.id, user.provider]);
 
   useEffect(() => {
-    socket.on('exit', (data) => {
+    socket.on('exit.practice', (data) => {
       const { roomInfo, game } = data;
 
       if (!roomInfo || !game) return;
 
       dispatch(setRoomInfo(roomInfo));
       dispatch(setGame(game));
+      dispatch(clearTimer());
 
       if (roomInfo.users && roomInfo.users.length <= 1) {
         router.push('/room');
@@ -271,22 +289,18 @@ const Cloud = () => {
     });
 
     return () => {
-      socket.off('exit');
+      socket.off('exit.practice');
     };
   }, [dispatch, router]);
+
   return (
     <Container>
-      <Header />
-      {isOpen && weather && <WeatherSlide key={weather} weather={weather} />}
-      <Main>
-        <Info />
-        <Board />
-        <ChatLog />
-      </Main>
+      <Header practice={true} />
+      <Game />
       <PlayerList />
-      <ChatInput />
+      <Chat />
     </Container>
   );
 };
 
-export default Cloud;
+export default Bell;
