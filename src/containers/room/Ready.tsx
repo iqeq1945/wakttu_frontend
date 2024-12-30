@@ -117,6 +117,7 @@ const Ready = () => {
       setTimeout(() => setIsButtonDisabled(false), 500); // 작업 완료 후 버튼 활성화 (0.5초 딜레이)
     }
   }, [game.team, readyUsers.length, roomInfo, isButtonDisabled]);
+
   const onTeam = (team: string) => {
     if (readyUsers.findIndex((user) => user.name === userName) !== -1) {
       alert('준비 상태에서는 팀을 바꿀 수 없어요');
@@ -153,7 +154,7 @@ const Ready = () => {
     } finally {
       setTimeout(() => setIsButtonDisabled(false), 500); // 작업 완료 후 버튼 활성화 (0.5초 딜레이)
     }
-  }, [isButtonDisabled, roomInfo.id, roomInfo.type, roomInfo.users.length]);
+  }, [isButtonDisabled, roomInfo.id, roomInfo.type, roomInfo.users]);
 
   useEffect(() => {
     socket.on('ready', (data) => {
@@ -257,7 +258,7 @@ const Ready = () => {
     <CReady
       ready={isReady}
       onReady={onReady}
-      alone={roomInfo.users.length === 1}
+      alone={roomInfo.users && roomInfo.users.length === 1}
       onPractice={onPractice}
       onStart={host === user.id ? onStart : undefined}
       onTeam={onTeam}
