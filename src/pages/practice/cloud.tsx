@@ -70,10 +70,6 @@ const Cloud = () => {
     true
   );
 
-  useEffect(() => {
-    console.log(sound);
-  }, [sound]);
-
   const handleKeyUp = useCallback(
     (e: KeyboardEvent) => {
       const allowedKeys = ['1', '2', '3']; // 허용 키

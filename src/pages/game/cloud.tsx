@@ -70,15 +70,6 @@ const Cloud = () => {
     true
   );
 
-  const handleSound = useCallback(
-    (isPlay: boolean) => {
-      if (sound) {
-        isPlay ? sound.play() : sound.pause();
-      }
-    },
-    [sound]
-  );
-
   const handleKeyUp = useCallback(
     (e: KeyboardEvent) => {
       const allowedKeys = ['1', '2', '3']; // 허용 키
@@ -143,7 +134,7 @@ const Cloud = () => {
       setOpen(true);
       dispatch(setGame(game));
       dispatch(setTimer({ roundTime: 40000, turnTime: 40000 }));
-      handleSound(false);
+      if (sound) sound.pause();
       if (game.host == user.id)
         setTimeout(() => cloudRoundStart(roomInfo.id as string), 2000);
     };
@@ -152,7 +143,7 @@ const Cloud = () => {
     return () => {
       socket.off('cloud.round', handleRound);
     };
-  }, [dispatch, handleSound, roomInfo.id, user.id]);
+  }, [dispatch, roomInfo.id, sound, user.id]);
 
   useEffect(() => {
     socket.on('cloud.roundStart', () => {
@@ -160,7 +151,7 @@ const Cloud = () => {
         if (game.host === user.id) socket.emit('cloud.ping', roomInfo.id);
         setOpen(false);
         dispatch(setPause(true));
-        handleSound(true);
+        if (sound) sound.play();
       }, 3000);
     });
 
@@ -175,7 +166,7 @@ const Cloud = () => {
       socket.off('cloud.roundStart');
       socket.off('cloud.roundEnd');
     };
-  }, [dispatch, game.host, roomInfo.id, user.id]);
+  }, [dispatch, game.host, roomInfo.id, sound, user.id]);
 
   useEffect(() => {
     socket.on('cloud.game', (data) => {
