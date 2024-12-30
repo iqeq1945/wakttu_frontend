@@ -326,13 +326,16 @@ export const Tag = styled.div<{ tag: string }>`
       case '비챤':
         return '#95C100';
       default:
-        const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+        const randomColor = Math.floor(Math.random() * 16777215)
+          .toString(16)
+          .padStart(6, '0'); // 항상 6자리 보장
+        const inverseColor = (0xffffff - parseInt(randomColor, 16))
+          .toString(16)
+          .padStart(6, '0'); // 반전 색상도 6자리 보장
         const darkColor =
           parseInt(randomColor, 16) < 0x808080
             ? `#${randomColor}`
-            : `#${(0xffffff - parseInt(randomColor, 16))
-                .toString(16)
-                .padStart(6, '0')}`;
+            : `#${inverseColor}`;
         return darkColor;
     }
   }};
