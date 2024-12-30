@@ -3,11 +3,21 @@ import { CReady, CTeam, ReadyButton, TeamButton } from '@/styles/room/Ready';
 interface Props {
   ready: boolean;
   team?: boolean;
+  alone: boolean;
   onReady: () => void;
   onTeam: (team: string) => void;
   onStart?: () => void;
+  onPractice: () => void;
 }
-const Ready = ({ onReady, onStart, ready, team = false, onTeam }: Props) => {
+const Ready = ({
+  onReady,
+  onStart,
+  alone,
+  ready,
+  team = false,
+  onTeam,
+  onPractice,
+}: Props) => {
   return (
     <CReady>
       {team ? (
@@ -34,7 +44,11 @@ const Ready = ({ onReady, onStart, ready, team = false, onTeam }: Props) => {
       )}
 
       {onStart ? (
-        <ReadyButton onClick={onStart}>시작</ReadyButton>
+        alone ? (
+          <ReadyButton onClick={onPractice}>연습</ReadyButton>
+        ) : (
+          <ReadyButton onClick={onStart}>시작</ReadyButton>
+        )
       ) : ready ? (
         <ReadyButton onClick={onReady}>준비 취소</ReadyButton>
       ) : (

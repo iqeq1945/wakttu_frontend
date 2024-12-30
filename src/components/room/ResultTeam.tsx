@@ -154,7 +154,7 @@ const ResultTeam = ({ list, offModal, user }: Props) => {
                         +
                         {Math.ceil(
                           list.find((item) => item.userId === user.id)!.score /
-                            10
+                            5
                         )}
                         xp
                       </Exp>

@@ -6,12 +6,16 @@ import { clearMusic } from '@/redux/music/musicSlice';
 import { clearRoomInfo, selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { selectUserInfo } from '@/redux/user/userSlice';
 import { updateStat, updateStatLocal } from '@/services/api';
-import { exit } from '@/services/socket/socket';
+import { exit, exitPractice } from '@/services/socket/socket';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const Header = () => {
+interface Props {
+  practice?: boolean;
+}
+
+const Header = ({ practice }: Props) => {
   const user = useSelector(selectUserInfo);
   const roomInfo = useSelector(selectRoomInfo);
   const router = useRouter();
@@ -30,7 +34,14 @@ const Header = () => {
     if (achieves) dispatch(setAchieve(achieves));
   }, [dispatch, roomInfo.id, router, user.provider]);
 
-  return <SHeader roomInfo={roomInfo} exit={exitGame} />;
+  const finishPractice = useCallback(async () => {
+    dispatch(clearMusic());
+    exitPractice(roomInfo.id!);
+  }, [dispatch, roomInfo.id]);
+
+  return (
+    <SHeader roomInfo={roomInfo} exit={practice ? finishPractice : exitGame} />
+  );
 };
 
 export default Header;
