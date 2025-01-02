@@ -45,7 +45,7 @@ const UpdateRoom = () => {
 
       const limits: { [key: string]: { min: number; max: number } } = {
         round:
-          room.type === 0 || room.type === 1
+          room.type === 0 || room.type === 1 || room.type === 4
             ? { min: 3, max: 8 }
             : { min: 1, max: 30 },
         total: { min: 2, max: 8 },
@@ -87,7 +87,7 @@ const UpdateRoom = () => {
         return {
           ...prev,
           [name]: value,
-          round: value > 1 ? 10 : 6,
+          round: value === 2 || value === 3 ? 10 : 6,
           time: value > 1 ? 40000 : 60000,
           option: [],
         };

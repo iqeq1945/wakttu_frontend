@@ -1,5 +1,15 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { COLORS } from '../theme';
+
+// 애니메이션 정의
+const slideIn = keyframes`
+  from {
+    transform: translateY(0.625rem); // 아래에서 시작
+  }
+  to {
+    transform: translateY(0); // 원래 위치로 이동
+  }
+`;
 
 export const ChatBox = styled.div`
   display: flex;
@@ -10,10 +20,6 @@ export const ChatBox = styled.div`
   align-items: flex-start;
   gap: 0.5rem;
   flex-shrink: 0;
-  margin-right: 1rem;
-
-  border-radius: 1rem;
-  background: ${COLORS.bg};
 
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -25,9 +31,17 @@ export const ChatBox = styled.div`
 `;
 export const Log = styled.div`
   display: flex;
-  width: 100%;
-  align-items: flex-start;
+  min-width: fit-content;
+  max-width: 21.25rem;
+  flex-shrink: 0;
+  align-self: stretch;
   gap: 0.625rem;
+
+  padding: 1rem;
+  border-radius: 1rem;
+  background: ${COLORS.bg};
+
+  animation: ${slideIn} 0.3s ease-in-out forwards; // 애니메이션 적용
 `;
 
 export const PlayerName = styled.h5<{ $color?: string }>`
@@ -42,7 +56,6 @@ export const PlayerName = styled.h5<{ $color?: string }>`
 `;
 
 export const PlayerContent = styled.h5`
-  flex: 1 0 0;
   color: ${COLORS.text};
 
   font-family: 'Wanted Sans Variable', 'Wanted Sans', sans-serif;

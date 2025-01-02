@@ -58,9 +58,6 @@ const Cloud = () => {
   const [weather, setWeather] = useState<string>();
   const [isOpen, setOpen] = useState(false);
 
-  const emoticonId = useSelector(selectEmoticon);
-  const emoticonRef = useRef(0);
-
   const voiceVolume = useSelector(selectVoiceVolume);
   const effectVolume = useSelector(selectBgmVolume);
 
@@ -69,6 +66,9 @@ const Cloud = () => {
     '/assets/sound-effects/lossy/bell_correct.webm',
     effectVolume
   );
+  const emoticonId = useSelector(selectEmoticon);
+  const emoticonRef = useRef(0);
+
   // sound 세팅
 
   const bgmVolume = useSelector(selectBgmVolume);
@@ -177,7 +177,9 @@ const Cloud = () => {
         if (game.host === user.id) socket.emit('cloud.ping', roomInfo.id);
         setOpen(false);
         dispatch(setPause(true));
-        if (sound) sound.play();
+        if (sound) {
+          sound.play();
+        }
       }, 3000);
     });
 
@@ -226,24 +228,8 @@ const Cloud = () => {
         dispatch(clearAnswer());
         dispatch(clearTimer());
         dispatch(clearHistory());
-
-        dispatch(setDataModal(data));
-        dispatch(openModal('RESULT'));
-
-        let achieve: any[] = [];
-        const ach_1 =
-          user.provider === 'waktaverse.games'
-            ? await updatePlayCount(game.type)
-            : await updatePlayCountLocal(game.type);
-        const ach_2 =
-          user.provider === 'waktaverse.games'
-            ? await updateResult(result)
-            : await updateResultLocal(result);
-        if (ach_1) achieve = [...achieve, ...ach_1];
-        if (ach_2) achieve = [...achieve, ...ach_2];
-        await dispatch(setAchieve(achieve));
       } catch (error) {
-        console.error('Failed to update achievements:', error);
+        console.error('Failed to Result:', error);
         dispatch(closeModal());
 
         // 에러 상태 처리
@@ -253,8 +239,6 @@ const Cloud = () => {
     socket.on('cloud.end', async (data) => {
       try {
         const { game, roomInfo } = data;
-        const response = await client.get(`/user/${user.id}`);
-        if (response) await dispatch(setUserInfo(response.data));
 
         await router.push('/room');
         await dispatch(setRoomInfo(roomInfo));
@@ -272,15 +256,15 @@ const Cloud = () => {
       socket.off('cloud.end');
     };
   }, [dispatch, game.type, result, router, user.id, user.provider]);
-
   useEffect(() => {
-    socket.on('exit', (data) => {
+    socket.on('exit.practice', (data) => {
       const { roomInfo, game } = data;
 
       if (!roomInfo || !game) return;
 
       dispatch(setRoomInfo(roomInfo));
       dispatch(setGame(game));
+      dispatch(clearTimer());
 
       if (roomInfo.users && roomInfo.users.length <= 1) {
         router.push('/room');
@@ -288,12 +272,13 @@ const Cloud = () => {
     });
 
     return () => {
-      socket.off('exit');
+      socket.off('exit.practice');
     };
   }, [dispatch, router]);
+
   return (
     <Container>
-      <Header />
+      <Header practice={true} />
       {isOpen && weather && <WeatherSlide key={weather} weather={weather} />}
       <Main>
         <Info />

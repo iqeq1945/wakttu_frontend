@@ -106,6 +106,26 @@ export const sendChat = (data: Chat) => {
   socket.emit('chat', data);
 };
 
+/**
+ *
+ * @param Chat
+ */
+export const sendBotAnswer = (data: Chat) => {
+  socket.emit('last.botAnswer', data);
+};
+
+/**
+ *
+ * @param {roomId, type, chat?}
+ */
+export const sendBotChat = (data: {
+  roomId: string;
+  type: number;
+  chat?: string;
+}) => {
+  socket.emit('bot.chat', data);
+};
+
 /*
  * 서버에 있는 모든 유저에게 알림을 날림.
  */
@@ -213,6 +233,15 @@ export const setInfo = () => {
  */
 export const lastStart = (roomId: string) => {
   socket.emit('last.start', roomId);
+};
+
+/**
+ *
+ * @param roomId
+ */
+
+export const lastPractice = (roomId: string) => {
+  socket.emit('last.practice', roomId);
 };
 
 /*
@@ -345,4 +374,16 @@ export const cloudRoundEnd = (roomId: string) => {
  */
 export const sendEmoticon = (data: Emoticon) => {
   socket.emit('emoticon', data);
+};
+
+/**
+ * 연습모드 종료
+ */
+
+export const exitPractice = (roomId: string) => {
+  socket.emit('exit.practice', roomId);
+};
+
+export const handlePractice = (roomId: string) => {
+  socket.emit('game.practice', roomId);
 };
