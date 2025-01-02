@@ -7,7 +7,7 @@ import Info from '@/containers/game/cloud/Info';
 import PlayerList from '@/containers/game/cloud/PlayerList';
 import useSound from '@/hooks/useSound';
 import { setAchieve } from '@/redux/achieve/achieveSlice';
-import { selectBgmVolume } from '@/redux/audio/audioSlice';
+import { selectBgmVolume, selectVoiceVolume } from '@/redux/audio/audioSlice';
 import { clearAnswer, setAnswer, setPause } from '@/redux/answer/answerSlice';
 import { selectGame, setGame } from '@/redux/game/gameSlice';
 import { clearHistory } from '@/redux/history/historySlice';
@@ -43,6 +43,8 @@ import { Container, Main } from '@/styles/cloud/Layout';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import useWaktaSound from '@/hooks/useWaktaSound';
+import useEffectSound from '@/hooks/useEffectSound';
 
 const Cloud = () => {
   const user = useSelector(selectUserInfo);
@@ -56,6 +58,14 @@ const Cloud = () => {
   const [weather, setWeather] = useState<string>();
   const [isOpen, setOpen] = useState(false);
 
+  const voiceVolume = useSelector(selectVoiceVolume);
+  const effectVolume = useSelector(selectBgmVolume);
+
+  const waktaSound = useWaktaSound(voiceVolume);
+  const correctSound = useEffectSound(
+    '/assets/sound-effects/lossy/bell_correct.webm',
+    effectVolume
+  );
   const emoticonId = useSelector(selectEmoticon);
   const emoticonRef = useRef(0);
 
@@ -126,6 +136,22 @@ const Cloud = () => {
       clearTimeout(opening);
     };
   }, [roomInfo.id, user.id]);
+
+  useEffect(() => {
+    const playWaktaSound = (bgm: string) => {
+      if (waktaSound && waktaSound[bgm]) {
+        waktaSound[bgm].play();
+      } else {
+        correctSound?.play();
+      }
+    };
+
+    socket.on('cloud.answer', playWaktaSound);
+
+    return () => {
+      socket.off('cloud.answer', playWaktaSound);
+    };
+  });
 
   useEffect(() => {
     const handleRound = (data: any) => {
