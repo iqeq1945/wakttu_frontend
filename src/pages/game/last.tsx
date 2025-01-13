@@ -240,7 +240,7 @@ const Game = () => {
     socket.on('last.round', (data) => {
       dispatch(setGame(data));
 
-      if (failUser.count === 3) {
+      if (failUser.count === 2) {
         if (name === failUser.name) {
           setTimeout(() => exitGame());
           setFailuesr({ name: '', count: 0 });
