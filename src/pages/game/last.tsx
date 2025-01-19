@@ -61,7 +61,7 @@ import {
   selectResult,
   setResult,
 } from '@/redux/result/resultSlice';
-import { openModal, setDataModal } from '@/redux/modal/modalSlice';
+import { closeModal, openModal, setDataModal } from '@/redux/modal/modalSlice';
 import { setAchieve } from '@/redux/achieve/achieveSlice';
 
 const Game = () => {
@@ -216,20 +216,6 @@ const Game = () => {
     [answerSound, waktaSound]
   );
 
-  /** Socekt Logic Part */
-
-  useEffect(() => {
-    const handleDisconnect = () => {
-      router.replace('/');
-    };
-
-    socket.on('disconnect', handleDisconnect);
-
-    return () => {
-      socket.off('disconnect', handleDisconnect);
-    };
-  }, [router]);
-
   /* round 종료시 history 없애기*/
   useEffect(() => {
     dispatch(clearHistory());
@@ -240,7 +226,7 @@ const Game = () => {
     socket.on('last.round', (data) => {
       dispatch(setGame(data));
 
-      if (failUser.count === 3) {
+      if (failUser.count === 2) {
         if (name === failUser.name) {
           setTimeout(() => exitGame());
           setFailuesr({ name: '', count: 0 });
@@ -257,7 +243,6 @@ const Game = () => {
             setTimer({ roundTime: data.roundTime, turnTime: data.turnTime })
           )
         );
-        setTimeout(() => dispatch(setPause(true)));
         if (game.host === user.id) lastTurnStart(roomInfo.id as string);
       }, 4000);
     });
@@ -282,6 +267,7 @@ const Game = () => {
   useEffect(() => {
     socket.on('last.turnStart', () => {
       if (game.host === user.id) socket.emit('ping', roomInfo.id);
+      dispatch(setPause(true));
       onBgm();
     });
 
@@ -351,9 +337,7 @@ const Game = () => {
               setTurn({ roundTime: game.roundTime, turnTime: game.turnTime })
             )
           );
-          setTimeout(() => {
-            dispatch(setPause(true));
-          });
+
           if (user.id === game.host) lastTurnStart(roomInfo.id as string);
         }, 2200);
       } else {
@@ -405,26 +389,43 @@ const Game = () => {
   /* result, end logic*/
   useEffect(() => {
     socket.on('last.result', async (data) => {
-      dispatch(clearResult());
-      dispatch(clearAnswer());
-      dispatch(clearTimer());
-      dispatch(clearHistory());
+      try {
+        dispatch(clearResult());
+        dispatch(clearAnswer());
+        dispatch(clearTimer());
+        dispatch(clearHistory());
 
-      dispatch(setDataModal(data));
-      dispatch(openModal('RESULT'));
+        dispatch(setDataModal(data));
+        dispatch(openModal('RESULT'));
 
-      let achieve: any[] = [];
-      const ach_1 =
-        user.provider === 'waktaverse.games'
-          ? await updatePlayCount(game.type)
-          : await updatePlayCountLocal(game.type);
-      const ach_2 =
-        user.provider === 'waktaverse.games'
-          ? await updateResult(result)
-          : await updateResultLocal(result);
-      if (ach_1) achieve = [...achieve, ...ach_1];
-      if (ach_2) achieve = [...achieve, ...ach_2];
-      await dispatch(setAchieve(achieve));
+        let achieve: any[] = [];
+
+        // API 호출 부분 try-catch로 감싸기
+        try {
+          const ach_1 =
+            user.provider === 'waktaverse.games'
+              ? await updatePlayCount(game.type)
+              : await updatePlayCountLocal(game.type);
+          if (ach_1) achieve = [...achieve, ...ach_1];
+        } catch (error) {
+          console.error('업적 업데이트 실패 (플레이 카운트):', error);
+        }
+
+        try {
+          const ach_2 =
+            user.provider === 'waktaverse.games'
+              ? await updateResult(result)
+              : await updateResultLocal(result);
+          if (ach_2) achieve = [...achieve, ...ach_2];
+        } catch (error) {
+          console.error('업적 업데이트 실패 (결과):', error);
+        }
+
+        await dispatch(setAchieve(achieve));
+      } catch (error) {
+        console.error('결과 처리 중 오류 발생:', error);
+        dispatch(closeModal());
+      }
     });
 
     socket.on('last.end', async (data) => {
@@ -468,6 +469,19 @@ const Game = () => {
       socket.off('exit');
     };
   }, [dispatch, router]);
+
+  useEffect(() => {
+    const handleReconnect = (data: any) => {
+      setRoomInfo(data.roomInfo);
+      setGame(data.game);
+    };
+
+    socket.on('reconnect', handleReconnect);
+
+    return () => {
+      socket.off('reconnect', handleReconnect);
+    };
+  });
 
   return (
     <Container>

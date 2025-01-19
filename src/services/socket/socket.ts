@@ -58,6 +58,18 @@ export interface Game {
   mission: string | undefined;
   team: { woo: string[]; gomem: string[]; isedol: string[]; academy: string[] };
   quiz?: { _id: string; choseong: string; hint: string[]; [x: string]: any }[];
+  cloud?: {
+    _id: string;
+    delay: string;
+    duration: string;
+    x: string;
+    y: string;
+    clear: boolean;
+    special: boolean;
+    meta: any;
+    type: number;
+    [x: string]: any;
+  }[];
   turnChanged: boolean;
 }
 
@@ -92,6 +104,26 @@ export const sendLobbyChat = (message: string) => {
  */
 export const sendChat = (data: Chat) => {
   socket.emit('chat', data);
+};
+
+/**
+ *
+ * @param Chat
+ */
+export const sendBotAnswer = (data: Chat) => {
+  socket.emit('last.botAnswer', data);
+};
+
+/**
+ *
+ * @param {roomId, type, chat?}
+ */
+export const sendBotChat = (data: {
+  roomId: string;
+  type: number;
+  chat?: string;
+}) => {
+  socket.emit('bot.chat', data);
 };
 
 /*
@@ -203,6 +235,15 @@ export const lastStart = (roomId: string) => {
   socket.emit('last.start', roomId);
 };
 
+/**
+ *
+ * @param roomId
+ */
+
+export const lastPractice = (roomId: string) => {
+  socket.emit('last.practice', roomId);
+};
+
 /*
  * 라운드 시작 때 마다 호출
  * 한명만 호출하면 되기 때문에 방장이 호출하도록 함.
@@ -275,6 +316,11 @@ export const kungTurnEnd = (roomId: string) => {
   socket.emit('kung.turnEnd', roomId);
 };
 
+/**
+ *
+ * Bell
+ */
+
 export const bellStart = (roomId: string) => {
   socket.emit('bell.start', roomId);
 };
@@ -291,10 +337,53 @@ export const bellRoundEnd = (roomId: string) => {
   socket.emit('bell.roundEnd', roomId);
 };
 
+//
+export const musicStart = (roomId: string) => {
+  socket.emit('music.start', roomId);
+};
+export const musicRound = (roomId: string) => {
+  socket.emit('music.round', roomId);
+};
+export const musicReady = (roomId: string) => {
+  socket.emit('music.ready', roomId);
+};
+/**
+ *
+ * cloud game
+ */
+
+export const cloudStart = (roomId: string) => {
+  socket.emit('cloud.start', roomId);
+};
+
+export const cloudRound = (roomId: string) => {
+  socket.emit('cloud.round', roomId);
+};
+
+export const cloudRoundStart = (roomId: string) => {
+  socket.emit('cloud.roundStart', roomId);
+};
+
+export const cloudRoundEnd = (roomId: string) => {
+  socket.emit('cloud.roundEnd', roomId);
+};
+
 /**
  *
  * 이모티콘 socket
  */
 export const sendEmoticon = (data: Emoticon) => {
   socket.emit('emoticon', data);
+};
+
+/**
+ * 연습모드 종료
+ */
+
+export const exitPractice = (roomId: string) => {
+  socket.emit('exit.practice', roomId);
+};
+
+export const handlePractice = (roomId: string) => {
+  socket.emit('game.practice', roomId);
 };

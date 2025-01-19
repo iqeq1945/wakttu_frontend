@@ -64,5 +64,18 @@ export { default as BChatBox } from './game/bell/ChatBox';
 export { default as BPlayerList } from './game/bell/PlayerList';
 export { default as Bell } from './game/bell/Bell';
 
+export { default as SHeader } from './game/music/Header';
+export { default as SPlayerList } from './game/music/PlayerList';
+export { default as SMusic } from './game/music/Music';
+export { default as SChatInput } from './game/music/ChatInput';
+export { default as SChatLog } from './game/music/ChatLog';
+
+export { default as CHeader } from './game/cloud/Header';
+export { default as CChatInput } from './game/cloud/ChatInput';
+export { default as CChatLog } from './game/cloud/ChatLog';
+export { default as CBoard } from './game/cloud/Board';
+export { default as CInfo } from './game/cloud/Info';
+export { default as CPlayerList } from './game/cloud/PlayerList';
+
 export { default as MyStyleList } from './mypage/MystyleList';
 export { default as MypageHeader } from './mypage/MypageHeader';

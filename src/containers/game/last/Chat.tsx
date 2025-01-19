@@ -7,7 +7,12 @@ import { selectAnswer, selectPause } from '@/redux/answer/answerSlice';
 import { selectGame } from '@/redux/game/gameSlice';
 import { selectRoomId } from '@/redux/roomInfo/roomInfoSlice';
 import { selectTimer } from '@/redux/timer/timerSlice';
-import { sendChat, socket } from '@/services/socket/socket';
+import {
+  sendBotAnswer,
+  sendBotChat,
+  sendChat,
+  socket,
+} from '@/services/socket/socket';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import wordRelay from '@/modules/WordRelay';
@@ -138,15 +143,64 @@ const Chat = () => {
   }, []);
 
   useEffect(() => {
-    socket.on('chat', (data) => {
+    const handleChat = (data: any) => {
       data.date = getTime();
       setLog((prev) => [...prev, data]);
       playSound();
-    });
-    return () => {
-      socket.off('chat');
     };
-  }, [log]);
+
+    socket.on('chat', handleChat);
+    return () => {
+      socket.off('chat', handleChat);
+    };
+  }, [log, playSound]);
+
+  // 서버로부터 답변을 받을 때의 처리
+  useEffect(() => {
+    const handleGetAnswer = (data: any) => {
+      if (!data) {
+        sendBotChat({ roomId, type: 2 });
+        return;
+      }
+      const { isValid, message } = wordRelay(game.target, data);
+      const isIn = isInHistory(data);
+
+      const remainingTime = timer.turnTime - timer.countTime;
+      const delay = remainingTime >= 5000 ? 2000 : Math.min(remainingTime, 500);
+      if (remainingTime - delay < 200) return;
+      const timeoutId = setTimeout(() => {
+        sendBotAnswer({
+          roomId,
+          chat: data,
+          roundTime: timer.roundTime - timer.countTime - delay,
+          score: countScore({
+            wordLength: data.length,
+            chainCount: game.chain,
+            timeLimit: timer.turnTime,
+            remainingTime: timer.turnTime - timer.countTime - delay,
+          }),
+          success: !isValid || !isIn,
+        });
+      }, delay);
+
+      // 컴포넌트 언마운트 시 타이머 정리
+      return () => clearTimeout(timeoutId);
+    };
+
+    socket.on('last.getAnswer', handleGetAnswer);
+
+    return () => {
+      socket.off('last.getAnswer', handleGetAnswer);
+    };
+  }, [
+    game.chain,
+    game.target,
+    isInHistory,
+    roomId,
+    timer.countTime,
+    timer.roundTime,
+    timer.turnTime,
+  ]); // dispatch가 변경될 때마다 실행
 
   return (
     <GChatBox

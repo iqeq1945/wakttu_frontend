@@ -69,6 +69,9 @@ export const updatePlayCount = async (type: number = 0) => {
   let id = 'LAST_COUNT';
   if (type === 1) id = 'KUNG_COUNT';
   else if (type === 2) id = 'BELL_COUNT';
+  else if (type === 3) id = 'MUSIC_COUNT';
+  else if (type === 4) id = 'CLOUD_COUNT';
+  else return;
   return await updateStat(id);
 };
 
@@ -82,6 +85,9 @@ export const updatePlayCountLocal = async (type: number = 0) => {
   let id = 'LAST_COUNT';
   if (type === 1) id = 'KUNG_COUNT';
   else if (type === 2) id = 'BELL_COUNT';
+  else if (type === 3) id = 'MUSIC_COUNT';
+  else if (type === 4) id = 'CLOUD_COUNT';
+  else return;
   return await updateStatLocal(id);
 };
 

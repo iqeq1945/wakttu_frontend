@@ -59,7 +59,7 @@ import {
   selectResult,
   setResult,
 } from '@/redux/result/resultSlice';
-import { openModal, setDataModal } from '@/redux/modal/modalSlice';
+import { closeModal, openModal, setDataModal } from '@/redux/modal/modalSlice';
 import { setAchieve } from '@/redux/achieve/achieveSlice';
 
 const Game = () => {
@@ -201,22 +201,6 @@ const Game = () => {
     exit(roomInfo.id as string);
   }, [dispatch, roomInfo.id, router]);
 
-  /**
-   * Opening
-   */
-
-  useEffect(() => {
-    const handleDisconnect = () => {
-      router.replace('/');
-    };
-
-    socket.on('disconnect', handleDisconnect);
-
-    return () => {
-      socket.off('disconnect', handleDisconnect);
-    };
-  }, [router]);
-
   useEffect(() => {
     const opening = setTimeout(() => {
       if (game.host === user.id) {
@@ -244,7 +228,7 @@ const Game = () => {
     socket.on('kung.round', (data) => {
       dispatch(setGame(data));
 
-      if (failUser.count === 3) {
+      if (failUser.count === 2) {
         if (name === failUser.name) {
           setTimeout(() => exitGame());
           setFailuesr({ name: '', count: 0 });
@@ -261,7 +245,6 @@ const Game = () => {
             setTimer({ roundTime: data.roundTime, turnTime: data.turnTime })
           )
         );
-        setTimeout(() => dispatch(setPause(true)));
         if (game.host === user.id) kungTurnStart(roomInfo.id as string);
       }, 4000);
     });
@@ -289,6 +272,7 @@ const Game = () => {
   useEffect(() => {
     socket.on('kung.turnStart', () => {
       if (game.host === user.id) socket.emit('ping', roomInfo.id);
+      dispatch(setPause(true));
       onBgm();
     });
 
@@ -358,9 +342,6 @@ const Game = () => {
               setTurn({ roundTime: game.roundTime, turnTime: game.turnTime })
             )
           );
-          setTimeout(() => {
-            dispatch(setPause(true));
-          });
           if (user.id === game.host) kungTurnStart(roomInfo.id as string);
         }, 2200);
       } else {
@@ -446,6 +427,7 @@ const Game = () => {
         await dispatch(setAchieve(achieve));
       } catch (error) {
         console.error('결과 처리 중 오류 발생:', error);
+        dispatch(closeModal());
       }
     });
 
@@ -492,6 +474,19 @@ const Game = () => {
       socket.off('exit');
     };
   }, [dispatch, router]);
+
+  useEffect(() => {
+    const handleReconnect = (data: any) => {
+      setRoomInfo(data.roomInfo);
+      setGame(data.game);
+    };
+
+    socket.on('reconnect', handleReconnect);
+
+    return () => {
+      socket.off('reconnect', handleReconnect);
+    };
+  });
 
   return (
     <Container>

@@ -8,16 +8,21 @@ import {
   setReady,
 } from '@/redux/game/gameSlice';
 import { clearHistory } from '@/redux/history/historySlice';
+import { clearMusic } from '@/redux/music/musicSlice';
 import { selectRoomInfo } from '@/redux/roomInfo/roomInfoSlice';
 import { clearTimer } from '@/redux/timer/timerSlice';
 import { selectUserInfo, selectUserName } from '@/redux/user/userSlice';
 import {
   bellStart,
+  cloudStart,
   kungStart,
   lastStart,
+  lastPractice,
+  musicStart,
   ready,
   selectTeam,
   socket,
+  handlePractice,
 } from '@/services/socket/socket';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
@@ -75,7 +80,7 @@ const Ready = () => {
 
     setIsButtonDisabled(true); // 클릭 시 버튼 비활성화
     try {
-      if (roomInfo.users.length === 1) {
+      if (roomInfo.type! > 1 && roomInfo.users.length === 1) {
         alert('혼자서는 시작할 수 없습니다!');
         return;
       }
@@ -99,6 +104,8 @@ const Ready = () => {
         0: lastStart,
         1: kungStart,
         2: bellStart,
+        3: musicStart,
+        4: cloudStart,
       };
 
       const startFunction =
@@ -110,6 +117,7 @@ const Ready = () => {
       setTimeout(() => setIsButtonDisabled(false), 500); // 작업 완료 후 버튼 활성화 (0.5초 딜레이)
     }
   }, [game.team, readyUsers.length, roomInfo, isButtonDisabled]);
+
   const onTeam = (team: string) => {
     if (readyUsers.findIndex((user) => user.name === userName) !== -1) {
       alert('준비 상태에서는 팀을 바꿀 수 없어요');
@@ -117,6 +125,36 @@ const Ready = () => {
     }
     selectTeam({ roomId: roomInfo.id as string, team: team });
   };
+
+  const onPractice = useCallback(() => {
+    if (isButtonDisabled) return; // 버튼이 비활성화된 경우 실행되지 않음
+
+    setIsButtonDisabled(true); // 클릭 시 버튼 비활성화
+    try {
+      if (roomInfo.users.length > 1) {
+        alert('혼자서만 가능합니다.');
+        return;
+      }
+
+      const PracticeFunctions: Record<number, (roomId: string) => void> = {
+        0: lastPractice,
+        1: () => alert('쿵쿵따는 아직 준비중이에요!'),
+        2: handlePractice,
+        3: handlePractice,
+        4: handlePractice,
+      };
+
+      const PracticeFunction =
+        roomInfo.type !== undefined
+          ? PracticeFunctions[roomInfo.type]
+          : undefined;
+      if (PracticeFunction) {
+        PracticeFunction(roomInfo.id as string);
+      }
+    } finally {
+      setTimeout(() => setIsButtonDisabled(false), 500); // 작업 완료 후 버튼 활성화 (0.5초 딜레이)
+    }
+  }, [isButtonDisabled, roomInfo.id, roomInfo.type, roomInfo.users]);
 
   useEffect(() => {
     socket.on('ready', (data) => {
@@ -135,6 +173,14 @@ const Ready = () => {
       router.push('/game/last');
     });
 
+    socket.on('last.practice', async (data) => {
+      await dispatch(clearHistory());
+      await dispatch(clearTimer());
+      await dispatch(clearAnswer());
+      await dispatch(setGame(data));
+      router.push('/practice/last');
+    });
+
     socket.on('kung.start', async (data) => {
       await dispatch(clearHistory());
       await dispatch(clearTimer());
@@ -151,19 +197,69 @@ const Ready = () => {
       router.push('/game/bell');
     });
 
+    socket.on('bell.practice', async (data) => {
+      await dispatch(clearHistory());
+      await dispatch(clearTimer());
+      await dispatch(clearAnswer());
+      await dispatch(setGame(data));
+      router.push('/practice/bell');
+    });
+
+    socket.on('music.start', async (data) => {
+      await dispatch(clearHistory());
+      await dispatch(clearTimer());
+      await dispatch(clearAnswer());
+      await dispatch(clearMusic());
+      await dispatch(setGame(data));
+      router.push('/game/music');
+    });
+
+    socket.on('music.practice', async (data) => {
+      await dispatch(clearHistory());
+      await dispatch(clearTimer());
+      await dispatch(clearAnswer());
+      await dispatch(clearMusic());
+      await dispatch(setGame(data));
+      router.push('/practice/music');
+    });
+
+    socket.on('cloud.start', async (data) => {
+      await dispatch(clearHistory());
+      await dispatch(clearTimer());
+      await dispatch(clearAnswer());
+      await dispatch(setGame(data));
+      router.push('/game/cloud');
+    });
+
+    socket.on('cloud.practice', async (data) => {
+      await dispatch(clearHistory());
+      await dispatch(clearTimer());
+      await dispatch(clearAnswer());
+      await dispatch(setGame(data));
+      router.push('/practice/cloud');
+    });
+
     return () => {
       socket.off('ready');
       socket.off('team');
       socket.off('last.start');
       socket.off('kung.start');
       socket.off('bell.start');
+      socket.off('music.start');
+      socket.off('cloud.start');
+      socket.off('last.practice');
+      socket.off('bell.practice');
+      socket.off('music.practice');
+      socket.off('cloud.practice');
     };
-  }, [dispatch, roomInfo.id, router]);
+  }, [dispatch, router]);
 
   return (
     <CReady
       ready={isReady}
       onReady={onReady}
+      alone={roomInfo.users && roomInfo.users.length === 1}
+      onPractice={onPractice}
       onStart={host === user.id ? onStart : undefined}
       onTeam={onTeam}
       team={roomInfo.option?.includes('팀전')}
