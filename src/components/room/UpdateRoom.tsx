@@ -51,9 +51,9 @@ const haveRoundCount = (type: number) => {
   const roundCount: Record<number, { min: string; max: string }> = {
     0: { min: '3', max: '8' },
     1: { min: '3', max: '8' },
-    2: { min: '10', max: '20' },
-    3: { min: '10', max: '20' },
-    4: { min: '10', max: '50' },
+    2: { min: '10', max: '30' },
+    3: { min: '10', max: '30' },
+    4: { min: '3', max: '8' },
   };
 
   return roundCount[type];

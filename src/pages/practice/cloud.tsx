@@ -20,18 +20,8 @@ import {
   selectTimer,
   setTimer,
 } from '@/redux/timer/timerSlice';
-import {
-  selectEmoticon,
-  selectUserInfo,
-  setUserInfo,
-} from '@/redux/user/userSlice';
-import {
-  client,
-  updatePlayCount,
-  updatePlayCountLocal,
-  updateResult,
-  updateResultLocal,
-} from '@/services/api';
+import { selectEmoticon, selectUserInfo } from '@/redux/user/userSlice';
+
 import {
   cloudRound,
   cloudRoundEnd,

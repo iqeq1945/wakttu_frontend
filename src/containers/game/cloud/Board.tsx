@@ -14,9 +14,10 @@ const Board = () => {
 
   useEffect(() => {
     if (game.round > 0 && game.cloud) {
-      setData(game.cloud?.slice(20 * (game.round - 1), 20 * game.round));
+      const count = (game.total - 1) * 10 + 15;
+      setData(game.cloud?.slice(count * (game.round - 1), count * game.round));
     }
-  }, [game.cloud, game.round]);
+  }, [game.cloud, game.round, game.total]);
 
   useEffect(() => {
     const handleWeather = (data: any) => {
