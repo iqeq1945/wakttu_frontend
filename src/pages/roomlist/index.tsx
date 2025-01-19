@@ -76,7 +76,7 @@ const RoomList = () => {
           {!toggle ? <UserList /> : <RoomDesc />}
           <PlayerInfo />
           <Copyright>
-            &copy; 2024 WAKTTU
+            &copy; 2024-2025 WAKTTU
             <br />
             왁뚜는 왁타버스에서 제공하는 공식 콘텐츠가 아닙니다.
           </Copyright>

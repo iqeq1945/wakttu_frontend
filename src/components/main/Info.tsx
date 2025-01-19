@@ -6,7 +6,7 @@ const WakttuInfo = () => {
   return (
     <Info>
       <>
-        <CopyRight>&copy; 2024 WAKTTU</CopyRight>
+        <CopyRight>&copy; 2024-2025 WAKTTU</CopyRight>
         <CopyRight>
           왁뚜는 왁타버스에서 제공하는 공식 콘텐츠가 아닙니다.
         </CopyRight>
