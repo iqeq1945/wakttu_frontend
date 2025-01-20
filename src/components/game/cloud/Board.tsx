@@ -37,6 +37,7 @@ const Board = ({ clouds, pause, weather }: Props) => {
                 delay={cloud.delay}
                 clear={pause ? cloud.clear : true}
                 weather={weather}
+                textLength={cloud._id.length}
               >
                 <CloudText>{cloud._id}</CloudText>
               </Cloud>
@@ -51,6 +52,7 @@ const Board = ({ clouds, pause, weather }: Props) => {
                 delay={cloud.delay}
                 clear={pause ? cloud.clear : true}
                 weather={weather}
+                textLength={cloud._id.length}
               >
                 <CloudText type={cloud.type}>{cloud._id}</CloudText>
               </BlackCloud>
@@ -66,6 +68,7 @@ const Board = ({ clouds, pause, weather }: Props) => {
                   delay={cloud.delay}
                   clear={pause ? cloud.clear : true}
                   weather={weather}
+                  textLength={cloud._id.length}
                 >
                   <CloudText type={cloud.type}>{cloud._id}</CloudText>
                 </GoldCloud>

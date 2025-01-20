@@ -31,10 +31,10 @@ to {
 
 const windAnimation = keyframes`
   0% {
-    transform: translateX(-10%); /* 화면 왼쪽 밖에서 시작 */
+    transform: translateX(0); /* 화면 왼쪽 밖에서 시작 */
   }
   100% {
-    transform: translateX(110%); /* 화면 오른쪽 밖으로 이동 */
+    transform: translateX(82rem); /* 화면 오른쪽 밖으로 이동 */
   }
 `;
 
@@ -103,20 +103,26 @@ export const Cloud = styled.div<{
   duration: string;
   delay: string;
   clear: boolean;
+  textLength: number;
   weather?: string;
 }>`
   position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 1rem;
-  width: 10.875rem;
-  height: 7.4375rem;
+  padding-top: 0.5rem;
+
+  width: ${({ textLength }) => `${10.875 + (textLength - 6) * 1.2}rem`};
+  height: ${({ textLength }) => `${7.4375 + (textLength - 6) * 0.8}rem`};
+
   flex-shrink: 0;
   background-image: url(${clouds[0]});
   background-size: cover;
-  left: ${(props) => props.x};
+  background-position: center;
+
+  left: ${(props) => (props.weather === 'wind' ? 0 : props.x)};
   top: ${(props) => props.y};
+
   animation: ${({ weather, clear }) => {
       if (clear) return 'none';
       if (weather === 'segu') return seguAnimation;
@@ -155,7 +161,7 @@ export const GoldCloud = styled(Cloud)`
 `;
 
 export const CloudText = styled.h4<{ type?: number }>`
-  max-width: 9.5rem;
+  max-width: 20rem;
   color: ${({ type }) => (type === 1 ? COLORS.bg : COLORS.text)};
   text-align: center;
 
