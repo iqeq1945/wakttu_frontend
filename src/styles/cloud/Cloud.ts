@@ -103,6 +103,7 @@ export const Cloud = styled.div<{
   duration: string;
   delay: string;
   clear: boolean;
+  textLength: number;
   weather?: string;
 }>`
   position: absolute;
@@ -110,12 +111,13 @@ export const Cloud = styled.div<{
   align-items: center;
   justify-content: center;
   padding-top: 1rem;
-  width: 10.875rem;
-  height: 7.4375rem;
+  width: ${({ textLength }) => `${10.875 + (textLength - 7) * 1}rem`};
+  height: ${({ textLength }) => `${7.4375 + (textLength - 7) * 0.7}rem`};
+
   flex-shrink: 0;
   background-image: url(${clouds[0]});
   background-size: cover;
-  left: ${(props) => props.x};
+  left: ${(props) => (props.weather === 'fog' ? 0 : props.x)};
   top: ${(props) => props.y};
   animation: ${({ weather, clear }) => {
       if (clear) return 'none';
