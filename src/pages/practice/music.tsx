@@ -23,17 +23,9 @@ import {
   setTimer,
   musicTick,
 } from '@/redux/timer/timerSlice';
-import {
-  client,
-  updatePlayCount,
-  updatePlayCountLocal,
-  updateResult,
-  updateResultLocal,
-} from '@/services/api';
 import { clearResult, selectResult } from '@/redux/result/resultSlice';
 import { clearHistory } from '@/redux/history/historySlice';
 import { closeModal, openModal, setDataModal } from '@/redux/modal/modalSlice';
-import { setAchieve } from '@/redux/achieve/achieveSlice';
 import ChatInput from '@/containers/game/music/ChatInput';
 
 // 게임 컴포넌트
@@ -200,7 +192,7 @@ const Game = () => {
   const handlePlayerReady = (player: ReactPlayer) => {
     playerRef.current = player;
     if (game.round === 0) {
-      musicRound(roomInfo.id as string);
+      if (game.host === user.id) musicRound(roomInfo.id as string);
     } else if (roomInfo.id && !isMusicReady) {
       // 음악 준비 상태 체크
       setIsMusicReady(true); // 준비 완료 상태로 변경
