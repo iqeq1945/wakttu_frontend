@@ -218,7 +218,7 @@ const Game = () => {
   const handlePlayerReady = (player: ReactPlayer) => {
     playerRef.current = player;
     if (game.round === 0) {
-      musicRound(roomInfo.id as string);
+      if (game.host === user.id) musicRound(roomInfo.id as string);
     } else if (roomInfo.id && !isMusicReady) {
       // 음악 준비 상태 체크
       setIsMusicReady(true); // 준비 완료 상태로 변경
